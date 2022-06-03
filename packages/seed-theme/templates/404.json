@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "404_banner": {
+      "type": "text-banner",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "404_banner"
+  ]
+}

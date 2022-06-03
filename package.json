@@ -1,0 +1,16 @@
+{
+  "name": "@barrelny/shopify",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "turbo run build"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "dependencies": {
+    "turbo": "latest"
+  },
+  "packageManager": "yarn@1.22.18"
+}

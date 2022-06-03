@@ -1,0 +1,20 @@
+{% liquid
+  assign button_width = 100
+  assign input_padding = button_width | add: 16
+%}
+{% capture button_class %}
+absolute top-0 bottom-0 left-auto right-2 px-0 py-0 w-[{{button_width}}px]
+{% endcapture %}
+
+{% form 'customer' %}
+  <div class="relative">
+    <input class="bg-white w-full p-4 pr-[{{input_padding}}px] border border-gray-400" name="email" type="email" placeholder="Email Address" required />
+    {% render 'button',
+      class: button_class
+      link_style: 'dark',
+      link_text: 'Sign Up',
+      link_tag: 'button',
+      attr: 'type="submit"'
+    %}
+  </div>
+{% endform %}

@@ -1,0 +1,104 @@
+{% liquid
+  if section.settings.logo
+    assign logo_class = 'h-[35px]'
+    assign logo_height = 35
+    assign logo_width = logo_height | times: section.settings.logo.aspect_ratio | round
+  endif
+%}
+
+<header class="border" data-module="site-header">
+  <a href="#content" class="sr-only focus:not-sr-only">
+    Skip to content
+  </a>
+  {%- if section.settings.promo_bar_enabled and section.settings.promo_bar_content != blank -%}
+    {%- unless section.settings.promo_bar_homepage_only and template != 'index' -%}
+      <div class="wysiwyg text-center px-responsive py-4 bg-gray-200">
+        {{- section.settings.promo_bar_content -}}
+      </div>
+    {%- endunless -%}
+  {%- endif -%}
+  <nav class="max-w-7xl mx-auto" aria-label="Top">
+    <div class="w-full px-responsive py-4 sm:py-8">
+      <div class="flex items-center">
+        <a href="/">
+          {% if section.settings.logo %}
+            <img
+              class="{{ logo_class }}"
+              src="{{ section.settings.logo | image_url }}"
+              width="{{ logo_width }}"
+              height="{{ logo_height }}"
+              alt="{{ shop.name }}"
+              loading="lazy"
+            />
+          {% else %}
+            <span>{{ shop.name }}</span>
+          {% endif %}
+        </a>
+        {%- if section.settings.menu != blank -%}
+          <div class="hidden sm:block ml-8 space-x-8">
+            {%- for link in section.settings.menu.links -%}
+              <a href="{{ link.url }}" class="text-base hover:text-sky-500">{{ link.title | escape }}</a>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+        <div class="flex-1 text-right">
+          <a>Cart</a>
+        </div>
+      </div>
+    </div>
+    <div>
+      {%- if section.settings.menu != blank -%}
+        <div class="p-6 pt-0 space-y-6 sm:hidden">
+          {%- for link in section.settings.menu.links -%}
+            <div>
+              <a href="{{ link.url }}" class="text-base hover:text-sky-500">{{ link.title | escape }}</a>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+  </nav>
+</header>
+
+{% schema %}
+{
+  "name": "Site Header",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "default": "main-menu",
+      "label": "Menu"
+    },
+    {
+      "type": "header",
+      "content": "Promo Bar"
+    },
+    {
+      "type": "richtext",
+      "id": "promo_bar_content",
+      "label": "Promo bar content"
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_bar_enabled",
+      "label": "Enable promo bar",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "promo_bar_homepage_only",
+      "label": "Only show promo bar on home page"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "account_banner": {
+      "type": "text-banner",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "account_banner"
+  ]
+}

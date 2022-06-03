@@ -1,0 +1,21 @@
+{% render 'product-grid', blocks: section.blocks %}
+
+{% schema %}
+{
+  "name": "Product Grid",
+  "max_blocks": 4,
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

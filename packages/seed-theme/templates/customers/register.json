@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "register_banner": {
+      "type": "text-banner",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "register_banner"
+  ]
+}

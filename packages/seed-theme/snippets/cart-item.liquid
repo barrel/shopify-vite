@@ -1,0 +1,88 @@
+<cart-item data-module="cart-item" data-key="{{ item.key }}">
+  <div class="relative w-[150px] h-[150px]">
+    <a href="{{ item.url }}" tabindex="-1" aria-hidden="true" class="absolute inset-0 z-10"></a>
+    {% render 'responsive-image', image: item.image, class: "relative w-[150px] h-[150px]", max_width: 150 %}
+  </div>
+  <a href="{{ item.url }}">{{ item.product.title | escape }}</a>
+  <div>
+    {%- if item.original_price != item.final_price -%}
+      <span class="sr-only">
+        {{ 'products.product.price.regular_price' | t }}
+      </span>
+      <s>{{ item.original_price | money }}</s>
+      <span class="sr-only">
+        {{ 'products.product.price.sale_price' | t }}
+      </span>
+      <strong>{{ item.final_price | money }}</strong>
+    {%- else -%}
+      <span>{{ item.original_price | money }}</span>
+    {%- endif -%}
+  </div>
+  {%- if item.product.has_only_default_variant == false or item.properties.size != 0 or item.selling_plan_allocation != nil -%}
+    <dl>
+      {%- if item.product.has_only_default_variant == false -%}
+        {%- for option in item.options_with_values -%}
+          <div>
+            <dt>{{ option.name }}: </dt>
+            <dd>{{ option.value }}{% unless forloop.last %}, {% endunless %}</dd>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+
+      {%- for property in item.properties -%}
+        {%- assign property_first_char = property.first | slice: 0 -%}
+        {%- if property.last != blank and property_first_char != '_' -%}
+          <div>
+            <dt>{{ property.first }}: </dt>
+            <dd>{{ property.last }}</dd>
+          </div>
+        {%- endif -%}
+
+        <p>{{ item.selling_plan_allocation.selling_plan.name }}</p>
+      {%- endfor -%}
+    </dl>
+  {% endif %}
+  <ul role="list" aria-label="{{ 'customer.order.discount' | t }}">
+    {%- for discount in item.discounts -%}
+      <li>{{ discount.title }}</li>
+    {%- endfor -%}
+  </ul>
+  <cart-item-quantity>
+    <button name="minus" type="button">
+      <span class="sr-only">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
+      -
+    </button>
+    <input
+      type="number"
+      name="updates[]"
+      value="{{ item.quantity }}"
+      min="0"
+      step="1"
+      aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
+    />
+    <button name="plus" type="button">
+      <span class="sr-only">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
+      +
+    </button>
+  </cart-item-quantity>
+  <cart-item-remove>
+    <a href="{{ item.url_to_remove }}" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
+      X
+    </a>
+  </cart-item-remove>
+</cart-item>
+
+{% comment %} <cart-item data-module="cart-item">
+  <div>
+    {% render 'responsive-image', image: item.image %}
+  </div>
+  <div>
+    <p>{{ item.product_title }}</p>
+    {%- if item.original_price != item.final_price -%}
+      <p><s>{{ item.original_price | money }}</s></p>
+      <p><strong>{{ item.final_price | money }}</strong></p>
+    {%- else -%}
+      <p>{{ item.original_price | money }}</p>
+    {%- endif -%}
+  </div>
+</cart-item> {% endcomment %}

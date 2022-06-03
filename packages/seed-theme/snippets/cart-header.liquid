@@ -1,0 +1,4 @@
+<p>{{ 'sections.cart.title' | t }}</p>
+{% if minicart %}
+  <button class="drawer__close" type="button" onclick="this.closest('cart-drawer').close()" aria-label="{{ 'accessibility.close' | t }}">X</button>
+{% endif %}

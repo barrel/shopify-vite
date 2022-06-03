@@ -1,0 +1,9 @@
+<shopify-cart data-module="cart">
+  {% render 'cart-header', minicart: minicart %}
+  {% form 'cart', cart %}
+    {% for item in cart.items %}
+      {% render 'cart-item', item: item, minicart: minicart %}
+    {% endfor %}
+    {% render 'cart-footer', minicart: minicart %}
+  {% endform %}
+</shopify-cart>

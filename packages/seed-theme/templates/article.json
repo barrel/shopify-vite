@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "article_banner": {
+      "type": "text-banner",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "article_banner"
+  ]
+}

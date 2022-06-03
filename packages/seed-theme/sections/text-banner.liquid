@@ -1,0 +1,170 @@
+{%- render 'text-banner',
+  heading: section.settings.heading,
+  subheading: section.settings.subheading,
+  content: section.settings.content,
+  image_position: section.settings.image_position,
+  image: section.settings.image,
+  image_alt: section.settings.image_alt,
+  blocks: section.blocks,
+  link_text: section.settings.link_text,
+  link_url: section.settings.link_url,
+  link_style: section.settings.link_style
+-%}
+
+{% schema %}
+{
+  "name": "Text Banner",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "content",
+      "label": "Content"
+    },
+    {
+      "type": "text",
+      "id": "link_text",
+      "label": "Link Text"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "Link URL"
+    },
+    {
+      "type": "select",
+      "id": "link_style",
+      "label": "Link Style",
+      "default": "dark",
+      "options": [
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "alt",
+          "label": "Alternate"
+        }
+      ]
+    },
+    {
+      "type": "header",
+      "content": "Image"
+    },
+    {
+      "type": "select",
+      "id": "image_position",
+      "label": "Image position",
+      "options": [
+        {
+          "value": "background",
+          "label": "Background"
+        },
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "right",
+          "label": "Right"
+        },
+        {
+          "value": "none",
+          "label": "None (Hidden)"
+        }
+      ]
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    },
+    {
+      "type": "text",
+      "id": "image_alt",
+      "label": "Image Alt"
+    }
+  ],
+  "max_blocks": 5,
+  "blocks": [
+    {
+      "name": "Value Prop",
+      "type": "value-prop",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Description"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Text with image",
+      "settings": {
+        "subheading": "This is a label",
+        "heading": "This is a multi-line header for this module",
+        "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia urna a risus consequat, sit amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia. amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia.</p>",
+        "image_position": "right",
+        "link_url": "/",
+        "link_text": "Optional Button",
+        "link_style": "dark"
+      }
+    },
+    {
+      "name": "Value Props Banner",
+      "settings": {
+        "subheading": "This is a label",
+        "heading": "This is a multi-line header for this module",
+        "image_position": "background"
+      },
+      "blocks": [
+        {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        },
+        {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        },
+        {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,7 @@
+<div data-module="product-grid" class="bg-white max-w-7xl mx-auto px-responsive">
+  <div class="grid grid-cols-1 gap-x-6 sm:grid-cols-2 md:grid-cols-4">
+    {% for block in blocks %}
+      {% render 'product-card', product: block.settings.product %}
+    {% endfor %}
+  </div>
+</div>

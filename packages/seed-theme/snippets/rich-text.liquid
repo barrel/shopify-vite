@@ -1,0 +1,38 @@
+{%- comment -%}
+  Parameters
+  * class
+  * heading
+  * heading_class
+  * content
+  * content_class
+  * link_text_1
+  * link_url_1
+  * link_style_1
+  * link_text_2
+  * link_url_2
+  * link_style_2
+  * links_class
+{%- endcomment -%}
+
+<div class="{{- class -}}" data-module="rich-text">
+  <h2 class="{{- heading_class -}}">{{ heading }}</h2>
+  <div class="wysiwyg {{- content_class -}}">{{ content }}</div>
+  {% if link_text_1 != blank or link_text_2 != blank %}
+    <div class="block space-x-2">
+      {% if link_text_1 != blank %}
+        {% render 'button',
+          link_text: link_text_1,
+          link_url: link_url_1,
+          link_style: link_style_1
+        %}
+      {% endif %}
+      {% if link_text_2 != blank %}
+        {% render 'button',
+          link_text: link_text_2,
+          link_url: link_url_2,
+          link_style: link_style_2
+        %}
+      {% endif %}
+    </div>
+  {% endif %}
+</div>

@@ -1,0 +1,39 @@
+<product-grid-toggle data-module="product-grid-toggle" class="block text-center">
+  <div class="inline-grid grid-cols-2 gap-x-6">
+    <label>
+      <input class="peer" type="radio" name="{{- section.id -}}" value="1" checked>
+      <span class="peer-checked:font-bold">
+        {{- section.settings.toggle_text_1 -}}
+      </span>
+    </label>
+    <label>
+      <input class="peer" type="radio" name="{{- section.id -}}" value="2">
+      <span class="peer-checked:font-bold">
+        {{- section.settings.toggle_text_2 -}}
+      </span>
+    </label>
+  </div>
+</product-grid-toggle>
+
+{% schema %}
+{
+  "name": "Product Grid Toggle",
+  "settings": [
+    {
+      "type": "text",
+      "id": "toggle_text_1",
+      "label": "Toggle Text 1"
+    },
+    {
+      "type": "text",
+      "id": "toggle_text_2",
+      "label": "Toggle Text 2"
+    },
+    {
+      "type": "header",
+      "content": "Notes",
+      "info": "This section should be placed immediately before two product grid sections. Only one of the product grids will be visible at a time based on the selected value of the toggle."
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,76 @@
+{%- comment -%}
+  Parameters
+  * background_type
+  * image_desktop
+  * image_mobile
+  * image_alt
+  * video_mobile
+  * video_desktop
+  * heading
+  * subheading
+  * heading_style
+  * link_text_1
+  * link_url_1
+  * link_style_1
+  * link_text_2
+  * link_url_2
+  * link_style_2
+  * slide_index
+{%- endcomment -%}
+
+{% liquid
+  assign background_type = background_type | default: 'image'
+
+  if heading_style == 'light'
+    assign rich_text_class = 'text-white'
+  else
+    assign rich_text_class = 'text-navy'
+  endif
+
+  if image_desktop.blank
+    assign image_desktop = image_mobile
+  endif
+
+  if slide_index != blank
+    assign attr = 'data-slide-index=' | append: slide_index
+  endif
+%}
+
+<div data-module="hero" class="relative flex-grow-0 flex-shrink-0 basis-full h-[560px] sm:h-auto sm:aspect-w-[1440] sm:aspect-h-[700]" {{ attr }}>
+  <div class="relative max-w-7xl mx-auto h-full flex flex-col justify-end p-6 sm:p-12 z-20">
+    {%- render 'rich-text',
+      class: rich_text_class,
+      heading: subheading
+      heading_class: 'h3'
+    %}
+    {%- render 'rich-text',
+      class: rich_text_class,
+      heading: heading
+      heading_class: 'h1',
+      link_text_1: link_text_1,
+      link_url_1: link_url_1,
+      link_style_1: link_style_1,
+      link_text_2: link_text_2,
+      link_url_2: link_url_2,
+      link_style_2: link_style_2
+    %}
+  </div>
+  <div class="absolute inset-0">
+    {% if background_type == 'video' %}
+      {% render 'background-video',
+        class: "absolute w-full h-full",
+        video_mobile: video_mobile,
+        video_desktop: video_desktop,
+      %}
+    {% else %}
+      {% render 'responsive-image',
+        image: image_mobile,
+        class: 'absolute w-full h-full block md:hidden'
+      %}
+      {% render 'responsive-image',
+        image: image_desktop,
+        class: 'absolute w-full h-full hidden md:block'
+      %}
+    {% endif %}
+  </div>
+</div>

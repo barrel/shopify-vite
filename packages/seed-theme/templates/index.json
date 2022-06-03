@@ -1,0 +1,279 @@
+{
+  "sections": {
+    "home_hero_slider": {
+      "type": "hero-slider",
+      "blocks": {
+        "home_hero_slide_1": {
+          "type": "hero-slide",
+          "settings": {
+            "background_type": "video",
+            "image_alt": "",
+            "video_mobile": "https:\/\/archive.org\/download\/BigBuckBunny_124\/Content\/big_buck_bunny_720p_surround.mp4",
+            "video_desktop": "",
+            "subheading": "Subheadline2",
+            "heading": "Headline for hero",
+            "heading_style": "dark",
+            "link_text_1": "Button 1",
+            "link_url_1": "",
+            "link_style_1": "dark",
+            "link_text_2": "Button 2",
+            "link_url_2": "",
+            "link_style_2": "dark"
+          }
+        },
+        "home_hero_slide_2": {
+          "type": "hero-slide",
+          "settings": {
+            "background_type": "image",
+            "image_desktop": "shopify:\/\/shop_images\/person-fishing-on-the-beach-is-silhouetted-at-sunset.jpg",
+            "image_alt": "",
+            "video_mobile": "",
+            "video_desktop": "",
+            "subheading": "Subheadline",
+            "heading": "Headline for hero",
+            "heading_style": "light",
+            "link_text_1": "Click here",
+            "link_url_1": "",
+            "link_style_1": "light",
+            "link_text_2": "Or click here",
+            "link_url_2": "",
+            "link_style_2": "alt"
+          }
+        }
+      },
+      "block_order": [
+        "home_hero_slide_1",
+        "home_hero_slide_2"
+      ],
+      "settings": {
+      }
+    },
+    "home_product_grid_toggle": {
+      "type": "product-grid-toggle",
+      "settings": {
+        "toggle_text_1": "Category 1",
+        "toggle_text_2": "Category 2"
+      }
+    },
+    "home_product_grid_1": {
+      "type": "product-grid",
+      "blocks": {
+        "ec03836c-d7a3-4aa9-b1ea-e8af854a934f": {
+          "type": "product",
+          "settings": {
+            "product": "floral-flower"
+          }
+        },
+        "10b32705-e1c3-4cd7-a34e-400ef04363ec": {
+          "type": "product",
+          "settings": {
+            "product": "green-river"
+          }
+        },
+        "458983ca-2cb4-4690-a953-1385259eb3b4": {
+          "type": "product",
+          "settings": {
+            "product": "misty-violet"
+          }
+        },
+        "bfb80ae3-dc60-4e7c-9589-b6c87f610cdc": {
+          "type": "product",
+          "settings": {
+            "product": "old-fog"
+          }
+        }
+      },
+      "block_order": [
+        "ec03836c-d7a3-4aa9-b1ea-e8af854a934f",
+        "10b32705-e1c3-4cd7-a34e-400ef04363ec",
+        "458983ca-2cb4-4690-a953-1385259eb3b4",
+        "bfb80ae3-dc60-4e7c-9589-b6c87f610cdc"
+      ],
+      "settings": {
+      }
+    },
+    "home_product_grid_2": {
+      "type": "product-grid",
+      "blocks": {
+        "2e44cb22-c15e-4659-95d9-d8bb725b8e58": {
+          "type": "product",
+          "settings": {
+            "product": "old-fog"
+          }
+        },
+        "865eadb9-030e-44cc-9ad6-6eb44fd7f7c7": {
+          "type": "product",
+          "settings": {
+            "product": "misty-violet"
+          }
+        },
+        "a93e7005-f8e8-4cd5-80a0-87d375f3b372": {
+          "type": "product",
+          "settings": {
+            "product": "green-river"
+          }
+        },
+        "c9d40ec2-044e-45d3-9f11-d918f41d2e68": {
+          "type": "product",
+          "settings": {
+            "product": "floral-flower"
+          }
+        }
+      },
+      "block_order": [
+        "2e44cb22-c15e-4659-95d9-d8bb725b8e58",
+        "865eadb9-030e-44cc-9ad6-6eb44fd7f7c7",
+        "a93e7005-f8e8-4cd5-80a0-87d375f3b372",
+        "c9d40ec2-044e-45d3-9f11-d918f41d2e68"
+      ],
+      "settings": {
+      }
+    },
+    "1652310628c65556fc": {
+      "type": "text-banner",
+      "blocks": {
+        "16523106285121a427-0": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        },
+        "16523106285121a427-1": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        },
+        "16523106285121a427-2": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        }
+      },
+      "block_order": [
+        "16523106285121a427-0",
+        "16523106285121a427-1",
+        "16523106285121a427-2"
+      ],
+      "settings": {
+        "subheading": "This is a label",
+        "heading": "This is a multi-line header for this module",
+        "content": "",
+        "link_text": "",
+        "link_url": "",
+        "link_style": "dark",
+        "image_position": "background",
+        "image_alt": ""
+      }
+    },
+    "165231063295390f03": {
+      "type": "text-banner",
+      "blocks": {
+        "1652310632af98f6e6-0": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        },
+        "1652310632af98f6e6-1": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        },
+        "1652310632af98f6e6-2": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        }
+      },
+      "block_order": [
+        "1652310632af98f6e6-0",
+        "1652310632af98f6e6-1",
+        "1652310632af98f6e6-2"
+      ],
+      "settings": {
+        "subheading": "This is a label",
+        "heading": "This is a multi-line header for this module",
+        "content": "",
+        "link_text": "",
+        "link_url": "",
+        "link_style": "dark",
+        "image_position": "none",
+        "image_alt": ""
+      }
+    },
+    "16523106382dad1d33": {
+      "type": "text-banner",
+      "blocks": {
+        "165231063862cc8015-0": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        },
+        "165231063862cc8015-1": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        },
+        "165231063862cc8015-2": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        }
+      },
+      "block_order": [
+        "165231063862cc8015-0",
+        "165231063862cc8015-1",
+        "165231063862cc8015-2"
+      ],
+      "settings": {
+        "subheading": "This is a label",
+        "heading": "This is a multi-line header for this module",
+        "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia urna a risus consequat, sit amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia. amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia.<\/p>",
+        "link_text": "",
+        "link_url": "",
+        "link_style": "dark",
+        "image_position": "right",
+        "image_alt": ""
+      }
+    },
+    "165231065910b15050": {
+      "type": "text-banner",
+      "settings": {
+        "subheading": "This is a label",
+        "heading": "This is a multi-line header for this module",
+        "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia urna a risus consequat, sit amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia. amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia.<\/p>",
+        "link_text": "Optional Button",
+        "link_url": "\/",
+        "link_style": "dark",
+        "image_position": "left",
+        "image_alt": ""
+      }
+    }
+  },
+  "order": [
+    "home_hero_slider",
+    "home_product_grid_toggle",
+    "home_product_grid_1",
+    "home_product_grid_2",
+    "1652310628c65556fc",
+    "165231063295390f03",
+    "16523106382dad1d33",
+    "165231065910b15050"
+  ]
+}

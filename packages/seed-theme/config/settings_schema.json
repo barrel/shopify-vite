@@ -1,0 +1,10 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "THEME_NAME",
+    "theme_version": "THEME_VERSION",
+    "theme_author": "THEME_AUTHOR",
+    "theme_documentation_url": "https://THEME_DOCUMENTATION_URL.com/",
+    "theme_support_url": "https://THEME_SUPPORT_URL.com/"
+  }
+]

@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "activate_account_banner": {
+      "type": "text-banner",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "activate_account_banner"
+  ]
+}

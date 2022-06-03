@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "product_banner": {
+      "type": "pdp-main"
+    }
+  },
+  "order": [
+    "product_banner"
+  ]
+}

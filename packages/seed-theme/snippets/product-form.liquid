@@ -1,0 +1,15 @@
+{% assign add_to_cart_text = 'products.product.add_to_cart' | t %}
+
+<product-form>
+  {% form 'product', product, class: 'flex flex-col' %}
+    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+    <input type="hidden" name="quantity" min="1" value="1">
+    {% render 'button',
+      link_text: add_to_cart_text,
+      link_style: 'dark',
+      link_tag: 'button',
+      class: '!m-0',
+      attr: 'type="submit"'
+    %}
+  {% endform %}
+</product-form>

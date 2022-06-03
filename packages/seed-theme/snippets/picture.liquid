@@ -1,0 +1,150 @@
+{%- comment -%}
+  Parameters
+  * class
+  * sources
+  * breakpoints
+  * width
+  * width_s
+  * width_m
+  * width_l
+  * alt
+  * object_fit
+  * loader
+  * attr
+  * lazy_load
+{%- endcomment -%}
+
+{% liquid
+  assign width = width | default: 100
+  assign width_s = width_s | default: 100
+  assign width_m = width_m | default: 100
+  assign width_l = width_l | default: 100
+  assign object_fit = object_fit | default: 'cover'
+  assign loader = loader | default: false
+  assign default_image = settings.default_image
+  assign sources_arr = sources | split: '|'
+  assign breakpoints_arr = breakpoints | split: '|'
+  unless lazy_load == false
+    assign lazy_load = true
+  endunless
+%}
+
+{%- capture module_class -%}
+{{- object_fit | prepend: 'object-' -}}
+{%- if class != blank %} {{ class }}{%- endif -%}
+{%- endcapture -%}
+
+{%- capture sizes -%}
+  (min-width: 1440px) {% if width_l contains 'px' -%}{{ width_l | append: ', ' -}}{%- else -%}{{ width_l | append: 'vw, ' -}}{%- endif -%}
+  (min-width: 1024px) {% if width_m contains 'px' -%}{{ width_m | append: ', ' -}}{%- else -%}{{ width_m | append: 'vw, ' -}}{%- endif -%}
+  (min-width: 768px) {% if width_s contains 'px' -%}{{ width_s | append: ', ' -}}{%- else -%}{{ width_s | append: 'vw, ' -}}{%- endif -%}
+  {% if width contains 'px' -%}{{ width -}}{%- else -%}{{ width | append: 'vw' -}}{%- endif -%}
+{%- endcapture %}
+
+<picture
+  class="{{ module_class | strip_newlines }}"
+  data-module="picture"
+  {% if attr != blank %}
+    {{ attr }}
+  {%- endif -%}
+>
+  {%- if loader != blank %}
+    <i class="picture__loader">
+      {%- render 'icon' with 'icon-loading' -%}
+    </i>
+  {%- endif -%}
+  {%- for source in sources_arr -%}
+    {%- comment %}
+      Picture resizing
+    {%- endcomment -%}
+    {%- if source contains '.svg' -%}
+      {%- assign image_large = source -%}
+    {%- else -%}
+      {%- comment -%}
+        Prepares images for picture module based on image source
+      {%- endcomment -%}
+      {%- assign accentuate_cdn = '//images.accentuate.io?c_options=' -%}
+      {%- capture options -%}
+        &shop={{- shop.permanent_domain -}}&image={{- source -}}
+      {%- endcapture -%}
+
+      {%- if source contains 'cdn.accentuate.io' -%}
+        {%- capture image_large -%}
+          {{- accentuate_cdn -}}w_2160{{- options -}}
+        {%- endcapture -%}
+        {%- capture image_normal -%}
+          {{- accentuate_cdn -}}w_1080{{- options -}}
+        {%- endcapture -%}
+        {%- capture image_small -%}
+          {{- accentuate_cdn -}}w_640{{- options -}}
+        {%- endcapture -%}
+        {%- capture image_xsmall -%}
+          {{- accentuate_cdn -}}w_320{{- options -}}
+        {%- endcapture -%}
+        {%- capture image_xxsmall -%}
+          {{- accentuate_cdn -}}w_180{{- options -}}
+        {%- endcapture -%}
+      {%- elsif source contains 'cdn.shopify.com/s/assets/no-image' and default_image != blank -%}
+        {%- comment %}
+          No image detected, get default image replace
+        {%- endcomment -%}
+        {%- assign image_large = default_image | img_url: '2160x' -%}
+        {%- assign image_normal = default_image | img_url: '1080x' -%}
+        {%- assign image_small = default_image | img_url: '640x' -%}
+        {%- assign image_xsmall = default_image | img_url: '320x' -%}
+        {%- assign image_xxsmall = default_image | img_url: '180x' -%}
+      {%- elsif source contains '//' -%}
+        {%- assign image_large = source -%}
+      {%- else -%}
+        {%- comment %}
+          Converts image to image object if it is only a string
+        {%- endcomment -%}
+        {%- if source.src != blank -%}
+          {%- assign image_obj = source -%}
+        {%- else -%}
+          {%- assign filename = source | split: '/' | last | strip -%}
+          {%- assign image_obj = images[filename] -%}
+        {%- endif -%}
+        {%- assign image_large = image_obj | img_url: '2160x' -%}
+        {%- assign image_normal = image_obj | img_url: '1080x' -%}
+        {%- assign image_small = image_obj | img_url: '640x' -%}
+        {%- assign image_xsmall = image_obj | img_url: '320x' -%}
+        {%- assign image_xxsmall = image_obj | img_url: '180x' -%}
+      {%- endif -%}
+
+      {%- comment -%}
+        Assigns srcset
+      {%- endcomment -%}
+      {%- capture srcset -%}
+      {{ image_large }}{%- if image_normal != blank %} 2160w, {{ image_normal }} 1080w, {{ image_small }} 640w, {{ image_xsmall }} 320w, {{ image_xxsmall }} 180w{%- endif -%}
+      {%- endcapture -%}
+    {%- endif %}
+
+    <source
+      media="{{- breakpoints_arr[forloop.index0] -}}"
+      {% if lazy_load %}
+        data-srcset="{{- srcset -}}"
+      {%- else -%}
+        srcset="{{- srcset -}}"
+      {% endif %}
+      sizes="{{- sizes -}}">
+  {%- endfor -%}
+
+  <noscript>
+    <img class="absolute inset-0 w-full h-full object-{{- object_fit -}}" src="{{- image_large -}}" alt="{{- alt -}}">
+  </noscript>
+
+  {% if image_large == blank %}
+    <span class="absolute inset-0 w-full h-full bg-gradient-to-br from-[#f0f0f0] to-[#9b9b9b]" />
+  {% else %}
+    <img
+      class="absolute inset-0 w-full h-full object-{{- object_fit -}}"
+      {% if lazy_load %}
+        data-src="{{- image_large -}}"
+      {% else %}
+        src="{{- image_large -}}"
+      {% endif %}
+      alt="{{- alt -}}"
+      loading="{% if lazy_load %}lazy{% else %}eager{% endif %}">
+  {% endif %}
+</picture>

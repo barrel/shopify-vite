@@ -1,0 +1,12 @@
+{
+  "sections": {
+    "addresses_banner": {
+      "type": "text-banner",
+      "settings": {
+      }
+    }
+  },
+  "order": [
+    "addresses_banner"
+  ]
+}
