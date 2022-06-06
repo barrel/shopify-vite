@@ -2,7 +2,19 @@
   "name": "@barrelny/vite-plugin-shopify",
   "version": "0.0.0",
   "description": "Vite integration for Shopify themes",
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
   "scripts": {
     "dev": "tsup src/index.ts --dts --format cjs,esm --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm",
