@@ -12,5 +12,5 @@
   "dependencies": {
     "turbo": "latest"
   },
-  "packageManager": "yarn@1.22.18"
+  "packageManager": "pnpm@7.1.0"
 }
