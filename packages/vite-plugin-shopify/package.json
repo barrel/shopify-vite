@@ -4,7 +4,8 @@
   "description": "Vite integration for Shopify themes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsup src/index.ts --dts --format cjs,esm --watch",
+    "build": "tsup src/index.ts --dts --format cjs,esm"
   },
   "keywords": [
     "vite",
@@ -12,5 +13,20 @@
     "vite-plugin"
   ],
   "author": "Miguel Montalvo <miguel.montalvo@barrelny.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "@types/debug": "^4.1.7",
+    "@types/node": "^17.0.40",
+    "fast-glob": "^3.2.11",
+    "tsconfig": "workspace:*",
+    "tsup": "^6.1.0",
+    "typescript": "^4.1.6",
+    "vite": "^2.9.9"
+  },
+  "peerDependencies": {
+    "vite": "^2.9.9"
+  },
+  "dependencies": {
+    "debug": "^4.3.4"
+  }
 }
