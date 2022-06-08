@@ -19,3 +19,9 @@ export const KNOWN_ENTRYPOINT_TYPES = [
 export const ENTRYPOINT_TYPES_REGEX = new RegExp(
   `\\.(${KNOWN_ENTRYPOINT_TYPES.join('|')})(\\?.*)?$`
 )
+
+export const CSS_EXTENSIONS_REGEX = new RegExp(
+  `\\.(${KNOWN_CSS_EXTENSIONS.join('|')})$`
+)
+
+export const CLIENT_SCRIPT_PATH = '@vite/client'

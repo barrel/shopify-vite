@@ -31,6 +31,7 @@ importers:
       eslint-plugin-node: ^11.1.0
       eslint-plugin-promise: ^4.2.1
       fast-glob: ^3.2.11
+      rollup: ^2.75.6
       tsconfig: workspace:*
       tsup: ^6.1.0
       typescript: ^4.1.6
@@ -49,6 +50,7 @@ importers:
       eslint-plugin-node: 11.1.0_eslint@7.32.0
       eslint-plugin-promise: 4.3.1
       fast-glob: 3.2.11
+      rollup: 2.75.6
       tsconfig: link:../tsconfig
       tsup: 6.1.0_typescript@4.1.6
       typescript: 4.1.6
@@ -1875,8 +1877,8 @@ packages:
       glob: 7.1.6
     dev: true
 
-  /rollup/2.75.5:
-    resolution: {integrity: sha512-JzNlJZDison3o2mOxVmb44Oz7t74EfSd1SQrplQk0wSaXV7uLQXtVdHbxlcT3w+8tZ1TL4r/eLfc7nAbz38BBA==}
+  /rollup/2.75.6:
+    resolution: {integrity: sha512-OEf0TgpC9vU6WGROJIk1JA3LR5vk/yvqlzxqdrE2CzzXnqKXNzbAwlWUXis8RS3ZPe7LAq+YUxsRa0l3r27MLA==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
@@ -2124,7 +2126,7 @@ packages:
       joycon: 3.1.1
       postcss-load-config: 3.1.4
       resolve-from: 5.0.0
-      rollup: 2.75.5
+      rollup: 2.75.6
       source-map: 0.8.0-beta.0
       sucrase: 3.21.0
       tree-kill: 1.2.2
@@ -2324,7 +2326,7 @@ packages:
       esbuild: 0.14.42
       postcss: 8.4.14
       resolve: 1.22.0
-      rollup: 2.75.5
+      rollup: 2.75.6
     optionalDependencies:
       fsevents: 2.3.2
     dev: true

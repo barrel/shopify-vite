@@ -5,6 +5,7 @@ import { Entrypoints } from './types'
 import glob from 'fast-glob'
 import { filterEntrypointsForRollup, outputOptions, projectRoot, root, sourceCodeDir } from './config'
 import createDebugger from 'debug'
+import ShopifyHtml from './html'
 
 const debug = createDebugger('vite-plugin-shopify:config')
 
@@ -68,6 +69,7 @@ export default function VitePluginShopify (): PluginOption[] {
     {
       name: 'vite-plugin-shopify',
       config
-    }
+    },
+    ShopifyHtml()
   ]
 }
