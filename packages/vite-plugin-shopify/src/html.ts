@@ -12,7 +12,7 @@ let config: ResolvedConfig
 
 const debug = createDebugger('vite-plugin-shopify:html')
 
-export default function ViteShopifyHtmlPlugin (): Plugin {
+export default function VitePluginShopifyHtml (): Plugin {
   let entrypoints: Input
 
   return {
