@@ -16,8 +16,9 @@
     }
   },
   "scripts": {
-    "dev": "tsup src/index.ts --dts --format cjs,esm --watch",
+    "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm",
+    "watch": "tsup src/index.ts --dts --format cjs,esm --watch",
     "lint": "eslint ."
   },
   "keywords": [
