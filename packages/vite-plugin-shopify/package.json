@@ -38,7 +38,6 @@
     "eslint-plugin-n": "^15.2.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "fast-glob": "^3.2.11",
     "rollup": "^2.75.6",
     "tsconfig": "workspace:*",
     "tsup": "^6.1.0",
@@ -49,6 +48,9 @@
     "vite": "^2.9.9"
   },
   "dependencies": {
-    "debug": "^4.3.4"
+    "debug": "^4.3.4",
+    "escape-string-regexp": "^4.0.0",
+    "fast-glob": "^3.2.11",
+    "magic-string": "^0.26.2"
   }
 }

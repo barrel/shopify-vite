@@ -6,6 +6,7 @@ import glob from 'fast-glob'
 import { filterEntrypointsForRollup, outputOptions, projectRoot, root, sourceCodeDir } from './config'
 import createDebugger from 'debug'
 import ShopifyHtml from './html'
+import ShopifyDynamicBase from './dynamic-base'
 
 const debug = createDebugger('vite-plugin-shopify:config')
 
@@ -70,6 +71,7 @@ export default function VitePluginShopify (): PluginOption[] {
       name: 'vite-plugin-shopify',
       config
     },
-    ShopifyHtml()
+    ShopifyHtml(),
+    ShopifyDynamicBase()
   ]
 }

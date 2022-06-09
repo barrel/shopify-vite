@@ -25,3 +25,9 @@ export const CSS_EXTENSIONS_REGEX = new RegExp(
 )
 
 export const CLIENT_SCRIPT_PATH = '@vite/client'
+
+export const VITE_ASSET_RE = /^export default ["'](__VITE_ASSET.*)["']$/
+
+export const publicAssetsURL = 'const publicAssetsURL = window.themeAssetsBaseUrl;'
+
+export const buildAssetsURL = 'function buildAssetsURL(id) { return publicAssetsURL + id; }'
