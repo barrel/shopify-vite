@@ -8,6 +8,7 @@ Shopify Vite is a project that aims to integrate Vite as seamlessly as possible 
 * 🤖 Automatic entrypoint detection
 * 🏷 Smart generation of `script` and `link` tags for entrypoints
 * 🌎 Dynamic public base path set to the `assets` folder of a theme
+* 👌 Zero-Config
 
 ## Install
 
@@ -37,11 +38,13 @@ export default {
 }
 ```
 
+* You can customize this file as needed, check Vite's [plugins](https://vitejs.dev/plugins/) and [config reference](https://vitejs.dev/config/) for more info.
+
 Place your code under `frontend/entrypoints`
 
 ```bash
 frontend
-  ├── entrypoints
+  ├── entrypoints:
   │   # only Vite entry files here
   │   │── theme.ts
   │   └── theme.scss
@@ -61,6 +64,7 @@ In your `<head>` element add this
 {%- render 'vite-client' -%}
 ```
 
+* `vite-plugin-shopify` will generate `vite-client.liquid`.
 * This will add a `<script>` tag to include the ViteJS HMR client.
 * They will only render if the dev server is running.
 
@@ -70,6 +74,7 @@ Then add this snippet (in your `<head>` element too) to load your scripts:
 {%- render 'vite-tag' with 'theme.ts' -%}
 ```
 
+* `vite-plugin-shopify` will generate `vite-tag.liquid`.
 * This snippet includes the tag for the entrypoint given as a parameter.
 * All script tags are generated with a `type="module"` and `crossorigin` attributes just like ViteJS does by default.
 * In production mode, asset URLs will use the `asset_url` filter
