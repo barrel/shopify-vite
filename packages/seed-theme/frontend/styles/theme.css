@@ -1,0 +1,15 @@
+/**
+ * Theme.css
+ */
+
+@import "./layout.css";
+@import "./typography.css";
+@import "./overrides.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-image: url("../assets/images/img.png");
+}

@@ -1,0 +1,15 @@
+<div>
+  <div class="wysiwyg">
+    {{ product.description }}
+  </div>
+  {% for block in blocks %}
+    {% unless block.settings.content == blank %}
+      <details>
+        <summary>{{ block.settings.title }}</summary>
+        <div class="wysiwyg">
+          {{ block.settings.content }}
+        </div>
+      </details>
+    {% endunless %}
+  {% endfor %}
+</div>

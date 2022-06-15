@@ -1,0 +1,9 @@
+{% if vite-tag == "anotherfile.js" %}
+  <script src="{{ 'anotherfile.45bd04b7.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
+  <link rel="modulepreload" href="{{ 'preload-helper.230a6055.js' | asset_url }}" as="script">
+{% elsif vite-tag == "theme.js" %}
+  <script src="{{ 'theme.2f387206.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
+  {{ 'theme.c2dcec22.css' | asset_url | stylesheet_tag }}
+  <link rel="modulepreload" href="{{ 'preload-helper.230a6055.js' | asset_url }}" as="script">
+  <link rel="modulepreload" href="{{ 'lodash.18b358b9.js' | asset_url }}" as="script">
+{% endif %}

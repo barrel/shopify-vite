@@ -8,14 +8,14 @@
 
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    <link rel="preload" href="{{- 'theme.css' | asset_url -}}" as="style">
-    <link rel="preload" href="{{- 'theme.js' | asset_url -}}" as="script">
+    {% comment %} <link rel="preload" href="{{- 'theme.css' | asset_url -}}" as="style">
+    <link rel="preload" href="{{- 'theme.js' | asset_url -}}" as="script"> {% endcomment %}
 
     {%- if canonical_url != blank -%}
       <link rel="canonical" href="{{ canonical_url }}">
     {%- endif -%}
 
-    <title>{{ shop.name }}</title>
+    <title>{{ page_title | escape }}</title>
 
     {% if page_description %}
       <meta name="description" content="{{ page_description | escape }}">
@@ -23,19 +23,18 @@
 
     {%- render 'social-meta-tags' -%}
 
-    {% comment %}
-      Note: The stylesheet tag will result in a 404 when running the dev server.
-      This is expected since we are using style-loader instead of extracting CSS during development.
-    {% endcomment %}
-    {{ 'theme.css' | asset_url | stylesheet_tag }}
-
     <script>
+      window.themeAssetsBaseUrl = `{{ 't.js' | asset_url | split: '/t.js' | first }}`;
+
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
 
       if (typeof Shopify !== 'undefined' && Shopify.designMode) {
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+
+    {% render 'vite-tag' with 'theme.js' %}
+    {% render 'vite-tag' with 'anotherfile.js' %}
 
     {{ content_for_header }}
   </head>
@@ -48,7 +47,5 @@
       {{ content_for_layout }}
     </main>
     {% section 'site-footer' %}
-
-    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
   </body>
 </html>

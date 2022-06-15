@@ -1,10 +1,49 @@
 {
   "sections": {
-    "product_banner": {
-      "type": "pdp-main"
+    "product_breadcrumbs": {
+      "type": "breadcrumbs",
+      "settings": {
+      }
+    },
+    "product_main": {
+      "type": "product-main",
+      "blocks": {
+        "6a79bfc3-4c83-4bec-a087-35df5e5bb5d4": {
+          "type": "product-detail",
+          "settings": {
+            "title": "About",
+            "content": "<p>{{ product.metafields.my_fields.product_detail_1 | metafield_tag }}<\/p>"
+          }
+        },
+        "025a8c30-795c-426d-b445-99f2a5bdd50b": {
+          "type": "product-detail",
+          "settings": {
+            "title": "More Information",
+            "content": "<p>{{ product.metafields.my_fields.product_detail_2 | metafield_tag }}<\/p>"
+          }
+        },
+        "d5821faa-a569-4945-8508-4e315ca25aa2": {
+          "type": "product-detail",
+          "settings": {
+            "title": "Sizing & Fit",
+            "content": "<p>{{ product.metafields.my_fields.product_detail_3 | metafield_tag }}<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "6a79bfc3-4c83-4bec-a087-35df5e5bb5d4",
+        "025a8c30-795c-426d-b445-99f2a5bdd50b",
+        "d5821faa-a569-4945-8508-4e315ca25aa2"
+      ],
+      "settings": {
+        "product_detail_1_title": "About",
+        "product_detail_2_title": "More Information",
+        "product_detail_3_title": "Sizing & Fit"
+      }
     }
   },
   "order": [
-    "product_banner"
+    "product_breadcrumbs",
+    "product_main"
   ]
 }

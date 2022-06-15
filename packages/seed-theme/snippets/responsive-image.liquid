@@ -19,9 +19,10 @@
   assign break_lg = 1024
   assign break_xl = 1280
 
-  assign object_fit_class = 'object-cover'
   if object_fit == 'contain'
     assign object_fit_class = 'object-contain'
+  else
+    assign object_fit_class = 'object-cover'
   endif
 
   assign query = "(min-width: [width]px)"
@@ -97,7 +98,7 @@
 %}
 
 {% if image %}
-  <picture data-module="responsive-image">
+  <picture data-module="responsive-image" class="{{ class }}">
     {%- if max_retina_width > lg_retina_width %}
       <source srcset="{{ image | image_url: width: max_retina_width }}" media="{{ max_retina_query }}" />
     {%- endif -%}
@@ -125,7 +126,13 @@
     {%- if mobile_retina_width > mobile_width %}
       <source srcset="{{ image | image_url: width: mobile_retina_width }}" media="{{ mobile_retina_query }}" />
     {%- endif %}
-    <img class="{{ object_fit_class }} {{ class }}" src="{{ image | image_url: width: mobile_width }}" width="{{ image.width }}" height="{{ image.height }}" loading="lazy" />
+    <img
+      class="{{ object_fit_class }}"
+      src="{{ image | image_url: width: mobile_width }}"
+      width="{{ image.width }}"
+      height="{{ image.height }}"
+      loading="lazy"
+    />
   </picture>
 {% else %}
   <div data-module="responsive-image" class="{{ class }}">

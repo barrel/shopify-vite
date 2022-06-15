@@ -1,0 +1,60 @@
+<div class="max-w-7xl mx-auto px-responsive">
+  <div class="grid grid-cols-12 bg-blue-500">
+    <div class="bg-orange-500 col-span-8">
+      {% render 'product-gallery' %}
+    </div>
+    <div class="bg-yellow-500 col-span-4">
+      <h1>{{ product.title }}</h1>
+      <p>{{ product.price | money_without_trailing_zeros }}</p>
+      {% render 'product-form' %}
+      {% render 'product-details',
+        blocks: section.blocks,
+        detail_1_title: section.settings.product_detail_1_title,
+        detail_2_title: section.settings.product_detail_2_title,
+        detail_3_title: section.settings.product_detail_3_title
+      %}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Product Main",
+  "max_blocks": 3,
+  "blocks": [
+    {
+      "name": "Product Detail",
+      "type": "product-detail",
+      "settings": [
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "text",
+      "id": "product_detail_1_title",
+      "label": "Detail 1 Title"
+    },
+    {
+      "type": "text",
+      "id": "product_detail_2_title",
+      "label": "Detail 2 Title"
+    },
+    {
+      "type": "text",
+      "id": "product_detail_3_title",
+      "label": "Detail 3 Title"
+    }
+  ]
+}
+{% endschema %}
