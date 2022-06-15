@@ -4,6 +4,7 @@ import { VitePluginShopifyOptions, resolveOptions } from './options'
 import assetsManifest from './assets-manifest'
 import shopifyConfig from './config'
 import shopifyHtml from './html'
+import shopifyCssUrl from './css-url'
 
 const vitePluginShopify = (options: VitePluginShopifyOptions = {}): Plugin[] => {
   const resolvedOptions = resolveOptions(options)
@@ -15,6 +16,8 @@ const vitePluginShopify = (options: VitePluginShopifyOptions = {}): Plugin[] => 
     shopifyConfig(resolvedOptions),
     // Apply plugin for generating HTML asset tags through vite-tag snippet
     shopifyHtml(resolvedOptions),
+    // Apply plugin for adjusting URLs in CSS to work on Shopify servers
+    shopifyCssUrl(),
   ]
 
   return plugins
