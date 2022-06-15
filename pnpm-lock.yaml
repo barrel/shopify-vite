@@ -80,12 +80,6 @@ importers:
   packages/vite-plugin-shopify-modules:
     specifiers: {}
 
-  packages/vite-plugin-shopify-settings:
-    specifiers: {}
-
-  packages/vite-shopify:
-    specifiers: {}
-
 packages:
 
   /@babel/code-frame/7.12.11:
