@@ -6,7 +6,6 @@ import glob from 'fast-glob'
 import { filterEntrypointsForRollup, outputOptions, projectRoot, root, sourceCodeDir } from './config'
 import createDebugger from 'debug'
 import ShopifyHtml from './html'
-import ShopifyDynamicBase from './dynamic-base'
 
 const debug = createDebugger('vite-plugin-shopify:config')
 
@@ -14,7 +13,7 @@ function config (config: UserConfig, env: ConfigEnv): UserConfig {
   const assetsDir = './'
   const outDir = relative(root, join(projectRoot, 'assets'))
   const sourcemap = env.command === 'build'
-  const base = env.command === 'build' ? (config?.base ?? '/__THEME_BASE__/') : '/'
+  const base = ''
   const host = config?.server?.host ?? 'localhost'
   const port = config?.server?.port ?? 3000
   const https = config?.server?.https ?? false
@@ -71,7 +70,6 @@ export default function VitePluginShopify (): PluginOption[] {
       name: 'vite-plugin-shopify',
       config
     },
-    ShopifyHtml(),
-    ShopifyDynamicBase()
+    ShopifyHtml()
   ]
 }

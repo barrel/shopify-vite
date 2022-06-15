@@ -15,10 +15,6 @@
   {%- render 'vite-tag' with 'theme.scss' -%}
   {%- render 'vite-tag' with 'theme.ts' -%}
 
-  <script>
-    window.themeAssetsBaseUrl = `{{ 't.js' | asset_url | split: 't.js' | first }}`;
-  </script>
-
   {{ content_for_header }}
 </head>
 
