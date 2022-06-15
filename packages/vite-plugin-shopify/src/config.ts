@@ -1,25 +1,42 @@
-import { posix, basename, join } from 'path'
-import { ENTRYPOINT_TYPES_REGEX } from './constants'
-import type { OutputOptions, PreRenderedChunk, PreRenderedAsset } from 'rollup'
-import { Entrypoints } from './types'
+import path from 'path'
+import { Plugin, UserConfig } from 'vite'
+import glob from 'fast-glob'
 
-export function filterEntrypointsForRollup (entrypoints: Entrypoints): Entrypoints {
-  return entrypoints.filter(([_name, filename]) => ENTRYPOINT_TYPES_REGEX.test(filename))
-}
+import { ResolvedVitePluginShopifyOptions } from './options'
 
-export function outputOptions (assetsDir: string): OutputOptions {
-  const outputFileName = (ext: string) => (chunkInfo: PreRenderedChunk | PreRenderedAsset) => {
-    const shortName = basename(chunkInfo.name as string).split('.')[0]
-    return posix.join(assetsDir, `${shortName}.[hash].${ext}`)
-  }
-
+// Plugin for setting necessary Vite config to support Shopify plugin functionality
+export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions): Plugin {
   return {
-    entryFileNames: outputFileName('js'),
-    chunkFileNames: outputFileName('js'),
-    assetFileNames: outputFileName('[ext]')
+    name: 'vite-plugin-shopify-config',
+    config () {
+      const generatedConfig: UserConfig = {
+        base: '',
+        // Do not use public directory
+        publicDir: false,
+        build: {
+          // Output static files to "assets" directory
+          outDir: path.join(options.themeRoot, 'assets'),
+          // Do not use subfolder for output assets
+          assetsDir: '',
+          // Clear output directory before each build
+          emptyOutDir: true,
+          // Configure bundle entry points
+          rollupOptions: {
+            input: glob.sync(path.join(options.entrypointsDir, '**.*'), { onlyFiles: true })
+          }
+        },
+        resolve: {
+          alias: {
+            '~': options.themeRoot,
+            '@': options.themeRoot
+          }
+        },
+        server: {
+          host: true
+        }
+      }
+
+      return generatedConfig
+    }
   }
 }
-
-export const projectRoot = process.cwd()
-export const sourceCodeDir = join(projectRoot, 'frontend')
-export const root = join(sourceCodeDir, 'entrypoints')

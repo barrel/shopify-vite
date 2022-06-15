@@ -1,7 +1,5 @@
-{%- if vite-tag == 'theme.ts' -%}
-  <script src="{{ 'theme.0d34937e.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
-{%- endif -%}
-
-{%- if vite-tag == 'theme.scss' -%}
-  <link rel="stylesheet" href="{{ 'theme.e52d2cd0.css' | asset_url }}">
-{%- endif -%}
+{% if vite-tag == "theme.scss" %}
+  {{ 'theme.8a0d4b9a.css' | asset_url | stylesheet_tag }}
+{% elsif vite-tag == "theme.ts" %}
+  <script src="{{ 'theme.4e5771e8.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
+{% endif %}
