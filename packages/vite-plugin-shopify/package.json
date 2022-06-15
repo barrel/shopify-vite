@@ -43,10 +43,10 @@
     "tsconfig": "workspace:*",
     "tsup": "^6.1.0",
     "typescript": "^4.1.6",
-    "vite": "^2.9.9"
+    "vite": "3.0.0-alpha.11"
   },
   "peerDependencies": {
-    "vite": "^2.9.9"
+    "vite": "3.0.0-alpha.11"
   },
   "dependencies": {
     "debug": "^4.3.4",
