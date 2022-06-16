@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 
-import shopify from '@barrelny/vite-plugin-shopify'
-import shopifyModules from '@barrelny/vite-plugin-shopify-modules'
+import shopify from 'vite-plugin-shopify'
+import shopifyModules from 'vite-plugin-shopify-modules'
 
 export default defineConfig({
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',

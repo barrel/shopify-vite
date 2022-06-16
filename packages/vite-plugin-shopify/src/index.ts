@@ -17,7 +17,7 @@ const vitePluginShopify = (options: VitePluginShopifyOptions = {}): Plugin[] => 
     // Apply plugin for generating HTML asset tags through vite-tag snippet
     shopifyHtml(resolvedOptions),
     // Apply plugin for adjusting URLs in CSS to work on Shopify servers
-    shopifyCssUrl(),
+    shopifyCssUrl()
   ]
 
   return plugins

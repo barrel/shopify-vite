@@ -11,16 +11,16 @@
     ]
   },
   "frontend/entrypoints/theme.ts": {
-    "file": "theme.4e5771e8.js",
+    "file": "theme.8539de98.js",
     "src": "frontend/entrypoints/theme.ts",
     "isEntry": true,
     "dynamicImports": [
-      "node_modules/.vite/deps_build/lodash-es.js"
+      "node_modules/.vite/deps_build-assets/lodash-es.js"
     ]
   },
-  "node_modules/.vite/deps_build/lodash-es.js": {
-    "file": "lodash-es.6d048829.js",
-    "src": "node_modules/.vite/deps_build/lodash-es.js",
+  "node_modules/.vite/deps_build-assets/lodash-es.js": {
+    "file": "lodash-es.dd1e7a99.js",
+    "src": "node_modules/.vite/deps_build-assets/lodash-es.js",
     "isDynamicEntry": true
   }
 }

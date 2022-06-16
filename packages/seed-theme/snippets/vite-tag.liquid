@@ -1,9 +1,16 @@
-{% if vite-tag == "anotherfile.js" %}
-  <script src="{{ 'anotherfile.45bd04b7.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
-  <link rel="modulepreload" href="{{ 'preload-helper.230a6055.js' | asset_url }}" as="script">
-{% elsif vite-tag == "theme.js" %}
-  <script src="{{ 'theme.2f387206.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
-  {{ 'theme.c2dcec22.css' | asset_url | stylesheet_tag }}
-  <link rel="modulepreload" href="{{ 'preload-helper.230a6055.js' | asset_url }}" as="script">
-  <link rel="modulepreload" href="{{ 'lodash.18b358b9.js' | asset_url }}" as="script">
+{% liquid
+  assign file_url = vite-tag | prepend: 'http://localhost:5173/frontend/entrypoints/'
+  assign file_extension = vite-tag | split: '.' | last
+  assign css_extensions = 'css|less|sass|scss|styl|stylus|pcss|postcss' | split: '|'
+  assign is_css = false
+  for css_ext in css_extensions
+    if file_extension == css_ext
+      assign is_css = true
+    endif
+  endfor
+%}
+{% if is_css == true %}
+  {{ file_url | stylesheet_tag }}
+{% else %}
+  <script src="{{ file_url }}" type="module" crossorigin="anonymous"></script>
 {% endif %}

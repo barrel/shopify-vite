@@ -1,5 +1,5 @@
 import { defineConfig } from 'vite'
-import Shopify from '@barrelny/vite-plugin-shopify'
+import Shopify from 'vite-plugin-shopify'
 
 export default defineConfig({
   plugins: [

@@ -1,13 +1,10 @@
 import { promises as fs, existsSync } from 'fs'
 import path from 'path'
-import type { Plugin, ResolvedConfig } from 'vite'
-// import createDebugger from 'debug'
+import { Plugin, ResolvedConfig } from 'vite'
 import { throttle } from 'lodash'
 import chokidar from 'chokidar'
 
 import { VitePluginShopifyModulesOptions, resolveOptions } from './options'
-
-// const debug = createDebugger('vite-plugin-shopify:modules')
 
 export default function shopifyModules (options: VitePluginShopifyModulesOptions): Plugin {
   const resolvedOptions = resolveOptions(options)
