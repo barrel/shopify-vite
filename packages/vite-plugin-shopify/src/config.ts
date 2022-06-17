@@ -10,6 +10,7 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
     name: 'vite-plugin-shopify-config',
     config () {
       const generatedConfig: UserConfig = {
+        // Use relative base path so imported assets load from Shopify CDN
         base: '',
         // Do not use public directory
         publicDir: false,
@@ -26,9 +27,10 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
           }
         },
         resolve: {
+          // Provide import alias to source code dir for convenience
           alias: {
-            '~': options.themeRoot,
-            '@': options.themeRoot
+            '~': options.sourceCodeDir,
+            '@': options.sourceCodeDir
           }
         },
         server: {
