@@ -8,8 +8,8 @@ export default defineConfig({
   plugins: [
     // Add shopify plugin to enable entrypoint detection, smart generation of script and link tags, and support for importing assets into the bundle.
     shopify({
-      entrypointsDir: 'frontend/entrypoints',
       sourceCodeDir: 'frontend',
+      entrypointsDir: 'frontend/entrypoints',
       themeRoot: ''
     }),
     shopifyModules({

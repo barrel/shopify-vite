@@ -24,8 +24,6 @@
     {%- render 'social-meta-tags' -%}
 
     <script>
-      window.themeAssetsBaseUrl = `{{ 't.js' | asset_url | split: '/t.js' | first }}`;
-
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
 
       if (typeof Shopify !== 'undefined' && Shopify.designMode) {
@@ -34,7 +32,6 @@
     </script>
 
     {% render 'vite-tag' with 'theme.js' %}
-    {% render 'vite-tag' with 'anotherfile.js' %}
 
     {{ content_for_header }}
   </head>
