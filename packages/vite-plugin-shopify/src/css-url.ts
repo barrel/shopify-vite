@@ -36,16 +36,6 @@ export default function VitePluginCssUrl (): Plugin {
           }
         }
       }
-    },
-    generateBundle (outputOptions, bundle) {
-      for (const file in bundle) {
-        const asset = bundle[file]
-
-        if (asset.type === 'asset' && typeof asset.source === 'string' && asset.fileName.endsWith('.css')) {
-          // Strip leading slash from CSS URLs in production to load assets from CDN path relative to CSS file
-          asset.source = asset.source.replaceAll(/url\(\//g, 'url(')
-        }
-      }
     }
   }
 }
