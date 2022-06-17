@@ -22,7 +22,7 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
           emptyOutDir: true,
           // Configure bundle entry points
           rollupOptions: {
-            input: glob.sync(path.join(options.entrypointsDir, '**.*'), { onlyFiles: true })
+            input: glob.sync(path.join(options.entrypointsDir, '**/*'), { onlyFiles: true })
           }
         },
         resolve: {
