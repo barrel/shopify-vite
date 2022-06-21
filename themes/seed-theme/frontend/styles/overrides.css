@@ -1,0 +1,6 @@
+/* @layer utilities { */
+  /* Hide Google reCAPTCHA badge */
+  .grecaptcha-badge {
+    visibility: hidden;
+  }
+/* } */

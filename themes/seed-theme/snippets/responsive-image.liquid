@@ -1,0 +1,141 @@
+{%- comment -%}
+  Parameters
+  * class
+  * image
+  * mobile_width - Max display width of image within mobile breakpoint
+  * sm_width - Max display width of image within sm breakpoint
+  * md_width - Max display width of image within md breakpoint
+  * lg_width - Max display width of image within lg breakpoint
+  * max_width - Max display width of image
+  * object_fit
+{%- endcomment -%}
+
+{% liquid
+  comment
+    These variables should match the "screens" breakpoint values from tailwind.config.js
+  endcomment
+  assign break_sm = 640
+  assign break_md = 768
+  assign break_lg = 1024
+  assign break_xl = 1280
+
+  if object_fit == 'contain'
+    assign object_fit_class = 'object-contain'
+  else
+    assign object_fit_class = 'object-cover'
+  endif
+
+  assign query = "(min-width: [width]px)"
+  assign retina_query = "(min-width: [width]px) and (min-resolution: 200dpi), (min-width: [width]px) and (-webkit-min-device-pixel-ratio: 2)"
+
+  comment
+    Naural width refers to image display size at 2x resolution
+  endcomment
+  assign natural_width = image.width | divided_by: 2
+
+  if max_width != blank
+    assign natural_width = natural_width | at_most: max_width
+  endif
+
+  comment
+    Width for default image (mobile fallback)
+  endcomment
+  assign mobile_width = mobile_width | default: break_sm | at_most: break_sm | at_most: natural_width
+
+  comment
+    Width and media qeury for 2x mobile image
+  endcomment
+  assign mobile_retina_width = mobile_width | times: 2
+  assign mobile_retina_query = '(min-resolution: 200dpi), (-webkit-min-device-pixel-ratio: 2)'
+
+  comment
+    Width and media qeury for "sm" breakpoint image
+  endcomment
+  assign sm_width = sm_width | default: break_md | at_most: break_md | at_most: natural_width
+  assign sm_query = query | replace: '[width]', break_sm
+
+  comment
+    Width and media qeury for 2x "sm" breakpoint image
+  endcomment
+  assign sm_retina_width = sm_width | times: 2
+  assign sm_retina_query = retina_query | replace: '[width]', break_sm
+
+  comment
+    Width and media qeury for "md" breakpoint image
+  endcomment
+  assign md_width = md_width | default: break_lg | at_most: break_lg | at_most: natural_width
+  assign md_query = query | replace: '[width]', break_md
+
+  comment
+    Width and media qeury for 2x "md" breakpoint image
+  endcomment
+  assign md_retina_width = md_width | times: 2
+  assign md_retina_query = retina_query | replace: '[width]', break_md
+
+  comment
+    Width and media qeury for "lg" breakpoint image
+  endcomment
+  assign lg_width = lg_width | default: break_xl | at_most: break_xl | at_most: natural_width
+  assign lg_query = query | replace: '[width]', break_lg
+
+  comment
+    Width and media qeury for 2x "lg" breakpoint image
+  endcomment
+  assign lg_retina_width = lg_width | times: 2
+  assign lg_retina_query = retina_query | replace: '[width]', break_lg
+
+  comment
+    Width and media qeury for max image size
+  endcomment
+  assign max_width = max_width | default: natural_width | at_most: natural_width
+  assign max_query = query | replace: '[width]', break_xl
+
+  comment
+    Width and media qeury for 2x max image size
+  endcomment
+  assign max_retina_width = max_width | times: 2
+  assign max_retina_query = retina_query | replace: '[width]', break_xl
+%}
+
+{% if image %}
+  <picture data-module="responsive-image" class="{{ class }}">
+    {%- if max_retina_width > lg_retina_width %}
+      <source srcset="{{ image | image_url: width: max_retina_width }}" media="{{ max_retina_query }}" />
+    {%- endif -%}
+    {%- if max_width > lg_width %}
+      <source srcset="{{ image | image_url: width: max_width }}" media="{{ max_query }}" />
+    {%- endif -%}
+    {%- if lg_retina_width > md_retina_width %}
+      <source srcset="{{ image | image_url: width: lg_retina_width }}" media="{{ lg_retina_query }}" />
+    {%- endif -%}
+    {%- if lg_width > md_width %}
+      <source srcset="{{ image | image_url: width: lg_width }}" media="{{ lg_query }}" />
+    {%- endif -%}
+    {%- if md_retina_width > sm_retina_width %}
+      <source srcset="{{ image | image_url: width: md_retina_width }}" media="{{ md_retina_query }}" />
+    {%- endif -%}
+    {%- if md_width > sm_width %}
+      <source srcset="{{ image | image_url: width: md_width }}" media="{{ md_query }}" />
+    {%- endif -%}
+    {%- if sm_retina_width > mobile_retina_width %}
+      <source srcset="{{ image | image_url: width: sm_retina_width }}" media="{{ sm_retina_query }}" />
+    {%- endif -%}
+    {%- if sm_width > mobile_width %}
+      <source srcset="{{ image | image_url: width: sm_width }}" media="{{ sm_query }}" />
+    {%- endif -%}
+    {%- if mobile_retina_width > mobile_width %}
+      <source srcset="{{ image | image_url: width: mobile_retina_width }}" media="{{ mobile_retina_query }}" />
+    {%- endif %}
+    <img
+      class="{{ object_fit_class }}"
+      src="{{ image | image_url: width: mobile_width }}"
+      width="{{ image.width }}"
+      height="{{ image.height }}"
+      loading="lazy"
+    />
+  </picture>
+{% else %}
+  <div data-module="responsive-image" class="{{ class }}">
+    <span class="absolute inset-0 w-full h-full bg-gradient-to-br from-[#f0f0f0] to-[#9b9b9b]"></span>
+  </div>
+{% endif %}

@@ -1,0 +1,3 @@
+hero-slider .flickity-page-dots {
+  @apply w-auto bottom-3 left-6 sm:bottom-6 sm:left-12;
+}

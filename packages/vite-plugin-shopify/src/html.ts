@@ -1,258 +1,115 @@
-import { join, relative } from 'path'
 import fs from 'fs'
-import { projectRoot, root } from './config'
-import type { Plugin, ResolvedConfig } from 'vite'
-import { OutputChunk } from 'rollup'
-import { ENTRYPOINT_TYPES_REGEX, CSS_EXTENSIONS_REGEX, CLIENT_SCRIPT_PATH } from './constants'
-import { Input } from './types'
-import { withoutExtension } from './utils'
-import createDebugger from 'debug'
+import path from 'path'
+import type { Manifest, Plugin, ResolvedConfig } from 'vite'
 
-let config: ResolvedConfig
+import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
+import { ResolvedVitePluginShopifyOptions } from './options'
 
-const debug = createDebugger('vite-plugin-shopify:html')
+// Plugin for generating vite-tag liquid theme snippet with entry points for JS and CSS assets
+export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions): Plugin {
+  let config: ResolvedConfig
 
-export default function VitePluginShopifyHtml (): Plugin {
-  let entrypoints: Input
+  const snippetPath = path.resolve(options.themeRoot, 'snippets/vite-tag.liquid')
 
   return {
     name: 'vite-plugin-shopify-html',
     enforce: 'post',
     configResolved (resolvedConfig) {
+      // Store reference to resolved config
       config = resolvedConfig
-      entrypoints = config.build?.rollupOptions?.input as Input
-      debug({ entrypoints })
     },
-    configureServer (server) {
-      writeSnippetFile(
-        'vite-tag.liquid',
-        viteTags(entrypoints)
-      )
+    configureServer () {
+      const protocol = config.server?.https === true ? 'https:' : 'http:'
+      const host = typeof config.server?.host === 'string' ? config.server.host : 'localhost'
+      const port = typeof config.server?.port !== 'undefined' ? config.server.port : 5173
 
-      writeSnippetFile(
-        'vite-client.liquid',
-        viteClient()
-      )
+      const viteTagSnippetContent = viteTagSnippetDev(`${protocol}//${host}:${port.toString()}`, options.entrypointsDir)
 
-      if (snippetFileExists('vite-legacy-tag.liquid')) {
-        writeSnippetFile('vite-legacy-tag.liquid', '')
-      }
+      // Write vite-tag snippet for development server
+      fs.writeFileSync(snippetPath, viteTagSnippetContent)
+    },
+    closeBundle () {
+      const assetTags: string[] = []
+      const manifest = JSON.parse(
+        fs.readFileSync(path.resolve(options.themeRoot, 'assets/assets-manifest.json'), 'utf8')
+      ) as Manifest
 
-      if (snippetFileExists('vite-legacy-polyfills.liquid')) {
-        writeSnippetFile('vite-legacy-polyfills.liquid', '')
-      }
+      Object.keys(manifest).forEach((src) => {
+        const { file, isEntry, css, imports } = manifest[src]
+        const ext = path.extname(src)
 
-      server.watcher.on('add', path => {
-        if (!ENTRYPOINT_TYPES_REGEX.test(path)) {
-          return
+        // Generate tags for JS and CSS entry points
+        if (isEntry === true) {
+          const entryName = path.relative(options.entrypointsDir, src)
+          const tagsForEntry = []
+
+          if (ext.match(CSS_EXTENSIONS_REGEX) !== null) {
+            // Render style tag for CSS entry
+            tagsForEntry.push(stylesheetTag((css as string[])[0]))
+          } else {
+            // Render script tag for JS entry
+            tagsForEntry.push(scriptTag(file))
+
+            if (typeof css !== 'undefined' && css.length > 0) {
+              css.forEach((cssFileName: string) => {
+                // Render style tag for imported CSS file
+                tagsForEntry.push(stylesheetTag(cssFileName))
+              })
+            }
+
+            if (typeof imports !== 'undefined' && imports.length > 0) {
+              imports.forEach((importFilename: string) => {
+                const chunk = manifest[importFilename]
+                // Render preload tags for JS imports
+                tagsForEntry.push(preloadTag(chunk.file, 'script'))
+              })
+            }
+          }
+
+          assetTags.push(viteEntryTag(entryName, tagsForEntry.join('\n  '), assetTags.length === 0))
         }
-
-        entrypoints[relative(root, path)] = path
-        debug({ entrypoints })
-        writeSnippetFile(
-          'vite-tag.liquid',
-          viteTags(entrypoints)
-        )
       })
 
-      server.watcher.on('unlink', path => {
-        const { [relative(root, path)]: _, ...rest } = entrypoints
-        entrypoints = rest
-        debug({ entrypoints })
-        writeSnippetFile(
-          'vite-tag.liquid',
-          viteTags(entrypoints)
-        )
-      })
-    },
-    generateBundle (options, bundle) {
-      if (options.format === 'es') {
-        const analyzedChunk: Map<OutputChunk, number> = new Map()
-        const getImportedChunks = (
-          chunk: OutputChunk,
-          seen: Set<string> = new Set()
-        ): OutputChunk[] => {
-          const chunks: OutputChunk[] = []
-          chunk.imports.forEach((file) => {
-            const importee = bundle[file]
-            if (importee?.type === 'chunk' && !seen.has(file)) {
-              seen.add(file)
+      const viteTagSnippetContent = viteTagDisclaimer + assetTags.join('\n') + '\n{% endif %}\n'
 
-              chunks.push(...getImportedChunks(importee, seen))
-              chunks.push(importee)
-            }
-          })
-          return chunks
-        }
-
-        const getCssTagsForChunk = (
-          chunk: OutputChunk,
-          seen: Set<string> = new Set()
-        ): string[] => {
-          const tags: string[] = []
-          if (!analyzedChunk.has(chunk)) {
-            analyzedChunk.set(chunk, 1)
-            chunk.imports.forEach((file) => {
-              const importee = bundle[file]
-              if (importee?.type === 'chunk') {
-                tags.push(...getCssTagsForChunk(importee, seen))
-              }
-            })
-          }
-
-          chunk.viteMetadata.importedCss.forEach((file) => {
-            if (!seen.has(file)) {
-              seen.add(file)
-              tags.push(makeLinkTag({
-                rel: 'stylesheet',
-                href: getAssetUrl(file)
-              }))
-            }
-          })
-
-          return tags
-        }
-
-        const viteTags = Object.values(bundle).map(chunk => {
-          if (chunk.type === 'asset') {
-            if (!config.build.cssCodeSplit && chunk.name === 'style.css') {
-              return `{%- if vite-tag == '${chunk.name}' -%}\n  ${makeLinkTag({ rel: 'stylesheet', href: getAssetUrl(chunk.fileName) })}\n{%- endif -%}`
-            }
-
-            if (!CSS_EXTENSIONS_REGEX.test(chunk.name as string)) {
-              return ''
-            }
-
-            const entrypoint = Object.keys(entrypoints).find(entrypoint =>
-              CSS_EXTENSIONS_REGEX.test(entrypoint) &&
-              withoutExtension(chunk.name as string) === entrypoint
-            ) as string
-
-            if (entrypoint === undefined) {
-              return ''
-            }
-
-            return `{%- if vite-tag == '${entrypoint}' -%}\n  ${makeLinkTag({ rel: 'stylesheet', href: getAssetUrl(chunk.fileName) })}\n{%- endif -%}`
-          }
-
-          if (!chunk.isEntry) {
-            return ''
-          }
-
-          if (CSS_EXTENSIONS_REGEX.test(chunk.name)) {
-            return config.build.cssCodeSplit
-              ? `{%- if vite-tag == '${chunk.name}' -%}\n  ${getCssTagsForChunk(chunk).join('\n  ')}\n{%- endif -%}`
-              : ''
-          }
-
-          const imports = getImportedChunks(chunk)
-          const assetTags = [
-            makeScriptTag({ src: getAssetUrl(chunk.fileName), type: 'module', crossorigin: 'anonymous' }),
-            ...imports.map(chunk => makeLinkTag({ href: getAssetUrl(chunk.fileName), rel: 'modulepreload', as: 'script', crossorigin: 'anonymous' }))
-          ]
-
-          assetTags.push(...getCssTagsForChunk(chunk))
-
-          return `{%- if vite-tag == '${chunk.name}' -%}\n  ${assetTags.join('\n  ')}\n{%- endif -%}`
-        }).filter(Boolean).join('\n\n')
-
-        writeSnippetFile('vite-tag.liquid', viteTags)
-        writeSnippetFile('vite-client.liquid', '')
-      }
-
-      if (options.format === 'system') {
-        const viteLegacyTags = Object.keys(entrypoints).map(key => {
-          const entrypoint = entrypoints[key]
-          const chunk = Object.values(bundle).find(chunk =>
-            chunk.type === 'chunk' &&
-            chunk.isEntry &&
-            chunk.facadeModuleId === entrypoint &&
-            chunk.fileName.includes('-legacy')
-          ) as OutputChunk | undefined
-
-          if (chunk === undefined || CSS_EXTENSIONS_REGEX.test(key)) {
-            return null
-          }
-
-          const legacyTag = makeScriptTag({ src: getAssetUrl(chunk.fileName), nomodule: 'nomodule' })
-
-          return `{%- if vite-legacy-tag == '${key}' -%}\n  ${legacyTag}\n{%- endif -%}`
-        }).filter(Boolean).join('\n\n')
-
-        const polyfillId = '\0vite/legacy-polyfills'
-
-        const polyfillChunk = Object.values(bundle).find(chunk =>
-          chunk.type === 'chunk' &&
-          chunk.isEntry &&
-          chunk.facadeModuleId === polyfillId
-        ) as OutputChunk | undefined
-
-        if (polyfillChunk !== undefined) {
-          const viteLegacyPolyfills = makeScriptTag({ src: getAssetUrl(polyfillChunk.fileName), nomodule: 'nomodule' })
-          writeSnippetFile('vite-legacy-polyfills.liquid', viteLegacyPolyfills)
-        }
-
-        if (viteLegacyTags.length > 0) {
-          writeSnippetFile('vite-legacy-tag.liquid', viteLegacyTags)
-        }
-      }
+      // Write vite-tag snippet for production build
+      fs.writeFileSync(snippetPath, viteTagSnippetContent)
     }
   }
 }
 
-function writeSnippetFile (filename: string, content: string): void {
-  return fs.writeFileSync(join(projectRoot, 'snippets', filename), content)
-}
+const viteTagDisclaimer = '{% comment %}\n  IMPORTANT: This snippet is automatically generated by vite-plugin-shopify.\n  Do not attempt to modify this file directly, as any changes will be overwritten by the next build.\n{% endcomment %}\n'
 
-function viteClient (): string {
-  return makeScriptTag({ src: getAssetUrl(CLIENT_SCRIPT_PATH), type: 'module' })
-}
+// Generate conditional statement for entry tag
+const viteEntryTag = (entryName: string, tag: string, isFirstEntry = false): string =>
+  `{% ${!isFirstEntry ? 'els' : ''}if vite-tag == "${entryName}" %}\n  ${tag}`
 
-function viteTags (entrypoints: Input): string {
-  return `${Object.keys(entrypoints)
-    .map(viteTag)
-    .join('\n\n')}`
-}
+// Generate a preload link tag for a script or style asset
+const preloadTag = (fileName: string, as: 'script' | 'style'): string =>
+  `<link rel="${as === 'script' ? 'modulepreload' : 'preload'}" href="{{ '${fileName}' | asset_url }}" as="${as}">`
 
-function viteTag (entrypoint: string): string {
-  return `{%- if vite-tag == '${entrypoint}' -%}\n  ${CSS_EXTENSIONS_REGEX.test(entrypoint)
-      ? makeLinkTag({ href: getAssetUrl(entrypoint), rel: 'stylesheet' })
-      : makeScriptTag({ src: getAssetUrl(entrypoint), type: 'module' })}\n{%- endif -%}`
-}
+// Generate a production script tag for a script asset
+const scriptTag = (fileName: string): string =>
+  `<script src="{{ '${fileName}' | asset_url }}" type="module" crossorigin="anonymous"></script>`
 
-function makeHtmlAttributes (attributes: Record<string, string>): string {
-  if (attributes === undefined) {
-    return ''
-  }
+// Generate a production stylesheet link tag for a style asset
+const stylesheetTag = (fileName: string): string =>
+  `{{ '${fileName}' | asset_url | stylesheet_tag }}`
 
-  const keys = Object.keys(attributes)
-
-  return keys.reduce((result, key) => {
-    result += ` ${key}="${attributes[key]}"`
-    return result
-  }, '')
-}
-
-function makeLinkTag (attributes: Record<string, string>): string {
-  return `<link${makeHtmlAttributes(attributes)}>`
-}
-
-function makeScriptTag (attributes: Record<string, string>): string {
-  return `<script${makeHtmlAttributes(attributes)}></script>`
-}
-
-function getAssetUrl (asset: string): string {
-  if (config.command === 'serve') {
-    const protocol = config?.server?.https === true ? 'https:' : 'http:'
-    const host = config?.server?.host as string
-    const port = config?.server?.port as number
-
-    return `${protocol}//${host}:${port.toString()}/${asset}`
-  }
-
-  return `{{ '${asset}' | asset_url }}`
-}
-
-function snippetFileExists (filename: string): boolean {
-  return fs.existsSync(join(projectRoot, 'snippets', filename))
-}
+// Generate vite-tag snippet for development
+const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/assets'): string =>
+  `${viteTagDisclaimer}{% liquid
+  assign file_url = vite-tag | prepend: '${assetHost}/${entrypointsDir}/'
+  assign file_extension = vite-tag | split: '.' | last
+  assign css_extensions = '${KNOWN_CSS_EXTENSIONS.join('|')}' | split: '|'
+  assign is_css = false
+  if css_extensions contains file_extension
+    assign is_css = true
+  endif
+%}
+{% if is_css == true %}
+  {{ file_url | stylesheet_tag }}
+{% else %}
+  <script src="{{ file_url }}" type="module" crossorigin="anonymous"></script>
+{% endif %}
+`

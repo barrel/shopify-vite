@@ -1,0 +1,40 @@
+{
+  "name": "@barrelny/seed-theme",
+  "version": "0.0.0",
+  "description": "S.E.E.D.: Starter Environment for Excellent (Shopify theme) Development",
+  "author": "Barrel, LLC",
+  "scripts": {
+    "dev": "run-p vite:serve shopify:serve",
+    "dev:sync": "run-p vite:serve \"shopify:serve -- --theme-editor-sync\"",
+    "start": "cross-env NODE_ENV=production run-s vite:build shopify:serve",
+    "start:sync": "cross-env NODE_ENV=production run-s vite:build \"shopify:serve -- --theme-editor-sync\"",
+    "vite:serve": "vite",
+    "vite:build": "vite build",
+    "shopify:serve": "shopify theme serve",
+    "shopify:push": "shopify theme push",
+    "shopify:pull": "shopify theme pull --nodelete"
+  },
+  "dependencies": {
+    "@shopify/theme-cart": "^4.1.1",
+    "@tailwindcss/aspect-ratio": "^0.4.0",
+    "@tailwindcss/forms": "^0.5.1",
+    "embla-carousel": "^6.2.0",
+    "lodash": "^4.17.21",
+    "tailwindcss": "^3.0.24"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "npm-run-all": "^4.1.5",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-import": "^14.1.0",
+    "postcss-mixins": "^9.0.2",
+    "postcss-preset-env": "^7.4.3",
+    "postcss": "^8.4.12",
+    "vite-plugin-shopify-modules": "workspace:*",
+    "vite-plugin-shopify": "workspace:*",
+    "vite": "3.0.0-beta.0"
+  },
+  "engines": {
+    "node": ">= 16.14.2"
+  }
+}

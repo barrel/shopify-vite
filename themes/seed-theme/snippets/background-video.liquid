@@ -1,0 +1,41 @@
+{% liquid
+  comment
+    This variable should match the "screens" breakpoint value from tailwind.config.js
+  endcomment
+  assign break_sm = 640
+
+  assign video_attr = 'autoplay loop muted playsinline'
+
+  if poster
+    assign video_attr = video_attr | append: ' poster=' | append: poster
+  endif
+
+  if fallback_desktop.blank
+    assign fallback_desktop = fallback_mobile
+  endif
+%}
+
+<background-video data-module="background-video" class="absolute inset-0">
+  <video class="absolute inset-0 w-full h-full object-cover z-10 opacity-0" {{ video_attr }}>
+    {% unless video_desktop == blank %}
+      <source media="(min-width: {{ break_sm }}px)" src="{{ video_desktop }}" type="video/mp4" />
+    {% endunless %}
+    <source src="{{ video_mobile }}" type="video/mp4" />
+  </video>
+  <background-video-pause-button
+    aria-label="{{ 'general.video.pause' | t }}"
+    data-play="{{ 'general.video.play' | t }}"
+    data-pause="{{ 'general.video.pause' | t }}"
+    class="z-20 absolute bottom-0 right-0 cursor-pointer"
+  >Play/Pause</background-video-pause-button>
+  <div class="absolute inset-0 z-0">
+    {% render 'responsive-image',
+      image: fallback_mobile,
+      class: 'absolute inset-0 block md:hidden'
+    %}
+    {% render 'responsive-image',
+      image: fallback_mobile,
+      class: 'absolute inset-0 hidden md:block'
+    %}
+  </div>
+</background-video>

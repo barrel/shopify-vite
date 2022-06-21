@@ -1,1 +1,42 @@
-{}
+{
+  "name": "vite-plugin-shopify-modules",
+  "version": "0.0.0",
+  "description": "Vite plugin for organizing Shopify theme code into modules",
+  "keywords": [
+    "vite",
+    "shopify",
+    "vite-plugin"
+  ],
+  "author": "Barrel, LLC",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "npm run build -- --watch",
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "watch": "tsup src/index.ts --dts --format cjs,esm --watch",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "vite": "3.0.0-beta.0"
+  },
+  "peerDependencies": {
+    "vite": "3.0.0-beta.0"
+  },
+  "dependencies": {
+    "chokidar": "^3.5.3",
+    "lodash": "^4.17.21"
+  }
+}

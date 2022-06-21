@@ -1,0 +1,11 @@
+{
+  "recommendations": [
+    "editorconfig.editorconfig",
+    "mgmcdermott.vscode-language-babel",
+    "dbaeumer.vscode-eslint",
+    "stylelint.vscode-stylelint",
+    "shopify.theme-check-vscode",
+    "bradlc.vscode-tailwindcss",
+    "alanzhang.open-symlink-source"
+  ]
+}

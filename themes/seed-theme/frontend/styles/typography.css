@@ -1,0 +1,59 @@
+/**
+ * Typography
+ * Global typography styles and custom utility classes
+ */
+
+/* @layer base { */
+  html {
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-font-smoothing: antialiased;
+  }
+/* } */
+
+/* Apply typography styles to content using utility classes or .wysiwyg container */
+/* @layer components { */
+  .h1,
+  .wysiwyg h1 {
+    @apply text-4xl md:text-6xl font-bold;
+  }
+
+  .h2,
+  .wysiwyg h2 {
+    @apply text-2xl md:text-5xl font-bold;
+  }
+
+  .h3,
+  .wysiwyg h3 {
+    @apply text-xl md:text-4xl font-bold;
+  }
+
+  .h4,
+  .wysiwyg h4 {
+    @apply text-lg md:text-3xl font-bold;
+  }
+
+  .h5,
+  .wysiwyg h5 {
+    @apply text-sm md:text-base font-bold;
+  }
+
+  .h6,
+  .wysiwyg h6 {
+    @apply text-sm md:text-base font-bold;
+  }
+
+  .p1,
+  .wysiwyg p {
+    @apply text-sm md:text-base;
+  }
+
+  .p2,
+  .wysiwyg p small {
+    @apply text-xs md:text-sm;
+  }
+
+  .link-underline,
+  .wysiwyg a {
+    @apply underline hover:text-sky-500;
+  }
+/* } */
