@@ -1,14 +1,14 @@
 # vite-plugin-shopify
 
-Shopify Vite is a project that aims to integrate Vite as seamlessly as possible with Shopify themes for a best-in-class developer experience.
+`vite-plugin-shopify` aims to integrate Vite as seamlessly as possible with Shopify themes for a best-in-class developer experience.
 
 ## Features
 
-* ⚡️ [Everything Vite provides](https://vitejs.dev/guide/features.html), plus:
-* 🤖 Automatic entrypoint detection
-* 🏷 Smart generation of `script` and `link` tags for entrypoints
-* 🌎 Dynamic public base path set to the `assets` folder of a theme
-* 👌 Zero-Config
+- ⚡️ [Everything Vite provides](https://vitejs.dev/guide/features.html), plus:
+- 🤖 Automatic entrypoint detection
+- 🏷 Smart generation of `script` and `link` tags for entrypoints
+- 🌎 Full support for assets served from Shopify CDN
+- 👌 Zero-Config
 
 ## Install
 
@@ -18,104 +18,98 @@ npm i vite-plugin-shopify -D
 # yarn
 yarn add vite-plugin-shopify -D
 
-# pnp
+# pnpm
 pnpm add vite-plugin-shopify -D
-
 ```
 
 ## Usage
 
-Add `Shopify` plugin to vite.config.js / vite.config.ts
+### Vite Plugin
+
+Add the `shopify` plugin to `vite.config.js` / `vite.config.ts`:
 
 ```ts
-// vite.config.js / vite.config.ts
-import { Shopify } from 'vite-plugin-shopify'
+import viteShopify from "vite-plugin-shopify";
 
 export default {
   plugins: [
-    Shopify()
+    /* Plugin options are not required, defaults shown */
+    viteShopify({
+      // Root path to your Shopify theme directory (location of snippets, sections, templates, etc.)
+      themeRoot: ".",
+      // Front-end source code directory
+      sourceCodeDir: "frontend",
+      // Front-end entry points directory
+      entrypointsDir: "frontend/entrypoints"
+    })
   ]
-}
+};
 ```
 
-* You can customize this file as needed, check Vite's [plugins](https://vitejs.dev/plugins/) and [config reference](https://vitejs.dev/config/) for more info.
+You can customize this file as needed. Check Vite's [plugins](https://vitejs.dev/plugins/) and [config reference](https://vitejs.dev/config/) for more info.
 
-Place your code under `frontend/entrypoints`
+### File structure
+
+The Shopify Vite plugin treats each script and stylesheet in the entrypoints directory (`frontend/entrypoints` by default) as an input for the Vite build. You can organize the rest of your frontend code however you'd like. For example:
 
 ```bash
 frontend
-  ├── entrypoints:
-  │   # only Vite entry files here
+  ├── entrypoints
+  │   │ # Vite entry point files
   │   │── theme.ts
   │   └── theme.scss
-  │── components:
+  │ # Additional frontend source files to be imported from entrypoints
+  │── components
   │   └── App.vue
-  │── stylesheets:
+  │── stylesheets
   │   └── my_styles.css
-  └── images:
+  └── images
       └── logo.svg
 ```
 
-* Only script and CSS files are supported as entrypoints.
+- Only script and stylesheet files are supported as entrypoints.
+- You can customize where `vite-plugin-shopify` loads entrypoints by specifying a value for the `entrypointsDir` plugin option.
 
-In your `<head>` element add this
+### Adding scripts and styles to your theme
 
-```liquid
-{%- render 'vite-client' -%}
-```
-
-* `vite-plugin-shopify` will generate `vite-client.liquid`.
-* This will add a `<script>` tag to include the ViteJS HMR client.
-* They will only render if the dev server is running.
-
-Then add this snippet (in your `<head>` element too) to load your scripts:
+In your `<head>` element, render the `vite-tag` snippet to insert tags for loading assets from a given entrypoint file:
 
 ```liquid
-{%- render 'vite-tag' with 'theme.ts' -%}
+{% render 'vite-tag' with 'theme.ts' %}
 ```
 
-* `vite-plugin-shopify` will generate `vite-tag.liquid`.
-* This snippet includes the tag for the entrypoint given as a parameter.
-* All script tags are generated with a `type="module"` and `crossorigin` attributes just like ViteJS does by default.
-* In production mode, asset URLs will use the `asset_url` filter
-* In production mode, the `vite-tag` snippet will automatically inject tags for styles or entries imported within a script.
-* When running the development server, these tags are omitted, as Vite will load the dependencies.
-* Example output:
+- `vite-plugin-shopify` will generate new versions of `vite-tag.liquid` during development and on each production build.
+- The `vite-tag` snippet will render HTML tags to load the provided entrypoint.
+- Script tags are generated with a `type="module"` and `crossorigin` attributes like Vite does by default.
+- In production mode, the `asset_url` filter is used to load resources from the Shopify CDN.
+- In production mode, the `vite-tag` snippet will automatically render separate tags for loading stylesheets and preloading imported JS chunks.
+- When running the development server, these tags are omitted, as Vite will load the dependencies as separate modules.
 
 ```txt
-# production mode
-{%- if vite-tag == 'theme.ts' -%}
-  <script src="{{ 'theme.3b623fca.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
-  <link href="{{ 'lodash.13b0d649.js' | asset_url }}" rel="modulepreload" as="script" crossorigin="anonymous">
-  <link rel="stylesheet" href="{{ 'theme.4d95c99b.css' | asset_url }}">
-{%- endif -%}
+{% render 'vite-tag' with 'theme.ts' %}
 
-# development mode
-{%- if vite-tag == 'theme.ts' -%}
-  <script src="http://localhost:3000/theme.js" type="module"></script>
-{%- endif -%}
+# HTML output (development)
+<script src="http://localhost:5173/theme.ts" type="module"></script>
+
+# HTML output (production)
+<link rel="stylesheet" href="{{ 'theme.4d95c99b.css' | asset_url }}">
+<script src="{{ 'theme.3b623fca.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
+<link href="{{ 'lodash.13b0d649.js' | asset_url }}" rel="modulepreload" as="script" crossorigin="anonymous">
 ```
 
-Then add this script (in your `<head>` element too) to expose the URL of the `assets` folder of the theme
-
-```html
-<script>
-  window.themeAssetsBaseUrl = `{{ 't.js' | asset_url | split: 't.js' | first }}`;
-</script>
-```
-
-* In production mode, JS-imported asset URLs and CSS `url()` references will be adjusted to respect this base url.
+- In development mode, assets are loaded from the Vite development server host.
+- In production mode, assets are loaded from the Shopify CDN using the `asset_url` filter and a relative base path.
 
 For convenience, `~/` and `@/` are aliased to your `frontend` folder, which simplifies imports:
 
 ```ts
-import App from '@/components/App.vue'
-import '@/styles/my_styles.css'
+import App from "@/components/App.vue";
+import "@/styles/my_styles.css";
 ```
 
 ## Example
 
-See the example folder.
+See the [vite-shopify-example](../vite-shopify-example/) theme for a basic demonstration of `vite-plugin-shopify` usage.
 
 ## To-Do
 
@@ -123,12 +117,12 @@ See the example folder.
 
 ## Bugs
 
-Please create an issue if you found any bugs, to help me improve this project!
+Please create an issue if you found any bugs, to help us improve this project!
 
 ## Thanks
 
-We would like to specifically thank the following projects, for the inspiration and help in regards to the creation of vite-plugin-shopify:
+We would like to specifically thank the following projects, for inspiring us and helping guide the implementation for this plugin by example:
 
-* [vite_ruby](https://github.com/ElMassimo/vite_ruby)
-* [laravel-vite](https://github.com/innocenzi/laravel-vite)
-* [nuxt.js](https://github.com/nuxt/framework)
+- [vite_ruby](https://github.com/ElMassimo/vite_ruby)
+- [laravel-vite](https://github.com/innocenzi/laravel-vite)
+- [nuxt.js](https://github.com/nuxt/framework)

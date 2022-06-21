@@ -1,16 +1,18 @@
 {
   "name": "@barrelny/seed-theme",
   "version": "0.0.0",
-  "description": "Starting Environment for Excellent (Shopify Theme) Development",
+  "description": "S.E.E.D.: Starter Environment for Excellent (Shopify theme) Development",
   "author": "Barrel, LLC",
   "scripts": {
     "dev": "run-p vite:serve shopify:serve",
+    "dev:sync": "run-p vite:serve \"shopify:serve -- --theme-editor-sync\"",
     "start": "cross-env NODE_ENV=production run-s vite:build shopify:serve",
-    "vite:build": "vite build",
+    "start:sync": "cross-env NODE_ENV=production run-s vite:build \"shopify:serve -- --theme-editor-sync\"",
     "vite:serve": "vite",
+    "vite:build": "vite build",
+    "shopify:serve": "shopify theme serve",
     "shopify:push": "shopify theme push",
-    "shopify:pull": "shopify theme pull --nodelete",
-    "shopify:serve": "shopify theme serve"
+    "shopify:pull": "shopify theme pull --nodelete"
   },
   "dependencies": {
     "@shopify/theme-cart": "^4.1.1",
@@ -30,7 +32,7 @@
     "postcss": "^8.4.12",
     "vite-plugin-shopify-modules": "workspace:*",
     "vite-plugin-shopify": "workspace:*",
-    "vite": "3.0.0-alpha.11"
+    "vite": "3.0.0-beta.0"
   },
   "engines": {
     "node": ">= 16.14.2"

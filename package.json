@@ -1,11 +1,17 @@
 {
   "name": "@barrelny/shopify",
   "version": "0.0.0",
-  "workspaces": ["packages/*"],
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "build": "turbo run build --filter=vite-plugin-*",
     "dev": "turbo run dev --filter=vite-plugin-* --parallel",
-    "lint": "turbo run lint"
+    "seed:dev": "cd packages/seed-theme && npm run dev",
+    "lint": "turbo run lint",
+    "change:add": "changeset add",
+    "change:version": "changeset version",
+    "change:publish": "changeset publish"
   },
   "engines": {
     "node": ">=16.0.0"
@@ -14,17 +20,18 @@
     "turbo": "latest"
   },
   "devDependencies": {
+    "@changesets/cli": "^2.23.0",
     "@types/debug": "^4.1.7",
     "@types/lodash": "^4.14.182",
     "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^4.0.1",
     "@typescript-eslint/parser": "^4.0.0",
     "cross-env": "^7.0.3",
+    "eslint": "^7.12.1",
     "eslint-config-standard-with-typescript": "^21.0.1",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint": "^7.12.1",
     "rollup": "^2.75.6",
     "tsup": "^6.1.2",
     "typescript": "^4.7.3"
