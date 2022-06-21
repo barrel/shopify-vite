@@ -18,7 +18,7 @@ npm i vite-plugin-shopify -D
 # yarn
 yarn add vite-plugin-shopify -D
 
-# pnp
+# pnpm
 pnpm add vite-plugin-shopify -D
 
 ```
