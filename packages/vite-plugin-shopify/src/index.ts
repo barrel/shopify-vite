@@ -10,13 +10,13 @@ const vitePluginShopify = (options: VitePluginShopifyOptions = {}): Plugin[] => 
   const resolvedOptions = resolveOptions(options)
 
   const plugins = [
-    // Apply plugin for generating manifest including CSS entries
+    // Apply plugin for generating manifest file including CSS assets
     assetsManifest({ manifestFile: 'assets-manifest.json' }),
     //  Apply plugin for configuring Vite settings
     shopifyConfig(resolvedOptions),
     // Apply plugin for generating HTML asset tags through vite-tag snippet
     shopifyHtml(resolvedOptions),
-    // Apply plugin for adjusting URLs in CSS to work on Shopify servers
+    // Apply plugin for adjusting URLs in CSS to load from Vite dev server
     shopifyCssUrl()
   ]
 

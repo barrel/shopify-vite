@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type { Plugin, ResolvedConfig } from 'vite'
+import type { Manifest, Plugin, ResolvedConfig } from 'vite'
 
 import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
 import { ResolvedVitePluginShopifyOptions } from './options'
@@ -30,21 +30,22 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
     },
     closeBundle () {
       const assetTags: string[] = []
+      const manifest = JSON.parse(
+        fs.readFileSync(path.resolve(options.themeRoot, 'assets/assets-manifest.json'), 'utf8')
+      ) as Manifest
 
-      const manifest = fs.readFileSync(path.resolve(options.themeRoot, 'assets/assets-manifest.json'), 'utf8')
-      const manifestJson = JSON.parse(manifest)
+      Object.keys(manifest).forEach((src) => {
+        const { file, isEntry, css, imports } = manifest[src]
+        const ext = path.extname(src)
 
-      Object.keys(manifestJson).forEach((entryPath) => {
-        const { file, src, isEntry, css, imports } = manifestJson[entryPath]
-        const ext = path.extname(entryPath)
-
+        // Generate tags for JS and CSS entry points
         if (isEntry === true) {
           const entryName = path.relative(options.entrypointsDir, src)
           const tagsForEntry = []
 
           if (ext.match(CSS_EXTENSIONS_REGEX) !== null) {
             // Render style tag for CSS entry
-            tagsForEntry.push(stylesheetTag(css[0]))
+            tagsForEntry.push(stylesheetTag((css as string[])[0]))
           } else {
             // Render script tag for JS entry
             tagsForEntry.push(scriptTag(file))
@@ -58,7 +59,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
             if (typeof imports !== 'undefined' && imports.length > 0) {
               imports.forEach((importFilename: string) => {
-                const chunk = manifestJson[importFilename]
+                const chunk = manifest[importFilename]
                 // Render preload tags for JS imports
                 tagsForEntry.push(preloadTag(chunk.file, 'script'))
               })
@@ -87,11 +88,11 @@ const viteEntryTag = (entryName: string, tag: string, isFirstEntry = false): str
 const preloadTag = (fileName: string, as: 'script' | 'style'): string =>
   `<link rel="${as === 'script' ? 'modulepreload' : 'preload'}" href="{{ '${fileName}' | asset_url }}" as="${as}">`
 
-// Generate a script tag for a script asset
+// Generate a production script tag for a script asset
 const scriptTag = (fileName: string): string =>
   `<script src="{{ '${fileName}' | asset_url }}" type="module" crossorigin="anonymous"></script>`
 
-// Generate a stylesheet link tag for a style asset
+// Generate a production stylesheet link tag for a style asset
 const stylesheetTag = (fileName: string): string =>
   `{{ '${fileName}' | asset_url | stylesheet_tag }}`
 
@@ -102,11 +103,9 @@ const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir =
   assign file_extension = vite-tag | split: '.' | last
   assign css_extensions = '${KNOWN_CSS_EXTENSIONS.join('|')}' | split: '|'
   assign is_css = false
-  for css_ext in css_extensions
-    if file_extension == css_ext
-      assign is_css = true
-    endif
-  endfor
+  if css_extensions contains file_extension
+    assign is_css = true
+  endif
 %}
 {% if is_css == true %}
   {{ file_url | stylesheet_tag }}

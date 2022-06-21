@@ -10,5 +10,5 @@ export const KNOWN_CSS_EXTENSIONS = [
 ]
 
 export const CSS_EXTENSIONS_REGEX = new RegExp(
-  `\\.(${KNOWN_CSS_EXTENSIONS.join('|')})$`
+  `\\.(${KNOWN_CSS_EXTENSIONS.join('|')})(\\?.+)?$`
 )

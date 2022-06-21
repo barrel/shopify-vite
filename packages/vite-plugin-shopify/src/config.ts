@@ -10,14 +10,14 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
     name: 'vite-plugin-shopify-config',
     config () {
       const generatedConfig: UserConfig = {
-        // Use relative base path so imported assets load from Shopify CDN
-        base: '',
-        // Do not use public directory
+        // Use relative base path so to load imported assets from Shopify CDN
+        base: './',
+        // Do not use "public" directory
         publicDir: false,
         build: {
-          // Output static files to "assets" directory
+          // Output files to "assets" directory
           outDir: path.join(options.themeRoot, 'assets'),
-          // Do not use subfolder for output assets
+          // Do not use subfolder for static assets
           assetsDir: '',
           // Clear output directory before each build
           emptyOutDir: true,
