@@ -1,5 +1,7 @@
 # vite-plugin-shopify
 
+NOTE: This plugin targets Vite 3.0.0 and above. For earlier versions, [v0](https://github.com/barrel/barrel-shopify/tree/v0/packages/vite-plugin-shopify).
+
 `vite-plugin-shopify` aims to integrate Vite as seamlessly as possible with Shopify themes for a best-in-class developer experience.
 
 ## Features
