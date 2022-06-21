@@ -42,7 +42,36 @@ importers:
   packages/create-shopify-theme:
     specifiers: {}
 
-  packages/seed-theme:
+  packages/tsconfig:
+    specifiers: {}
+
+  packages/vite-plugin-shopify:
+    specifiers:
+      fast-glob: ^3.2.11
+      magic-string: ^0.26.2
+      tsconfig: workspace:*
+      vite: 3.0.0-beta.0
+    dependencies:
+      fast-glob: 3.2.11
+      magic-string: 0.26.2
+    devDependencies:
+      tsconfig: link:../tsconfig
+      vite: 3.0.0-beta.0
+
+  packages/vite-plugin-shopify-modules:
+    specifiers:
+      chokidar: ^3.5.3
+      lodash: ^4.17.21
+      tsconfig: workspace:*
+      vite: 3.0.0-beta.0
+    dependencies:
+      chokidar: 3.5.3
+      lodash: 4.17.21
+    devDependencies:
+      tsconfig: link:../tsconfig
+      vite: 3.0.0-beta.0
+
+  themes/seed-theme:
     specifiers:
       '@shopify/theme-cart': ^4.1.1
       '@tailwindcss/aspect-ratio': ^0.4.0
@@ -76,39 +105,10 @@ importers:
       postcss-mixins: 9.0.2_postcss@8.4.14
       postcss-preset-env: 7.7.1_postcss@8.4.14
       vite: 3.0.0-beta.0
-      vite-plugin-shopify: link:../vite-plugin-shopify
-      vite-plugin-shopify-modules: link:../vite-plugin-shopify-modules
+      vite-plugin-shopify: link:../../packages/vite-plugin-shopify
+      vite-plugin-shopify-modules: link:../../packages/vite-plugin-shopify-modules
 
-  packages/tsconfig:
-    specifiers: {}
-
-  packages/vite-plugin-shopify:
-    specifiers:
-      fast-glob: ^3.2.11
-      magic-string: ^0.26.2
-      tsconfig: workspace:*
-      vite: 3.0.0-beta.0
-    dependencies:
-      fast-glob: 3.2.11
-      magic-string: 0.26.2
-    devDependencies:
-      tsconfig: link:../tsconfig
-      vite: 3.0.0-beta.0
-
-  packages/vite-plugin-shopify-modules:
-    specifiers:
-      chokidar: ^3.5.3
-      lodash: ^4.17.21
-      tsconfig: workspace:*
-      vite: 3.0.0-beta.0
-    dependencies:
-      chokidar: 3.5.3
-      lodash: 4.17.21
-    devDependencies:
-      tsconfig: link:../tsconfig
-      vite: 3.0.0-beta.0
-
-  packages/vite-shopify-example:
+  themes/vite-shopify-example:
     specifiers:
       lodash-es: ^4.17.21
       sass: ^1.52.2
@@ -119,9 +119,9 @@ importers:
       lodash-es: 4.17.21
     devDependencies:
       sass: 1.52.3
-      tsconfig: link:../tsconfig
+      tsconfig: link:../../packages/tsconfig
       vite: 3.0.0-beta.0_sass@1.52.3
-      vite-plugin-shopify: link:../vite-plugin-shopify
+      vite-plugin-shopify: link:../../packages/vite-plugin-shopify
 
 packages:
 
@@ -3042,7 +3042,7 @@ packages:
       postcss: 8.4.14
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
-      resolve: 1.22.0
+      resolve: 1.22.1
 
   /postcss-initial/4.0.1_postcss@8.4.14:
     resolution: {integrity: sha512-0ueD7rPqX8Pn1xJIjay0AZeIuDoF+V+VvMt/uOnn+4ezUKhZM/NokDeP6DwMNyIoYByuN/94IQnt5FEkaN59xQ==}
@@ -3454,6 +3454,7 @@ packages:
       is-core-module: 2.9.0
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
+    dev: true
 
   /resolve/1.22.1:
     resolution: {integrity: sha512-nBpuuYuY5jFsli/JIs1oldw6fOQCBioohqWZg/2hiaOybXOft4lonv85uDOKXdf8rhyK159cxU5cDcK/NKk8zw==}
@@ -3462,7 +3463,6 @@ packages:
       is-core-module: 2.9.0
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
-    dev: true
 
   /reusify/1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
@@ -3785,7 +3785,7 @@ packages:
       postcss-selector-parser: 6.0.10
       postcss-value-parser: 4.2.0
       quick-lru: 5.1.1
-      resolve: 1.22.0
+      resolve: 1.22.1
     transitivePeerDependencies:
       - ts-node
     dev: false

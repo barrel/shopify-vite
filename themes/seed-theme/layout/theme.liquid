@@ -8,9 +8,6 @@
 
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
 
-    {% comment %} <link rel="preload" href="{{- 'theme.css' | asset_url -}}" as="style">
-    <link rel="preload" href="{{- 'theme.js' | asset_url -}}" as="script"> {% endcomment %}
-
     {%- if canonical_url != blank -%}
       <link rel="canonical" href="{{ canonical_url }}">
     {%- endif -%}
@@ -31,7 +28,7 @@
       }
     </script>
 
-    {% render 'vite-tag' with 'theme.js' %}
+    {% render 'vite-tag' with 'base.css' %}
 
     {{ content_for_header }}
   </head>
@@ -44,5 +41,7 @@
       {{ content_for_layout }}
     </main>
     {% section 'site-footer' %}
+
+    {% render 'vite-tag' with 'theme.js' %}
   </body>
 </html>

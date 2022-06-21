@@ -2,10 +2,10 @@ const plugin = require('tailwindcss/plugin')
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  content: ['./**/*.{liquid,json}', './frontend/**/*.js'],
+  content: ['./**/*.{liquid,json}', './{frontend,modules}/**/*.js'],
   theme: {
     fontFamily: {
-      sans: ['Corporate S Pro', ...defaultTheme.fontFamily.sans]
+      sans: ['Helvetica Neue', ...defaultTheme.fontFamily.sans]
     },
     fontSize: {
       xs: ['14px', { lineHeight: '1' }],
@@ -18,20 +18,6 @@ module.exports = {
       '4xl': ['32px', { lineHeight: '1' }],
       '5xl': ['42px', { lineHeight: '1' }],
       '6xl': ['54px', { lineHeight: '1' }]
-      // '5xl': ['3rem', { lineHeight: '1' }],
-      // '6xl': ['3.75rem', { lineHeight: '1' }],
-      // '7xl': ['4.5rem', { lineHeight: '1' }],
-      // '8xl': ['6rem', { lineHeight: '1' }],
-      // '9xl': ['8rem', { lineHeight: '1' }]
-      // xs: ['12px', '1'],
-      // sm: ['13px', '1'],
-      // base: ['14px', '1'],
-      // md: ['15px', '1'],
-      // lg: ['24px', '1'],
-      // xl: ['28px', '1'],
-      // '2xl': ['32px', '1'],
-      // '3xl': ['55px', '1'],
-      // '4xl': ['70px', '1']
     },
     // NOTE: If these values change, update corresponding break_* variables in liquid snippets
     screens: {

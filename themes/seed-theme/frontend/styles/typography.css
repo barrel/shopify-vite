@@ -3,15 +3,15 @@
  * Global typography styles and custom utility classes
  */
 
-@layer base {
+/* @layer base { */
   html {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
   }
-}
+/* } */
 
 /* Apply typography styles to content using utility classes or .wysiwyg container */
-@layer components {
+/* @layer components { */
   .h1,
   .wysiwyg h1 {
     @apply text-4xl md:text-6xl font-bold;
@@ -56,4 +56,4 @@
   .wysiwyg a {
     @apply underline hover:text-sky-500;
   }
-}
+/* } */

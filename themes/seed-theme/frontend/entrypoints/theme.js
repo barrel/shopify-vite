@@ -2,8 +2,6 @@
  * Theme.js
  */
 
-import '../styles/theme.css'
-
 /* Modules */
 import '../../modules/background-video/background-video'
 import '../../modules/cart/cart'

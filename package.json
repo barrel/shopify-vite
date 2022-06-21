@@ -2,7 +2,8 @@
   "name": "@barrelny/shopify",
   "version": "0.0.0",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "themes/*"
   ],
   "scripts": {
     "build": "turbo run build --filter=vite-plugin-*",

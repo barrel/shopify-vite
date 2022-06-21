@@ -3,9 +3,9 @@
  * Custom utility classes for layout
  */
 
-@layer components {
+/* @layer components { */
   /* Responsive horizontal padding */
   .px-responsive {
     @apply px-6 sm:px-12;
   }
-}
+/* } */
