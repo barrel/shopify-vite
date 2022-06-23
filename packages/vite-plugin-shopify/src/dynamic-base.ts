@@ -41,7 +41,7 @@ export default function VitePluginShopifyDynamicBase (): Plugin {
       s.replace(/from *['"]\/__THEME_BASE__(\/[^'"]*)['"]/g, 'from "$1"')
 
       // Dynamically compute string URLs featuring baseURL
-      const delimiterRE = /(?<!(const base = |from *))(`([^`]*)\/__THEME_BASE__\/([^`]*)`|'([^\n']*)\/__THEME_BASE__\/([^\n']*)'|"([^\n"]*)\/__THEME_BASE__\/([^\n"]*)")/g
+      const delimiterRE = /(?<!(const base = |from *))((?<!\\)`([^`]*)\/__THEME_BASE__\/([^`]*)(?<!\\)`|(?<!\\)'([^\n']*)\/__THEME_BASE__\/([^\n']*)(?<!\\)'|(?<!\\)"([^\n"]*)\/__THEME_BASE__\/([^\n"]*)(?<!\\)")/g
       /* eslint-disable-next-line no-template-curly-in-string */
       s.replace(delimiterRE, r => '`' + r.replace(/\/__THEME_BASE__\//g, '${publicAssetsURL}').slice(1, -1) + '`')
 
