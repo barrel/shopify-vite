@@ -77,8 +77,8 @@ export default function VitePluginShopifyDynamicBase (): Plugin {
         }
         if (asset.type === 'chunk' && typeof asset.code === 'string') {
           asset.code = asset.code
-            .replace(/"\/__THEME_BASE__\/([^"]*)"\.replace\("\/__THEME_BASE__",\s?""\)/g, '"$1"')
-            .replace(/'\/__THEME_BASE__\/([^']*)'\.replace\("\/__THEME_BASE__",\s?""\)/g, '"$1"')
+            .replace(/"\/__THEME_BASE__\/([^"]*)"\.replace\("\/__THEME_BASE__", ""\)/g, '"$1"')
+            .replace(/'\/__THEME_BASE__\/([^']*)'\.replace\("\/__THEME_BASE__", ""\)/g, '"$1"')
         }
       }
     }
