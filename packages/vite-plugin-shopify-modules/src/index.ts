@@ -4,11 +4,21 @@ import { Plugin, ResolvedConfig } from 'vite'
 import { throttle } from 'lodash'
 import chokidar from 'chokidar'
 
-import { VitePluginShopifyModulesOptions, resolveOptions } from './options'
+import { VitePluginShopifyModulesOptions, ResolvedVitePluginShopifyModulesOptions, resolveOptions } from './options'
 
-export default function shopifyModules (options: VitePluginShopifyModulesOptions): Plugin {
+export default function shopifyModules (options: VitePluginShopifyModulesOptions = {}): Plugin {
   const resolvedOptions = resolveOptions(options)
   let _config: ResolvedConfig
+
+  // Create throttled function for generating module symlinks
+  const linkModulesFn = throttle(
+    linkModules.bind(null, resolvedOptions),
+    500,
+    {
+      leading: true,
+      trailing: false
+    }
+  )
 
   return {
     name: 'vite-plugin-shopify-modules',
@@ -17,25 +27,23 @@ export default function shopifyModules (options: VitePluginShopifyModulesOptions
       _config = config
     },
     buildStart: () => {
-      const linkModulesCallback = throttle(() => {
-        linkModules({ rootPath: process.cwd(), modulesDir: resolvedOptions.modulesDir })
-      }, 500, { leading: true, trailing: false })
-
-      linkModulesCallback()
+      // Link modules on build start
+      linkModulesFn()
 
       if (_config.command === 'serve') {
         // Watch for relevant file or directory changes to re-run script
         chokidar.watch([resolvedOptions.modulesDir, '(sections|snippets)/*.liquid'], {
           ignoreInitial: true,
           followSymlinks: false
-        }).on('all', linkModulesCallback)
+        }).on('all', linkModulesFn)
       }
     }
   }
 }
 
 // Check for module folders with corresponding liquid files and set up symlinks as needed
-const linkModules = ({ modulesDir, rootPath }: { modulesDir: string, rootPath: string }): void => {
+const linkModules = ({ modulesDir, themeRoot }: ResolvedVitePluginShopifyModulesOptions): void => {
+  const rootPath = path.resolve(themeRoot)
   const sectionsDir = path.resolve(rootPath, './sections')
   const snippetsDir = path.resolve(rootPath, './snippets')
 
