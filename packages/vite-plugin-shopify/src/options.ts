@@ -15,7 +15,7 @@ export interface ResolvedVitePluginShopifyOptions {
 export const resolveOptions = (
   options: VitePluginShopifyOptions
 ): ResolvedVitePluginShopifyOptions => {
-  const themeRoot = typeof options.themeRoot !== 'undefined' ? path.normalize(options.themeRoot) : ''
+  const themeRoot = typeof options.themeRoot !== 'undefined' ? path.normalize(options.themeRoot) : './'
   const sourceCodeDir = typeof options.sourceCodeDir !== 'undefined' ? path.normalize(options.sourceCodeDir) : 'frontend'
   const entrypointsDir = typeof options.entrypointsDir !== 'undefined' ? path.normalize(options.entrypointsDir) : path.join(sourceCodeDir, 'entrypoints')
 

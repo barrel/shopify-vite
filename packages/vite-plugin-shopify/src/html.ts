@@ -31,7 +31,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
     closeBundle () {
       const assetTags: string[] = []
       const manifest = JSON.parse(
-        fs.readFileSync(path.resolve(options.themeRoot, 'assets/assets-manifest.json'), 'utf8')
+        fs.readFileSync(path.resolve(options.themeRoot, 'assets/manifest.json'), 'utf8')
       ) as Manifest
 
       Object.keys(manifest).forEach((src) => {
@@ -45,7 +45,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
           if (ext.match(CSS_EXTENSIONS_REGEX) !== null) {
             // Render style tag for CSS entry
-            tagsForEntry.push(stylesheetTag((css as string[])[0]))
+            tagsForEntry.push(stylesheetTag(file))
           } else {
             // Render script tag for JS entry
             tagsForEntry.push(scriptTag(file))

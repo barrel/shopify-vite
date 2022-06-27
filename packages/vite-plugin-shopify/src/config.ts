@@ -24,7 +24,9 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
           // Configure bundle entry points
           rollupOptions: {
             input: glob.sync(path.join(options.entrypointsDir, '**/*'), { onlyFiles: true })
-          }
+          },
+          // Output manifest file for backend integration
+          manifest: true
         },
         resolve: {
           // Provide import alias to source code dir for convenience
