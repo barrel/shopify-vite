@@ -8,9 +8,8 @@
   },
   "devDependencies": {
     "sass": "^1.52.2",
-    "vite": "3.0.0-beta.0",
-    "vite-plugin-shopify": "workspace:*",
-    "tsconfig": "workspace:*"
+    "vite": "3.0.0-beta.4",
+    "vite-plugin-shopify": "workspace:*"
   },
   "dependencies": {
     "lodash-es": "^4.17.21"

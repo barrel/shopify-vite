@@ -28,12 +28,8 @@
     "watch": "tsup src/index.ts --dts --format cjs,esm --watch",
     "lint": "eslint ."
   },
-  "devDependencies": {
-    "tsconfig": "workspace:*",
-    "vite": "3.0.0-beta.0"
-  },
   "peerDependencies": {
-    "vite": "3.0.0-beta.0"
+    "vite": "3.0.0-beta.4"
   },
   "dependencies": {
     "chokidar": "^3.5.3",
