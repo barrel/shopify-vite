@@ -1,0 +1,39 @@
+{
+  "name": "vite-shopify",
+  "version": "0.0.0",
+  "description": "Vite Shopify preset",
+  "keywords": [
+    "vite",
+    "shopify",
+    "vite-plugin"
+  ],
+  "author": "Barrel, LLC",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "scripts": {
+    "dev": "npm run build -- --watch",
+    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "watch": "tsup src/index.ts --dts --format cjs,esm --watch",
+    "lint": "eslint ."
+  },
+  "peerDependencies": {
+    "vite": "3.0.0-beta.4"
+  },
+  "dependencies": {
+    "vite-plugin-shopify": "workspace:*",
+    "vite-plugin-shopify-modules": "workspace:*",
+    "vite-plugin-shopify-theme-settings": "workspace:*"
+  }
+}
