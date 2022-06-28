@@ -1,0 +1,69 @@
+{% liquid
+  assign collection_list = section.settings.collections
+
+  case section.settings.sort
+    when 'products_high' or 'products_low'
+      assign collection_list = collection_list | sort: 'all_products_count'
+    when 'date' or 'date_reversed'
+      assign collection_list = collection_list | sort: 'published_at'
+  endcase
+
+  if section.settings.sort == 'products_high' or section.settings.sort == 'date_reversed' or section.settings.sort == 'alphabetical_reversed'
+    assign collection_list = collection_list | reverse
+  endif
+%}
+
+<div>
+  {% for collection in collection_list %}
+    {% render 'collection-card', collection: collection %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "settings": [
+    {
+      "type": "collection_list",
+      "id": "collections",
+      "label": "Collections"
+    },
+    {
+      "type": "select",
+      "id": "sort",
+      "options": [
+        {
+          "value": "manual",
+          "label": "Manual (drag and drop above)"
+        },
+        {
+          "value": "alphabetical",
+          "label": "Alphabetically, A-Z"
+        },
+        {
+          "value": "alphabetical_reversed",
+          "label": "Alphabetically, Z-A"
+        },
+        {
+          "value": "date_reversed",
+          "label": "Date, new to old"
+        },
+        {
+          "value": "date",
+          "label": "Date, old to new"
+        },
+        {
+          "value": "products_high",
+          "label": "Product count, high to low"
+        },
+        {
+          "value": "products_low",
+          "label": "Product count, low to high"
+        }
+      ],
+      "default": "manual",
+      "label": "Sort collections by:"
+    }
+  ]
+}
+{% endschema %}

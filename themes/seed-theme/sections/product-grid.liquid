@@ -1,20 +1,57 @@
-{% render 'product-grid', blocks: section.blocks %}
+{% liquid
+  assign product_list = section.settings.products
+
+  case section.settings.sort
+    when 'alphabetical' or 'alphabetical_reversed'
+      assign product_list = product_list | sort: 'title'
+    when 'date' or 'date_reversed'
+      assign product_list = product_list | sort: 'published_at'
+  endcase
+
+  if section.settings.sort == 'date_reversed' or section.settings.sort == 'alphabetical_reversed'
+    assign product_list = product_list | reverse
+  endif
+%}
+
+{% render 'product-grid', products: product_list %}
 
 {% schema %}
 {
   "name": "Product Grid",
-  "max_blocks": 4,
-  "blocks": [
+  "settings": [
     {
-      "type": "product",
-      "name": "Product",
-      "settings": [
+      "type": "product_list",
+      "id": "products",
+      "label": "Products",
+      "info": "Select one or more products to feature in this section."
+    },
+    {
+      "type": "select",
+      "id": "sort",
+      "options": [
         {
-          "type": "product",
-          "id": "product",
-          "label": "Product"
+          "value": "manual",
+          "label": "Manual (drag and drop above)"
+        },
+        {
+          "value": "alphabetical",
+          "label": "Alphabetically, A-Z"
+        },
+        {
+          "value": "alphabetical_reversed",
+          "label": "Alphabetically, Z-A"
+        },
+        {
+          "value": "date_reversed",
+          "label": "Date, new to old"
+        },
+        {
+          "value": "date",
+          "label": "Date, old to new"
         }
-      ]
+      ],
+      "default": "manual",
+      "label": "Sort products by"
     }
   ]
 }

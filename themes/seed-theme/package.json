@@ -3,6 +3,10 @@
   "version": "0.0.0",
   "description": "S.E.E.D.: Starter Environment for Excellent (Shopify theme) Development",
   "author": "Barrel, LLC",
+  "homepage": "https://github.com/barrel/barrel-shopify/tree/main/themes/seed-theme",
+  "bugs": {
+    "url": "https://github.com/barrel/barrel-shopify/issues"
+  },
   "scripts": {
     "dev": "run-p vite:serve shopify:serve",
     "dev:sync": "run-p vite:serve \"shopify:serve -- --theme-editor-sync\"",
@@ -31,8 +35,9 @@
     "postcss-preset-env": "^7.4.3",
     "postcss": "^8.4.12",
     "vite-plugin-shopify-modules": "workspace:*",
+    "vite-plugin-shopify-theme-settings": "workspace:*",
     "vite-plugin-shopify": "workspace:*",
-    "vite": "3.0.0-beta.0"
+    "vite": "3.0.0-beta.4"
   },
   "engines": {
     "node": ">= 16.14.2"

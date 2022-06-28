@@ -3,10 +3,22 @@
     "collection_banner": {
       "type": "text-banner",
       "settings": {
+        "subheading": "Collection",
+        "heading": "{{ collection.title }}",
+        "content": "",
+        "link_text": "",
+        "link_url": "",
+        "link_style": "dark",
+        "image_position": "background",
+        "image_alt": ""
       }
+    },
+    "collection_product_grid": {
+      "type": "collection-product-grid"
     }
   },
   "order": [
-    "collection_banner"
+    "collection_banner",
+    "collection_product_grid"
   ]
 }

@@ -57,76 +57,26 @@
     },
     "home_product_grid_1": {
       "type": "product-grid",
-      "blocks": {
-        "ec03836c-d7a3-4aa9-b1ea-e8af854a934f": {
-          "type": "product",
-          "settings": {
-            "product": "floral-flower"
-          }
-        },
-        "10b32705-e1c3-4cd7-a34e-400ef04363ec": {
-          "type": "product",
-          "settings": {
-            "product": "green-river"
-          }
-        },
-        "458983ca-2cb4-4690-a953-1385259eb3b4": {
-          "type": "product",
-          "settings": {
-            "product": "misty-violet"
-          }
-        },
-        "bfb80ae3-dc60-4e7c-9589-b6c87f610cdc": {
-          "type": "product",
-          "settings": {
-            "product": "old-fog"
-          }
-        }
-      },
-      "block_order": [
-        "ec03836c-d7a3-4aa9-b1ea-e8af854a934f",
-        "10b32705-e1c3-4cd7-a34e-400ef04363ec",
-        "458983ca-2cb4-4690-a953-1385259eb3b4",
-        "bfb80ae3-dc60-4e7c-9589-b6c87f610cdc"
-      ],
       "settings": {
+        "products": [
+          "floral-flower",
+          "green-river",
+          "misty-violet",
+          "old-fog"
+        ],
+        "sort": "manual"
       }
     },
     "home_product_grid_2": {
       "type": "product-grid",
-      "blocks": {
-        "2e44cb22-c15e-4659-95d9-d8bb725b8e58": {
-          "type": "product",
-          "settings": {
-            "product": "old-fog"
-          }
-        },
-        "865eadb9-030e-44cc-9ad6-6eb44fd7f7c7": {
-          "type": "product",
-          "settings": {
-            "product": "misty-violet"
-          }
-        },
-        "a93e7005-f8e8-4cd5-80a0-87d375f3b372": {
-          "type": "product",
-          "settings": {
-            "product": "green-river"
-          }
-        },
-        "c9d40ec2-044e-45d3-9f11-d918f41d2e68": {
-          "type": "product",
-          "settings": {
-            "product": "floral-flower"
-          }
-        }
-      },
-      "block_order": [
-        "2e44cb22-c15e-4659-95d9-d8bb725b8e58",
-        "865eadb9-030e-44cc-9ad6-6eb44fd7f7c7",
-        "a93e7005-f8e8-4cd5-80a0-87d375f3b372",
-        "c9d40ec2-044e-45d3-9f11-d918f41d2e68"
-      ],
       "settings": {
+        "products": [
+          "old-fog",
+          "floral-flower",
+          "green-river",
+          "throbbing-brook"
+        ],
+        "sort": "manual"
       }
     },
     "1652310628c65556fc": {
@@ -264,6 +214,27 @@
         "image_position": "left",
         "image_alt": ""
       }
+    },
+    "1656374451703d8604": {
+      "type": "collection-grid",
+      "settings": {
+        "collections": [
+          "another-collection",
+          "cool-products"
+        ],
+        "sort": "manual"
+      }
+    },
+    "1656374729dbf95014": {
+      "type": "collection-grid",
+      "settings": {
+        "collections": [
+          "all-products",
+          "another-collection",
+          "cool-products"
+        ],
+        "sort": "manual"
+      }
     }
   },
   "order": [
@@ -274,6 +245,8 @@
     "1652310628c65556fc",
     "165231063295390f03",
     "16523106382dad1d33",
-    "165231065910b15050"
+    "165231065910b15050",
+    "1656374451703d8604",
+    "1656374729dbf95014"
   ]
 }

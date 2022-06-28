@@ -1,0 +1,99 @@
+<collection-filters>
+  <form>
+    {% for filter in collection.filters %}
+      <details>
+        <summary>
+          <div>
+            <span>{{ filter.label }}</span>
+            {%- if filter.active_values.size > 0 -%}
+              <span>({{ filter.active_values.size }})</span>
+            {%- endif -%}
+          </div>
+        </summary>
+
+        <div>
+          <span>{{ filter.active_values.size }} selected</span>
+          {%- if filter.active_values.size > 0 -%}
+            <a href="{{ filter.url_to_remove }}">Reset</a>
+          {%- endif -%}
+        </div>
+
+        {%- case filter.type -%}
+          {%- when 'boolean' or 'list' -%}
+            <ul>
+              {%- for filter_value in filter.values -%}
+                <li>
+                  <label for="{{ filter.param_name }}-{{ forloop.index }}">
+                  <input type="checkbox"
+                    name="{{ filter_value.param_name }}"
+                    value="{{ filter_value.value }}"
+                    id="{{ filter.param_name }}-{{ forloop.index }}"
+                    {% if filter_value.active -%}checked{%- endif %}
+                    {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                  >{{ filter_value.label }}</label>
+                </li>
+              {%- endfor -%}
+            </ul>
+            <div>
+              <input type="submit" value="Apply">
+            </div>
+          {%- when 'price_range' -%}
+            <div>
+              <div>
+                <span>{{ cart.currency.symbol }}</span>
+
+                <input name="{{ filter.min_value.param_name }}"
+                  id="{{ filter.min_value.param_name }}"
+                  {% if filter.min_value.value -%}
+                    value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                  {%- endif %}
+                  type="number"
+                  placeholder="0"
+                  min="0"
+                  max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                >
+                <label for="{{ filter.min_value.param_name }}">From</label>
+              </div>
+              <div class="filter-group-display__price-range-to">
+                <span>{{ cart.currency.symbol }}</span>
+                <input name="{{ filter.max_value.param_name }}"
+                  id="{{ filter.max_value.param_name }}"
+                  {% if filter.max_value.value -%}
+                    value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                  {%- endif %}
+                  type="number"
+                  placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                  min="0"
+                  max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                >
+                <label for="{{ filter.max_value.param_name }}">To</label>
+              </div>
+            </div>
+            <div class="filter-group-display__submit">
+              <input type="submit" value="Apply">
+            </div>
+        {% endcase %}
+      </details>
+    {% endfor %}
+    <div>
+      <a href="{{ collection.url }}?sort_by={{ collection.sort_by }}">Clear all</a>
+      {%- for filter in collection.filters -%}
+        {%- if filter.type == "price_range" -%}
+          {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+            <a href="{{ filter.url_to_remove }}">
+              {%- assign min_value = filter.min_value.value | default: 0 -%}
+              {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
+              {{ min_value | money }} - {{ max_value | money }} X
+            </a>
+          {%- endif -%}
+        {%- else -%}
+          {%- for filter_value in filter.active_values -%}
+            <a href="{{ filter_value.url_to_remove }}">
+              {{ filter.label }}: {{ filter_value.label }} X
+            </a>
+          {%- endfor -%}
+        {%- endif- %}
+      {%- endfor -%}
+    </div>
+  </form>
+</collection-filters>

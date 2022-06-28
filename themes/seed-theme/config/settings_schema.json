@@ -1,8 +1,8 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Skeleton theme",
-    "theme_version": "0.1.0",
+    "theme_name": "@barrelny/seed-theme",
+    "theme_version": "0.0.0",
     "theme_author": "Barrel, LLC",
     "theme_documentation_url": "https://THEME_DOCUMENTATION_URL.com/",
     "theme_support_url": "https://THEME_SUPPORT_URL.com/"

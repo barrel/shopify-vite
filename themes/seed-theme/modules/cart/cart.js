@@ -52,9 +52,18 @@ class Cart extends HTMLElement {
   // Update cart contents by inserting new HTML from cart API's "sections" response
   _updateContents (cartResponse) {
     cartResponse.json().then(({ sections }) => {
+      const { cart, ...receivedSections } = sections
+
       this.innerHTML = new DOMParser()
         .parseFromString(sections.cart, 'text/html')
         .querySelector('shopify-cart').innerHTML
+
+      Object.keys(receivedSections).forEach((section) => {
+        document.dispatchEvent(new Event('section-received', {
+          name: section,
+          html: receivedSections[section]
+        }))
+      })
     })
   }
 }
