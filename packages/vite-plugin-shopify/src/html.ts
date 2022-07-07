@@ -23,7 +23,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
       const host = typeof config.server?.host === 'string' ? config.server.host : 'localhost'
       const port = typeof config.server?.port !== 'undefined' ? config.server.port : 5173
 
-      const viteTagSnippetContent = viteTagSnippetDev(`${protocol}//${host}:${port.toString()}`, options.entrypointsDir)
+      const viteTagSnippetContent = viteTagSnippetDev(`${protocol}//${host}:${port}`, options.entrypointsDir)
 
       // Write vite-tag snippet for development server
       fs.writeFileSync(snippetPath, viteTagSnippetContent)

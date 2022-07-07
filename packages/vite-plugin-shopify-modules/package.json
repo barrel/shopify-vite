@@ -29,7 +29,7 @@
     "lint": "eslint ."
   },
   "peerDependencies": {
-    "vite": "3.0.0-beta.4"
+    "vite": "3.0.0-beta.7"
   },
   "dependencies": {
     "chokidar": "^3.5.3",

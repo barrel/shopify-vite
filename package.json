@@ -9,6 +9,7 @@
     "build": "turbo run build --filter=vite-plugin-*",
     "dev": "turbo run dev --filter=vite-plugin-* --parallel",
     "seed:dev": "cd themes/seed-theme && npm run dev",
+    "seed:dev:sync": "cd themes/seed-theme && npm run dev:sync",
     "lint": "turbo run lint",
     "change:add": "changeset add",
     "change:version": "changeset version",
@@ -36,7 +37,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "vite": "3.0.0-beta.4"
+    "vite": "3.0.0-beta.7"
   },
   "packageManager": "pnpm@7.1.0"
 }
