@@ -1,5 +1,6 @@
 {
   "name": "@barrelny/seed-theme",
+  "private": true,
   "version": "0.0.0",
   "description": "S.E.E.D.: Starter Environment for Excellent (Shopify theme) Development",
   "author": "Barrel, LLC",
