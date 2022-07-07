@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-shopify-theme-settings",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Vite plugin for merging Shopify theme settings from multiple source files",
   "keywords": [
     "vite",
