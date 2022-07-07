@@ -40,10 +40,66 @@
         "product_detail_2_title": "More Information",
         "product_detail_3_title": "Sizing & Fit"
       }
+    },
+    "1657049591fda36168": {
+      "type": "text-banner",
+      "blocks": {
+        "16570495915cc7abb3-0": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        },
+        "16570495915cc7abb3-1": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        },
+        "16570495915cc7abb3-2": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Optional Label",
+            "description": "This is a description for an optional icon"
+          }
+        }
+      },
+      "block_order": [
+        "16570495915cc7abb3-0",
+        "16570495915cc7abb3-1",
+        "16570495915cc7abb3-2"
+      ],
+      "settings": {
+        "subheading": "This is a label",
+        "heading": "This is a multi-line header for this module",
+        "content": "",
+        "link_text": "",
+        "link_url": "",
+        "link_style": "dark",
+        "image_position": "background",
+        "image_alt": ""
+      }
+    },
+    "1657049596a8a8c177": {
+      "type": "text-banner",
+      "settings": {
+        "subheading": "This is a label",
+        "heading": "This is a multi-line header for this module",
+        "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia urna a risus consequat, sit amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia. amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia.<\/p>",
+        "link_text": "Optional Button",
+        "link_url": "\/",
+        "link_style": "dark",
+        "image_position": "right",
+        "image_alt": ""
+      }
     }
   },
   "order": [
     "product_breadcrumbs",
-    "product_main"
+    "product_main",
+    "1657049591fda36168",
+    "1657049596a8a8c177"
   ]
 }

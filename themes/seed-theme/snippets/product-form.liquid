@@ -1,9 +1,77 @@
-{% assign add_to_cart_text = 'products.product.add_to_cart' | t %}
-
-<product-form>
+{% liquid
+  assign initial_variant = product.selected_or_first_available_variant
+  assign add_to_cart_text = 'products.product.add_to_cart' | t
+%}
+<product-form data-product-handle="{{ product.handle }}">
   {% form 'product', product, class: 'flex flex-col' %}
-    <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
-    <input type="hidden" name="quantity" min="1" value="1">
+    <input name="id" type="hidden" value="{{ initial_variant.id }}">
+    {% if template.name contains 'product' %}
+      {% unless product.options_with_values.length == 0 %}
+        {% for option in product.options_with_values %}
+          <fieldset>
+            <legend>{{ option.name }}</legend>
+            {%- for value in option.values -%}
+              <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                name="{{ option.name }}"
+                value="{{ value | escape }}"
+                {% if option.selected_value == value %}checked{% endif %}
+              >
+              <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                {{ value }}
+              </label>
+            {%- endfor -%}
+          </fieldset>
+        {% endfor %}
+      {% endunless %}
+      {% comment %} {% unless product.options_with_values.length == 1 %}
+        {% for option in product.options_with_values %}
+          <fieldset>
+            <legend>{{ option.name }}</legend>
+            {%- for value in option.values -%}
+              <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                name="{{ option.name }}"
+                value="{{ value | escape }}"
+                form="{{ product_form_id }}"
+                {% if option.selected_value == value %}checked{% endif %}
+              >
+              <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                {{ value }}
+              </label>
+            {%- endfor -%}
+          </fieldset>
+        {% endfor %}
+      {% endunless %} {% endcomment %}
+      {% comment %} <select name="id">
+        {% for variant in product.variants %}
+          <option value="{{ variant.id }}"
+            {% if variant == initial_variant %}selected="selected"{% endif %}
+          >
+            {{ variant.title }} - {{ variant.price | money }}
+          </option>
+        {% endfor %}
+      </select> {% endcomment %}
+      {% comment %} {% unless product.options_with_values.length == 0 %}
+        {% for option in product.options_with_values %}
+          <fieldset>
+            <legend>{{ option.name }}</legend>
+            {%- for value in option.values -%}
+              <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                name="{{ option.name }}"
+                value="{{ value | escape }}"
+                {% if option.selected_value == value %}checked{% endif %}
+              >
+              <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                {{ value }}
+              </label>
+            {%- endfor -%}
+          </fieldset>
+        {% endfor %}
+      {% endunless %} {% endcomment %}
+      {% render 'quantity-input', value: 1 %}
+    {% else %}
+      <input type="hidden" name="id" value="{{ product.initial_variant.id }}">
+      <input type="hidden" name="quantity" min="1" value="1">
+    {% endif %}
     {% render 'button',
       link_text: add_to_cart_text,
       link_style: 'dark',
@@ -11,5 +79,8 @@
       class: '!m-0',
       attr: 'type="submit"'
     %}
+    {% if template.name contains 'product' %}
+      {{ form | payment_button }}
+    {% endif %}
   {% endform %}
 </product-form>

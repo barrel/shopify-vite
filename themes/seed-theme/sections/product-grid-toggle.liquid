@@ -1,5 +1,15 @@
+{% liquid
+  if section.settings.toggle_text_3 == blank
+    assign grid_cols_class = 'grid-cols-2'
+  else
+    assign grid_cols_class = 'grid-cols-3'
+  endif
+
+  assign toggle_wrapper_class = "inline-grid grid-cols-2 gap-x-6 " | append: grid_cols_class
+%}
+
 <product-grid-toggle data-module="product-grid-toggle" class="block text-center">
-  <div class="inline-grid grid-cols-2 gap-x-6">
+  <div class="{{ toggle_wrapper_class }}">
     <label>
       <input class="peer" type="radio" name="{{- section.id -}}" value="1" checked>
       <span class="peer-checked:font-bold">
@@ -12,6 +22,14 @@
         {{- section.settings.toggle_text_2 -}}
       </span>
     </label>
+    {% unless section.settings.toggle_text_3 == blank %}
+      <label>
+        <input class="peer" type="radio" name="{{- section.id -}}" value="2">
+        <span class="peer-checked:font-bold">
+          {{- section.settings.toggle_text_3 -}}
+        </span>
+      </label>
+    {% endunless %}
   </div>
 </product-grid-toggle>
 
@@ -30,9 +48,14 @@
       "label": "Toggle Text 2"
     },
     {
+      "type": "text",
+      "id": "toggle_text_3",
+      "label": "Toggle Text 3 (optional)"
+    },
+    {
       "type": "header",
       "content": "Notes",
-      "info": "This section should be placed immediately before two product grid sections. Only one of the product grids will be visible at a time based on the selected value of the toggle."
+      "info": "This section should be immediately followed by 2-3 Product Grid sections. Only one of the Product Grids will be visible at a time based on the selected value of the toggle."
     }
   ]
 }

@@ -2,17 +2,17 @@
   <!-- Start blocks-->
   <!-- Subtotals-->
 
-  <div class="cart-drawer__footer" {{ block.shopify_attributes }}>
-    <div class="totals" role="status">
-      <h2 class="totals__subtotal">{{ 'sections.cart.subtotal' | t }}</h2>
-      <p class="totals__subtotal-value">{{ cart.total_price | money_with_currency }}</p>
+  <div {{ block.shopify_attributes }}>
+    <div role="status">
+      <h2>{{ 'sections.cart.subtotal' | t }}</h2>
+      <p>{{ cart.total_price | money_with_currency }}</p>
     </div>
 
     <div>
       {%- if cart.cart_level_discount_applications.size > 0 -%}
-        <ul class="discounts list-unstyled" role="list" aria-label="{{ 'customer.order.discount' | t }}">
+        <ul role="list" aria-label="{{ 'customer.order.discount' | t }}">
           {%- for discount in cart.cart_level_discount_applications -%}
-            <li class="discounts__discount discounts__discount--end">
+            <li>
               {{ discount.title }}
               (-{{ discount.total_allocated_amount | money }})
             </li>
@@ -21,7 +21,7 @@
       {%- endif -%}
     </div>
 
-    <small class="tax-note caption-large rte">
+    <small>
       {%- if cart.taxes_included and shop.shipping_policy.body != blank -%}
         {{ 'sections.cart.taxes_included_and_shipping_policy_html' | t: link: shop.shipping_policy.url }}
       {%- elsif cart.taxes_included -%}
@@ -36,14 +36,14 @@
 
   <!-- CTAs -->
 
-  <div class="cart__ctas" {{ block.shopify_attributes }}>
+  <div {{ block.shopify_attributes }}>
     <noscript>
-      <button type="submit" class="cart__update-button button button--secondary" form="CartDrawer-Form">
+      <button type="submit" form="CartDrawer-Form">
         {{ 'sections.cart.update' | t }}
       </button>
     </noscript>
 
-    <button type="submit" id="CartDrawer-Checkout" class="cart__checkout-button button" name="checkout" form="CartDrawer-Form"{% if cart == empty %} disabled{% endif %}>
+    <button type="submit" id="CartDrawer-Checkout" name="checkout" form="CartDrawer-Form"{% if cart == empty %} disabled{% endif %}>
       {{ 'sections.cart.checkout' | t }}
     </button>
   </div>

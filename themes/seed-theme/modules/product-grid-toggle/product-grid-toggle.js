@@ -2,25 +2,16 @@ class ProductGridToggle extends HTMLElement {
   constructor () {
     super()
 
-    const productGrid1 = this.parentElement.nextElementSibling
-    const productGrid2 = productGrid1.nextElementSibling
-
-    if (
-      productGrid1.firstElementChild.getAttribute('data-module') !== 'product-grid' ||
-      productGrid2.firstElementChild.getAttribute('data-module') !== 'product-grid'
-    ) {
-      // Stop initializing if module section is not followed by two product grid sections
-      return
-    }
-
     const toggleProductGridVisibility = (value) => {
-      if (value === '1') {
-        productGrid1.classList.remove('hidden')
-        productGrid2.classList.add('hidden')
-      } else {
-        productGrid2.classList.remove('hidden')
-        productGrid1.classList.add('hidden')
-      }
+      const selectedIndex = parseInt(value) - 1
+
+      this.siblingProductGridSections.forEach((siblingSection, index) => {
+        if (index === selectedIndex) {
+          siblingSection.classList.remove('hidden')
+        } else {
+          siblingSection.classList.add('hidden')
+        }
+      })
     }
 
     // Toggle visibility based on radio button change event
@@ -30,6 +21,23 @@ class ProductGridToggle extends HTMLElement {
 
     // Set initial state with first product grid visible
     toggleProductGridVisibility('1')
+  }
+
+  get siblingProductGridSections () {
+    const siblingSections = document.querySelectorAll(`#${this.parentElement.id} ~ .shopify-section`)
+    const siblingProductGridSections = []
+
+    Array.from(siblingSections).every((siblingSection, index) => {
+      if (siblingSection.firstElementChild.getAttribute('data-module') === 'product-grid') {
+        siblingProductGridSections.push(siblingSection)
+
+        return index < this.querySelectorAll('label').length
+      }
+
+      return false
+    })
+
+    return siblingProductGridSections
   }
 }
 

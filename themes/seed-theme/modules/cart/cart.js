@@ -7,10 +7,12 @@ class Cart extends HTMLElement {
     // Bind update method so it can be passed as callback argument
     this._updateContents = this._updateContents.bind(this)
 
-    // Use debounced event handler to update cart quanties
-    this.addEventListener('change-quantity', _.debounce(() => {
+    const onChangeQuantity = _.debounce(() => {
       this.updateFromForm(this.querySelector('form'))
-    }, 250, { leading: false, trailing: true }))
+    }, 250, { leading: false, trailing: true })
+
+    // Use debounced event handler to update cart quanties
+    this.addEventListener('change-quantity', onChangeQuantity)
   }
 
   // Add item to cart using HTML form data
@@ -52,18 +54,9 @@ class Cart extends HTMLElement {
   // Update cart contents by inserting new HTML from cart API's "sections" response
   _updateContents (cartResponse) {
     cartResponse.json().then(({ sections }) => {
-      const { cart, ...receivedSections } = sections
-
       this.innerHTML = new DOMParser()
         .parseFromString(sections.cart, 'text/html')
         .querySelector('shopify-cart').innerHTML
-
-      Object.keys(receivedSections).forEach((section) => {
-        document.dispatchEvent(new Event('section-received', {
-          name: section,
-          html: receivedSections[section]
-        }))
-      })
     })
   }
 }

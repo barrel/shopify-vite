@@ -8,11 +8,11 @@
           "settings": {
             "background_type": "video",
             "image_alt": "",
-            "video_mobile": "https:\/\/archive.org\/download\/BigBuckBunny_124\/Content\/big_buck_bunny_720p_surround.mp4",
+            "video_mobile": "https:\/\/movietrailers.apple.com\/movies\/disney\/thor-love-and-thunder\/thor-love-and-thunder-trailer-1_h720p.mov",
             "video_desktop": "",
             "subheading": "Subheadline2",
             "heading": "Headline for hero",
-            "heading_style": "dark",
+            "heading_style": "light",
             "link_text_1": "Button 1",
             "link_url_1": "",
             "link_style_1": "dark",
@@ -52,7 +52,8 @@
       "type": "product-grid-toggle",
       "settings": {
         "toggle_text_1": "Category 1",
-        "toggle_text_2": "Category 2"
+        "toggle_text_2": "Category 2",
+        "toggle_text_3": ""
       }
     },
     "home_product_grid_1": {
@@ -60,8 +61,8 @@
       "settings": {
         "products": [
           "floral-flower",
-          "green-river",
           "misty-violet",
+          "green-river",
           "old-fog"
         ],
         "sort": "manual"
@@ -235,6 +236,77 @@
         ],
         "sort": "manual"
       }
+    },
+    "165642325825f61361": {
+      "type": "blog-post-grid",
+      "blocks": {
+        "82ceedec-6a93-495a-ae9f-81d413d9fe2e": {
+          "type": "article",
+          "settings": {
+            "article": "news\/blog-post-1"
+          }
+        },
+        "99d6cfdc-8389-457f-9154-aa9cf5059606": {
+          "type": "article",
+          "settings": {
+            "article": "news\/blog-post-2"
+          }
+        },
+        "01f50748-9f10-44e8-9b56-77ada6bf9633": {
+          "type": "article",
+          "settings": {
+            "article": "news\/blog-post-3"
+          }
+        }
+      },
+      "block_order": [
+        "82ceedec-6a93-495a-ae9f-81d413d9fe2e",
+        "99d6cfdc-8389-457f-9154-aa9cf5059606",
+        "01f50748-9f10-44e8-9b56-77ada6bf9633"
+      ],
+      "settings": {
+        "subheading": "Subheader",
+        "heading": "Blog Headline Goes Here",
+        "content": "",
+        "link_text": "View All Blog Posts",
+        "link_url": "shopify:\/\/blogs\/news",
+        "link_style": "dark"
+      }
+    },
+    "1656538158bb5eaaeb": {
+      "type": "cta-grid",
+      "blocks": {
+        "fe11d220-cadb-48a7-b507-cfff636ea2ee": {
+          "type": "cta-card",
+          "settings": {
+            "size": "small",
+            "subheading": "",
+            "heading": "CTA 1",
+            "content": "",
+            "link_text": "Click here",
+            "link_url": "\/",
+            "link_style": "dark"
+          }
+        },
+        "3b32b58e-03ec-4066-a004-41e507557896": {
+          "type": "cta-card",
+          "settings": {
+            "size": "small",
+            "subheading": "",
+            "heading": "CTA 2",
+            "content": "",
+            "link_text": "Click here",
+            "link_url": "\/",
+            "link_style": "dark"
+          }
+        }
+      },
+      "block_order": [
+        "fe11d220-cadb-48a7-b507-cfff636ea2ee",
+        "3b32b58e-03ec-4066-a004-41e507557896"
+      ],
+      "settings": {
+      }
     }
   },
   "order": [
@@ -247,6 +319,8 @@
     "16523106382dad1d33",
     "165231065910b15050",
     "1656374451703d8604",
-    "1656374729dbf95014"
+    "1656374729dbf95014",
+    "165642325825f61361",
+    "1656538158bb5eaaeb"
   ]
 }

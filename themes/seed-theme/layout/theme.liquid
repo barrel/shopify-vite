@@ -20,6 +20,8 @@
 
     {%- render 'social-meta-tags' -%}
 
+    {% render 'vite-tag' with 'base.css' %}
+
     <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
 
@@ -27,8 +29,6 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-
-    {% render 'vite-tag' with 'base.css' %}
 
     {{ content_for_header }}
   </head>

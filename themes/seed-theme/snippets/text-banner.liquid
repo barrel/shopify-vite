@@ -1,9 +1,7 @@
-{%- comment -%}
+{% comment %}
   Parameters
   * heading
-{%- endcomment -%}
-
-{% assign inner_class = 'sm:flex' %}
+{% endcomment %}
 
 {% capture inner_class %}
 px-responsive
@@ -47,7 +45,6 @@ z-0
       {% render 'rich-text',
         heading: heading,
         heading_class: 'h2',
-        subheading: subheading,
         content: content,
         link_text_1: link_text,
         link_url_1: link_url,

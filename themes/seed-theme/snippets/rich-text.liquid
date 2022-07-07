@@ -14,9 +14,21 @@
   * links_class
 {%- endcomment -%}
 
-<div class="{{- class -}}" data-module="rich-text">
-  <h2 class="{{- heading_class -}}">{{ heading }}</h2>
-  <div class="wysiwyg {{- content_class -}}">{{ content }}</div>
+{% liquid
+  comment
+    Note: Theme validation prevents using {{ blog.title }} as a dynamic source, so we use [blog_title] instead.
+  endcomment
+  assign heading = heading | replace: '[blog_title]', blog.title | replace: '[article_title]', article.title
+  assign content = content | replace: '[blog_title]', blog.title | replace: '[article_title]', article.title
+%}
+
+<div class="{{ class }}" data-module="rich-text">
+  {% unless heading == empty %}
+    <h2 class="{{ heading_class }}">{{ heading }}</h2>
+  {% endunless %}
+  {% unless content == empty %}
+    <div class="wysiwyg {{ content_class }}">{{ content }}</div>
+  {% endunless %}
   {% if link_text_1 != blank or link_text_2 != blank %}
     <div class="block space-x-2">
       {% if link_text_1 != blank %}

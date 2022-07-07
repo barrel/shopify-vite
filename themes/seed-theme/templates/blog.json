@@ -3,10 +3,23 @@
     "blog_banner": {
       "type": "text-banner",
       "settings": {
+        "subheading": "Blog",
+        "heading": "[blog_title]",
+        "content": "",
+        "link_text": "",
+        "link_url": "",
+        "link_style": "dark",
+        "image_position": "background",
+        "image_alt": ""
       }
+    },
+    "165651122548d58645": {
+      "type": "blog-post-grid",
+      "settings": {}
     }
   },
   "order": [
-    "blog_banner"
+    "blog_banner",
+    "165651122548d58645"
   ]
 }

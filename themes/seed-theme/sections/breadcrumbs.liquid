@@ -7,7 +7,7 @@
     <li class="{{ item_class }}"><a href="{{ routes.root_url }}">Home</a></li>
     {% if template.name == 'product' %}
       {% if product.collections != blank %}
-        <li class="{{ item_class }}"><a href="{{ collection.url }}">{{ collection.name }}</a></li>
+        <li class="{{ item_class }}"><a href="{{ collection.url }}">{{ collection.title }}</a></li>
       {% endif %}
       <li class="{{ item_class }}">{{ product.title }}</li>
     {% endif %}

@@ -1,0 +1,93 @@
+<div>
+  {% for block in section.blocks %}
+    {% render 'cta-card',
+      size: block.settings.size,
+      subheading: block.settings.subheading,
+      heading: block.settings.heading,
+      content: block.settings.content,
+      link_text: block.settings.link_text,
+      link_style: block.settings.link_style,
+      background_image: block.settings.background_image
+    %}
+  {% endfor %}
+</div>
+
+{% schema %}
+{
+  "name": "Call-to-Action Grid",
+  "blocks": [
+    {
+      "type": "cta-card",
+      "name": "Call-to-Action",
+      "settings": [
+        {
+          "type": "select",
+          "id": "size",
+          "label": "Size",
+          "default": "small",
+          "options": [
+            {
+              "value": "small",
+              "label": "Small"
+            },
+            {
+              "value": "large",
+              "label": "Large"
+            }
+          ]
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading"
+        },
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Content"
+        },
+        {
+          "type": "text",
+          "id": "link_text",
+          "label": "Link Text"
+        },
+        {
+          "type": "url",
+          "id": "link_url",
+          "label": "Link URL"
+        },
+        {
+          "type": "select",
+          "id": "link_style",
+          "label": "Link Style",
+          "default": "dark",
+          "options": [
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            },
+            {
+              "value": "alt",
+              "label": "Alternate"
+            }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "background_image",
+          "label": "Background Image"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

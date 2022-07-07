@@ -16,8 +16,8 @@
 %}
 
 <background-video data-module="background-video" class="absolute inset-0">
-  <video class="absolute inset-0 w-full h-full object-cover z-10 opacity-0" {{ video_attr }}>
-    {% unless video_desktop == blank %}
+  <video class="absolute inset-0 w-full h-full object-cover z-10" {{ video_attr }}>
+    {% unless video_desktop == blank or video_desktop == video_mobile %}
       <source media="(min-width: {{ break_sm }}px)" src="{{ video_desktop }}" type="video/mp4" />
     {% endunless %}
     <source src="{{ video_mobile }}" type="video/mp4" />

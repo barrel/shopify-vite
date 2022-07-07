@@ -1,6 +1,34 @@
-/* @layer utilities { */
+@layer components {
   /* Hide Google reCAPTCHA badge */
   .grecaptcha-badge {
     visibility: hidden;
   }
-/* } */
+
+  /* Add styling for Shopify payment buttons */
+  .shopify-payment-button__button {
+
+  }
+
+  .shopify-payment-button__button--unbranded {
+
+  }
+
+  /* Add styling for Policy pages */
+  .shopify-policy__container {
+    @apply max-w-5xl !important;
+  }
+
+  .shopify-policy__title {
+    h1 {
+      @apply h1 my-24;
+    }
+  }
+
+  .shopify-policy__body {
+    @apply mb-24;
+
+    .rte {
+      @apply wysiwyg;
+    }
+  }
+}

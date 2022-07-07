@@ -6,30 +6,53 @@ class HeroSlider extends HTMLElement {
   constructor () {
     super()
 
+    this.state = {}
+
     this.handleSlideFocusIn = this.handleSlideFocusIn.bind(this)
+    this.resetScrollPosition = this.resetScrollPosition.bind(this)
+    this.setup = this.setup.bind(this)
+    this.teardown = this.teardown.bind(this)
 
     this.setup()
+
+    this.parentElement.addEventListener('shopify:section:unload', () => {
+      alert('unload!')
+    })
+    this.parentElement.addEventListener('shopify:section:load', () => {
+      alert('load!')
+    })
   }
 
   setup () {
-    if (this.querySelectorAll('[data-module="hero"]').length < 1) {
+    if (this.querySelectorAll('[data-module="hero"]').length <= 1) {
       return
     }
 
     this.embla = EmblaCarousel(this, { loop: false })
 
     // Lock horizontal scroll for parent element
-    this.parentElement.addEventListener('scroll', (event) => {
-      this.parentElement.scrollTo(0, 0)
-    })
+    this.parentElement.addEventListener('scroll', this.resetScrollPosition)
 
     // Jump to focused slide when moving with keyboard
     this.addEventListener('focusin', this.handleSlideFocusIn)
+
+    if (this.state.selectedScrollSnap) {
+      this.embla.scrollTo(this.state.selectedScrollSnap)
+    }
   }
 
   teardown () {
+    if (this.embla) {
+      this.state.selectedScrollSnap = this.embla.selectedScrollSnap
+    }
+
     this.embla.destroy()
+    this.parentElement.removeEventListener('scroll', this.handleSlideFocusIn)
     this.removeEventListener('focusin', this.handleSlideFocusIn)
+  }
+
+  resetScrollPosition () {
+    this.parentElement.scrollTo(0, 0)
   }
 
   handleSlideFocusIn (event) {

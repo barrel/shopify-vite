@@ -1,0 +1,10 @@
+{% liquid
+  assign page_content = page.content
+
+  if template contains 'article'
+    assign page_content = article.content
+  endif
+%}
+<div class="px-responsive sm:max-w-5xl sm:mx-auto">
+  {{ page_content }}
+</div>

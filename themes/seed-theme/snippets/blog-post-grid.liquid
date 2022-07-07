@@ -1,0 +1,29 @@
+<div data-module="blog-post-grid" class="bg-white max-w-7xl mx-auto px-responsive">
+  {% render 'rich-text',
+    heading: subheading,
+    heading_class: 'h5',
+  %}
+  {% render 'rich-text',
+    heading: heading,
+    heading_class: 'h2',
+    subheading: subheading,
+    content: content
+  %}
+  <div class="grid grid-cols-1 gap-x-6 md:grid-cols-3">
+    {% liquid
+      for post in posts
+        if post.settings.article == blank
+          assign blog_post = post
+        else
+          assign blog_post = post.settings.article
+        endif
+        render 'blog-post-card', post: blog_post
+      endfor
+    %}
+  </div>
+  {% render 'rich-text',
+    link_text_1: link_text,
+    link_url_1: link_url,
+    link_style_1: link_style
+  %}
+</div>

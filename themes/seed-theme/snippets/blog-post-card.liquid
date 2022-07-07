@@ -1,0 +1,12 @@
+{% liquid
+  if post.excerpt != blank
+    assign post_excerpt = post.excerpt | truncatewords: 20
+  else
+    assign post_excerpt = post.content | truncatewords: 20
+  endif
+%}
+
+<div>
+  <h3 class="h3"><a href="{{ post.url }}">{{ post.title }}</a></h2>
+  {{ post_excerpt }}
+</div>

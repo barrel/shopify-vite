@@ -47,9 +47,16 @@ module.exports = {
     require('@tailwindcss/forms'),
     require('@tailwindcss/aspect-ratio'),
     plugin(({ addVariant }) => {
-      addVariant('data-active-true', '&[data-active="true"]')
-      addVariant('data-active-false', '&[data-active="false"]')
-      addVariant('data-focus-true', '&[data-focus="true"]')
+      // "no-js" variant to be used for progressively-enhanced functionality
+      addVariant('no-js', 'html.no-js &')
     })
+  ],
+  safelist: [
+    'grecaptcha-badge',
+    'shopify-payment-button__button',
+    'shopify-payment-button__button--unbranded',
+    'shopify-policy__container',
+    'shopify-policy__title',
+    'shopify-policy__body'
   ]
 }

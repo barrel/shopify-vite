@@ -13,7 +13,7 @@
 >
   <div class="w-[50px] flex-shrink-0">
     {% for image in product.images %}
-      <div class="data-focus-true:ring-2 data-active-true:opacity-100 data-active-false:opacity-50">
+      <div class="[&[data-focus=true]]:ring-2 [&[data-active=true]]:opacity-100 [&[data-active=false]]:opacity-50">
         <label
           class="block"
           for="selected-media-{{ image.id }}"
