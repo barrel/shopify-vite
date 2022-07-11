@@ -1,14 +1,22 @@
 {% liquid
   assign initial_variant = product.selected_or_first_available_variant
   assign add_to_cart_text = 'products.product.add_to_cart' | t
+  assign sold_out_text = 'products.product.sold_out' | t
+
+  assign attr = 'data-product-handle="' | append: product.handle | append: '"'
+
+  if template.name contains 'product'
+    assign variants_json = product.variants | json | escape
+    assign attr = attr | append: ' data-variants="' | append: variants_json | append: '"'
+  endif
 %}
-<product-form data-product-handle="{{ product.handle }}">
+<product-form {{ attr }}>
   {% form 'product', product, class: 'flex flex-col' %}
-    <input name="id" type="hidden" value="{{ initial_variant.id }}">
+    <input name="id" type="hidden" value="{{ initial_variant.id }}" />
     {% if template.name contains 'product' %}
       {% unless product.options_with_values.length == 0 %}
         {% for option in product.options_with_values %}
-          <fieldset>
+          <fieldset data-option="{{ forloop.index }}">
             <legend>{{ option.name }}</legend>
             {%- for value in option.values -%}
               <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
@@ -23,64 +31,28 @@
           </fieldset>
         {% endfor %}
       {% endunless %}
-      {% comment %} {% unless product.options_with_values.length == 1 %}
-        {% for option in product.options_with_values %}
-          <fieldset>
-            <legend>{{ option.name }}</legend>
-            {%- for value in option.values -%}
-              <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                name="{{ option.name }}"
-                value="{{ value | escape }}"
-                form="{{ product_form_id }}"
-                {% if option.selected_value == value %}checked{% endif %}
-              >
-              <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-                {{ value }}
-              </label>
-            {%- endfor -%}
-          </fieldset>
-        {% endfor %}
-      {% endunless %} {% endcomment %}
-      {% comment %} <select name="id">
-        {% for variant in product.variants %}
-          <option value="{{ variant.id }}"
-            {% if variant == initial_variant %}selected="selected"{% endif %}
-          >
-            {{ variant.title }} - {{ variant.price | money }}
-          </option>
-        {% endfor %}
-      </select> {% endcomment %}
-      {% comment %} {% unless product.options_with_values.length == 0 %}
-        {% for option in product.options_with_values %}
-          <fieldset>
-            <legend>{{ option.name }}</legend>
-            {%- for value in option.values -%}
-              <input type="radio" id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                name="{{ option.name }}"
-                value="{{ value | escape }}"
-                {% if option.selected_value == value %}checked{% endif %}
-              >
-              <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-                {{ value }}
-              </label>
-            {%- endfor -%}
-          </fieldset>
-        {% endfor %}
-      {% endunless %} {% endcomment %}
       {% render 'quantity-input', value: 1 %}
     {% else %}
-      <input type="hidden" name="id" value="{{ product.initial_variant.id }}">
-      <input type="hidden" name="quantity" min="1" value="1">
+      <input type="hidden" name="quantity" min="1" value="1" />
     {% endif %}
-    {% render 'button',
-      link_text: add_to_cart_text,
-      link_style: 'dark',
-      link_tag: 'button',
-      class: '!m-0',
-      attr: 'type="submit"'
-    %}
-    {% if template.name contains 'product' %}
-      {{ form | payment_button }}
-    {% endif %}
+    <div data-slot="product-form-submit">
+      {% if initial_variant.available %}
+        {% render 'button',
+          link_text: add_to_cart_text,
+          link_style: 'dark',
+          link_tag: 'button',
+          class: 'w-full !m-0',
+          attr: 'type="submit"'
+        %}
+      {% else %}
+        {% render 'button',
+          link_text: sold_out_text,
+          link_style: 'dark',
+          link_tag: 'button',
+          class: 'w-full !m-0',
+          attr: 'type="submit" disabled'
+        %}
+      {% endif %}
+    </div>
   {% endform %}
 </product-form>

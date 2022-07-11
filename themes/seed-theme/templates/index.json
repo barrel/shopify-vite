@@ -53,7 +53,7 @@
       "settings": {
         "toggle_text_1": "Category 1",
         "toggle_text_2": "Category 2",
-        "toggle_text_3": ""
+        "toggle_text_3": "Category 3"
       }
     },
     "home_product_grid_1": {
@@ -69,6 +69,18 @@
       }
     },
     "home_product_grid_2": {
+      "type": "product-grid",
+      "settings": {
+        "products": [
+          "old-fog",
+          "floral-flower",
+          "green-river",
+          "throbbing-brook"
+        ],
+        "sort": "manual"
+      }
+    },
+    "home_product_grid_3": {
       "type": "product-grid",
       "settings": {
         "products": [
@@ -314,6 +326,7 @@
     "home_product_grid_toggle",
     "home_product_grid_1",
     "home_product_grid_2",
+    "home_product_grid_3",
     "1652310628c65556fc",
     "165231063295390f03",
     "16523106382dad1d33",

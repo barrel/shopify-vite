@@ -1,37 +1,53 @@
-import { ProductForm } from '@shopify/theme-product-form'
+import _ from 'lodash'
+// import { ProductForm } from '@shopify/theme-product-form'
 
 class ProductFormElement extends HTMLElement {
   constructor () {
     super()
 
-    const { productHandle } = this.dataset
+    if (this.dataset.variants) {
+      this.variants = JSON.parse(this.dataset.variants)
+    }
 
-    fetch(`/products/${productHandle}.js`)
-      .then((response) => response.json())
-      .then((productJson) => {
-        new ProductForm(form, productJson)
-      })
+    const formEl = this.querySelector('form')
 
-    this.querySelector('form').addEventListener('submit', (event) => {
+    formEl.addEventListener('change', (event) => {
+      if (event.target.closest('[data-option]')) {
+        this.onOptionChange(event)
+      }
+    })
+
+    formEl.addEventListener('submit', (event) => {
       event.preventDefault()
       document.querySelector('shopify-cart').addItemFromForm(event.target)
     })
   }
 
   onOptionChange (event) {
+    const formEl = this.querySelector('form')
 
-  }
+    const option1 = formEl.querySelector('[data-option="1"] input[type="radio"]:checked')
+    const option2 = formEl.querySelector('[data-option="2"] input[type="radio"]:checked')
+    const option3 = formEl.querySelector('[data-option="3"] input[type="radio"]:checked')
 
-  onQuantityChange (event) {
+    const matchingVariant = _.find(this.variants, {
+      option1: option1?.value || null,
+      option2: option2?.value || null,
+      option3: option3?.value || null
+    })
 
-  }
+    this.querySelector('input[name="id"]').value = matchingVariant.id
 
-  onPropertyChange (event) {
+    this.dispatchEvent(new CustomEvent('change-variant', {
+      detail: { id: matchingVariant.id },
+      bubbles: true
+    }))
 
-  }
-
-  onFormSubmit (event) {
-
+    // fetch(`${window.location.origin}${window.location.pathname}?variant=${matchingVariant.id}&sections=product-main`)
+    //   .then((response) => response.json())
+    //   .then((responseJson) => {
+    //     console.log({ responseJson })
+    //   })
   }
 }
 

@@ -1,40 +1,50 @@
 import * as _ from 'lodash'
 
-class Cart extends HTMLElement {
+import DynamicSectionElement from '@/scripts/dynamic-section-element.js'
+
+class Cart extends DynamicSectionElement {
   constructor () {
     super()
 
     // Bind update method so it can be passed as callback argument
-    this._updateContents = this._updateContents.bind(this)
-
-    const onChangeQuantity = _.debounce(() => {
-      this.updateFromForm(this.querySelector('form'))
-    }, 250, { leading: false, trailing: true })
+    this.onCartUpdate = this.onCartUpdate.bind(this)
 
     // Use debounced event handler to update cart quanties
-    this.addEventListener('change-quantity', onChangeQuantity)
+    this.addEventListener('change-quantity', _.debounce(() => {
+      this.updateFromForm(this.querySelector('form'))
+    }, 250, { leading: false, trailing: true }))
+  }
+
+  openDrawer () {
+    this.classList.add('open')
+  }
+
+  closeDrawer () {
+    this.classList.remove('open')
   }
 
   // Add item to cart using HTML form data
   addItemFromForm (form) {
     const formData = new FormData(form)
-    formData.append('sections', 'cart')
+    formData.append('sections', 'site-header,cart')
+    formData.append('sections_url', window.location.pathname)
 
     fetch('/cart/add.js', {
       method: 'POST',
       body: formData
-    }).then(this._updateContents)
+    }).then(this.onCartUpdate)
   }
 
   // Update items in cart using HTML form data
   updateFromForm (form) {
     const formData = new FormData(form)
-    formData.append('sections', 'cart')
+    formData.append('sections', 'site-header,cart')
+    formData.append('sections_url', window.location.pathname)
 
     fetch('/cart/update.js', {
       method: 'POST',
       body: formData
-    }).then(this._updateContents)
+    }).then(this.onCartUpdate)
   }
 
   // Remove an item from cart using line item key
@@ -46,17 +56,27 @@ class Cart extends HTMLElement {
       },
       body: JSON.stringify({
         updates: { [key]: 0 },
-        sections: 'cart'
+        sections: 'site-header,cart',
+        sections_url: window.location.pathname
       })
-    }).then(this._updateContents)
+    }).then(this.onCartUpdate)
   }
 
-  // Update cart contents by inserting new HTML from cart API's "sections" response
-  _updateContents (cartResponse) {
+  // Handle cart API response and update sections with dynamic content
+  onCartUpdate (cartResponse) {
     cartResponse.json().then(({ sections }) => {
-      this.innerHTML = new DOMParser()
+      // Replace content for re-rendered cart section
+      const newCartEl = new DOMParser()
         .parseFromString(sections.cart, 'text/html')
-        .querySelector('shopify-cart').innerHTML
+      this.replaceContent(newCartEl)
+
+      // Replace content for re-rendered site-header section
+      const newSiteHeaderEl = new DOMParser()
+        .parseFromString(sections['site-header'], 'text/html')
+      document.querySelector('site-header')
+        .replaceContent(newSiteHeaderEl)
+
+      this.openDrawer()
     })
   }
 }

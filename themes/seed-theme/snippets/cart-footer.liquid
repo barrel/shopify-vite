@@ -1,4 +1,4 @@
-<div class="drawer__footer">
+<div class="px-sm">
   <!-- Start blocks-->
   <!-- Subtotals-->
 
@@ -38,12 +38,12 @@
 
   <div {{ block.shopify_attributes }}>
     <noscript>
-      <button type="submit" form="CartDrawer-Form">
+      <button type="submit">
         {{ 'sections.cart.update' | t }}
       </button>
     </noscript>
 
-    <button type="submit" id="CartDrawer-Checkout" name="checkout" form="CartDrawer-Form"{% if cart == empty %} disabled{% endif %}>
+    <button type="submit" id="CartDrawer-Checkout" name="checkout" {% if cart == empty %} disabled{% endif %}>
       {{ 'sections.cart.checkout' | t }}
     </button>
   </div>

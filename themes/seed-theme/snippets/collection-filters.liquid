@@ -1,4 +1,4 @@
-<collection-filters data-module="collection-filters">
+<div data-module="collection-filters">
   <form>
     <select id="sort-by" name="sort_by">
       {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
@@ -12,7 +12,7 @@
       <input type="submit" value="Apply">
     </div>
     {% for filter in collection.filters %}
-      <details>
+      <details data-slot="{{ filter.param_name }}">
         <summary>
           <div>
             <span>{{ filter.label }}</span>
@@ -86,7 +86,7 @@
         {% endcase %}
       </details>
     {% endfor %}
-    <footer>
+    <footer data-slot="collection-filters-footer"">
       <p><a href="{{ collection.url }}?sort_by={{ collection.sort_by }}">Clear all</a></p>
       {%- for filter in collection.filters -%}
         {%- if filter.type == "price_range" -%}
@@ -111,4 +111,4 @@
       {%- endfor -%}
     </footer>
   </form>
-</collection-filters>
+</div>

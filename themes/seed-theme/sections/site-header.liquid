@@ -6,7 +6,7 @@
   endif
 %}
 
-<header class="border-b" data-module="site-header">
+<site-header class="block border-b" data-module="site-header">
   <a href="#content" class="sr-only focus:not-sr-only">
     Skip to content
   </a>
@@ -41,8 +41,12 @@
             {%- endfor -%}
           </div>
         {%- endif -%}
-        <div class="flex-1 text-right">
-          <a>Cart</a>
+        <div data-slot="site-header-cart-icon" class="flex-1 text-right">
+          <button onclick="document.querySelector('shopify-cart').openDrawer()">Cart
+            {% unless cart.item_count == 0 %}
+              <span>({{ cart.item_count }})</span>
+            {% endunless %}
+          </button>
         </div>
       </div>
     </div>
@@ -58,7 +62,7 @@
       {%- endif -%}
     </div>
   </nav>
-</header>
+</site-header>
 
 {% schema %}
 {

@@ -2,7 +2,7 @@
   {% render 'collection-filters' %}
   {% paginate collection.products by 20 %}
     {% render 'product-grid', products: collection.products %}
-    <div data-pagination class="text-center">
+    <div data-slot="collection-product-grid-pagination" data-pagination class="text-center">
       {% unless paginate.next.url == blank %}
         <a data-pagination-link href="{{ paginate.next.url }}">Load More</a>
         <span class="hidden" data-pagination-loading>Loading...</span>
