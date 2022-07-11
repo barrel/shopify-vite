@@ -6,6 +6,8 @@ import { ResolvedVitePluginShopifyOptions } from './options'
 
 // Plugin for setting necessary Vite config to support Shopify plugin functionality
 export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions): Plugin {
+  const sourceCodeDir = path.resolve(options.sourceCodeDir)
+
   return {
     name: 'vite-plugin-shopify-config',
     config () {
@@ -31,8 +33,8 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
         resolve: {
           // Provide import alias to source code dir for convenience
           alias: {
-            '~': options.sourceCodeDir,
-            '@': options.sourceCodeDir
+            '~': sourceCodeDir,
+            '@': sourceCodeDir
           }
         },
         server: {

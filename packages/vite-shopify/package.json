@@ -30,7 +30,7 @@
     "lint": "eslint ."
   },
   "peerDependencies": {
-    "vite": "3.0.0-beta.7"
+    "vite": "3.0.0-beta.9"
   },
   "dependencies": {
     "vite-plugin-shopify": "workspace:*",
