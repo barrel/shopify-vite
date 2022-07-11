@@ -16,10 +16,10 @@ class HeroSlider extends HTMLElement {
     this.setup()
 
     this.parentElement.addEventListener('shopify:section:unload', () => {
-      alert('unload!')
+
     })
     this.parentElement.addEventListener('shopify:section:load', () => {
-      alert('load!')
+
     })
   }
 
