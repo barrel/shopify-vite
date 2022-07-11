@@ -9,6 +9,9 @@
 %}
 
 <product-grid-toggle data-module="product-grid-toggle" class="block text-center">
+  <div>
+    {% render 'rich-text', heading: section.settings.heading %}
+  </div>
   <div class="{{ toggle_wrapper_class }}">
     <label>
       <input class="peer" type="radio" name="{{- section.id -}}" value="1" checked>
@@ -24,7 +27,7 @@
     </label>
     {% unless section.settings.toggle_text_3 == blank %}
       <label>
-        <input class="peer" type="radio" name="{{- section.id -}}" value="2">
+        <input class="peer" type="radio" name="{{- section.id -}}" value="3">
         <span class="peer-checked:font-bold">
           {{- section.settings.toggle_text_3 -}}
         </span>
@@ -37,6 +40,11 @@
 {
   "name": "Product Grid Toggle",
   "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    },
     {
       "type": "text",
       "id": "toggle_text_1",

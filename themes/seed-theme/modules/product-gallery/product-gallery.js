@@ -16,8 +16,11 @@ class ProductGallery extends HTMLElement {
     })
 
     // Set initial active thumbnail
-    this.setActiveThumbnail()
-    this.setFocusedThumbnail()
+
+    if (this.querySelectorAll('label[for^="selected-media"]').length > 1) {
+      this.setActiveThumbnail()
+      this.setFocusedThumbnail()
+    }
   }
 
   // Toggle active and inactive thumbnail styling based on current slide

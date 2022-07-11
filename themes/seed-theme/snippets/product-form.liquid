@@ -14,7 +14,7 @@
   {% form 'product', product, class: 'flex flex-col' %}
     <input name="id" type="hidden" value="{{ initial_variant.id }}" />
     {% if template.name contains 'product' %}
-      {% unless product.options_with_values.length == 0 %}
+      {% unless product.has_only_default_variant %}
         {% for option in product.options_with_values %}
           <fieldset data-option="{{ forloop.index }}">
             <legend>{{ option.name }}</legend>

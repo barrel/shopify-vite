@@ -3,47 +3,27 @@
     "home_hero_slider": {
       "type": "hero-slider",
       "blocks": {
-        "home_hero_slide_1": {
-          "type": "hero-slide",
-          "settings": {
-            "background_type": "video",
-            "image_alt": "",
-            "video_mobile": "https:\/\/movietrailers.apple.com\/movies\/disney\/thor-love-and-thunder\/thor-love-and-thunder-trailer-1_h720p.mov",
-            "video_desktop": "",
-            "subheading": "Subheadline2",
-            "heading": "Headline for hero",
-            "heading_style": "light",
-            "link_text_1": "Button 1",
-            "link_url_1": "",
-            "link_style_1": "dark",
-            "link_text_2": "Button 2",
-            "link_url_2": "",
-            "link_style_2": "dark"
-          }
-        },
-        "home_hero_slide_2": {
+        "47099560-7ac0-4275-a698-dac4f7135caa": {
           "type": "hero-slide",
           "settings": {
             "background_type": "image",
-            "image_desktop": "shopify:\/\/shop_images\/person-fishing-on-the-beach-is-silhouetted-at-sunset.jpg",
             "image_alt": "",
             "video_mobile": "",
             "video_desktop": "",
-            "subheading": "Subheadline",
-            "heading": "Headline for hero",
-            "heading_style": "light",
-            "link_text_1": "Click here",
+            "subheading": "",
+            "heading": "Mix up your kitchen routine.",
+            "heading_style": "dark",
+            "link_text_1": "Shop Now",
             "link_url_1": "",
             "link_style_1": "light",
-            "link_text_2": "Or click here",
+            "link_text_2": "Shop All Kitchen",
             "link_url_2": "",
-            "link_style_2": "alt"
+            "link_style_2": "light"
           }
         }
       },
       "block_order": [
-        "home_hero_slide_1",
-        "home_hero_slide_2"
+        "47099560-7ac0-4275-a698-dac4f7135caa"
       ],
       "settings": {
       }
@@ -51,19 +31,20 @@
     "home_product_grid_toggle": {
       "type": "product-grid-toggle",
       "settings": {
-        "toggle_text_1": "Category 1",
-        "toggle_text_2": "Category 2",
-        "toggle_text_3": "Category 3"
+        "heading": "Spend more time enjoying your space, inside & out.",
+        "toggle_text_1": "Outfit Your Kitchen",
+        "toggle_text_2": "Get The Perfect Yard",
+        "toggle_text_3": "The Cleanest Clean"
       }
     },
     "home_product_grid_1": {
       "type": "product-grid",
       "settings": {
         "products": [
-          "floral-flower",
-          "misty-violet",
-          "green-river",
-          "old-fog"
+          "hfs115j10",
+          "hnvc220bcz10",
+          "hfs215j01",
+          "bdst3in1ct"
         ],
         "sort": "manual"
       }
@@ -72,10 +53,10 @@
       "type": "product-grid",
       "settings": {
         "products": [
-          "old-fog",
-          "floral-flower",
-          "green-river",
-          "throbbing-brook"
+          "bdstgakt9702",
+          "bdstctbk01",
+          "bdstctbl02",
+          "hmsct0001ff"
         ],
         "sort": "manual"
       }
@@ -84,205 +65,12 @@
       "type": "product-grid",
       "settings": {
         "products": [
-          "old-fog",
-          "floral-flower",
-          "green-river",
-          "throbbing-brook"
+          "bdst19900ff",
+          "bdst14440ff",
+          "bdht20001",
+          "behb101"
         ],
         "sort": "manual"
-      }
-    },
-    "1652310628c65556fc": {
-      "type": "text-banner",
-      "blocks": {
-        "16523106285121a427-0": {
-          "type": "value-prop",
-          "settings": {
-            "title": "Optional Label",
-            "description": "This is a description for an optional icon"
-          }
-        },
-        "16523106285121a427-1": {
-          "type": "value-prop",
-          "settings": {
-            "title": "Optional Label",
-            "description": "This is a description for an optional icon"
-          }
-        },
-        "16523106285121a427-2": {
-          "type": "value-prop",
-          "settings": {
-            "title": "Optional Label",
-            "description": "This is a description for an optional icon"
-          }
-        }
-      },
-      "block_order": [
-        "16523106285121a427-0",
-        "16523106285121a427-1",
-        "16523106285121a427-2"
-      ],
-      "settings": {
-        "subheading": "This is a label",
-        "heading": "This is a multi-line header for this module",
-        "content": "",
-        "link_text": "",
-        "link_url": "",
-        "link_style": "dark",
-        "image_position": "background",
-        "image_alt": ""
-      }
-    },
-    "165231063295390f03": {
-      "type": "text-banner",
-      "blocks": {
-        "1652310632af98f6e6-0": {
-          "type": "value-prop",
-          "settings": {
-            "title": "Optional Label",
-            "description": "This is a description for an optional icon"
-          }
-        },
-        "1652310632af98f6e6-1": {
-          "type": "value-prop",
-          "settings": {
-            "title": "Optional Label",
-            "description": "This is a description for an optional icon"
-          }
-        },
-        "1652310632af98f6e6-2": {
-          "type": "value-prop",
-          "settings": {
-            "title": "Optional Label",
-            "description": "This is a description for an optional icon"
-          }
-        }
-      },
-      "block_order": [
-        "1652310632af98f6e6-0",
-        "1652310632af98f6e6-1",
-        "1652310632af98f6e6-2"
-      ],
-      "settings": {
-        "subheading": "This is a label",
-        "heading": "This is a multi-line header for this module",
-        "content": "",
-        "link_text": "",
-        "link_url": "",
-        "link_style": "dark",
-        "image_position": "none",
-        "image_alt": ""
-      }
-    },
-    "16523106382dad1d33": {
-      "type": "text-banner",
-      "blocks": {
-        "165231063862cc8015-0": {
-          "type": "value-prop",
-          "settings": {
-            "title": "Optional Label",
-            "description": "This is a description for an optional icon"
-          }
-        },
-        "165231063862cc8015-1": {
-          "type": "value-prop",
-          "settings": {
-            "title": "Optional Label",
-            "description": "This is a description for an optional icon"
-          }
-        },
-        "165231063862cc8015-2": {
-          "type": "value-prop",
-          "settings": {
-            "title": "Optional Label",
-            "description": "This is a description for an optional icon"
-          }
-        }
-      },
-      "block_order": [
-        "165231063862cc8015-0",
-        "165231063862cc8015-1",
-        "165231063862cc8015-2"
-      ],
-      "settings": {
-        "subheading": "This is a label",
-        "heading": "This is a multi-line header for this module",
-        "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia urna a risus consequat, sit amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia. amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia.<\/p>",
-        "link_text": "",
-        "link_url": "",
-        "link_style": "dark",
-        "image_position": "right",
-        "image_alt": ""
-      }
-    },
-    "165231065910b15050": {
-      "type": "text-banner",
-      "settings": {
-        "subheading": "This is a label",
-        "heading": "This is a multi-line header for this module",
-        "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia urna a risus consequat, sit amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia. amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia.<\/p>",
-        "link_text": "Optional Button",
-        "link_url": "\/",
-        "link_style": "dark",
-        "image_position": "left",
-        "image_alt": ""
-      }
-    },
-    "1656374451703d8604": {
-      "type": "collection-grid",
-      "settings": {
-        "collections": [
-          "another-collection",
-          "cool-products"
-        ],
-        "sort": "manual"
-      }
-    },
-    "1656374729dbf95014": {
-      "type": "collection-grid",
-      "settings": {
-        "collections": [
-          "all-products",
-          "another-collection",
-          "cool-products"
-        ],
-        "sort": "manual"
-      }
-    },
-    "165642325825f61361": {
-      "type": "blog-post-grid",
-      "blocks": {
-        "82ceedec-6a93-495a-ae9f-81d413d9fe2e": {
-          "type": "article",
-          "settings": {
-            "article": "news\/blog-post-1"
-          }
-        },
-        "99d6cfdc-8389-457f-9154-aa9cf5059606": {
-          "type": "article",
-          "settings": {
-            "article": "news\/blog-post-2"
-          }
-        },
-        "01f50748-9f10-44e8-9b56-77ada6bf9633": {
-          "type": "article",
-          "settings": {
-            "article": "news\/blog-post-3"
-          }
-        }
-      },
-      "block_order": [
-        "82ceedec-6a93-495a-ae9f-81d413d9fe2e",
-        "99d6cfdc-8389-457f-9154-aa9cf5059606",
-        "01f50748-9f10-44e8-9b56-77ada6bf9633"
-      ],
-      "settings": {
-        "subheading": "Subheader",
-        "heading": "Blog Headline Goes Here",
-        "content": "",
-        "link_text": "View All Blog Posts",
-        "link_url": "shopify:\/\/blogs\/news",
-        "link_style": "dark"
       }
     },
     "1656538158bb5eaaeb": {
@@ -291,9 +79,9 @@
         "fe11d220-cadb-48a7-b507-cfff636ea2ee": {
           "type": "cta-card",
           "settings": {
-            "size": "small",
+            "size": "large",
             "subheading": "",
-            "heading": "CTA 1",
+            "heading": "We Take Squeaky Clean To A New Level",
             "content": "",
             "link_text": "Click here",
             "link_url": "\/",
@@ -305,7 +93,7 @@
           "settings": {
             "size": "small",
             "subheading": "",
-            "heading": "CTA 2",
+            "heading": "Supreme Cleaning Bundle",
             "content": "",
             "link_text": "Click here",
             "link_url": "\/",
@@ -319,6 +107,68 @@
       ],
       "settings": {
       }
+    },
+    "1652310628c65556fc": {
+      "type": "text-banner",
+      "settings": {
+        "subheading": "",
+        "heading": "The Holiday Gift Guide Is Here",
+        "content": "<p>We take care of your people with products for all occasions.<\/p>",
+        "link_text": "Shop 2022 Gift Guide",
+        "link_url": "",
+        "link_style": "dark",
+        "image_position": "background",
+        "image_alt": ""
+      }
+    },
+    "165756098281cbbf0a": {
+      "type": "text-banner",
+      "blocks": {
+        "6421a3d8-b828-4e35-9207-e892a411185d": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Patented Products",
+            "description": ""
+          }
+        },
+        "e2fb4aa7-2a25-44c5-932c-7088296c05ef": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Form & Function",
+            "description": ""
+          }
+        },
+        "a8fbb092-1572-4379-a23e-98078560257f": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Free Shipping & Returns",
+            "description": ""
+          }
+        },
+        "f8e6b9ee-48a5-4316-aeb5-8d2352902be9": {
+          "type": "value-prop",
+          "settings": {
+            "title": "Designed For You",
+            "description": ""
+          }
+        }
+      },
+      "block_order": [
+        "6421a3d8-b828-4e35-9207-e892a411185d",
+        "e2fb4aa7-2a25-44c5-932c-7088296c05ef",
+        "a8fbb092-1572-4379-a23e-98078560257f",
+        "f8e6b9ee-48a5-4316-aeb5-8d2352902be9"
+      ],
+      "settings": {
+        "subheading": "",
+        "heading": "Our products are as strong as our commitment to our customers",
+        "content": "",
+        "link_text": "",
+        "link_url": "\/",
+        "link_style": "dark",
+        "image_position": "none",
+        "image_alt": ""
+      }
     }
   },
   "order": [
@@ -327,13 +177,8 @@
     "home_product_grid_1",
     "home_product_grid_2",
     "home_product_grid_3",
+    "1656538158bb5eaaeb",
     "1652310628c65556fc",
-    "165231063295390f03",
-    "16523106382dad1d33",
-    "165231065910b15050",
-    "1656374451703d8604",
-    "1656374729dbf95014",
-    "165642325825f61361",
-    "1656538158bb5eaaeb"
+    "165756098281cbbf0a"
   ]
 }

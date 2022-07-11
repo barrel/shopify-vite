@@ -1,4 +1,5 @@
 import DynamicSectionElement from '@/scripts/dynamic-section-element.js'
+import { setRecentlyViewed } from '@/scripts/recently-viewed'
 
 class ProductMain extends DynamicSectionElement {
   constructor () {
@@ -13,6 +14,8 @@ class ProductMain extends DynamicSectionElement {
 
       this.loadSectionFromUrl(`${origin}${pathname}?${params}`, { replaceState: true })
     })
+
+    setRecentlyViewed(this.dataset.handle)
   }
 }
 

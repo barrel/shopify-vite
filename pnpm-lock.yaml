@@ -85,6 +85,7 @@ importers:
       '@shopify/theme-product-form': ^4.1.1
       '@tailwindcss/aspect-ratio': ^0.4.0
       '@tailwindcss/forms': ^0.5.2
+      cookies-js: ^1.2.3
       cross-env: ^7.0.3
       embla-carousel: ^6.2.0
       lodash: ^4.17.21
@@ -105,6 +106,7 @@ importers:
       '@shopify/theme-product-form': 4.1.1_6hytdkww4u5e4iy5vl5o7xehk4
       '@tailwindcss/aspect-ratio': 0.4.0_tailwindcss@3.1.5
       '@tailwindcss/forms': 0.5.2_tailwindcss@3.1.5
+      cookies-js: 1.2.3
       embla-carousel: 6.2.0
       lodash: 4.17.21
       tailwindcss: 3.1.5
@@ -1048,6 +1050,10 @@ packages:
 
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+
+  /cookies-js/1.2.3:
+    resolution: {integrity: sha512-yqW9Kl46LcwedlF+2wyFSaCSwRKRrU6m3n9WoAsFfn23bpRfkEBwfOkD+lFw4jCLLs960ke/aM5Qe1BAhtgJmQ==}
+    dev: false
 
   /cross-env/7.0.3:
     resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
