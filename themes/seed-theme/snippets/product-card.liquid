@@ -9,7 +9,7 @@
   {% assign product_image = null %}
 {% endif %}
 
-<div>
+<div data-handle="{{ product.handle }}">
   <div class="relative group">
     {% render 'responsive-image',
       class: "block aspect-w-1 aspect-h-1 group-hover:opacity-50",

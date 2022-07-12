@@ -1,0 +1,127 @@
+{% case template.name %}
+  {% when 'register' %}
+    {% form 'create_customer' %}
+      {{ form.errors | default_errors }}
+      <div>
+        {% render 'text-input',
+          name: 'customer[first_name]',
+          type: 'text',
+          label: 'First name'
+        %}
+      </div>
+      <div>
+        {% render 'text-input',
+          name: 'customer[last_name]',
+          type: 'text',
+          label: 'Last name'
+        %}
+      </div>
+      <div>
+        {% render 'text-input',
+          name: 'customer[email]',
+          type: 'email',
+          label: 'Email address'
+        %}
+      </div>
+      <div>
+        {% render 'text-input',
+          name: 'customer[password]',
+          type: 'password',
+          label: 'Password'
+        %}
+      </div>
+      <div>
+        {% render 'button',
+          link_tag: 'button',
+          link_text: 'Create',
+          attr: 'type="submit"'
+        %}
+      </div>
+    {% endform %}
+    <a href="{{ routes.account_login_url }}">Log in</a>
+  {% when 'login' %}
+    {% form 'customer_login' %}
+      {{ form.errors | default_errors }}
+      <div>
+        {% render 'text-input',
+          name: 'customer[email]',
+          type: 'email',
+          label: 'Email address'
+        %}
+      </div>
+      <div>
+        {% render 'text-input',
+          name: 'customer[password]',
+          type: 'password',
+          label: 'Password'
+        %}
+      </div>
+      <div>
+        {% render 'button',
+          link_tag: 'button',
+          link_text: 'Sign in',
+          attr: 'type="submit"'
+        %}
+      </div>
+    {% endform %}
+    <a href="{{ routes.account_register_url }}">Register</a>
+  {% when 'activate_account' %}
+    {% form 'activate_customer_password' %}
+      {{ form.errors | default_errors }}
+      <div>
+        {% render 'text-input',
+          name: 'customer[password]',
+          type: 'password',
+          label: 'Password'
+        %}
+      </div>
+      <div>
+        {% render 'text-input',
+          name: 'customer[password_confirmation]',
+          type: 'password',
+          label: 'Password Confirmation'
+        %}
+      </div>
+      <div>
+        {% render 'button',
+          link_tag: 'button',
+          link_text: 'Activate Account',
+          attr: 'type="submit"'
+        %}
+        <span>or</span>
+        {% render 'button',
+          link_tag: 'button',
+          link_text: 'Decline invitation',
+          attr: 'type="submit" name="decline"'
+        %}
+      </div>
+    {% endform %}
+  {% when 'reset_password' %}
+    {% form 'reset_customer_password' %}
+      {{ form.errors | default_errors }}
+
+      <div>
+        {% render 'text-input',
+          name: 'customer[password]',
+          type: 'password',
+          label: 'Password'
+        %}
+      </div>
+
+      <div>
+        {% render 'text-input',
+          name: 'customer[password_confirmation]',
+          type: 'password',
+          label: 'Password Confirmation'
+        %}
+      </div>
+
+      <div class="submit">
+        {% render 'button',
+          link_tag: 'button',
+          link_text: 'Reset Password',
+          attr: 'type="submit"'
+        %}
+      </div>
+    {% endform %}
+{% endcase %}

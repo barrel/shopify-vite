@@ -22,7 +22,11 @@
           "43ddc1a9-59c9-446a-86c6-2d0f9fcd1b38"
         ],
         "settings": {
-          "menu": "main-menu"
+          "menu": "main-menu",
+          "collections": [
+
+          ],
+          "collections-cta": "<p>Not sure where to start?<\/p><p><a href=\"\/\" title=\"\/\">Let us help<\/a><\/p>"
         }
       },
       "site-footer": {

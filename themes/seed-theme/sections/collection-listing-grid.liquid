@@ -1,0 +1,19 @@
+{% liquid
+  for link in linklists.main-menu.links
+    if link.url == collection.url
+      assign collection_nav_link = link
+    endif
+  endfor
+%}
+
+{% for collection_link in collection_nav_link.links %}
+  {% if collection_link.type == 'collection_link' %}
+    {% render 'collection-card', collection: collection_link.object %}
+  {% endif %}
+{% endfor %}
+
+{% schema %}
+{
+  "name": "Collection Listing Grid"
+}
+{% endschema %}

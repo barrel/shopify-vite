@@ -15,7 +15,14 @@ class Cart extends DynamicSectionElement {
     }, 250, { leading: false, trailing: true }))
   }
 
-  openDrawer () {
+  openDrawer (event) {
+    if (event && event.preventDefault) {
+      if (event.metaKey) {
+        return
+      }
+      event.preventDefault()
+    }
+
     this.classList.add('open')
   }
 

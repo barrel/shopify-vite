@@ -1,0 +1,7 @@
+{% paginate customer.orders by 10 %}
+  {% for order in customer.orders %}
+    <!-- order info -->
+  {% endfor %}
+
+  {{ paginate | default_pagination }}
+{% endpaginate %}

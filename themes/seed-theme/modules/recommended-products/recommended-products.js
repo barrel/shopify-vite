@@ -1,7 +1,6 @@
 import DynamicSectionElement from '@/scripts/dynamic-section-element'
-import { getRecentlyViewed } from '../../frontend/scripts/recently-viewed'
 
-class RecentlyViewedProductGrid extends DynamicSectionElement {
+class RecommendedProducts extends DynamicSectionElement {
   constructor () {
     super()
 
@@ -22,18 +21,16 @@ class RecentlyViewedProductGrid extends DynamicSectionElement {
 
     this.state.loaded = true
 
-    const recentlyViewed = getRecentlyViewed()
-    const query = recentlyViewed.map((handle) => `handle:${handle}`).join(' OR ')
-
-    return fetch(`/search?view=product-grid&type=product&q=${query}`)
+    return fetch(this.dataset.url)
       .then((response) => response.text())
       .then((responseText) => {
         const newSectionEl = new DOMParser().parseFromString(responseText, 'text/html')
         this.replaceContent(newSectionEl)
+        this.querySelector('.hidden').classList.remove('hidden')
       })
   }
 }
 
-customElements.define('recently-viewed-product-grid', RecentlyViewedProductGrid)
+customElements.define('recommended-products', RecommendedProducts)
 
-export default RecentlyViewedProductGrid
+export default RecommendedProducts

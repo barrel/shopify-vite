@@ -42,12 +42,6 @@ class ProductFormElement extends HTMLElement {
       detail: { id: matchingVariant.id },
       bubbles: true
     }))
-
-    // fetch(`${window.location.origin}${window.location.pathname}?variant=${matchingVariant.id}&sections=product-main`)
-    //   .then((response) => response.json())
-    //   .then((responseJson) => {
-    //     console.log({ responseJson })
-    //   })
   }
 }
 

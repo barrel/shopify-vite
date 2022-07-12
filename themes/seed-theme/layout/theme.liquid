@@ -18,7 +18,9 @@
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
 
-    {%- render 'social-meta-tags' -%}
+    {% render 'social-meta-tags' %}
+
+    {% render 'structured-data' %}
 
     {% render 'vite-tag' with 'base.css' %}
 

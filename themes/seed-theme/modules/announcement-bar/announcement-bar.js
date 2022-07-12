@@ -4,7 +4,7 @@ class AnnouncementBar extends HTMLElement {
   constructor () {
     super()
 
-    this.resizeWindow = this.resizeWindow.bind(this)
+    this.onSelectSlide = this.onSelectSlide.bind(this)
 
     if (this.querySelectorAll('[data-announcement]').length > 1) {
       this.setup()
@@ -12,16 +12,33 @@ class AnnouncementBar extends HTMLElement {
   }
 
   setup () {
-    this.embla = EmblaCarousel(this, { loop: true })
-    this.embla.on('select', this.resizeWindow)
+    this.querySelectorAll('[data-announcement]').forEach((el) => el.classList.remove('hidden'))
+    this.querySelector('[data-announcement-mask]').classList.remove('hidden')
 
-    this.resizeWindow()
+    this.embla = EmblaCarousel(this)
 
-    this.querySelector('[data-announcement-window]').classList.remove('hidden')
+    this.embla.on('select', this.onSelectSlide)
+    window.addEventListener('resize', this.onSelectSlide)
+
+    this.onSelectSlide()
   }
 
-  resizeWindow () {
-    this.querySelector('[data-announcement-window]').setAttribute('style', `width: ${this.embla.slideNodes()[this.embla.selectedScrollSnap()].clientWidth}px`)
+  onSelectSlide () {
+    if (this.embla.canScrollPrev()) {
+      this.querySelector('button[name="prev"]').removeAttribute('disabled')
+    } else {
+      this.querySelector('button[name="prev"]').setAttribute('disabled', true)
+    }
+
+    if (this.embla.canScrollNext()) {
+      this.querySelector('button[name="next"]').removeAttribute('disabled')
+    } else {
+      this.querySelector('button[name="next"]').setAttribute('disabled', true)
+    }
+
+    const selectedSlideNode = this.embla.slideNodes()[this.embla.selectedScrollSnap()]
+
+    this.querySelector('[data-announcement-mask]').setAttribute('style', `width: ${selectedSlideNode.clientWidth}px`)
   }
 }
 

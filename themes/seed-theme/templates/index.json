@@ -107,7 +107,20 @@
       }
     },
     "1652310628c65556fc": {
-      "type": "text-banner",
+      "type": "shoppable-banner",
+      "blocks": {
+        "2bb379d9-53d2-4aa6-a55e-1c91d6149b6b": {
+          "type": "shoppable-product",
+          "settings": {
+            "product": "floral-flower",
+            "horizontal_position": 11,
+            "vertical_position": 30
+          }
+        }
+      },
+      "block_order": [
+        "2bb379d9-53d2-4aa6-a55e-1c91d6149b6b"
+      ],
       "settings": {
         "subheading": "",
         "heading": "The Holiday Gift Guide Is Here",
@@ -211,7 +224,13 @@
       }
     },
     "home_collection_grid": {
-      "type": "collection-grid"
+      "type": "collection-grid",
+      "settings": {
+        "collections": [
+
+        ],
+        "sort": "manual"
+      }
     }
   },
   "order": [

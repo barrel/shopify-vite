@@ -26,13 +26,13 @@ relative z-10
 {% endcapture %}
 
 {% capture picture_container_class %}
-z-0
 {% if image_position == 'left' or image_position == 'right' %} sm:col-span-7{% endif %}
 {% unless image_position == 'left' or image_position == 'right' %} absolute inset-0{% endunless %}
 {% endcapture %}
 
 {% capture picture_class %}
 {% if image_position == 'left' or image_position == 'right' %}inline-block aspect-w-[730] aspect-h-[600] w-full{% endif %}
+{% unless image_position == 'left' or image_position == 'right' %}z-0{% endunless %}
 {% endcapture %}
 
 <div data-module="text-banner">
@@ -50,10 +50,12 @@ z-0
         link_url_1: link_url,
         link_style_1: link_style,
       %}
-      {% unless section.blocks == blank %}
+      {% unless blocks == blank %}
         <div class="{{ value_props_container_class | strip_newlines | strip }}"">
-          {% for block in section.blocks %}
-            {% render 'value-prop', title: block.settings.title, description: block.settings.description %}
+          {% for block in blocks %}
+            {% if block.type == "value-prop" %}
+              {% render 'value-prop', title: block.settings.title, description: block.settings.description %}
+            {% endif %}
           {% endfor %}
         </div>
       {% endunless %}
@@ -61,6 +63,13 @@ z-0
     {% unless image_position == 'none' %}
       <div class="{{ picture_container_class | strip_newlines | strip }}">
         {% render 'picture', image: image, class: picture_class %}
+        <div class="absolute inset-0">
+          {% for block in blocks %}
+            {% if block.type == "shoppable-product" %}
+              <a class="absolute z-20" style="top: {{ block.settings.vertical_position }}%; left: {{ block.settings.horizontal_position }}%">Product</a>
+            {% endif %}
+          {% endfor %}
+        </div>
       </div>
     {% endunless %}
   </div>

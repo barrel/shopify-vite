@@ -15,7 +15,7 @@ class DynamicSectionElement extends HTMLElement {
     }
 
     // Store active element ID in case it is replaced during update
-    const activeElementId = document.activeElement?.id
+    // const activeElementId = document.activeElement?.id
 
     // Load new HTML for this module's section from Section Rendering API
     return fetch(`${url}&sections=${this.name}`)
@@ -28,9 +28,9 @@ class DynamicSectionElement extends HTMLElement {
         this.replaceContent(newSectionEl, options)
 
         // Restore focus to original active element if the ID still exists
-        if (activeElementId && activeElementId !== document.activeElement?.id) {
-          document.getElementById(activeElementId)?.focus()
-        }
+        // if (activeElementId && activeElementId !== document.activeElement?.id) {
+        //   document.getElementById(activeElementId)?.focus()
+        // }
       })
   }
 

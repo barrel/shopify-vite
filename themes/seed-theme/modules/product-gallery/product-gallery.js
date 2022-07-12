@@ -7,11 +7,9 @@ class ProductGallery extends HTMLElement {
       this.setActiveThumbnail()
     })
     this.addEventListener('focusin', (event) => {
-      console.log(event)
       this.setFocusedThumbnail()
     })
     this.addEventListener('focusout', (event) => {
-      console.log(event)
       this.setFocusedThumbnail()
     })
 

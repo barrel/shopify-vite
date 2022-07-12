@@ -1,0 +1,20 @@
+<recently-viewed-products data-handle="{{ product.handle }}">
+  <div class="max-w-7xl mx-auto px-responsive hidden">
+    {% render 'rich-text', heading: section.settings.heading, heading_class: 'h3' %}
+  </div>
+  <div data-slot="product-grid-results">
+  </div>
+</recently-viewed-products>
+
+{% schema %}
+{
+  "name": "Recently Viewed Products",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading"
+    }
+  ]
+}
+{% endschema %}

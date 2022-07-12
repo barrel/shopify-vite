@@ -15,47 +15,35 @@
   {%- endif -%}
   <nav class="max-w-7xl mx-auto" aria-label="Top">
     <div class="w-full px-responsive py-4 sm:py-8">
-      <div class="flex items-center">
-        <a href="/">
-          {% if section.settings.logo %}
-            <img
-              class="{{ logo_class }}"
-              src="{{ section.settings.logo | image_url }}"
-              width="{{ logo_width }}"
-              height="{{ logo_height }}"
-              alt="{{ shop.name }}"
-              loading="lazy"
-            />
-          {% else %}
+      <div class="flex">
+        <div>
+          <button>Search</button>
+        </div>
+        <div class="flex-1 text-center">
+          <a href="/">
             <span>{{ shop.name }}</span>
-          {% endif %}
-        </a>
+          </a>
+        </div>
+        <div data-slot="site-header-cart-icon">
+          <span>
+            Account
+          </span>
+          <a href="{{ routes.cart_url }}" onclick="document.querySelector('shopify-cart').openDrawer(event)">Cart
+            {% unless cart.item_count == 0 %}
+              <span>({{ cart.item_count }})</span>
+            {% endunless %}
+          </a>
+        </div>
+      </div>
+      <div class="flex w-full">
         {%- if section.settings.menu != blank -%}
-          <div class="hidden sm:block ml-8 space-x-8">
+          <div class="space-x-8 mx-auto">
             {%- for link in section.settings.menu.links -%}
               <a href="{{ link.url }}" class="text-base hover:text-sky-500">{{ link.title | escape }}</a>
             {%- endfor -%}
           </div>
         {%- endif -%}
-        <div data-slot="site-header-cart-icon" class="flex-1 text-right">
-          <button onclick="document.querySelector('shopify-cart').openDrawer()">Cart
-            {% unless cart.item_count == 0 %}
-              <span>({{ cart.item_count }})</span>
-            {% endunless %}
-          </button>
-        </div>
       </div>
-    </div>
-    <div>
-      {%- if section.settings.menu != blank -%}
-        <div class="p-6 pt-0 space-y-6 sm:hidden">
-          {%- for link in section.settings.menu.links -%}
-            <div>
-              <a href="{{ link.url }}" class="text-base hover:text-sky-500">{{ link.title | escape }}</a>
-            </div>
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
     </div>
   </nav>
 </site-header>
@@ -65,19 +53,21 @@
   "name": "Site Header",
   "settings": [
     {
-      "type": "header",
-      "content": "Navigation"
-    },
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
-    },
-    {
       "type": "link_list",
       "id": "menu",
       "default": "main-menu",
       "label": "Menu"
+    },
+    {
+      "type": "collection_list",
+      "id": "collections",
+      "label": "Collections",
+      "limit": 5
+    },
+    {
+      "type": "richtext",
+      "id": "collections-cta",
+      "label": "Collections CTA"
     }
   ],
   "blocks": [
