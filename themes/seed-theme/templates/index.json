@@ -73,29 +73,25 @@
         "sort": "manual"
       }
     },
-    "1656538158bb5eaaeb": {
-      "type": "cta-grid",
+    "home_content_grid_1": {
+      "type": "content-grid",
       "blocks": {
         "fe11d220-cadb-48a7-b507-cfff636ea2ee": {
-          "type": "cta-card",
+          "type": "page-link",
           "settings": {
             "size": "large",
-            "subheading": "",
             "heading": "We Take Squeaky Clean To A New Level",
-            "content": "",
             "link_text": "Click here",
             "link_url": "\/",
             "link_style": "dark"
           }
         },
         "3b32b58e-03ec-4066-a004-41e507557896": {
-          "type": "cta-card",
+          "type": "page-link",
           "settings": {
             "size": "small",
-            "subheading": "",
             "heading": "Supreme Cleaning Bundle",
-            "content": "",
-            "link_text": "Click here",
+            "link_text": "Explore Bundle",
             "link_url": "\/",
             "link_style": "dark"
           }
@@ -106,6 +102,8 @@
         "3b32b58e-03ec-4066-a004-41e507557896"
       ],
       "settings": {
+        "heading": "",
+        "content": ""
       }
     },
     "1652310628c65556fc": {
@@ -169,6 +167,51 @@
         "image_position": "none",
         "image_alt": ""
       }
+    },
+    "home_content_grid_2": {
+      "type": "content-grid",
+      "blocks": {
+        "c01f5d8a-6741-4174-8173-4110400287e1": {
+          "type": "page-link",
+          "settings": {
+            "size": "small",
+            "heading": "In The Garden with @bigcitygardner",
+            "link_text": "Read More",
+            "link_url": "",
+            "link_style": "dark"
+          }
+        },
+        "5cf1b2d0-3d9d-4bdc-9879-b868d1cfc6ac": {
+          "type": "testimonial-content",
+          "settings": {
+            "size": "small",
+            "subheading": "This Just In From Our Customers",
+            "heading": "“I still use original the BLACK+DECKER tools from my father and love the latest products to add to my collection.”"
+          }
+        },
+        "c8632a0c-6a1e-4985-b95b-5a5d16f1c95d": {
+          "type": "page-link",
+          "settings": {
+            "size": "small",
+            "heading": "A Healthier Home: Clean Air Secrets",
+            "link_text": "Read More",
+            "link_url": "",
+            "link_style": "dark"
+          }
+        }
+      },
+      "block_order": [
+        "c01f5d8a-6741-4174-8173-4110400287e1",
+        "5cf1b2d0-3d9d-4bdc-9879-b868d1cfc6ac",
+        "c8632a0c-6a1e-4985-b95b-5a5d16f1c95d"
+      ],
+      "settings": {
+        "heading": "Our Customers Love Us",
+        "content": "<p>Do you know the five best way to clean your vacuum? <a href=\"\/\" title=\"\/\">Learn Tips From Our Experts<\/a><\/p>"
+      }
+    },
+    "home_collection_grid": {
+      "type": "collection-grid"
     }
   },
   "order": [
@@ -177,8 +220,10 @@
     "home_product_grid_1",
     "home_product_grid_2",
     "home_product_grid_3",
-    "1656538158bb5eaaeb",
+    "home_content_grid_1",
     "1652310628c65556fc",
-    "165756098281cbbf0a"
+    "165756098281cbbf0a",
+    "home_content_grid_2",
+    "home_collection_grid"
   ]
 }

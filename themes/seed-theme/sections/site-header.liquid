@@ -10,12 +10,8 @@
   <a href="#content" class="sr-only focus:not-sr-only">
     Skip to content
   </a>
-  {%- if section.settings.promo_bar_enabled and section.settings.promo_bar_content != blank -%}
-    {%- unless section.settings.promo_bar_homepage_only and template != 'index' -%}
-      <div class="wysiwyg text-center px-responsive py-4 bg-gray-200">
-        {{- section.settings.promo_bar_content -}}
-      </div>
-    {%- endunless -%}
+  {%- if section.blocks != blank -%}
+    {% render 'announcement-bar' %}
   {%- endif -%}
   <nav class="max-w-7xl mx-auto" aria-label="Top">
     <div class="w-full px-responsive py-4 sm:py-8">
@@ -82,26 +78,19 @@
       "id": "menu",
       "default": "main-menu",
       "label": "Menu"
-    },
+    }
+  ],
+  "blocks": [
     {
-      "type": "header",
-      "content": "Promo Bar"
-    },
-    {
-      "type": "richtext",
-      "id": "promo_bar_content",
-      "label": "Promo bar content"
-    },
-    {
-      "type": "checkbox",
-      "id": "promo_bar_enabled",
-      "label": "Enable promo bar",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "promo_bar_homepage_only",
-      "label": "Only show promo bar on home page"
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
     }
   ]
 }

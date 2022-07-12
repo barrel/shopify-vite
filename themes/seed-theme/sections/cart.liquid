@@ -3,7 +3,7 @@
   if template.name == "cart"
     assign cart_class = "block relative mx-auto max-w-7xl"
   else
-    assign cart_class = "fixed top-0 bottom-0 right-0 w-full sm:w-[500px] bg-white z-20 peer translate-x-full [&.open]:translate-x-0 transition-transform"
+    assign cart_class = "fixed top-0 bottom-0 right-0 w-full sm:w-[500px] bg-white z-50 peer translate-x-full [&.open]:translate-x-0 transition-transform"
   endif
 
 %}
@@ -17,5 +17,5 @@
   {% endform %}
 </shopify-cart>
 {% unless template.name == "cart" %}
-  <span class="fixed inset-0 bg-black z-10 opacity-0 pointer-events-none [.peer.open~&]:opacity-20 [.peer.open~&]:pointer-events-auto transition-opacity" onclick="document.querySelector('shopify-cart').closeDrawer()">
+  <span class="fixed inset-0 bg-black z-40 opacity-0 pointer-events-none [.peer.open~&]:opacity-20 [.peer.open~&]:pointer-events-auto transition-opacity" onclick="document.querySelector('shopify-cart').closeDrawer()">
 {% endunless %}

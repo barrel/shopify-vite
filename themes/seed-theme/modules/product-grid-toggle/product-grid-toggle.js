@@ -28,7 +28,7 @@ class ProductGridToggle extends HTMLElement {
     const siblingProductGridSections = []
 
     Array.from(siblingSections).every((siblingSection, index) => {
-      if (siblingSection.firstElementChild.getAttribute('data-module') === 'product-grid') {
+      if (siblingSection.firstElementChild?.getAttribute('data-module') === 'product-grid') {
         siblingProductGridSections.push(siblingSection)
 
         return index < this.querySelectorAll('label').length
