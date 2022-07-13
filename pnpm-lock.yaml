@@ -20,7 +20,7 @@ importers:
       tsup: ^6.1.2
       turbo: ^1.3.0
       typescript: ^4.7.4
-      vite: 3.0.0-beta.10
+      vite: 3.0.0
     dependencies:
       '@changesets/cli': 2.23.0
       cross-env: 7.0.3
@@ -39,7 +39,7 @@ importers:
       eslint-plugin-import: 2.26.0_ffi3uiz42rv3jyhs6cr7p7qqry
       eslint-plugin-node: 11.1.0_eslint@7.32.0
       eslint-plugin-promise: 4.3.1
-      vite: 3.0.0-beta.10
+      vite: 3.0.0
 
   packages/create-shopify-theme:
     specifiers: {}
@@ -96,7 +96,7 @@ importers:
       postcss-mixins: ^9.0.2
       postcss-preset-env: ^7.4.3
       tailwindcss: ^3.1.5
-      vite: 3.0.0-beta.10
+      vite: 3.0.0
       vite-plugin-shopify: workspace:*
       vite-plugin-shopify-modules: workspace:*
       vite-plugin-shopify-theme-settings: workspace:*
@@ -118,7 +118,7 @@ importers:
       postcss-import: 14.1.0_postcss@8.4.14
       postcss-mixins: 9.0.2_postcss@8.4.14
       postcss-preset-env: 7.7.1_postcss@8.4.14
-      vite: 3.0.0-beta.10
+      vite: 3.0.0
       vite-plugin-shopify: link:../../packages/vite-plugin-shopify
       vite-plugin-shopify-modules: link:../../packages/vite-plugin-shopify-modules
       vite-plugin-shopify-theme-settings: link:../../packages/vite-plugin-shopify-theme-settings
@@ -127,13 +127,13 @@ importers:
     specifiers:
       lodash-es: ^4.17.21
       sass: ^1.52.2
-      vite: 3.0.0-beta.10
+      vite: 3.0.0
       vite-plugin-shopify: workspace:*
     dependencies:
       lodash-es: 4.17.21
     devDependencies:
       sass: 1.52.3
-      vite: 3.0.0-beta.10_sass@1.52.3
+      vite: 3.0.0_sass@1.52.3
       vite-plugin-shopify: link:../../packages/vite-plugin-shopify
 
 packages:
@@ -4249,8 +4249,8 @@ packages:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
 
-  /vite/3.0.0-beta.10:
-    resolution: {integrity: sha512-QtzSQVuhNLDp9j4wNdVT3aDyWyvoAL4QxBU/lnMyEKqTzYrXdqyHpFmfWW/wo/0uTluZKzbsUm89eQq2RxiKMg==}
+  /vite/3.0.0:
+    resolution: {integrity: sha512-M7phQhY3+fRZa0H+1WzI6N+/onruwPTBTMvaj7TzgZ0v2TE+N2sdLKxJOfOv9CckDWt5C4HmyQP81xB4dwRKzA==}
     engines: {node: '>=14.18.0'}
     hasBin: true
     peerDependencies:
@@ -4276,8 +4276,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite/3.0.0-beta.10_sass@1.52.3:
-    resolution: {integrity: sha512-QtzSQVuhNLDp9j4wNdVT3aDyWyvoAL4QxBU/lnMyEKqTzYrXdqyHpFmfWW/wo/0uTluZKzbsUm89eQq2RxiKMg==}
+  /vite/3.0.0_sass@1.52.3:
+    resolution: {integrity: sha512-M7phQhY3+fRZa0H+1WzI6N+/onruwPTBTMvaj7TzgZ0v2TE+N2sdLKxJOfOv9CckDWt5C4HmyQP81xB4dwRKzA==}
     engines: {node: '>=14.18.0'}
     hasBin: true
     peerDependencies:
