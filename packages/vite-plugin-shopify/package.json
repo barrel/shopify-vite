@@ -37,6 +37,6 @@
     "magic-string": "^0.26.2"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.7"
+    "tsconfig": "workspace:*"
   }
 }

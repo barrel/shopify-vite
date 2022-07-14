@@ -4,9 +4,7 @@
   "compilerOptions": {
     "target": "es2017",
     "module": "esnext",
-    "lib": [
-      "esnext"
-    ],
+    "lib": ["esnext"],
     "moduleResolution": "node",
     "esModuleInterop": true,
     "strict": true,
@@ -15,12 +13,5 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true
   },
-  "include": [
-    "."
-  ],
-  "exclude": [
-    "dist",
-    "build",
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
