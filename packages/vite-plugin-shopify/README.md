@@ -37,9 +37,9 @@ export default {
     viteShopify({
       // Root path to your Shopify theme directory (location of snippets, sections, templates, etc.)
       themeRoot: "./",
-      // Front-end source code directory (relative to themeRoot)
+      // Front-end source code directory
       sourceCodeDir: "frontend",
-      // Front-end entry points directory (relative to sourceCodeDir)
+      // Front-end entry points directory
       entrypointsDir: "frontend/entrypoints"
     })
   ]
