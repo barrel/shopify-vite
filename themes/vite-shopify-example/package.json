@@ -2,12 +2,14 @@
   "name": "@barrelny/vite-shopify-example",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "cross-env DEBUG=vite-plugin-shopify:* vite",
+    "build": "cross-env DEBUG=vite-plugin-shopify:* vite build",
     "lint": "eslint ."
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
     "sass": "^1.52.2",
+    "tsconfig": "workspace:*",
     "vite": "3.0.0",
     "vite-plugin-shopify": "workspace:*"
   },
