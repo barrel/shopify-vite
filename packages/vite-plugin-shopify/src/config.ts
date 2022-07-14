@@ -1,5 +1,5 @@
 import path from 'path'
-import { Plugin, UserConfig, ConfigEnv } from 'vite'
+import { Plugin, UserConfig, ConfigEnv, mergeConfig } from 'vite'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
 
@@ -33,8 +33,8 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
           outDir: path.join(options.themeRoot, 'assets'),
           // Do not use subfolder for static assets
           assetsDir: '',
-          // Clear output directory before each build
-          emptyOutDir: true,
+          // Don't clear the assets directory of the theme by default
+          emptyOutDir: false,
           // Configure bundle entry points
           rollupOptions: {
             input: glob.sync(path.join(options.entrypointsDir, '**/*'), { onlyFiles: true })
@@ -57,7 +57,7 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
         }
       }
 
-      return generatedConfig
+      return mergeConfig(generatedConfig, config)
     }
   }
 }
