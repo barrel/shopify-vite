@@ -29,7 +29,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
       debug({ protocol, host, port })
 
-      const viteTagSnippetContent = viteTagSnippetDev(`${protocol}//${host}:${port}`, options.entrypointsDir)
+      const viteTagSnippetContent = viteTagSnippetDev(`${protocol}//${host}:${port}`)
       const viteClientSnippetContent = viteClientSnippetDev(`${protocol}//${host}:${port}`)
 
       // Write vite-tag snippet for development server
@@ -95,7 +95,7 @@ const viteTagDisclaimer = '{% comment %}\n  IMPORTANT: This snippet is automatic
 
 // Generate conditional statement for entry tag
 const viteEntryTag = (entryName: string, tag: string, isFirstEntry = false): string =>
-  `{% ${!isFirstEntry ? 'els' : ''}if vite-tag == "${entryName}" %}\n  ${tag}`
+  `{% ${!isFirstEntry ? 'els' : ''}if vite-tag == "${path.basename(entryName)}" %}\n  ${tag}`
 
 // Generate a preload link tag for a script or style asset
 const preloadTag = (fileName: string, as: 'script' | 'style'): string =>
@@ -110,9 +110,9 @@ const stylesheetTag = (fileName: string): string =>
   `{{ '${fileName}' | asset_url | stylesheet_tag }}`
 
 // Generate vite-tag snippet for development
-const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/assets'): string =>
+const viteTagSnippetDev = (assetHost = 'http://localhost:5173'): string =>
   `${viteTagDisclaimer}{% liquid
-  assign file_url = vite-tag | prepend: '${assetHost}/${entrypointsDir}/'
+  assign file_url = vite-tag | prepend: '${assetHost}/'
   assign file_extension = vite-tag | split: '.' | last
   assign css_extensions = '${KNOWN_CSS_EXTENSIONS.join('|')}' | split: '|'
   assign is_css = false

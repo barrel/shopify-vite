@@ -36,11 +36,11 @@ export default {
     /* Plugin options are not required, defaults shown */
     viteShopify({
       // Root path to your Shopify theme directory (location of snippets, sections, templates, etc.)
-      themeRoot: ".",
-      // Front-end source code directory
+      themeRoot: process.cwd(),
+      // Front-end source code directory (relative to themeRoot)
       sourceCodeDir: "frontend",
-      // Front-end entry points directory
-      entrypointsDir: "frontend/entrypoints"
+      // Front-end entry points directory (relative to sourceCodeDir)
+      entrypointsDir: "entrypoints"
     })
   ]
 };

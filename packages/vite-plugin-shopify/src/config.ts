@@ -9,8 +9,6 @@ const debug = createDebugger('vite-plugin-shopify:config')
 
 // Plugin for setting necessary Vite config to support Shopify plugin functionality
 export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions): Plugin {
-  const sourceCodeDir = path.resolve(options.sourceCodeDir)
-
   return {
     name: 'vite-plugin-shopify-config',
     config (config: UserConfig, env: ConfigEnv): UserConfig {
@@ -25,6 +23,8 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
       debug({ host, port, https, protocol, origin, sourcemap, socketProtocol })
 
       const generatedConfig: UserConfig = {
+        // Use the entrypoints directory as root to serve assets
+        root: options.entrypointsDir,
         // Use relative base path so to load imported assets from Shopify CDN
         base: './',
         // Do not use "public" directory
@@ -48,8 +48,8 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
         resolve: {
           // Provide import alias to source code dir for convenience
           alias: {
-            '~': sourceCodeDir,
-            '@': sourceCodeDir
+            '~': options.sourceCodeDir,
+            '@': options.sourceCodeDir
           }
         },
         server: {
