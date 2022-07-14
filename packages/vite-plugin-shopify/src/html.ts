@@ -27,10 +27,12 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
       const host = typeof config.server?.host === 'string' ? config.server.host : 'localhost'
       const port = typeof config.server?.port !== 'undefined' ? config.server.port : 5173
 
-      debug({ protocol, host, port })
+      const assetHost = `${protocol}//${host}:${port}`
 
-      const viteTagSnippetContent = viteTagSnippetDev(`${protocol}//${host}:${port}`)
-      const viteClientSnippetContent = viteClientSnippetDev(`${protocol}//${host}:${port}`)
+      debug({ assetHost })
+
+      const viteTagSnippetContent = viteTagSnippetDev(assetHost, options.entrypointsDir)
+      const viteClientSnippetContent = viteClientSnippetDev(assetHost)
 
       // Write vite-tag snippet for development server
       fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
@@ -95,7 +97,7 @@ const viteTagDisclaimer = '{% comment %}\n  IMPORTANT: This snippet is automatic
 
 // Generate conditional statement for entry tag
 const viteEntryTag = (entryName: string, tag: string, isFirstEntry = false): string =>
-  `{% ${!isFirstEntry ? 'els' : ''}if vite-tag == "${path.basename(entryName)}" %}\n  ${tag}`
+  `{% ${!isFirstEntry ? 'els' : ''}if vite-tag == "${entryName}" %}\n  ${tag}`
 
 // Generate a preload link tag for a script or style asset
 const preloadTag = (fileName: string, as: 'script' | 'style'): string =>
@@ -110,9 +112,9 @@ const stylesheetTag = (fileName: string): string =>
   `{{ '${fileName}' | asset_url | stylesheet_tag }}`
 
 // Generate vite-tag snippet for development
-const viteTagSnippetDev = (assetHost = 'http://localhost:5173'): string =>
+const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/entrypoints'): string =>
   `${viteTagDisclaimer}{% liquid
-  assign file_url = vite-tag | prepend: '${assetHost}/'
+  assign file_url = vite-tag | prepend: '${assetHost}/${entrypointsDir}/'
   assign file_extension = vite-tag | split: '.' | last
   assign css_extensions = '${KNOWN_CSS_EXTENSIONS.join('|')}' | split: '|'
   assign is_css = false
