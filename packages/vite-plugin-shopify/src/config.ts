@@ -1,5 +1,5 @@
 import path from 'path'
-import { Plugin, UserConfig } from 'vite'
+import { Plugin, UserConfig, ConfigEnv } from 'vite'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
 
@@ -13,14 +13,15 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
 
   return {
     name: 'vite-plugin-shopify-config',
-    config (config: UserConfig): UserConfig {
+    config (config: UserConfig, env: ConfigEnv): UserConfig {
       const host = config.server?.host ?? 'localhost'
       const port = config.server?.port ?? 5173
       const https = config?.server?.https
       const protocol = https === true ? 'https:' : 'http:'
       const origin = `${protocol}//${host as string}:${port}`
+      const sourcemap = env.command === 'build'
 
-      debug({ host, port, https, protocol, origin })
+      debug({ host, port, https, protocol, origin, sourcemap })
 
       const generatedConfig: UserConfig = {
         // Use relative base path so to load imported assets from Shopify CDN
@@ -39,7 +40,9 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
             input: glob.sync(path.join(options.entrypointsDir, '**/*'), { onlyFiles: true })
           },
           // Output manifest file for backend integration
-          manifest: true
+          manifest: true,
+          // Generate production source maps
+          sourcemap
         },
         resolve: {
           // Provide import alias to source code dir for convenience
