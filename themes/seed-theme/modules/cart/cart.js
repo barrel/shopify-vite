@@ -24,10 +24,12 @@ class Cart extends DynamicSectionElement {
     }
 
     this.classList.add('open')
+    document.body.classList.add('overflow-hidden')
   }
 
   closeDrawer () {
     this.classList.remove('open')
+    document.body.classList.remove('overflow-hidden')
   }
 
   // Add item to cart using HTML form data

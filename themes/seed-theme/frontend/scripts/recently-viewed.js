@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 const COOKIE_NAME = 'recently_viewed'
 const EXPIRE_TIME = 60 * 60 * 24 * 7 // set cookie expire time to 7 days
-const MAX_LIMIT = 10
+const MAX_LIMIT = 20
 
 // Add a product handle to the list of recently-viewed products
 export const setRecentlyViewed = (handle) => {

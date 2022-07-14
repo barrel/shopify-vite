@@ -26,7 +26,7 @@ relative z-10
 {% endcapture %}
 
 {% capture picture_container_class %}
-{% if image_position == 'left' or image_position == 'right' %} sm:col-span-7{% endif %}
+{% if image_position == 'left' or image_position == 'right' %} relative sm:col-span-7{% endif %}
 {% unless image_position == 'left' or image_position == 'right' %} absolute inset-0{% endunless %}
 {% endcapture %}
 

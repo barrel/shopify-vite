@@ -16,7 +16,9 @@
     "vite:serve": "vite",
     "vite:build": "vite build",
     "shopify:serve": "shopify theme serve",
-    "shopify:push": "shopify theme push",
+    "shopify:push": "shopify theme push --ignore config/settings_data.json templates/*.json locales/*.json",
+    "shopify:push:unsafe": "shopify theme push",
+    "shopify:push:new": "shopify theme push --unpublished",
     "shopify:pull": "shopify theme pull --nodelete"
   },
   "dependencies": {

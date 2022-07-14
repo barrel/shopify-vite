@@ -46,11 +46,22 @@ class CollectionProductGrid extends DynamicSectionElement {
 
   // Handle filter input changes
   onChangeFilter (event) {
-    console.log(event)
     // Verify change event came from collection filters
     if (event.target.closest('[data-module="collection-filters"]')) {
       // Generate new URL with filter query params
       const { origin, pathname } = window.location
+
+      let path = pathname
+      const tagFilters = []
+
+      if (path[path.length - 1] === '/') {
+        path = path.slice(0, path.length - 1)
+      }
+
+      if (pathname.includes('/filter_')) {
+        path = path.slice(0, path.indexOf('/filter_'))
+      }
+
       const params = new URLSearchParams(new FormData(event.target.closest('form')))
 
       for (const param of params) {
@@ -59,10 +70,24 @@ class CollectionProductGrid extends DynamicSectionElement {
         if (!value) {
           params.delete(name)
         }
+
+        if (name === 'tag-filter') {
+          tagFilters.push(value)
+        }
       }
 
+      params.delete('tag-filter')
+
+      let fullPath = path
+
+      if (tagFilters.length) {
+        fullPath += `/${tagFilters.join('+')}`
+      }
+
+      console.log(`${origin}${fullPath}?${params}`)
+
       // Fetch new collection product grid section and update contents
-      this.loadSectionFromUrl(`${origin}${pathname}?${params}`, { replaceState: true })
+      this.loadSectionFromUrl(`${origin}${fullPath}?${params}`, { replaceState: true })
     }
   }
 

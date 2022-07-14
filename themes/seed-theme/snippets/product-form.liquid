@@ -32,27 +32,27 @@
         {% endfor %}
       {% endunless %}
       {% render 'quantity-input', value: 1 %}
+      <div data-slot="product-form-submit">
+        {% if initial_variant.available %}
+          {% render 'button',
+            link_text: add_to_cart_text,
+            link_style: 'dark',
+            link_tag: 'button',
+            class: 'w-full !m-0',
+            attr: 'type="submit"'
+          %}
+        {% else %}
+          {% render 'button',
+            link_text: sold_out_text,
+            link_style: 'dark',
+            link_tag: 'button',
+            class: 'w-full !m-0',
+            attr: 'type="submit" disabled'
+          %}
+        {% endif %}
+      </div>
     {% else %}
       <input type="hidden" name="quantity" min="1" value="1" />
     {% endif %}
-    <div data-slot="product-form-submit">
-      {% if initial_variant.available %}
-        {% render 'button',
-          link_text: add_to_cart_text,
-          link_style: 'dark',
-          link_tag: 'button',
-          class: 'w-full !m-0',
-          attr: 'type="submit"'
-        %}
-      {% else %}
-        {% render 'button',
-          link_text: sold_out_text,
-          link_style: 'dark',
-          link_tag: 'button',
-          class: 'w-full !m-0',
-          attr: 'type="submit" disabled'
-        %}
-      {% endif %}
-    </div>
   {% endform %}
 </product-form>

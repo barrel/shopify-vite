@@ -1,3 +1,21 @@
+{% liquid
+  comment
+    Retrieve original collection to generate full list of filters
+  endcomment
+  for shop_collection in collections
+    if shop_collection.title == collection.title
+      assign original_collection = shop_collection
+    endif
+  endfor
+
+  comment
+    Parse active tag-based filters from URL path
+  endcomment
+  assign path_handle = request.path | split: '/' | last
+  if path_handle contains 'filter_'
+    assign active_tag_filters = path_handle | split: '+'
+  endif
+%}
 <div data-module="collection-filters">
   <form>
     <select id="sort-by" name="sort_by">
@@ -11,7 +29,64 @@
     <div class="hidden no-js:block">
       <input type="submit" value="Apply">
     </div>
-    {% for filter in collection.filters %}
+    {% comment %}
+      Loop through "filters" metafield on collection to render tag filters
+    {% endcomment %}
+    {% for tag_filter_name in collection.metafields.custom.filters.value %}
+      {% assign tag_filter_id = tag_filter_name | handleize | prepend: 'tag.filter.' %}
+      <details data-slot="{{ tag_filter_id }}">
+        <summary>
+          <span>{{ tag_filter_name }}</span>
+        </summary>
+        <ul>
+          {% for tag in original_collection.tags %}
+            {% liquid
+              assign tag_segments = tag | split: '_'
+
+              if tag_segments[0] != 'Filter'
+                continue
+              endif
+
+              assign tag_label = tag_segments[1]
+              assign tag_value = tag_segments[2]
+              assign tag_handle = tag | handleize
+              assign disabled = false
+
+              unless collection.tags contains tag
+                comment
+                  Disable tag filter checkbox if tag is not present in filtered collection
+                endcomment
+                assign disabled = true
+              endunless
+            %}
+            {% if tag_label == tag_filter_name %}
+              <li>
+                <label for="{{ tag }}">
+                <input type="checkbox"
+                  name="tag-filter"
+                  value="{{ tag_handle }}"
+                  id="{{ tag }}"
+                  {% if active_tag_filters contains tag_handle -%}checked{%- endif %}
+                  {% if disabled -%}disabled{%- endif %}
+                >{{ tag_value }}</label>
+              </li>
+            {% endif %}
+          {% endfor %}
+        </ul>
+      </details>
+    {% endfor %}
+    {% for original_filter in original_collection.filters %}
+      {% liquid
+        assign filter = original_filter
+        assign filter_disabled = true
+
+        for current_filter in collection.filters
+          if current_filter.label == filter.label
+            assign filter = current_filter
+            assign filter_disabled = false
+          endif
+        endfor
+      %}
       <details data-slot="{{ filter.param_name }}">
         <summary>
           <div>
@@ -33,6 +108,13 @@
           {%- when 'boolean' or 'list' -%}
             <ul>
               {%- for filter_value in filter.values -%}
+                {% liquid
+                  assign filter_value_disabled = filter_disabled
+
+                  if filter_value.count == 0 and filter_value.active == false
+                    assign filter_value_disabled = true
+                  endif
+                %}
                 <li>
                   <label for="{{ filter.param_name }}-{{ forloop.index }}">
                   <input type="checkbox"
@@ -40,7 +122,7 @@
                     value="{{ filter_value.value }}"
                     id="{{ filter.param_name }}-{{ forloop.index }}"
                     {% if filter_value.active -%}checked{%- endif %}
-                    {% if filter_value.count == 0 and filter_value.active == false -%}disabled{%- endif %}
+                    {% if filter_value_disabled -%}disabled{%- endif %}
                   >{{ filter_value.label }}</label>
                 </li>
               {%- endfor -%}
