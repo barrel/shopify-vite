@@ -20,8 +20,9 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
       const protocol = https === true ? 'https:' : 'http:'
       const origin = `${protocol}//${host as string}:${port}`
       const sourcemap = env.command === 'build'
+      const socketProtocol = https === true ? 'wss' : 'ws'
 
-      debug({ host, port, https, protocol, origin, sourcemap })
+      debug({ host, port, https, protocol, origin, sourcemap, socketProtocol })
 
       const generatedConfig: UserConfig = {
         // Use relative base path so to load imported assets from Shopify CDN
@@ -52,8 +53,16 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
           }
         },
         server: {
-          host: true,
-          origin
+          host,
+          https,
+          port,
+          origin,
+          strictPort: true,
+          hmr: {
+            host: host as string,
+            port,
+            protocol: socketProtocol
+          }
         }
       }
 

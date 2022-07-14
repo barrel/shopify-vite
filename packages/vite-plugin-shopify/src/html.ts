@@ -1,15 +1,19 @@
 import fs from 'fs'
 import path from 'path'
 import type { Manifest, Plugin, ResolvedConfig } from 'vite'
+import createDebugger from 'debug'
 
 import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
 import { ResolvedVitePluginShopifyOptions } from './options'
+
+const debug = createDebugger('vite-plugin-shopify:html')
 
 // Plugin for generating vite-tag liquid theme snippet with entry points for JS and CSS assets
 export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions): Plugin {
   let config: ResolvedConfig
 
   const snippetPath = path.resolve(options.themeRoot, 'snippets/vite-tag.liquid')
+  const clientSnippetPath = path.resolve(options.themeRoot, 'snippets/vite-client.liquid')
 
   return {
     name: 'vite-plugin-shopify-html',
@@ -23,10 +27,16 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
       const host = typeof config.server?.host === 'string' ? config.server.host : 'localhost'
       const port = typeof config.server?.port !== 'undefined' ? config.server.port : 5173
 
+      debug({ protocol, host, port })
+
       const viteTagSnippetContent = viteTagSnippetDev(`${protocol}//${host}:${port}`, options.entrypointsDir)
+      const viteClientSnippetContent = viteClientSnippetDev(`${protocol}//${host}:${port}`)
 
       // Write vite-tag snippet for development server
       fs.writeFileSync(snippetPath, viteTagSnippetContent)
+
+      // Wirte vite-client snippet for development server
+      fs.writeFileSync(clientSnippetPath, viteClientSnippetContent)
     },
     closeBundle () {
       const assetTags: string[] = []
@@ -74,6 +84,9 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
       // Write vite-tag snippet for production build
       fs.writeFileSync(snippetPath, viteTagSnippetContent)
+
+      // Wirte vite-client snippet for production build
+      fs.writeFileSync(clientSnippetPath, '')
     }
   }
 }
@@ -113,3 +126,6 @@ const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir =
   <script src="{{ file_url }}" type="module" crossorigin="anonymous"></script>
 {% endif %}
 `
+const viteClientSnippetDev = (assetHost = 'viteTagSnippetContent'): string => {
+  return `<script src="${assetHost}/@vite/client" type="module"></script>`
+}
