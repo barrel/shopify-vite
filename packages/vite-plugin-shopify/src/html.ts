@@ -12,8 +12,8 @@ const debug = createDebugger('vite-plugin-shopify:html')
 export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions): Plugin {
   let config: ResolvedConfig
 
-  const snippetPath = path.resolve(options.themeRoot, 'snippets/vite-tag.liquid')
-  const clientSnippetPath = path.resolve(options.themeRoot, 'snippets/vite-client.liquid')
+  const viteTagSnippetPath = path.resolve(options.themeRoot, 'snippets/vite-tag.liquid')
+  const viteClientSnippetPath = path.resolve(options.themeRoot, 'snippets/vite-client.liquid')
 
   return {
     name: 'vite-plugin-shopify-html',
@@ -33,10 +33,10 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
       const viteClientSnippetContent = viteClientSnippetDev(`${protocol}//${host}:${port}`)
 
       // Write vite-tag snippet for development server
-      fs.writeFileSync(snippetPath, viteTagSnippetContent)
+      fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
 
       // Wirte vite-client snippet for development server
-      fs.writeFileSync(clientSnippetPath, viteClientSnippetContent)
+      fs.writeFileSync(viteClientSnippetPath, viteClientSnippetContent)
     },
     closeBundle () {
       const assetTags: string[] = []
@@ -83,10 +83,10 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
       const viteTagSnippetContent = viteTagDisclaimer + assetTags.join('\n') + '\n{% endif %}\n'
 
       // Write vite-tag snippet for production build
-      fs.writeFileSync(snippetPath, viteTagSnippetContent)
+      fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
 
       // Wirte vite-client snippet for production build
-      fs.writeFileSync(clientSnippetPath, '')
+      fs.writeFileSync(viteClientSnippetPath, viteTagDisclaimer)
     }
   }
 }
@@ -126,6 +126,5 @@ const viteTagSnippetDev = (assetHost = 'http://localhost:5173'): string =>
   <script src="{{ file_url }}" type="module" crossorigin="anonymous"></script>
 {% endif %}
 `
-const viteClientSnippetDev = (assetHost = 'viteTagSnippetContent'): string => {
-  return `<script src="${assetHost}/@vite/client" type="module"></script>`
-}
+const viteClientSnippetDev = (assetHost = 'http://localhost:5173'): string =>
+  `${viteTagDisclaimer}<script src="${assetHost}/@vite/client" type="module"></script>\n`
