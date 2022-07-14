@@ -1,15 +1,19 @@
 import fs from 'fs'
 import path from 'path'
 import type { Manifest, Plugin, ResolvedConfig } from 'vite'
+import createDebugger from 'debug'
 
 import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
 import { ResolvedVitePluginShopifyOptions } from './options'
+
+const debug = createDebugger('vite-plugin-shopify:html')
 
 // Plugin for generating vite-tag liquid theme snippet with entry points for JS and CSS assets
 export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions): Plugin {
   let config: ResolvedConfig
 
-  const snippetPath = path.resolve(options.themeRoot, 'snippets/vite-tag.liquid')
+  const viteTagSnippetPath = path.resolve(options.themeRoot, 'snippets/vite-tag.liquid')
+  const viteClientSnippetPath = path.resolve(options.themeRoot, 'snippets/vite-client.liquid')
 
   return {
     name: 'vite-plugin-shopify-html',
@@ -23,10 +27,18 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
       const host = typeof config.server?.host === 'string' ? config.server.host : 'localhost'
       const port = typeof config.server?.port !== 'undefined' ? config.server.port : 5173
 
-      const viteTagSnippetContent = viteTagSnippetDev(`${protocol}//${host}:${port}`, options.entrypointsDir)
+      const assetHost = `${protocol}//${host}:${port}`
+
+      debug({ assetHost })
+
+      const viteTagSnippetContent = viteTagSnippetDev(assetHost, options.entrypointsDir)
+      const viteClientSnippetContent = viteClientSnippetDev(assetHost)
 
       // Write vite-tag snippet for development server
-      fs.writeFileSync(snippetPath, viteTagSnippetContent)
+      fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
+
+      // Wirte vite-client snippet for development server
+      fs.writeFileSync(viteClientSnippetPath, viteClientSnippetContent)
     },
     closeBundle () {
       const assetTags: string[] = []
@@ -73,7 +85,10 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
       const viteTagSnippetContent = viteTagDisclaimer + assetTags.join('\n') + '\n{% endif %}\n'
 
       // Write vite-tag snippet for production build
-      fs.writeFileSync(snippetPath, viteTagSnippetContent)
+      fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
+
+      // Wirte vite-client snippet for production build
+      fs.writeFileSync(viteClientSnippetPath, viteTagDisclaimer)
     }
   }
 }
@@ -97,7 +112,7 @@ const stylesheetTag = (fileName: string): string =>
   `{{ '${fileName}' | asset_url | stylesheet_tag }}`
 
 // Generate vite-tag snippet for development
-const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/assets'): string =>
+const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/entrypoints'): string =>
   `${viteTagDisclaimer}{% liquid
   assign file_url = vite-tag | prepend: '${assetHost}/${entrypointsDir}/'
   assign file_extension = vite-tag | split: '.' | last
@@ -113,3 +128,5 @@ const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir =
   <script src="{{ file_url }}" type="module" crossorigin="anonymous"></script>
 {% endif %}
 `
+const viteClientSnippetDev = (assetHost = 'http://localhost:5173'): string =>
+  `${viteTagDisclaimer}<script src="${assetHost}/@vite/client" type="module"></script>\n`

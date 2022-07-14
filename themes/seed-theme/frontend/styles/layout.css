@@ -8,4 +8,8 @@
   .px-responsive {
     @apply px-6 sm:px-12;
   }
+
+  .px-sm {
+    @apply px-5 sm:px-8;
+  }
 }

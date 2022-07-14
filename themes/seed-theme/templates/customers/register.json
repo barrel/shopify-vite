@@ -3,10 +3,22 @@
     "register_banner": {
       "type": "text-banner",
       "settings": {
+        "subheading": "Account",
+        "heading": "Register",
+        "content": "",
+        "link_text": "",
+        "link_url": "",
+        "link_style": "dark",
+        "image_position": "background",
+        "image_alt": ""
       }
+    },
+    "register_form": {
+      "type": "account-form"
     }
   },
   "order": [
-    "register_banner"
+    "register_banner",
+    "register_form"
   ]
 }

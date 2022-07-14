@@ -1,0 +1,23 @@
+{% liquid
+  for link in linklists.main-menu.links
+    if link.url == collection.url
+      assign collection_nav_link = link
+    endif
+  endfor
+
+  assign collections = collection_nav_link.object.handle
+
+  for collection_link in collection_nav_link.links
+    if collection_link.type == 'collection_link'
+      assign collections = collections | append: '|' | append: collection_link.object.handle
+    endif
+  endfor
+%}
+
+{{ collections }}
+
+{% schema %}
+{
+  "name": "CLP Product Grid"
+}
+{% endschema %}

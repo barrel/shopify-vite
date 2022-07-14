@@ -1,0 +1,119 @@
+{% liquid
+  assign form_class = 'max-w-xl mx-auto flex flex-col'
+%}
+{% case template.name %}
+  {% when 'register' %}
+    {% form 'create_customer', class: form_class %}
+      {{ form.errors | default_errors }}
+      {% render 'text-input',
+        name: 'customer[first_name]',
+        type: 'text',
+        label: 'First name',
+        required: true
+      %}
+      {% render 'text-input',
+        name: 'customer[last_name]',
+        type: 'text',
+        label: 'Last name',
+        required: true
+      %}
+      {% render 'text-input',
+        name: 'customer[email]',
+        type: 'email',
+        label: 'Email address',
+        required: true
+      %}
+      {% render 'text-input',
+        name: 'customer[password]',
+        type: 'password',
+        label: 'Password',
+        required: true
+      %}
+      {% render 'checkbox-input',
+        name: 'customer[accepts_marketing]',
+        label: 'Sign me up for the newsletter'
+      %}
+      {% render 'button',
+        link_tag: 'button',
+        link_text: 'Create',
+        link_style: 'dark',
+        attr: 'type="submit"'
+      %}
+      <p>Already have an account? <a href="{{ routes.account_login_url }}">Sign in here</a></p>
+    {% endform %}
+  {% when 'login' %}
+    {% form 'customer_login', class: form_class %}
+      {{ form.errors | default_errors }}
+      {% render 'text-input',
+        name: 'customer[email]',
+        type: 'email',
+        label: 'Email address',
+        required: true
+      %}
+      {% render 'text-input',
+        name: 'customer[password]',
+        type: 'password',
+        label: 'Password',
+        required: true
+      %}
+      {% render 'button',
+        link_tag: 'button',
+        link_text: 'Sign in',
+        link_style: 'dark',
+        attr: 'type="submit"'
+      %}
+      <p><a href="{{ routes.account_recover_url }}">Forgot your password?</a></p>
+      <p>Don't have an account? <a href="{{ routes.account_register_url }}">Register</a></p>
+      <p><a href="{{ routes.root_url }}">Return to home</a></p>
+    {% endform %}
+  {% when 'activate_account' %}
+    {% form 'activate_customer_password', class: form_class %}
+      {{ form.errors | default_errors }}
+      {% render 'text-input',
+        name: 'customer[password]',
+        type: 'password',
+        label: 'Password',
+        required: true
+      %}
+      {% render 'text-input',
+        name: 'customer[password_confirmation]',
+        type: 'password',
+        label: 'Password Confirmation',
+        required: true
+      %}
+      {% render 'button',
+        link_tag: 'button',
+        link_text: 'Activate Account',
+        attr: 'type="submit"'
+      %}
+      <span>or</span>
+      {% render 'button',
+        link_tag: 'button',
+        link_text: 'Decline invitation',
+        link_style: 'dark',
+        attr: 'type="submit" name="decline"'
+      %}
+    {% endform %}
+  {% when 'reset_password' %}
+    {% form 'reset_customer_password', class: form_class %}
+      {{ form.errors | default_errors }}
+      {% render 'text-input',
+        name: 'customer[password]',
+        type: 'password',
+        label: 'Password',
+        required: true
+      %}
+      {% render 'text-input',
+        name: 'customer[password_confirmation]',
+        type: 'password',
+        label: 'Password Confirmation',
+        required: true
+      %}
+      {% render 'button',
+        link_tag: 'button',
+        link_text: 'Reset Password',
+        link_style: 'dark',
+        attr: 'type="submit"'
+      %}
+    {% endform %}
+{% endcase %}

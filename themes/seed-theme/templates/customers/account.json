@@ -3,10 +3,22 @@
     "account_banner": {
       "type": "text-banner",
       "settings": {
+        "subheading": "",
+        "heading": "Account",
+        "content": "",
+        "link_text": "",
+        "link_url": "",
+        "link_style": "dark",
+        "image_position": "background",
+        "image_alt": ""
       }
+    },
+    "account_orders": {
+      "type": "account-orders"
     }
   },
   "order": [
-    "account_banner"
+    "account_banner",
+    "account_orders"
   ]
 }

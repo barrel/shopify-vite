@@ -1,5 +1,3 @@
-import './hero-slider.css'
-
 import EmblaCarousel from 'embla-carousel'
 
 class HeroSlider extends HTMLElement {
@@ -16,10 +14,10 @@ class HeroSlider extends HTMLElement {
     this.setup()
 
     this.parentElement.addEventListener('shopify:section:unload', () => {
-      alert('unload!')
+
     })
     this.parentElement.addEventListener('shopify:section:load', () => {
-      alert('load!')
+
     })
   }
 

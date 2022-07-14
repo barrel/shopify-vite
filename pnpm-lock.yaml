@@ -20,7 +20,7 @@ importers:
       tsup: ^6.1.2
       turbo: ^1.3.0
       typescript: ^4.7.4
-      vite: 3.0.0-beta.7
+      vite: ^3.0.0
     dependencies:
       '@changesets/cli': 2.23.0
       cross-env: 7.0.3
@@ -39,41 +39,57 @@ importers:
       eslint-plugin-import: 2.26.0_ffi3uiz42rv3jyhs6cr7p7qqry
       eslint-plugin-node: 11.1.0_eslint@7.32.0
       eslint-plugin-promise: 4.3.1
-      vite: 3.0.0-beta.7
+      vite: 3.0.0
 
   packages/create-shopify-theme:
     specifiers: {}
 
+  packages/tsconfig:
+    specifiers: {}
+
   packages/vite-plugin-shopify:
     specifiers:
+      debug: ^4.3.4
       fast-glob: ^3.2.11
       magic-string: ^0.26.2
+      tsconfig: workspace:*
     dependencies:
+      debug: 4.3.4
       fast-glob: 3.2.11
       magic-string: 0.26.2
+    devDependencies:
+      tsconfig: link:../tsconfig
 
   packages/vite-plugin-shopify-modules:
     specifiers:
       chokidar: ^3.5.3
       lodash: ^4.17.21
+      tsconfig: workspace:*
     dependencies:
       chokidar: 3.5.3
       lodash: 4.17.21
+    devDependencies:
+      tsconfig: link:../tsconfig
 
   packages/vite-plugin-shopify-theme-settings:
     specifiers:
       chokidar: ^3.5.3
       lodash: ^4.17.21
+      tsconfig: workspace:*
     dependencies:
       chokidar: 3.5.3
       lodash: 4.17.21
+    devDependencies:
+      tsconfig: link:../tsconfig
 
   packages/vite-shopify:
     specifiers:
+      tsconfig: workspace:*
       vite-plugin-shopify: workspace:*
       vite-plugin-shopify-modules: workspace:*
       vite-plugin-shopify-theme-settings: workspace:*
     dependencies:
+      tsconfig: link:../tsconfig
       vite-plugin-shopify: link:../vite-plugin-shopify
       vite-plugin-shopify-modules: link:../vite-plugin-shopify-modules
       vite-plugin-shopify-theme-settings: link:../vite-plugin-shopify-theme-settings
@@ -85,6 +101,7 @@ importers:
       '@shopify/theme-product-form': ^4.1.1
       '@tailwindcss/aspect-ratio': ^0.4.0
       '@tailwindcss/forms': ^0.5.2
+      cookies-js: ^1.2.3
       cross-env: ^7.0.3
       embla-carousel: ^6.2.0
       lodash: ^4.17.21
@@ -94,8 +111,8 @@ importers:
       postcss-import: ^14.1.0
       postcss-mixins: ^9.0.2
       postcss-preset-env: ^7.4.3
-      tailwindcss: ^3.1.4
-      vite: 3.0.0-beta.7
+      tailwindcss: ^3.1.5
+      vite: ^3.0.0
       vite-plugin-shopify: workspace:*
       vite-plugin-shopify-modules: workspace:*
       vite-plugin-shopify-theme-settings: workspace:*
@@ -103,11 +120,12 @@ importers:
       '@shopify/theme-cart': 4.1.1
       '@shopify/theme-product': 4.1.1
       '@shopify/theme-product-form': 4.1.1_6hytdkww4u5e4iy5vl5o7xehk4
-      '@tailwindcss/aspect-ratio': 0.4.0_tailwindcss@3.1.4
-      '@tailwindcss/forms': 0.5.2_tailwindcss@3.1.4
+      '@tailwindcss/aspect-ratio': 0.4.0_tailwindcss@3.1.5
+      '@tailwindcss/forms': 0.5.2_tailwindcss@3.1.5
+      cookies-js: 1.2.3
       embla-carousel: 6.2.0
       lodash: 4.17.21
-      tailwindcss: 3.1.4
+      tailwindcss: 3.1.5
     devDependencies:
       cross-env: 7.0.3
       npm-run-all: 4.1.5
@@ -116,22 +134,26 @@ importers:
       postcss-import: 14.1.0_postcss@8.4.14
       postcss-mixins: 9.0.2_postcss@8.4.14
       postcss-preset-env: 7.7.1_postcss@8.4.14
-      vite: 3.0.0-beta.7
+      vite: 3.0.0
       vite-plugin-shopify: link:../../packages/vite-plugin-shopify
       vite-plugin-shopify-modules: link:../../packages/vite-plugin-shopify-modules
       vite-plugin-shopify-theme-settings: link:../../packages/vite-plugin-shopify-theme-settings
 
   themes/vite-shopify-example:
     specifiers:
+      cross-env: ^7.0.3
       lodash-es: ^4.17.21
       sass: ^1.52.2
-      vite: 3.0.0-beta.7
+      tsconfig: workspace:*
+      vite: ^3.0.0
       vite-plugin-shopify: workspace:*
     dependencies:
       lodash-es: 4.17.21
     devDependencies:
+      cross-env: 7.0.3
       sass: 1.52.3
-      vite: 3.0.0-beta.7_sass@1.52.3
+      tsconfig: link:../../packages/tsconfig
+      vite: 3.0.0_sass@1.52.3
       vite-plugin-shopify: link:../../packages/vite-plugin-shopify
 
 packages:
@@ -569,21 +591,21 @@ packages:
     resolution: {integrity: sha512-p3Ab3wajRAPArvhmWcy03r0+vTGlpKjja9AY9t/MHMqnjDe/mgAAIQ4c/NKW+DkPrdw7OUDIQ/So6xTPVKx2KA==}
     dev: false
 
-  /@tailwindcss/aspect-ratio/0.4.0_tailwindcss@3.1.4:
+  /@tailwindcss/aspect-ratio/0.4.0_tailwindcss@3.1.5:
     resolution: {integrity: sha512-WJu0I4PpqNPuutpaA9zDUq2JXR+lorZ7PbLcKNLmb6GL9/HLfC7w3CRsMhJF4BbYd/lkY6CfXOvkYpuGnZfkpQ==}
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: 3.1.4
+      tailwindcss: 3.1.5
     dev: false
 
-  /@tailwindcss/forms/0.5.2_tailwindcss@3.1.4:
+  /@tailwindcss/forms/0.5.2_tailwindcss@3.1.5:
     resolution: {integrity: sha512-pSrFeJB6Bg1Mrg9CdQW3+hqZXAKsBrSG9MAfFLKy1pVA4Mb4W7C0k7mEhlmS2Dfo/otxrQOET7NJiJ9RrS563w==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.1.4
+      tailwindcss: 3.1.5
     dev: false
 
   /@types/debug/4.1.7:
@@ -1048,6 +1070,10 @@ packages:
 
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
+
+  /cookies-js/1.2.3:
+    resolution: {integrity: sha512-yqW9Kl46LcwedlF+2wyFSaCSwRKRrU6m3n9WoAsFfn23bpRfkEBwfOkD+lFw4jCLLs960ke/aM5Qe1BAhtgJmQ==}
+    dev: false
 
   /cross-env/7.0.3:
     resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
@@ -3247,9 +3273,9 @@ packages:
       yaml: 1.10.2
     dev: false
 
-  /postcss-load-config/3.1.4_postcss@8.4.14:
-    resolution: {integrity: sha512-6DiM4E7v4coTE4uzA8U//WhtPwyhiim3eyjEMFCnUpzbrkK9wJHgKDT2mR+HbtSrd/NubVaYTOpSpjUl8NQeRg==}
-    engines: {node: '>= 10'}
+  /postcss-load-config/4.0.1_postcss@8.4.14:
+    resolution: {integrity: sha512-vEJIc8RdiBRu3oRAI0ymerOn+7rPuMvRXslTvZUKZonDHFIczxztIyJ1urxM1x9JXEikvpWWTUUqal5j/8QgvA==}
+    engines: {node: '>= 14'}
     peerDependencies:
       postcss: '>=8.0.9'
       ts-node: '>=9.0.0'
@@ -3261,7 +3287,7 @@ packages:
     dependencies:
       lilconfig: 2.0.5
       postcss: 8.4.14
-      yaml: 1.10.2
+      yaml: 2.1.1
     dev: false
 
   /postcss-logical/5.0.4_postcss@8.4.14:
@@ -3887,8 +3913,8 @@ packages:
       strip-ansi: 6.0.1
     dev: true
 
-  /tailwindcss/3.1.4:
-    resolution: {integrity: sha512-NrxbFV4tYsga/hpWbRyUfIaBrNMXDxx5BsHgBS4v5tlyjf+sDsgBg5m9OxjrXIqAS/uR9kicxLKP+bEHI7BSeQ==}
+  /tailwindcss/3.1.5:
+    resolution: {integrity: sha512-bC/2dy3dGPqxMWAqFSRgQxVCfmO/31ZbeEp8s9DMDh4zgPZ5WW1gxRJkbBkXcTUIzaSUdhWrcsrSOe32ccgB4w==}
     engines: {node: '>=12.13.0'}
     hasBin: true
     dependencies:
@@ -3908,7 +3934,7 @@ packages:
       postcss: 8.4.14
       postcss-import: 14.1.0_postcss@8.4.14
       postcss-js: 4.0.0_postcss@8.4.14
-      postcss-load-config: 3.1.4_postcss@8.4.14
+      postcss-load-config: 4.0.1_postcss@8.4.14
       postcss-nested: 5.0.6_postcss@8.4.14
       postcss-selector-parser: 6.0.10
       postcss-value-parser: 4.2.0
@@ -4243,8 +4269,8 @@ packages:
       spdx-correct: 3.1.1
       spdx-expression-parse: 3.0.1
 
-  /vite/3.0.0-beta.7:
-    resolution: {integrity: sha512-yjw154hB229qq5Bl6+/CJSTxC/yIDmDJbaAjE/pdracz3jytNEd2ovk5BvxgZT6+qPiUc2rRH3FgGqiZnweIFw==}
+  /vite/3.0.0:
+    resolution: {integrity: sha512-M7phQhY3+fRZa0H+1WzI6N+/onruwPTBTMvaj7TzgZ0v2TE+N2sdLKxJOfOv9CckDWt5C4HmyQP81xB4dwRKzA==}
     engines: {node: '>=14.18.0'}
     hasBin: true
     peerDependencies:
@@ -4270,8 +4296,8 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /vite/3.0.0-beta.7_sass@1.52.3:
-    resolution: {integrity: sha512-yjw154hB229qq5Bl6+/CJSTxC/yIDmDJbaAjE/pdracz3jytNEd2ovk5BvxgZT6+qPiUc2rRH3FgGqiZnweIFw==}
+  /vite/3.0.0_sass@1.52.3:
+    resolution: {integrity: sha512-M7phQhY3+fRZa0H+1WzI6N+/onruwPTBTMvaj7TzgZ0v2TE+N2sdLKxJOfOv9CckDWt5C4HmyQP81xB4dwRKzA==}
     engines: {node: '>=14.18.0'}
     hasBin: true
     peerDependencies:
@@ -4401,6 +4427,11 @@ packages:
   /yaml/1.10.2:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
     engines: {node: '>= 6'}
+    dev: false
+
+  /yaml/2.1.1:
+    resolution: {integrity: sha512-o96x3OPo8GjWeSLF+wOAbrPfhFOGY0W00GNaxCDv+9hkcDJEnev1yh8S7pgHF0ik6zc8sQLuL8hjHjJULZp8bw==}
+    engines: {node: '>= 14'}
     dev: false
 
   /yargs-parser/18.1.3:

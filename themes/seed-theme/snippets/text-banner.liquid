@@ -1,43 +1,92 @@
 {% comment %}
   Parameters
+  * subheading
   * heading
+  * content
+  * image_position
+  * image
+  * image_alt
+  * preserve_aspect_ratio
+  * blocks
+  * link_text
+  * link_url
+  * link_style
 {% endcomment %}
+{% liquid
+  assign is_horizontal = false
+  if image_position == 'left' or image_position == 'right'
+    assign is_horizontal = true
+  endif
 
-{% capture inner_class %}
-px-responsive
-{% if image_position == 'left' or image_position == 'right' %} sm:grid sm:grid-cols-12 sm:max-w-7xl sm:mx-auto py-12{% endif %}
-{% unless image_position == 'left' or image_position == 'right' %} relative text-center{% endunless %}
-{% endcapture %}
+  assign is_preserve_aspect_horizontal = false
+  if preserve_aspect_ratio == true and is_horizontal and image != blank
+    assign is_preserve_aspect_horizontal = true
+  endif
 
-{% capture content_container_class %}
-relative z-10
-{% if image_position == 'left' or image_position == 'right' %} sm:col-span-5 sm:flex sm:flex-col sm:justify-center{% endif %}
-{% if image_position == 'left' %} sm:order-1 sm:pl-12{% endif %}
-{% if image_position == 'right' %} sm:pr-12{% endif %}
-{% unless image_position == 'left' or image_position == 'right' %} py-48{% endunless %}
-{% endcapture %}
+  assign is_preserve_aspect_background = false
+  if preserve_aspect_ratio == true and image_position == 'background' and image != blank
+    assign is_preserve_aspect_background = true
+  endif
 
-{% capture value_props_container_class %}
-{% unless image_position == 'left' or image_position == 'right' %}inline-flex space-x-6{% endunless %}
-{% endcapture %}
+  assign inner_class = 'relative'
+  if is_horizontal
+    assign inner_class = inner_class | append: ' px-responsive sm:grid sm:grid-cols-12 sm:max-w-7xl sm:mx-auto py-12'
+  else
+    assign inner_class = inner_class | append: ' text-center'
+  endif
 
-{% capture value_prop_class %}
+  assign content_container_class = 'z-10'
+  unless is_horizontal
+    assign content_container_class = content_container_class | append: ' px-responsive'
+  endunless
+  if is_preserve_aspect_background
+    assign content_container_class = content_container_class | append: ' absolute inset-0 flex flex-col justify-center'
+  else
+    assign content_container_class = content_container_class | append: ' relative'
+    if is_horizontal
+      assign content_container_class = content_container_class | append: ' sm:col-span-5 sm:flex sm:flex-col sm:justify-center'
 
-{% endcapture %}
+      if image_position == 'left'
+        assign content_container_class = content_container_class | append: ' sm:order-1 sm:pl-12'
+      else
+        assign content_container_class = content_container_class | append: ' sm:pr-12'
+      endif
+    else
+      assign content_container_class = content_container_class | append: ' py-48'
+    endif
+  endif
 
-{% capture picture_container_class %}
-z-0
-{% if image_position == 'left' or image_position == 'right' %} sm:col-span-7{% endif %}
-{% unless image_position == 'left' or image_position == 'right' %} absolute inset-0{% endunless %}
-{% endcapture %}
+  assign value_props_container_class = ''
+  unless is_horizontal
+    assign value_props_container_class = value_props_container_class | append: ' inline-flex space-x-6'
+  endunless
 
-{% capture picture_class %}
-{% if image_position == 'left' or image_position == 'right' %}inline-block aspect-w-[730] aspect-h-[600] w-full{% endif %}
-{% endcapture %}
+  assign value_prop_class = ''
+
+  assign picture_container_class = ''
+  if is_horizontal
+    assign picture_container_class = picture_container_class | append: ' relative sm:col-span-7'
+  else
+    unless is_preserve_aspect_background
+      assign picture_container_class = picture_container_class | append: ' absolute inset-0'
+    endunless
+  endif
+
+  assign image_class = ''
+  if is_horizontal
+    assign image_class = image_class | append: ' inline-block aspect-w-[730] aspect-h-[600] w-full'
+
+    if is_preserve_aspect_horizontal
+      assign image_attr = 'style="--tw-aspect-h: calc(' | append: image.height | append: '/' | append: image.width | append: '*' | append: 730 | append: ')"'
+    endif
+  else
+    assign image_class = image_class | append: ' z-0'
+  endif
+%}
 
 <div data-module="text-banner">
-  <div class="{{ inner_class | strip_newlines | strip }}">
-    <div class="{{ content_container_class | strip_newlines | strip }}">
+  <div data-inner class="{{ inner_class | strip_newlines | strip }}">
+    <div data-content-container class="{{ content_container_class | strip_newlines | strip }}">
       {% render 'rich-text',
         heading: subheading,
         heading_class: 'h5',
@@ -50,17 +99,26 @@ z-0
         link_url_1: link_url,
         link_style_1: link_style,
       %}
-      {% unless section.blocks == blank %}
+      {% unless blocks == blank %}
         <div class="{{ value_props_container_class | strip_newlines | strip }}"">
-          {% for block in section.blocks %}
-            {% render 'value-prop', title: block.settings.title, description: block.settings.description %}
+          {% for block in blocks %}
+            {% if block.type == "value-prop" %}
+              {% render 'value-prop', title: block.settings.title, description: block.settings.description %}
+            {% endif %}
           {% endfor %}
         </div>
       {% endunless %}
     </div>
     {% unless image_position == 'none' %}
-      <div class="{{ picture_container_class | strip_newlines | strip }}">
-        {% render 'picture', image: image, class: picture_class %}
+      <div data-picture-container class="{{ picture_container_class | strip_newlines | strip }}">
+        {% render 'responsive-image', image: image, class: image_class, attr: image_attr %}
+        <div class="absolute inset-0">
+          {% for block in blocks %}
+            {% if block.type == "shoppable-product" %}
+              <a class="absolute z-20 text-white" style="top: {{ block.settings.vertical_position }}%; left: {{ block.settings.horizontal_position }}%">{{ block.settings.product.title }}</a>
+            {% endif %}
+          {% endfor %}
+        </div>
       </div>
     {% endunless %}
   </div>

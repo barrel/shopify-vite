@@ -1,21 +1,20 @@
-<div class="max-w-7xl mx-auto px-responsive">
+<product-main class="relative block max-w-7xl mx-auto px-responsive" data-handle="{{ product.handle }}">
   <div class="grid grid-cols-12 bg-blue-500">
     <div class="bg-orange-500 col-span-8">
       {% render 'product-gallery' %}
     </div>
     <div class="bg-yellow-500 col-span-4">
       <h1>{{ product.title }}</h1>
-      <p>{{ product.price | money_without_trailing_zeros }}</p>
+      <div data-slot="product-main-price">
+        <p>{{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}</p>
+      </div>
       {% render 'product-form' %}
       {% render 'product-details',
-        blocks: section.blocks,
-        detail_1_title: section.settings.product_detail_1_title,
-        detail_2_title: section.settings.product_detail_2_title,
-        detail_3_title: section.settings.product_detail_3_title
+        blocks: section.blocks
       %}
     </div>
   </div>
-</div>
+</product-main>
 
 {% schema %}
 {
@@ -37,23 +36,6 @@
           "label": "Content"
         }
       ]
-    }
-  ],
-  "settings": [
-    {
-      "type": "text",
-      "id": "product_detail_1_title",
-      "label": "Detail 1 Title"
-    },
-    {
-      "type": "text",
-      "id": "product_detail_2_title",
-      "label": "Detail 2 Title"
-    },
-    {
-      "type": "text",
-      "id": "product_detail_3_title",
-      "label": "Detail 3 Title"
     }
   ]
 }

@@ -1,78 +1,56 @@
 {% liquid
-  if section.settings.logo
-    assign logo_class = 'h-[35px]'
-    assign logo_height = 35
-    assign logo_width = logo_height | times: section.settings.logo.aspect_ratio | round
+  if customer
+    assign account_url = routes.account_url
+  else
+    assign account_url = routes.account_login_url
   endif
 %}
-
-<header class="border-b" data-module="site-header">
+<site-header class="block border-b" data-module="site-header">
   <a href="#content" class="sr-only focus:not-sr-only">
     Skip to content
   </a>
-  {%- if section.settings.promo_bar_enabled and section.settings.promo_bar_content != blank -%}
-    {%- unless section.settings.promo_bar_homepage_only and template != 'index' -%}
-      <div class="wysiwyg text-center px-responsive py-4 bg-gray-200">
-        {{- section.settings.promo_bar_content -}}
-      </div>
-    {%- endunless -%}
+  {%- if section.blocks != blank -%}
+    {% render 'announcement-bar' %}
   {%- endif -%}
   <nav class="max-w-7xl mx-auto" aria-label="Top">
     <div class="w-full px-responsive py-4 sm:py-8">
-      <div class="flex items-center">
-        <a href="/">
-          {% if section.settings.logo %}
-            <img
-              class="{{ logo_class }}"
-              src="{{ section.settings.logo | image_url }}"
-              width="{{ logo_width }}"
-              height="{{ logo_height }}"
-              alt="{{ shop.name }}"
-              loading="lazy"
-            />
-          {% else %}
+      <div class="flex">
+        <div>
+          <button>Search</button>
+        </div>
+        <div class="flex-1 text-center">
+          <a href="/">
             <span>{{ shop.name }}</span>
-          {% endif %}
-        </a>
+          </a>
+        </div>
+        <div data-slot="site-header-cart-icon">
+          <a href="{{ account_url }}">
+            Account
+          </a>
+          <a href="{{ routes.cart_url }}" onclick="document.querySelector('shopify-cart').openDrawer(event)">Cart
+            {% unless cart.item_count == 0 %}
+              <span>({{ cart.item_count }})</span>
+            {% endunless %}
+          </a>
+        </div>
+      </div>
+      <div class="flex w-full">
         {%- if section.settings.menu != blank -%}
-          <div class="hidden sm:block ml-8 space-x-8">
+          <div class="space-x-8 mx-auto">
             {%- for link in section.settings.menu.links -%}
               <a href="{{ link.url }}" class="text-base hover:text-sky-500">{{ link.title | escape }}</a>
             {%- endfor -%}
           </div>
         {%- endif -%}
-        <div class="flex-1 text-right">
-          <a>Cart</a>
-        </div>
       </div>
     </div>
-    <div>
-      {%- if section.settings.menu != blank -%}
-        <div class="p-6 pt-0 space-y-6 sm:hidden">
-          {%- for link in section.settings.menu.links -%}
-            <div>
-              <a href="{{ link.url }}" class="text-base hover:text-sky-500">{{ link.title | escape }}</a>
-            </div>
-          {%- endfor -%}
-        </div>
-      {%- endif -%}
-    </div>
   </nav>
-</header>
+</site-header>
 
 {% schema %}
 {
   "name": "Site Header",
   "settings": [
-    {
-      "type": "header",
-      "content": "Navigation"
-    },
-    {
-      "type": "image_picker",
-      "id": "logo",
-      "label": "Logo"
-    },
     {
       "type": "link_list",
       "id": "menu",
@@ -80,24 +58,28 @@
       "label": "Menu"
     },
     {
-      "type": "header",
-      "content": "Promo Bar"
+      "type": "collection_list",
+      "id": "collections",
+      "label": "Collections",
+      "limit": 5
     },
     {
       "type": "richtext",
-      "id": "promo_bar_content",
-      "label": "Promo bar content"
-    },
+      "id": "collections-cta",
+      "label": "Collections CTA"
+    }
+  ],
+  "blocks": [
     {
-      "type": "checkbox",
-      "id": "promo_bar_enabled",
-      "label": "Enable promo bar",
-      "default": false
-    },
-    {
-      "type": "checkbox",
-      "id": "promo_bar_homepage_only",
-      "label": "Only show promo bar on home page"
+      "type": "announcement",
+      "name": "Announcement",
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "text",
+          "label": "Text"
+        }
+      ]
     }
   ]
 }

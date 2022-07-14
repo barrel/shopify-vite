@@ -1,4 +1,6 @@
-<p>{{ 'sections.cart.title' | t }}</p>
-{% if minicart %}
-  <button class="drawer__close" type="button" onclick="this.closest('cart-drawer').close()" aria-label="{{ 'accessibility.close' | t }}">X</button>
-{% endif %}
+<div class="flex px-sm">
+  <h2 class="flex-1">{{ 'sections.cart.title' | t }}</h2>
+  {% unless template.name == "cart" %}
+    <button type="button" onclick="this.closest('shopify-cart').closeDrawer()" aria-label="{{ 'accessibility.close' | t }}">X</button>
+  {% endunless %}
+</div>

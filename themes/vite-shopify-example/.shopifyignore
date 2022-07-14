@@ -3,3 +3,4 @@ package.json
 pnpm-lock.yaml
 .pnpm-debug.log
 vite.config.ts
+tsconfig.json

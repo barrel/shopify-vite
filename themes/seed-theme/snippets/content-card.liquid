@@ -1,0 +1,19 @@
+{% liquid
+  if size == 'large'
+    assign class = class | append: " col-span-2"
+  endif
+%}
+<div class="{{ class }}">
+  {% render 'rich-text',
+    heading: subheading,
+    heading_class: 'h5',
+  %}
+  {% render 'rich-text',
+    heading: heading,
+    heading_class: 'h2',
+    content: content,
+    link_text_1: link_text,
+    link_url_1: link_url,
+    link_style_1: link_style,
+  %}
+</div>

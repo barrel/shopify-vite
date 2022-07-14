@@ -1,12 +1,24 @@
 {
   "sections": {
-    "addresses_banner": {
+    "account_addresses_banner": {
       "type": "text-banner",
       "settings": {
+        "subheading": "Account",
+        "heading": "Addresses",
+        "content": "",
+        "link_text": "",
+        "link_url": "",
+        "link_style": "dark",
+        "image_position": "background",
+        "image_alt": ""
       }
+    },
+    "account_addresses": {
+      "type": "account-addresses"
     }
   },
   "order": [
-    "addresses_banner"
+    "account_addresses_banner",
+    "account_addresses"
   ]
 }
