@@ -1,8 +1,11 @@
 import path from 'path'
 import { Plugin, UserConfig } from 'vite'
 import glob from 'fast-glob'
+import createDebugger from 'debug'
 
 import { ResolvedVitePluginShopifyOptions } from './options'
+
+const debug = createDebugger('vite-plugin-shopify:config')
 
 // Plugin for setting necessary Vite config to support Shopify plugin functionality
 export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions): Plugin {
@@ -10,7 +13,15 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
 
   return {
     name: 'vite-plugin-shopify-config',
-    config () {
+    config (config: UserConfig): UserConfig {
+      const host = config.server?.host ?? 'localhost'
+      const port = config.server?.port ?? 5173
+      const https = config?.server?.https
+      const protocol = https === true ? 'https:' : 'http:'
+      const origin = `${protocol}//${host as string}:${port}`
+
+      debug({ host, port, https, protocol, origin })
+
       const generatedConfig: UserConfig = {
         // Use relative base path so to load imported assets from Shopify CDN
         base: './',
@@ -38,7 +49,8 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
           }
         },
         server: {
-          host: true
+          host: true,
+          origin
         }
       }
 

@@ -46,11 +46,16 @@ importers:
 
   packages/vite-plugin-shopify:
     specifiers:
+      '@types/debug': ^4.1.7
+      debug: ^4.3.4
       fast-glob: ^3.2.11
       magic-string: ^0.26.2
     dependencies:
+      debug: 4.3.4
       fast-glob: 3.2.11
       magic-string: 0.26.2
+    devDependencies:
+      '@types/debug': 4.1.7
 
   packages/vite-plugin-shopify-modules:
     specifiers:
@@ -125,6 +130,7 @@ importers:
 
   themes/vite-shopify-example:
     specifiers:
+      cross-env: ^7.0.3
       lodash-es: ^4.17.21
       sass: ^1.52.2
       vite: 3.0.0
@@ -132,6 +138,7 @@ importers:
     dependencies:
       lodash-es: 4.17.21
     devDependencies:
+      cross-env: 7.0.3
       sass: 1.52.3
       vite: 3.0.0_sass@1.52.3
       vite-plugin-shopify: link:../../packages/vite-plugin-shopify
