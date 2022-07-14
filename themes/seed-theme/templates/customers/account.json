@@ -3,8 +3,8 @@
     "account_banner": {
       "type": "text-banner",
       "settings": {
-        "subheading": "",
-        "heading": "Account",
+        "subheading": "Account",
+        "heading": "Order History",
         "content": "",
         "link_text": "",
         "link_url": "",
@@ -13,12 +13,20 @@
         "image_alt": ""
       }
     },
+    "account_nav": {
+      "type": "account-nav",
+      "settings": {
+      }
+    },
     "account_orders": {
-      "type": "account-orders"
+      "type": "account-orders",
+      "settings": {
+      }
     }
   },
   "order": [
     "account_banner",
+    "account_nav",
     "account_orders"
   ]
 }

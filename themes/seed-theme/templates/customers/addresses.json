@@ -13,12 +13,18 @@
         "image_alt": ""
       }
     },
+    "account_addresses_nav": {
+      "type": "account-nav",
+      "settings": {
+      }
+    },
     "account_addresses": {
       "type": "account-addresses"
     }
   },
   "order": [
     "account_addresses_banner",
+    "account_addresses_nav",
     "account_addresses"
   ]
 }
