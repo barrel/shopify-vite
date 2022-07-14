@@ -36,11 +36,11 @@ export default {
     /* Plugin options are not required, defaults shown */
     viteShopify({
       // Root path to your Shopify theme directory (location of snippets, sections, templates, etc.)
-      themeRoot: process.cwd(),
+      themeRoot: "./",
       // Front-end source code directory (relative to themeRoot)
       sourceCodeDir: "frontend",
       // Front-end entry points directory (relative to sourceCodeDir)
-      entrypointsDir: "entrypoints"
+      entrypointsDir: "frontend/entrypoints"
     })
   ]
 };
@@ -78,9 +78,9 @@ In your `<head>` element add this
 {%- render 'vite-client' -%}
 ```
 
-* `vite-plugin-shopify` will generate `vite-client.liquid`.
-* This will add a `<script>` tag to load the ViteJS HMR client.
-* This will only render if the dev server is running.
+- `vite-plugin-shopify` will generate `vite-client.liquid`.
+- This will add a `<script>` tag to load the ViteJS HMR client.
+- This will only render if the dev server is running.
 
 Then render the `vite-tag` snippet (in your `<head>` element too) to insert tags for loading assets from a given entrypoint file:
 
