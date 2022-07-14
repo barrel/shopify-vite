@@ -116,10 +116,19 @@
             "horizontal_position": 11,
             "vertical_position": 30
           }
+        },
+        "20a7fbe0-bb01-4fc0-b524-7211c33dbfac": {
+          "type": "shoppable-product",
+          "settings": {
+            "product": "ancient-dawn",
+            "horizontal_position": 80,
+            "vertical_position": 15
+          }
         }
       },
       "block_order": [
-        "2bb379d9-53d2-4aa6-a55e-1c91d6149b6b"
+        "2bb379d9-53d2-4aa6-a55e-1c91d6149b6b",
+        "20a7fbe0-bb01-4fc0-b524-7211c33dbfac"
       ],
       "settings": {
         "subheading": "",

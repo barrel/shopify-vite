@@ -98,7 +98,7 @@
 %}
 
 {% if image %}
-  <picture data-module="responsive-image" class="{{ class }}">
+  <picture data-module="responsive-image" class="{{ class }}" {{attr}}>
     {%- if max_retina_width > lg_retina_width %}
       <source srcset="{{ image | image_url: width: max_retina_width }}" media="{{ max_retina_query }}" />
     {%- endif -%}
