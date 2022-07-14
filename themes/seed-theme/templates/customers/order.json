@@ -17,10 +17,16 @@
       "type": "account-nav",
       "settings": {
       }
+    },
+    "order_detail": {
+      "type": "account-order-detail",
+      "settings": {
+      }
     }
   },
   "order": [
     "order_banner",
-    "order_account_nav"
+    "order_account_nav",
+    "order_detail"
   ]
 }

@@ -4,7 +4,7 @@
       {% render 'product-gallery' %}
     </div>
     <div class="bg-yellow-500 col-span-4">
-      <h1>{{ product.title }}</h1>
+      <h1 class="h1">{{ product.title }}</h1>
       <div data-slot="product-main-price">
         <p>{{ product.selected_or_first_available_variant.price | money_without_trailing_zeros }}</p>
       </div>
