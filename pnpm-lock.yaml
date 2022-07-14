@@ -64,24 +64,32 @@ importers:
     specifiers:
       chokidar: ^3.5.3
       lodash: ^4.17.21
+      tsconfig: workspace:*
     dependencies:
       chokidar: 3.5.3
       lodash: 4.17.21
+    devDependencies:
+      tsconfig: link:../tsconfig
 
   packages/vite-plugin-shopify-theme-settings:
     specifiers:
       chokidar: ^3.5.3
       lodash: ^4.17.21
+      tsconfig: workspace:*
     dependencies:
       chokidar: 3.5.3
       lodash: 4.17.21
+    devDependencies:
+      tsconfig: link:../tsconfig
 
   packages/vite-shopify:
     specifiers:
+      tsconfig: workspace:*
       vite-plugin-shopify: workspace:*
       vite-plugin-shopify-modules: workspace:*
       vite-plugin-shopify-theme-settings: workspace:*
     dependencies:
+      tsconfig: link:../tsconfig
       vite-plugin-shopify: link:../vite-plugin-shopify
       vite-plugin-shopify-modules: link:../vite-plugin-shopify-modules
       vite-plugin-shopify-theme-settings: link:../vite-plugin-shopify-theme-settings
