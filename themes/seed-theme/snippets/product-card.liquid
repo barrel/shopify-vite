@@ -2,13 +2,15 @@
   Parameters
   * product
 {% endcomment %}
+{% liquid
+  assign product_image = product.featured_image
+  if product_image contains 'no-image'
+    assign product_image = null
+  endif
 
-{% assign product_image = product.featured_image %}
-
-{% if product_image contains 'no-image' %}
-  {% assign product_image = null %}
-{% endif %}
-
+  assign product_title_handle = product.title | handleize
+  assign product_url = '/products/' | append: product.handle | append: '/' | append: product_title_handle
+%}
 <div data-handle="{{ product.handle }}">
   <div class="relative group">
     {% render 'responsive-image',
@@ -17,7 +19,7 @@
     %}
     <div class="my-2 flex justify-between">
       <h3 class="text-sm">
-        <a href="{{ product.url }}">
+        <a href="{{ product_url }}">
           <span aria-hidden="true" class="absolute inset-0"></span>
           {{ product.title }}
         </a>

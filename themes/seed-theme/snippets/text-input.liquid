@@ -1,4 +1,4 @@
 <label>
-  <span>{{ label }}</span>
-  <input type="{{ type }}" name="{{ name }}" placeholder="{{ placeholder }}" />
+  <span class="block">{{ label }}</span>
+  <input class="block w-full" type="{{ type }}" name="{{ name }}" placeholder="{{ placeholder }}" {% if required %}required{% endif %}/>
 </label>

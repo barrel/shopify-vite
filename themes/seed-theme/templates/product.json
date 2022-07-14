@@ -36,9 +36,6 @@
         "d5821faa-a569-4945-8508-4e315ca25aa2"
       ],
       "settings": {
-        "product_detail_1_title": "About",
-        "product_detail_2_title": "More Information",
-        "product_detail_3_title": "Sizing & Fit"
       }
     },
     "product_recommendations": {
@@ -48,7 +45,9 @@
       }
     },
     "product_comparison_table": {
-      "type": "product-comparison-table"
+      "type": "product-comparison-table",
+      "settings": {
+      }
     },
     "product_recently_viewed": {
       "type": "recently-viewed-products",

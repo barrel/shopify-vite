@@ -1,22 +1,31 @@
 {% comment %}
   Parameters
+  * subheading
   * heading
+  * content
+  * image_position
+  * image
+  * image_alt
+  * preserve_aspect_ratio
+  * blocks
+  * link_text
+  * link_url
+  * link_style
 {% endcomment %}
-
 {% liquid
   assign is_horizontal = false
   if image_position == 'left' or image_position == 'right'
     assign is_horizontal = true
   endif
 
-  assign is_preserve_aspect_container = false
-  if preserve_aspect_ratio == true and image_position == 'background' and image != blank
-    assign is_preserve_aspect_container = true
-  endif
-
   assign is_preserve_aspect_horizontal = false
   if preserve_aspect_ratio == true and is_horizontal and image != blank
     assign is_preserve_aspect_horizontal = true
+  endif
+
+  assign is_preserve_aspect_background = false
+  if preserve_aspect_ratio == true and image_position == 'background' and image != blank
+    assign is_preserve_aspect_background = true
   endif
 
   assign inner_class = 'relative'
@@ -30,7 +39,7 @@
   unless is_horizontal
     assign content_container_class = content_container_class | append: ' px-responsive'
   endunless
-  if is_preserve_aspect_container
+  if is_preserve_aspect_background
     assign content_container_class = content_container_class | append: ' absolute inset-0 flex flex-col justify-center'
   else
     assign content_container_class = content_container_class | append: ' relative'
@@ -58,7 +67,7 @@
   if is_horizontal
     assign picture_container_class = picture_container_class | append: ' relative sm:col-span-7'
   else
-    unless is_preserve_aspect_container
+    unless is_preserve_aspect_background
       assign picture_container_class = picture_container_class | append: ' absolute inset-0'
     endunless
   endif

@@ -6,9 +6,9 @@
         "47099560-7ac0-4275-a698-dac4f7135caa": {
           "type": "hero-slide",
           "settings": {
-            "background_type": "image",
+            "background_type": "video",
             "image_alt": "",
-            "video_mobile": "",
+            "video_mobile": "https:\/\/movietrailers.apple.com\/movies\/disney\/thor-love-and-thunder\/thor-love-and-thunder-trailer-1_h720p.mov",
             "video_desktop": "",
             "subheading": "",
             "heading": "Mix up your kitchen routine.",
@@ -20,10 +20,29 @@
             "link_url_2": "",
             "link_style_2": "light"
           }
+        },
+        "29aeaf17-145a-45fa-ba31-5fecb13378a0": {
+          "type": "hero-slide",
+          "settings": {
+            "background_type": "image",
+            "image_alt": "",
+            "video_mobile": "",
+            "video_desktop": "",
+            "subheading": "",
+            "heading": "Heading 1",
+            "heading_style": "dark",
+            "link_text_1": "",
+            "link_url_1": "",
+            "link_style_1": "light",
+            "link_text_2": "",
+            "link_url_2": "",
+            "link_style_2": "light"
+          }
         }
       },
       "block_order": [
-        "47099560-7ac0-4275-a698-dac4f7135caa"
+        "47099560-7ac0-4275-a698-dac4f7135caa",
+        "29aeaf17-145a-45fa-ba31-5fecb13378a0"
       ],
       "settings": {
       }
@@ -112,7 +131,7 @@
         "2bb379d9-53d2-4aa6-a55e-1c91d6149b6b": {
           "type": "shoppable-product",
           "settings": {
-            "product": "floral-flower",
+            "product": "hfs115j10",
             "horizontal_position": 11,
             "vertical_position": 30
           }
@@ -120,15 +139,24 @@
         "20a7fbe0-bb01-4fc0-b524-7211c33dbfac": {
           "type": "shoppable-product",
           "settings": {
-            "product": "ancient-dawn",
+            "product": "hfs215j01",
             "horizontal_position": 80,
             "vertical_position": 15
+          }
+        },
+        "6f893695-cba8-447a-8301-2b091fc94c53": {
+          "type": "shoppable-product",
+          "settings": {
+            "product": "hfs215j01",
+            "horizontal_position": 56,
+            "vertical_position": 82
           }
         }
       },
       "block_order": [
         "2bb379d9-53d2-4aa6-a55e-1c91d6149b6b",
-        "20a7fbe0-bb01-4fc0-b524-7211c33dbfac"
+        "20a7fbe0-bb01-4fc0-b524-7211c33dbfac",
+        "6f893695-cba8-447a-8301-2b091fc94c53"
       ],
       "settings": {
         "subheading": "",

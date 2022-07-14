@@ -1,5 +1,3 @@
-import './hero-slider.css'
-
 import EmblaCarousel from 'embla-carousel'
 
 class HeroSlider extends HTMLElement {

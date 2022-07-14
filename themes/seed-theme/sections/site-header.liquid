@@ -1,11 +1,10 @@
 {% liquid
-  if section.settings.logo
-    assign logo_class = 'h-[35px]'
-    assign logo_height = 35
-    assign logo_width = logo_height | times: section.settings.logo.aspect_ratio | round
+  if customer
+    assign account_url = routes.account_url
+  else
+    assign account_url = routes.account_login_url
   endif
 %}
-
 <site-header class="block border-b" data-module="site-header">
   <a href="#content" class="sr-only focus:not-sr-only">
     Skip to content
@@ -25,9 +24,9 @@
           </a>
         </div>
         <div data-slot="site-header-cart-icon">
-          <span>
+          <a href="{{ account_url }}">
             Account
-          </span>
+          </a>
           <a href="{{ routes.cart_url }}" onclick="document.querySelector('shopify-cart').openDrawer(event)">Cart
             {% unless cart.item_count == 0 %}
               <span>({{ cart.item_count }})</span>
