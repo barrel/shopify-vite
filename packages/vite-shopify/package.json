@@ -30,7 +30,7 @@
     "lint": "eslint ."
   },
   "peerDependencies": {
-    "vite": "3.0.0"
+    "vite": "^3.0.0"
   },
   "dependencies": {
     "tsconfig": "workspace:*",
