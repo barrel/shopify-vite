@@ -7,9 +7,16 @@
     <meta name="theme-color" content="">
 
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    {% liquid
+      assign custom_canonical_url = canonical_url
 
-    {%- if canonical_url != blank -%}
-      <link rel="canonical" href="{{ canonical_url }}">
+      if template.name contains 'product'
+        assign product_title_handle = product.title | handleize
+        assign custom_canonical_url = shop.url | append: product.url | append: '/' | append: product_title_handle
+      endif
+    %}
+    {%- if custom_canonical_url != blank -%}
+      <link rel="canonical" href="{{ custom_canonical_url }}">
     {%- endif -%}
 
     <title>{{ page_title | escape }}</title>
@@ -19,9 +26,8 @@
     {% endif %}
 
     {% render 'social-meta-tags' %}
-
     {% render 'structured-data' %}
-
+    {% render 'vite-client' %}
     {% render 'vite-tag' with 'base.css' %}
 
     <script>

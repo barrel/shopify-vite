@@ -115,7 +115,7 @@
         <div class="absolute inset-0">
           {% for block in blocks %}
             {% if block.type == "shoppable-product" %}
-              <a class="absolute z-20n text-white" style="top: {{ block.settings.vertical_position }}%; left: {{ block.settings.horizontal_position }}%">{{ block.settings.product.title }}</a>
+              <a class="absolute z-20 text-white" style="top: {{ block.settings.vertical_position }}%; left: {{ block.settings.horizontal_position }}%">{{ block.settings.product.title }}</a>
             {% endif %}
           {% endfor %}
         </div>

@@ -6,7 +6,8 @@ import shopifyThemeSettings from 'vite-plugin-shopify-theme-settings'
 
 export default defineConfig({
   build: {
-    manifest: true
+    emptyOutDir: true,
+    sourcemap: true
   },
   plugins: [
     // "Shopify" plugin enables entrypoint detection, smart generation of script and link tags, and support for Shopify CDN-hosted assets
