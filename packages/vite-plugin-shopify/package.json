@@ -32,7 +32,11 @@
     "vite": "3.0.0"
   },
   "dependencies": {
+    "debug": "^4.3.4",
     "fast-glob": "^3.2.11",
     "magic-string": "^0.26.2"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*"
   }
 }
