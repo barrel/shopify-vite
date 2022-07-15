@@ -5,7 +5,7 @@
       "@type": "Corporation",
       "name": {{ shop.name | json }},
       "description": {{ shop.description | strip_html | split: ' ' | join: ' ' | truncate: 163, '...' | strip | json }},
-      "url": "https:{{ shop.url }}",
+      "url": "{{ shop.url }}",
       "logo": "https:{{ page_image | img_url: '1024x' }}",
       {% if shop.phone != blank -%}
         "contactPoint": [
@@ -88,7 +88,7 @@
       "@type": "NewsArticle",
       "mainEntityOfPage": {
         "@type": "WebPage",
-        "@id": "https:{{ shop.url }}{{ article.url }}"
+        "@id": "{{ shop.url }}{{ article.url }}"
       },
       "headline": {{ article.title | json }},
       "image": "https:{{ article.image | img_url: 'master' }}",

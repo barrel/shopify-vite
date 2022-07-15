@@ -1,3 +1,43 @@
-<div>
-  <h1 class="h2">Order #{{ order.order_number }}</h1>
+{%- capture tracking_number -%}
+  {%- if order.line_items[0].fulfillment.tracking_number -%}
+    {{- order.line_items[0].fulfillment.tracking_number -}}
+  {%- else -%}
+    &mdash;
+  {%- endif -%}
+{%- endcapture -%}
+<div class="max-w-7xl mx-auto px-responsive">
+  <div>
+    <h1 class="h2">Order #{{ order.order_number }}</h1>
+    <p>{{ order.created_at | date: '%B %d, %Y at %I:%M%P' }}</p>
+  </div>
+  <div>
+    <p>Payment: {{ order.financial_status_label }}</p>
+    <p>Shipment Status: {{ order.fulfillment_status_label }}</p>
+    <p>Tracking Number: {{ tracking_number }}</p>
+    <p>Total Price: {{ order.total_price | money }}</p>
+  </div>
+</div>
+<div class="max-w-7xl mx-auto px-responsive">
+  <h2 class="h2">Order Details</h2>
+  <table class="w-full">
+    <thead>
+      <tr>
+        <td>Item</td>
+        <td>Price</td>
+        <td>Quantity</td>
+        <td>Total</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in order.line_items %}
+        <tr>
+          <td>{% render 'cart-item', item: item, completed_order: true %}</td>
+          <td>{% render 'cart-item-price', item: item %}</td>
+          <td>{{ item.quantity }}</td>
+          <td>{{ item.final_line_price | money }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% render 'cart-footer', order: order %}
 </div>

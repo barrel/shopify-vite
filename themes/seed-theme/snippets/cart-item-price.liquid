@@ -1,0 +1,19 @@
+<div>
+  {%- if item.original_price != item.final_price -%}
+    <span class="sr-only">
+      {{ 'products.product.price.regular_price' | t }}
+    </span>
+    <s>{{ item.original_price | money }}</s>
+    <span class="sr-only">
+      {{ 'products.product.price.sale_price' | t }}
+    </span>
+    <strong>{{ item.final_price | money }}</strong>
+  {%- else -%}
+    <span>{{ item.original_price | money }}</span>
+  {%- endif -%}
+</div>
+<ul role="list" aria-label="{{ 'customer.order.discount' | t }}">
+  {%- for discount in item.discounts -%}
+    <li>{{ discount.title }}</li>
+  {%- endfor -%}
+</ul>

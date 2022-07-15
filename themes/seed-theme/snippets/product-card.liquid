@@ -13,10 +13,13 @@
 %}
 <div data-handle="{{ product.handle }}">
   <div class="relative group">
-    {% render 'responsive-image',
-      class: "block aspect-w-1 aspect-h-1 group-hover:opacity-50",
-      image: product_image
-    %}
+    <div class="relative aspect-1">
+      {% render 'responsive-image',
+        class: "absolute inset-0 w-full h-full group-hover:opacity-50",
+        image: product_image,
+        object_fit: 'contain'
+      %}
+    </div>
     <div class="my-2 flex justify-between">
       <h3 class="text-sm">
         <a href="{{ product_url }}">
