@@ -1,0 +1,18 @@
+<div>
+  <div>
+    {% if is_default_address %}
+      <p>Default Address</p>
+    {% endif %}
+    <p>{{ address.first_name }} {{ address.last_name }}</p>
+    <p>{{ address.address1 }} {{ address.address2 }}</p>
+    <p>{{ address.city }}, {{ address.province }} {{ address.zip }}</p>
+    <p>{{ address.country }}</p>
+  </div>
+  <div>
+    <button onclick="this.closest('account-addresses').toggleForm('{{ address.id }}')">{{ 'customer.addresses.edit' | t }}</button>
+    <form method="post" action="/account/addresses/{{ address.id }}">
+      <input type="hidden" name="_method" value="delete">
+      <button type="submit">{{ 'customer.addresses.delete' | t }}</button>
+    </form>
+  </div>
+</div>

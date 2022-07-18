@@ -3,6 +3,9 @@
  */
 
 /* Modules */
+import '../../modules/account-address-form/account-address-form'
+import '../../modules/account-addresses/account-addresses'
+import '../../modules/account-orders/account-orders'
 import '../../modules/announcement-bar/announcement-bar'
 import '../../modules/background-video/background-video'
 import '../../modules/cart-item/cart-item'

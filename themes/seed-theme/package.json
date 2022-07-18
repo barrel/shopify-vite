@@ -22,6 +22,7 @@
     "shopify:pull": "shopify theme pull --nodelete"
   },
   "dependencies": {
+    "@shopify/theme-addresses": "^4.1.1",
     "@shopify/theme-cart": "^4.1.1",
     "@shopify/theme-product": "^4.1.1",
     "@shopify/theme-product-form": "^4.1.1",

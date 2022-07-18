@@ -1,4 +1,8 @@
-<label>
-  <input class="inline-block" type="checkbox" name="{{ name }}" />
-  <span class="inline-block">{{ label }}</span>
-</label>
+<div class="{{ class }}">
+  {% if input %}
+    {{ input }}
+  {% else %}
+    <input id="{{ id }}" class="inline-block" type="checkbox" name="{{ name }}" />
+  {% endif %}
+  <label class="inline-block" for="{{ id }}">{{ label }}</label>
+</div>

@@ -21,6 +21,7 @@
     "account_orders": {
       "type": "account-orders",
       "settings": {
+        "empty_content": "<p>You have not completed any orders. <a href=\"\/\" title=\"\/\">Shop Now<\/a><\/p>"
       }
     }
   },

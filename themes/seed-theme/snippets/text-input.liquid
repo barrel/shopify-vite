@@ -1,4 +1,16 @@
-<label>
-  <span class="block">{{ label }}</span>
-  <input class="block w-full" type="{{ type }}" name="{{ name }}" placeholder="{{ placeholder }}" {% if required %}required{% endif %}/>
-</label>
+{% liquid
+  assign type = type | default: 'text'
+%}
+<div class="{{ class }}">
+  <label class="block" for="{{ id }}">{{ label }}</label>
+  <input
+    class="block w-full"
+    id="{{ id }}"
+    type="{{ type }}"
+    name="{{ name }}"
+    value="{{ value }}"
+    placeholder="{{ placeholder }}"
+    autocomplete="{{ autocomplete }}"
+    {% if required %}required{% endif %}
+  />
+</div>

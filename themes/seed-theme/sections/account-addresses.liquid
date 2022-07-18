@@ -1,0 +1,56 @@
+<account-addresses>
+  <div class="block max-w-7xl px-responsive mx-auto">
+    {% render 'account-address-form',
+      address: customer.new_address,
+      class: 'hidden',
+      heading: 'Add Address'
+    %}
+    {% for address in customer.addresses %}
+      {% render 'account-address-form',
+        address: address,
+        class: 'hidden',
+        heading: 'Edit Address'
+      %}
+    {% endfor %}
+  </div>
+  <div class="block max-w-7xl px-responsive mx-auto">
+    <h2 class="h2">Saved Addresses</h2>
+    {% if customer.addresses == blank %}
+      <div class="wysiwyg">
+        {{ section.settings.empty_content }}
+      </div>
+    {% else %}
+      {% if customer.default_address != blank %}
+        {% render 'account-address-summary',
+          address: customer.default_address,
+          is_default_address: true
+        %}
+      {% endif %}
+      {% for address in customer.addresses %}
+        {% unless address.id == customer.default_address.id %}
+          {% render 'account-address-summary', address: address %}
+        {% endunless %}
+      {% endfor %}
+    {% endif %}
+    {% render 'button',
+      link_tag: 'button'
+      onclick: "this.closest('account-addresses').toggleForm('new')",
+      link_text: 'Add an address',
+      link_style: 'dark'
+    %}
+  </div>
+</account-addresses>
+
+{% schema %}
+{
+  "name": "Account Addresses",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "empty_content",
+      "label": "Empty Content",
+      "info": "Content to be displayed when customer has saved any addresses"
+    }
+  ]
+}
+{% endschema %}

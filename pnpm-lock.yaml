@@ -96,6 +96,7 @@ importers:
 
   themes/seed-theme:
     specifiers:
+      '@shopify/theme-addresses': ^4.1.1
       '@shopify/theme-cart': ^4.1.1
       '@shopify/theme-product': ^4.1.1
       '@shopify/theme-product-form': ^4.1.1
@@ -117,6 +118,7 @@ importers:
       vite-plugin-shopify-modules: workspace:*
       vite-plugin-shopify-theme-settings: workspace:*
     dependencies:
+      '@shopify/theme-addresses': 4.1.1
       '@shopify/theme-cart': 4.1.1
       '@shopify/theme-product': 4.1.1
       '@shopify/theme-product-form': 4.1.1_6hytdkww4u5e4iy5vl5o7xehk4
@@ -574,6 +576,10 @@ packages:
     resolution: {integrity: sha512-RCO4nOX4N3C4RtWybxJ9WA2P/xQEeM7IhVP/b8WFkj9SJh2BH62HLoouWyf60XCB33pc+9yJpG//oZNHSQS7TA==}
     engines: {node: '>=14.6'}
     dev: true
+
+  /@shopify/theme-addresses/4.1.1:
+    resolution: {integrity: sha512-n5vTbfeIygb3uYmVmmDoM+qSduw1Xo3U285ZSjuQi0xX+CdtJWbzXxBOpDkfDCrXFWrhiIQ5byEa4anlMumjdA==}
+    dev: false
 
   /@shopify/theme-cart/4.1.1:
     resolution: {integrity: sha512-gC0rYG4bcsfaefpD96eZO/S2UR0KbIwhfQtSK62iKG4SLzebP4Qct/r4pRpT3Jv4qJEer5uAhEY/tcjceICF0A==}

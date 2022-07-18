@@ -7,17 +7,28 @@
   * attr
   * class
 {%- endcomment -%}
+{% liquid
+  assign link_class = 'inline-block my-2 px-5 py-4 shadow text-center p1 font-bold'
 
-{%- capture link_class -%}
-inline-block my-2 px-5 py-4 shadow text-center p1 font-bold
-{% if link_style == 'dark' %} bg-black text-white
-{% elsif link_style == 'alt' %} bg-sky-400 text-white
-{%- else %} bg-white text-black{% endif -%}
-{% if class %} {{ class }}{% endif %}
-{%- endcapture -%}
+  if link_style == 'dark'
+    assign link_class = link_class | append: ' bg-black text-white'
+  elsif link_style == 'alt'
+    assign link_class = link_class | append: ' bg-sky-400 text-white'
+  else
+    assign link_class = link_class | append: ' bg-white text-black'
+  endif
+
+  if class
+    assign link_class = link_class | append: ' ' | append: class
+  endif
+%}
 
 {% if link_tag and link_tag != 'a' %}
-  <{{ link_tag }} class="{{ link_class | strip_newlines | strip }}" {{ attr }}>{{- link_text -}}</{{ link_tag }}>
+  <{{ link_tag }}
+    class="{{ link_class | strip_newlines | strip }}"
+    {{ attr }}
+    {% if onclick %}onclick="{{ onclick }}"{% endif %}
+  >{{- link_text -}}</{{ link_tag }}>
 {% else %}
   <a href="{{- link_url -}}" class="{{ link_class | strip_newlines | strip }}" {{ attr }}>{{- link_text -}}</a>
 {% endif %}

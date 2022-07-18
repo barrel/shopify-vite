@@ -9,13 +9,33 @@
 %}
 <shopify-cart data-slot="shopify-cart" class="{{ cart_class }}">
   {% render 'cart-header' %}
-  {% form 'cart', cart %}
-    {% for item in cart.items %}
-      {% render 'cart-item', item: item %}
-    {% endfor %}
-    {% render 'cart-footer' %}
-  {% endform %}
+  {% if cart.items == blank %}
+    <div class="wysiwyg px-sm">
+      {{ section.settings.empty_content }}
+    </div>
+  {% else %}
+    {% form 'cart', cart %}
+      {% for item in cart.items %}
+        {% render 'cart-item', item: item %}
+      {% endfor %}
+      {% render 'cart-footer' %}
+    {% endform %}
+  {% endif %}
 </shopify-cart>
 {% unless template.name == "cart" %}
   <span class="fixed inset-0 bg-black z-40 opacity-0 pointer-events-none [.peer.open~&]:opacity-20 [.peer.open~&]:pointer-events-auto transition-opacity" onclick="document.querySelector('shopify-cart').closeDrawer()">
 {% endunless %}
+
+{% schema %}
+{
+  "name": "Cart",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "empty_content",
+      "label": "Empty Content",
+      "info": "Content to be displayed when customer has not added any items to the cart"
+    }
+  ]
+}
+{% endschema %}

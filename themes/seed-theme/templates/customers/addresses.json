@@ -19,7 +19,10 @@
       }
     },
     "account_addresses": {
-      "type": "account-addresses"
+      "type": "account-addresses",
+      "settings": {
+        "empty_content": "<p>You have no saved addresses<\/p>"
+      }
     }
   },
   "order": [

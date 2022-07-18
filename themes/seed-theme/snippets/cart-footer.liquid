@@ -1,7 +1,7 @@
 {% liquid
   if order != blank
     assign completed_order = true
-    assign subtotal = order.subtotal | money
+    assign subtotal = order.subtotal_price | money
     assign discount_applications = order.discount_applications
     if order.shipping_price == 0
       assign shipping = '&mdash;'

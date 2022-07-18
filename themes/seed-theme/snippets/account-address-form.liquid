@@ -1,0 +1,134 @@
+{% liquid
+  assign address_id = address.id | default: 'new'
+
+  assign first_name_label = 'customer.addresses.first_name' | t
+  assign first_name_id = 'address_first_name_' | append: address_id
+
+  assign last_name_label = 'customer.addresses.last_name' | t
+  assign last_name_id = 'address_last_name_' | append: address_id
+
+  assign company_label = 'customer.addresses.company' | t
+  assign company_id = 'address_company_' | append: address_id
+
+  assign address1_label = 'customer.addresses.address1' | t
+  assign address1_id = 'address_address1_' | append: address_id
+
+  assign address2_label = 'customer.addresses.address2' | t
+  assign address2_id = 'address_address2_' | append: address_id
+
+  assign city_label = 'customer.addresses.city' | t
+  assign city_id = 'address_city_' | append: address_id
+
+  assign country_label = 'customer.addresses.country' | t
+  assign country_id = 'address_country_' | append: address_id
+
+  assign province_label = 'customer.addresses.province' | t
+  assign province_id = 'address_province_' | append: address_id
+
+  assign zip_label = 'customer.addresses.zip' | t
+  assign zip_id = 'address_zip_' | append: address_id
+
+  assign phone_label = 'customer.addresses.phone' | t
+  assign phone_id = 'address_phone_' | append: address_id
+
+  assign set_default_label = 'customer.addresses.set_default' | t
+  assign set_default_id = 'address_default_address_' | append: address.id
+%}
+<account-address-form id="address-{{ address_id }}" class="{{ class }}">
+  <h2 class="h2">{{ heading }}</h2>
+  {% form 'customer_address', address %}
+    {% assign default_country = form.country_code | default: shop.address.country_code %}
+    <div data-address="root" class="grid grid-cols-12 gap-x-6">
+      {% render 'text-input',
+        id: first_name_id,
+        name: 'address[first_name]',
+        value: address.first_name
+        label: first_name_label,
+        required: true,
+        autocomplete: 'given-name'
+      %}
+      {% render 'text-input',
+        id: last_name_id,
+        name: 'address[last_name]',
+        value: address.last_name,
+        label: last_name_label,
+        required: true,
+        autocomplete: 'family-name'
+      %}
+      {% render 'text-input',
+        id: company_id,
+        name: 'address[company]',
+        value: address.company,
+        label: company_label,
+        autocomplete: 'organization'
+      %}
+      {% render 'text-input',
+        id: address1_id,
+        name: 'address[address1]',
+        value: address.address1,
+        label: address1_label,
+        autocomplete: 'address-line1'
+      %}
+      {% render 'text-input',
+        id: address2_id,
+        name: 'address[address2]',
+        value: address.address2,
+        label: address2_label,
+        autocomplete: 'address-line2'
+      %}
+      {% render 'text-input',
+        id: city_id,
+        name: 'address[city]',
+        value: address.city,
+        label: city_label,
+        autocomplete: 'address-level2'
+      %}
+      {% render 'select-input',
+        id: country_id,
+        name: 'address[country]',
+        label: country_label,
+        autocomplete: 'country',
+        default: default_country
+      %}
+      {% render 'select-input',
+        id: province_id,
+        name: 'address[province]',
+        value: address.province,
+        label: province_label,
+        autocomplete: 'address-level1',
+        default: address.province_code
+      %}
+      {% render 'text-input',
+        id: zip_id,
+        name: 'address[zip]',
+        value: address.zip,
+        label: zip_label,
+        autocomplete: 'postal-code'
+      %}
+      {% render 'text-input',
+        id: phone_id,
+        name: 'address[phone]',
+        value: address.phone,
+        type: 'tel',
+        label: phone_label,
+        autocomplete: 'tel'
+      %}
+    </div>
+    {% render 'checkbox-input',
+      input: form.set_as_default_checkbox,
+      id: set_default_id,
+      label: set_default_label
+    %}
+    {% render 'button',
+      link_tag: 'button',
+      link_text: 'Create',
+      link_style: 'dark'
+    %}
+    {% render 'button',
+      link_tag: 'button',
+      link_text: 'Cancel',
+      link_style: 'dark',
+      attr: 'type="reset"'
+    %}
+  {% endform %}
+</account-address-form>

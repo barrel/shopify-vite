@@ -1,15 +1,5 @@
-{% liquid
-  assign thumbnail_class = "block"
-  assign thumbnail_active_class = thumbnail_class | append: " opacity-100"
-  assign thumbnail_inactive_class = thumbnail_class | append: " opacity-50"
-  assign thumbnail_focused_class = 'ring-2'
-%}
-
 <product-gallery
   class="relative flex bg-red-500"
-  data-thumbnail-active-class="{{ thumbnail_active_class }}"
-  data-thumbnail-inactive-class="{{ thumbnail_inactive_class }}"
-  data-thumbnail-focused-class="{{ thumbnail_focused_class }}"
 >
   <div class="w-[50px] flex-shrink-0">
     {% for image in product.images %}

@@ -8,7 +8,7 @@
 <div class="max-w-7xl mx-auto px-responsive">
   <div>
     <h1 class="h2">Order #{{ order.order_number }}</h1>
-    <p>{{ order.created_at | date: '%B %d, %Y at %I:%M%P' }}</p>
+    <p>{{ order.created_at | date: '%B %d, %Y at %l:%M%P' }}</p>
   </div>
   <div>
     <p>Payment: {{ order.financial_status_label }}</p>

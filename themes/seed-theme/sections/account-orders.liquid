@@ -1,28 +1,52 @@
-<div class="max-w-7xl px-responsive mx-auto">
+<account-orders class="block max-w-7xl px-responsive mx-auto">
   <h2 class="h2">Your Orders</h2>
-  {% paginate customer.orders by 10 %}
-    <table class="w-full">
-      <thead>
-        <tr>
-          <td>Order Number</td>
-          <td>Date</td>
-          <td>Payment</td>
-          <td>Shipping Status</td>
-          <td>Total</td>
-        </tr>
-      </thead>
-      <tbody>
-        {% for order in customer.orders %}
-          <tr>
-            <td><a href="{{ order.customer_url }}">{{ order.order_number }}</a></td>
-            <td>{{ order.created_at | date: '%B %d, %Y' }}</td>
-            <td>{{ order.financial_status_label }}</td>
-            <td>{{ order.fulfillment_status_label }}</td>
-            <td>{{ order.total_price | money }}</td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-    {{ paginate | default_pagination }}
-  {% endpaginate %}
-</div>
+  {% if customer.orders == blank %}
+    <div class="wysiwyg">
+      {{ section.settings.empty_content }}
+    </div>
+  {% else %}
+    {% paginate customer.orders by 10 %}
+      <div data-slot="account-orders">
+        <table class="w-full">
+          <thead>
+            <tr>
+              <td>Order Number</td>
+              <td>Date</td>
+              <td>Payment</td>
+              <td>Shipping Status</td>
+              <td>Total</td>
+            </tr>
+          </thead>
+          <tbody>
+            {% for order in customer.orders %}
+              <tr>
+                <td><a href="{{ order.customer_url }}">{{ order.order_number }}</a></td>
+                <td>{{ order.created_at | date: '%B %d, %Y' }}</td>
+                <td>{{ order.financial_status_label }}</td>
+                <td>{{ order.fulfillment_status_label }}</td>
+                <td>{{ order.total_price | money }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div data-pagination>
+          {{ paginate | default_pagination }}
+        </div>
+      </div>
+    {% endpaginate %}
+  {% endif %}
+</account-orders>
+
+{% schema %}
+{
+  "name": "Account Orders",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "empty_content",
+      "label": "Empty Content",
+      "info": "Content to be displayed when customer has not placed any orders"
+    }
+  ]
+}
+{% endschema %}
