@@ -4,6 +4,7 @@
 
 @import "../styles/layout.css";
 @import "../styles/typography.css";
+@import "../styles/buttons.css";
 @import "../styles/overrides.css";
 
 @tailwind base;

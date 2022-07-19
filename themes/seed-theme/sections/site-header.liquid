@@ -5,7 +5,7 @@
     assign account_url = routes.account_login_url
   endif
 %}
-<site-header class="block border-b" data-module="site-header">
+<site-header class="relative block border-b" data-module="site-header">
   <a href="#content" class="sr-only focus:not-sr-only">
     Skip to content
   </a>
@@ -16,7 +16,7 @@
     <div class="w-full px-responsive py-4 sm:py-8">
       <div class="flex">
         <div>
-          <button>Search</button>
+          <button onclick="this.closest('site-header').toggleSearchBar()">Search</button>
         </div>
         <div class="flex-1 text-center">
           <a href="{{ shop.url }}">
@@ -45,6 +45,12 @@
       </div>
     </div>
   </nav>
+  <div data-search class="absolute top-[100%] left-0 right-0 py-4 z-20 bg-white border-y hidden">
+    <form action="{{ routes.search_url }}" class="max-w-7xl mx-auto px-responsive flex">
+      <input class="flex-1 mr-4" type="search" name="q">
+      <input type="submit" value="Search">
+    </form>
+  </div>
 </site-header>
 
 {% schema %}

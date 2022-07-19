@@ -5,9 +5,9 @@
   endunless
 %}
 <cart-item data-key="{{ item.key }}" class="{{ class }}">
-  <div class="relative w-[134px] h-[134px]">
+  <div class="relative w-[134px] h-[134px] flex-shrink-0">
     <a href="{{ item.url }}" tabindex="-1" aria-hidden="true" class="absolute inset-0 z-10"></a>
-    {% render 'responsive-image', image: item.image, class: "relative w-[134px] h-[134px]", max_width: 134 %}
+    {% render 'responsive-image', image: item.image, class: "absolute inset-0", max_width: 134 %}
   </div>
   <div class="flex flex-col">
     <div>
@@ -38,24 +38,7 @@
     </div>
     {% unless completed_order %}
       {% render 'cart-item-price', item: item %}
-      <cart-item-quantity>
-        <button name="minus" type="button">
-          <span class="sr-only">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span>
-          -
-        </button>
-        <input
-          type="number"
-          name="updates[]"
-          value="{{ item.quantity }}"
-          min="0"
-          step="1"
-          aria-label="{{ 'products.product.quantity.input_label' | t: product: item.product.title | escape }}"
-        />
-        <button name="plus" type="button">
-          <span class="sr-only">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span>
-          +
-        </button>
-      </cart-item-quantity>
+      {% render 'quantity-input', name: 'updates[]', product: item.product, value: item.quantity %}
       <cart-item-remove>
         <a href="{{ item.url_to_remove }}" aria-label="{{ 'sections.cart.remove_title' | t: title: item.title }}">
           Remove

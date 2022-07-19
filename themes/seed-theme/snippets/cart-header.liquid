@@ -1,5 +1,12 @@
-<div class="flex px-sm">
-  <h2 class="flex-1">{{ 'sections.cart.title' | t }}</h2>
+{% liquid
+  assign class = 'flex border-b border-gray-200'
+
+  if template.name != 'cart'
+    assign class = class | append: ' px-sm'
+  endif
+%}
+<div class="{{ class }}">
+  <h2 class="h3 py-4 flex-1">{{ 'sections.cart.title' | t }}</h2>
   {% unless template.name == "cart" %}
     <button type="button" onclick="this.closest('shopify-cart').closeDrawer()" aria-label="{{ 'accessibility.close' | t }}">X</button>
   {% endunless %}

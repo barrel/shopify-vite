@@ -1,18 +1,5 @@
 {
   "sections": {
-    "account_addresses_banner": {
-      "type": "text-banner",
-      "settings": {
-        "subheading": "Account",
-        "heading": "Addresses",
-        "content": "",
-        "link_text": "",
-        "link_url": "",
-        "link_style": "dark",
-        "image_position": "background",
-        "image_alt": ""
-      }
-    },
     "account_addresses_nav": {
       "type": "account-nav",
       "settings": {
@@ -26,7 +13,6 @@
     }
   },
   "order": [
-    "account_addresses_banner",
     "account_addresses_nav",
     "account_addresses"
   ]

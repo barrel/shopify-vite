@@ -1,23 +1,26 @@
 {% liquid
   assign name = name | default: 'quantity'
-  assign min = min | default: 1
+  assign min = min | default: 0
+  assign step = step | default: 1
   assign value = value | default: 1
-  assign label = 'Quantity'
 %}
-
 <quantity-input>
-  <button name="minus" type="button" title="Decrease Quantity">
+  <button name="minus" type="button">
+    <span class="sr-only">{{ 'products.product.quantity.decrease' | t: product: product.title | escape }}</span>
     -
   </button>
   <input
+    class="[&::-webkit-inner-spin-button]:appearance-none"
+    style="-moz-appearance: textfield;"
     type="number"
     name="{{ name }}"
     value="{{ value }}"
     min="{{ min }}"
-    step="1"
-    aria-label="{{ label }}"
+    step="{{ step }}"
+    aria-label="{{ 'products.product.quantity.input_label' | t: product: product.title | escape }}"
   />
-  <button name="plus" type="button" title="Increase Quantity">
+  <button name="plus" type="button">
+    <span class="sr-only">{{ 'products.product.quantity.increase' | t: product: product.title | escape }}</span>
     +
   </button>
 </quantity-input>

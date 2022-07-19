@@ -28,19 +28,16 @@ module.exports = {
       '2xl': '1536px'
     },
     extend: {
-      // colors: {
-      //   pink: '#e01883',
-      //   navy: '#1e1647',
-      //   cyan: '#51c8e7',
-      //   'allergy-itch': '#67dad5',
-      //   calming: '#44c6e8',
-      //   'hip-joint': '#f9d13e',
-      //   'skin-coat': '#f0b662',
-      //   white: '#ffffff',
-      //   error: '#e0181f',
-      //   success: '#1fe018',
-      //   placeholder: '#787391'
-      // }
+      colors: {
+        blue: '#0080A3',
+        'light-blue': '#BAEEF6',
+        orange: '#FF6720',
+        cream: '#FFDDC0',
+        charcoal: '#63666A',
+        'light-grey': '#AFAFAF',
+        dove: '#D9D9D9',
+        offwhite: '#F3F3F3'
+      }
     }
   },
   plugins: [
@@ -49,10 +46,14 @@ module.exports = {
     plugin(({ addVariant }) => {
       // "no-js" variant to be used for progressively-enhanced functionality
       addVariant('no-js', 'html.no-js &')
+      addVariant('cart-loading', 'shopify-cart[data-loading="true"] &')
     })
   ],
   safelist: [
     'grecaptcha-badge',
+    'shopify-challenge__container',
+    'shopify-challenge__message',
+    'shopify-challenge__button',
     'shopify-payment-button__button',
     'shopify-payment-button__button--unbranded',
     'shopify-policy__container',

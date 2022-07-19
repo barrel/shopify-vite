@@ -31,7 +31,7 @@
           </fieldset>
         {% endfor %}
       {% endunless %}
-      {% render 'quantity-input', value: 1 %}
+      {% render 'quantity-input', value: 1, min: 1 %}
       <div data-slot="product-form-submit">
         {% if initial_variant.available %}
           {% render 'button',

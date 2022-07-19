@@ -32,7 +32,14 @@
   assign phone_id = 'address_phone_' | append: address_id
 
   assign set_default_label = 'customer.addresses.set_default' | t
-  assign set_default_id = 'address_default_address_' | append: address.id
+  assign set_default_id = 'address_default_address_' | append: address_id
+
+  assign submit_label = 'customer.addresses.add' | t
+  if address.id != blank
+    assign submit_label = 'customer.addresses.update' | t
+  endif
+
+  assign cancel_label = 'customer.addresses.cancel' | t
 %}
 <account-address-form id="address-{{ address_id }}" class="{{ class }}">
   <h2 class="h2">{{ heading }}</h2>
@@ -121,13 +128,13 @@
     %}
     {% render 'button',
       link_tag: 'button',
-      link_text: 'Create',
+      link_text: submit_label,
       link_style: 'dark'
     %}
     {% render 'button',
       link_tag: 'button',
-      link_text: 'Cancel',
-      link_style: 'dark',
+      link_text: cancel_label,
+      link_style: 'light',
       attr: 'type="reset"'
     %}
   {% endform %}

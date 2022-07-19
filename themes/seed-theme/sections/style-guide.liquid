@@ -1,0 +1,46 @@
+{%
+  assign color_swatch_class = 'aspect-1 text-center font-bold flex flex-col justify-center'
+%}
+<div class="max-w-7xl mx-auto px-responsive">
+  <div class="wysiwyg my-12">
+    <h1>Heading 1</h1>
+    <h2>Heading 2</h2>
+    <h3>Heading 3</h3>
+    <h4>Heading 4</h4>
+    <h5>Heading 5</h5>
+    <h6>Heading 6</h6>
+    <p>Paragraph text</p>
+    <p><small>Small paragraph text</small></p>
+  </div>
+  <div class="grid grid-cols-4">
+    <div class="{{ color_swatch_class }} bg-blue">
+      <p>Blue</p>
+    </div>
+    <div class="{{ color_swatch_class }} bg-light-blue">
+      <p>Light Blue</p>
+    </div>
+    <div class="{{ color_swatch_class }} bg-orange">
+      <p>Orange</p>
+    </div>
+    <div class="{{ color_swatch_class }} bg-cream">
+      <p>Cream</p>
+    </div>
+    <div class="{{ color_swatch_class }} bg-charcoal">
+      <p>Charcoal</p>
+    </div>
+    <div class="{{ color_swatch_class }} bg-light-grey">
+      <p>Light Grey</p>
+    </div>
+    <div class="{{ color_swatch_class }} bg-dove">
+      <p>Dove</p>
+    </div>
+    <div class="{{ color_swatch_class }} bg-offwhite">
+      <p>Offwhite</p>
+    </div>
+  </div>
+  <div class="inline-grid grid-cols-3 space-x-4 my-12">
+    <button class="btn-dark">Dark Button</button>
+    <button class="btn-light">Light Button</button>
+    <button class="btn-alt">Alt Button</button>
+  </div>
+</div>

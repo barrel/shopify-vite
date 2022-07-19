@@ -15,10 +15,17 @@
     },
     "collection_product_grid": {
       "type": "collection-product-grid"
+    },
+    "collection_recently_viewed": {
+      "type": "recently-viewed-products",
+      "settings": {
+        "heading": "Recently Viewed"
+      }
     }
   },
   "order": [
     "collection_banner",
-    "collection_product_grid"
+    "collection_product_grid",
+    "collection_recently_viewed"
   ]
 }

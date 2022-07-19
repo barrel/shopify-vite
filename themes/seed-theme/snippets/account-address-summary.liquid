@@ -1,18 +1,25 @@
-<div>
+<account-address-summary data-delete-confirm="{{ 'customer.addresses.delete_confirm' | t }}">
   <div>
     {% if is_default_address %}
-      <p>Default Address</p>
+      <p class="float-right bg-gray-200 px-4 py-2 font-bold">{{ 'customer.addresses.default' | t }}</p>
     {% endif %}
-    <p>{{ address.first_name }} {{ address.last_name }}</p>
-    <p>{{ address.address1 }} {{ address.address2 }}</p>
-    <p>{{ address.city }}, {{ address.province }} {{ address.zip }}</p>
+    <p class="font-bold">{{ address.first_name }} {{ address.last_name }}</p>
+    {% unless address.address1 == blank and address.address2 == blank %}
+      <p>{{ address.address1 }} {{ address.address2 }}</p>
+    {% endunless %}
+    {% unless address.city == blank and address.province == blank %}
+      <p>{{ address.city }}, {{ address.province }} {{ address.zip }}</p>
+    {% endunless %}
     <p>{{ address.country }}</p>
   </div>
   <div>
-    <button onclick="this.closest('account-addresses').toggleForm('{{ address.id }}')">{{ 'customer.addresses.edit' | t }}</button>
-    <form method="post" action="/account/addresses/{{ address.id }}">
+    <button
+      class="inline-block"
+      onclick="this.closest('account-addresses').toggleForm('{{ address.id }}')"
+    >{{ 'customer.addresses.edit' | t }}</button> |
+    <form class="inline" method="post" action="/account/addresses/{{ address.id }}">
       <input type="hidden" name="_method" value="delete">
-      <button type="submit">{{ 'customer.addresses.delete' | t }}</button>
+      <button class="inline-block" type="submit">{{ 'customer.addresses.delete' | t }}</button>
     </form>
   </div>
-</div>
+</account-address-summary>

@@ -11,9 +11,6 @@ class CollectionProductGrid extends DynamicSectionElement {
     this.addEventListener('change', this.onChangeFilter.bind(this))
     this.addEventListener('click', this.onClickFilterLink.bind(this))
     this.addEventListener('click', this.onClickPaginationLink.bind(this))
-
-    this.loadMoreObserver = new IntersectionObserver(this.onLoadMoreScroll.bind(this))
-    this.loadMoreObserver.observe(this.querySelector('[data-pagination]'))
   }
 
   // Handle pagination link click
@@ -27,7 +24,7 @@ class CollectionProductGrid extends DynamicSectionElement {
       event.target.closest('[data-pagination]').querySelector('[data-pagination-loading]').classList.remove('hidden')
       this.state.paginationLoading = true
 
-      this.loadSectionFromUrl(event.target.href, {
+      return this.loadSectionFromUrl(event.target.href, {
         appendToSlots: ['product-grid-items']
       }).then(() => {
         this.state.paginationLoading = false
@@ -84,23 +81,9 @@ class CollectionProductGrid extends DynamicSectionElement {
         fullPath += `/${tagFilters.join('+')}`
       }
 
-      console.log(`${origin}${fullPath}?${params}`)
-
       // Fetch new collection product grid section and update contents
       this.loadSectionFromUrl(`${origin}${fullPath}?${params}`, { replaceState: true })
     }
-  }
-
-  onLoadMoreScroll (changes) {
-    changes.forEach((change) => {
-      if (change.isIntersecting && !this.state.paginationLoading) {
-        const paginationlink = this.querySelector('[data-pagination] a')
-
-        if (paginationlink) {
-          paginationlink.click()
-        }
-      }
-    })
   }
 }
 

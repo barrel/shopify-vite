@@ -9,10 +9,15 @@ class Cart extends DynamicSectionElement {
     // Bind update method so it can be passed as callback argument
     this.onCartUpdate = this.onCartUpdate.bind(this)
 
-    // Use debounced event handler to update cart quanties
-    this.addEventListener('change-quantity', _.debounce(() => {
+    this.handleQuantityChange = _.debounce(() => {
       this.updateFromForm(this.querySelector('form'))
-    }, 250, { leading: false, trailing: true }))
+    }, 500, { leading: false, trailing: true })
+
+    // Use debounced event handler to update cart quanties
+    this.addEventListener('change-quantity', () => {
+      this.setAttribute('data-loading', true)
+      this.handleQuantityChange()
+    })
   }
 
   openDrawer (event) {
@@ -38,6 +43,8 @@ class Cart extends DynamicSectionElement {
     formData.append('sections', 'site-header,cart')
     formData.append('sections_url', window.location.pathname)
 
+    this.setAttribute('data-loading', true)
+
     fetch('/cart/add.js', {
       method: 'POST',
       body: formData
@@ -50,6 +57,8 @@ class Cart extends DynamicSectionElement {
     formData.append('sections', 'site-header,cart')
     formData.append('sections_url', window.location.pathname)
 
+    this.setAttribute('data-loading', true)
+
     fetch('/cart/update.js', {
       method: 'POST',
       body: formData
@@ -58,6 +67,8 @@ class Cart extends DynamicSectionElement {
 
   // Remove an item from cart using line item key
   removeItem (key) {
+    this.setAttribute('data-loading', true)
+
     fetch('/cart/update.js', {
       method: 'POST',
       headers: {
@@ -85,6 +96,7 @@ class Cart extends DynamicSectionElement {
       document.querySelector('site-header')
         .replaceContent(newSiteHeaderEl)
 
+      this.setAttribute('data-loading', false)
       this.openDrawer()
     })
   }

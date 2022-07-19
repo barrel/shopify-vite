@@ -4,6 +4,8 @@
 
 /* Modules */
 import '../../modules/account-address-form/account-address-form'
+import '../../modules/account-form/account-form'
+import '../../modules/account-address-summary/account-address-summary'
 import '../../modules/account-addresses/account-addresses'
 import '../../modules/account-orders/account-orders'
 import '../../modules/announcement-bar/announcement-bar'

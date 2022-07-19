@@ -8,14 +8,12 @@
   * class
 {%- endcomment -%}
 {% liquid
-  assign link_class = 'inline-block my-2 px-5 py-4 shadow text-center p1 font-bold'
-
   if link_style == 'dark'
-    assign link_class = link_class | append: ' bg-black text-white'
+    assign link_class = 'btn-dark'
   elsif link_style == 'alt'
-    assign link_class = link_class | append: ' bg-sky-400 text-white'
+    assign link_class = 'btn-alt'
   else
-    assign link_class = link_class | append: ' bg-white text-black'
+    assign link_class = 'btn-light'
   endif
 
   if class

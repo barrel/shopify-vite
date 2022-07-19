@@ -1,24 +1,10 @@
 {
   "sections": {
-    "login_banner": {
-      "type": "text-banner",
-      "settings": {
-        "subheading": "Account",
-        "heading": "Log In",
-        "content": "",
-        "link_text": "",
-        "link_url": "",
-        "link_style": "dark",
-        "image_position": "background",
-        "image_alt": ""
-      }
-    },
     "login_form": {
       "type": "account-form"
     }
   },
   "order": [
-    "login_banner",
     "login_form"
   ]
 }

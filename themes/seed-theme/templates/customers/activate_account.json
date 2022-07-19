@@ -1,24 +1,12 @@
 {
   "sections": {
-    "activate_account_banner": {
-      "type": "text-banner",
-      "settings": {
-        "subheading": "Account",
-        "heading": "Activate Account",
-        "content": "",
-        "link_text": "",
-        "link_url": "",
-        "link_style": "dark",
-        "image_position": "background",
-        "image_alt": ""
-      }
-    },
     "activate_account_form": {
-      "type": "account-form"
+      "type": "account-form",
+      "settings": {
+      }
     }
   },
   "order": [
-    "activate_account_banner",
     "activate_account_form"
   ]
 }

@@ -1,19 +1,21 @@
-<div>
-  <div class="max-w-7xl px-responsive mx-auto">
+<div class="max-w-7xl px-responsive mx-auto">
+  {% if template.name == 'order' %}
+    <div class="grid grid-cols-2 my-6">
+      <p class="text-left"><a href="{{ routes.account_url }}">< {{ 'customer.orders.title' | t }}</a></p>
+      <p class="text-right"><a href="{{ routes.account_logout_url }}">Log out</a></p>
+    </div>
+  {% else %}
+    <p class="text-right my-6"><a href="{{ routes.account_logout_url }}">Log out</a></p>
     <nav class="text-center">
-      {% if template.name == 'order' %}
-        <p><a href="{{ routes.account_url }}">Back to order history</a></p>
-      {% else %}
-        <ul>
-          <li class="inline-block">
-            <a href="{{ routes.account_url }}" class="{% if template contains 'account' or template contains 'order' %} underline {% endif %}">{{ 'customer.orders.title' | t }}</a>
-          </li>
-          <li class="inline-block">
-            <a href="{{ routes.account_addresses_url }}" class="{% if template contains 'address' %} underline{% endif %}">{{ 'customer.account.view_addresses' | t }}</a>
-          </li>
-        </ul>
-      {% endif %}
-      <p><a href="{{ routes.account_logout_url }}">Log out</a></p>
+      <h1 class="h2 text-center my-6">{{ 'customer.account.title' | t }}</h1>
+      <ul>
+        <li class="inline-block mx-2">
+          <a href="{{ routes.account_url }}" class="{% if template contains 'account' or template contains 'order' %} underline {% endif %}">{{ 'customer.orders.title' | t }}</a>
+        </li>
+        <li class="inline-block mx-2">
+          <a href="{{ routes.account_addresses_url }}" class="{% if template contains 'address' %} underline{% endif %}">{{ 'customer.account.view_addresses' | t }}</a>
+        </li>
+      </ul>
     </nav>
-  </div>
+  {% endif %}
 </div>

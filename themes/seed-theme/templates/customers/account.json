@@ -1,18 +1,5 @@
 {
   "sections": {
-    "account_banner": {
-      "type": "text-banner",
-      "settings": {
-        "subheading": "Account",
-        "heading": "Order History",
-        "content": "",
-        "link_text": "",
-        "link_url": "",
-        "link_style": "dark",
-        "image_position": "background",
-        "image_alt": ""
-      }
-    },
     "account_nav": {
       "type": "account-nav",
       "settings": {
@@ -26,7 +13,6 @@
     }
   },
   "order": [
-    "account_banner",
     "account_nav",
     "account_orders"
   ]

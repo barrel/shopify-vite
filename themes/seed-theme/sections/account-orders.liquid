@@ -1,35 +1,35 @@
-<account-orders class="block max-w-7xl px-responsive mx-auto">
-  <h2 class="h2">Your Orders</h2>
+<account-orders class="block max-w-7xl px-responsive mx-auto mb-24">
+  <h2 class="h2 mb-12">{{ 'customer.orders.title' | t }}</h2>
   {% if customer.orders == blank %}
-    <div class="wysiwyg">
+    <div class="bg-gray-100 px-8 py-24 wysiwyg text-center mb-12">
       {{ section.settings.empty_content }}
     </div>
   {% else %}
     {% paginate customer.orders by 10 %}
       <div data-slot="account-orders">
         <table class="w-full">
-          <thead>
+          <thead class="font-bold border-b border-black">
             <tr>
-              <td>Order Number</td>
-              <td>Date</td>
-              <td>Payment</td>
-              <td>Shipping Status</td>
-              <td>Total</td>
+              <td class="py-2">{{ 'customer.orders.order_number' | t }}</td>
+              <td class="py-2">{{ 'customer.orders.date' | t }}</td>
+              <td class="py-2">{{ 'customer.orders.payment_status' | t }}</td>
+              <td class="py-2">{{ 'customer.orders.fulfillment_status' | t }}</td>
+              <td class="py-2 text-right">{{ 'customer.orders.total' | t }}</td>
             </tr>
           </thead>
           <tbody>
             {% for order in customer.orders %}
-              <tr>
-                <td><a href="{{ order.customer_url }}">{{ order.order_number }}</a></td>
-                <td>{{ order.created_at | date: '%B %d, %Y' }}</td>
-                <td>{{ order.financial_status_label }}</td>
-                <td>{{ order.fulfillment_status_label }}</td>
-                <td>{{ order.total_price | money }}</td>
+              <tr class="border-b border-gray-100">
+                <td class="py-4"><a href="{{ order.customer_url }}">#{{ order.order_number }}</a></td>
+                <td class="py-4">{{ order.created_at | date: '%B %d, %Y' }}</td>
+                <td class="py-4">{{ order.financial_status_label }}</td>
+                <td class="py-4">{{ order.fulfillment_status_label }}</td>
+                <td class="py-4 text-right">{{ order.total_price | money }}</td>
               </tr>
             {% endfor %}
           </tbody>
         </table>
-        <div data-pagination>
+        <div data-pagination class="empty:hidden mt-8">
           {{ paginate | default_pagination }}
         </div>
       </div>
