@@ -13,4 +13,3 @@ const f="modulepreload",m=function(o,r){return new URL(o,r).href},a={},h=functio
     Click on the Vite logo to learn more
   </p>
 `;document.body.appendChild(c);h(()=>import("./counter.d37853c9.js"),[],import.meta.url).then(({setupCounter:o})=>{o(document.querySelector("#counter"))}).catch(o=>{console.error(o)});
-//# sourceMappingURL=theme.0745d26d.js.map

@@ -1,40 +1,40 @@
 {
-  "../images/vite.svg": {
-    "file": "vite.4a748afd.svg",
-    "src": "../images/vite.svg"
-  },
-  "../images/shopify.svg": {
+  "frontend/images/shopify.svg": {
     "file": "shopify.ab6ef553.svg",
-    "src": "../images/shopify.svg"
+    "src": "frontend/images/shopify.svg"
   },
-  "../fonts/anton-v23-latin-regular.woff2": {
+  "frontend/images/vite.svg": {
+    "file": "vite.4a748afd.svg",
+    "src": "frontend/images/vite.svg"
+  },
+  "frontend/fonts/anton-v23-latin-regular.woff2": {
     "file": "anton-v23-latin-regular.feb9617b.woff2",
-    "src": "../fonts/anton-v23-latin-regular.woff2"
+    "src": "frontend/fonts/anton-v23-latin-regular.woff2"
   },
-  "../fonts/anton-v23-latin-regular.woff": {
+  "frontend/fonts/anton-v23-latin-regular.woff": {
     "file": "anton-v23-latin-regular.70a5bf05.woff",
-    "src": "../fonts/anton-v23-latin-regular.woff"
+    "src": "frontend/fonts/anton-v23-latin-regular.woff"
   },
-  "theme.ts": {
+  "frontend/entrypoints/theme.ts": {
     "file": "theme.0745d26d.js",
-    "src": "theme.ts",
+    "src": "frontend/entrypoints/theme.ts",
     "isEntry": true,
     "dynamicImports": [
-      "../components/counter.ts"
+      "frontend/components/counter.ts"
     ],
     "assets": [
       "vite.4a748afd.svg",
       "shopify.ab6ef553.svg"
     ]
   },
-  "../components/counter.ts": {
+  "frontend/components/counter.ts": {
     "file": "counter.d37853c9.js",
-    "src": "../components/counter.ts",
+    "src": "frontend/components/counter.ts",
     "isDynamicEntry": true
   },
-  "theme.scss": {
+  "frontend/entrypoints/theme.scss": {
     "file": "theme.eeff8d86.css",
-    "src": "theme.scss",
+    "src": "frontend/entrypoints/theme.scss",
     "isEntry": true
   }
 }
