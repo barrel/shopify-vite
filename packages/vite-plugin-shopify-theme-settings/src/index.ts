@@ -18,6 +18,9 @@ export default function shopifyThemeSettings (options: VitePluginShopifyThemeSet
   return {
     name: 'vite-plugin-shopify-theme-settings',
     async configureServer (server) {
+      // Generate new settings_schema.json when starting development server
+      void generateSettingsSchemaJsonFn()
+
       server.watcher
         .add(resolvedOptions.schemaSourceDir)
         .on('all', (eventName, eventPath) => {
