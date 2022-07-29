@@ -1,5 +1,11 @@
 # vite-plugin-shopify-theme-settings
 
+## 0.0.3
+
+### Patch Changes
+
+- Generate settings_schema.json when starting dev server
+
 ## 0.0.2
 
 ### Patch Changes
