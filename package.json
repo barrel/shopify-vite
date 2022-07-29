@@ -13,7 +13,7 @@
     "lint": "turbo run lint",
     "change:add": "changeset add",
     "change:version": "changeset version",
-    "change:publish": "changeset publish"
+    "change:publish": "npm run build && changeset publish"
   },
   "engines": {
     "node": ">=16.0.0"
