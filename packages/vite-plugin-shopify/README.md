@@ -119,7 +119,7 @@ import "@/styles/my_styles.css";
 
 ## Example
 
-See the [vite-shopify-example](../vite-shopify-example/) theme for a basic demonstration of `vite-plugin-shopify` usage.
+See the [vite-shopify-example](https://github.com/barrel/barrel-shopify/tree/main/themes/vite-shopify-example) theme for a basic demonstration of `vite-plugin-shopify` usage.
 
 ## To-Do
 
