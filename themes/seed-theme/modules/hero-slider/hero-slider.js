@@ -14,10 +14,14 @@ class HeroSlider extends HTMLElement {
     this.setup()
 
     this.parentElement.addEventListener('shopify:section:unload', () => {
-
+      this.teardown()
     })
     this.parentElement.addEventListener('shopify:section:load', () => {
-
+      this.setup()
+    })
+    this.parentElement.addEventListener('shopify:block:select', (event) => {
+      console.log({ event, index: [...event.target.parentElement.children].indexOf(event.target) })
+      this.embla.scrollTo([...event.target.parentElement.children].indexOf(event.target))
     })
   }
 
@@ -42,11 +46,10 @@ class HeroSlider extends HTMLElement {
   teardown () {
     if (this.embla) {
       this.state.selectedScrollSnap = this.embla.selectedScrollSnap
+      this.embla.destroy()
+      this.parentElement.removeEventListener('scroll', this.handleSlideFocusIn)
+      this.removeEventListener('focusin', this.handleSlideFocusIn)
     }
-
-    this.embla.destroy()
-    this.parentElement.removeEventListener('scroll', this.handleSlideFocusIn)
-    this.removeEventListener('focusin', this.handleSlideFocusIn)
   }
 
   resetScrollPosition () {

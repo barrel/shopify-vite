@@ -2,6 +2,8 @@
   <div class="flex">
     {% for block in section.blocks %}
       {%- render 'hero',
+        id: block.id,
+        attr: block.shopify_attributes,
         background_type: block.settings.background_type,
         image_mobile: block.settings.image_mobile,
         image_desktop: block.settings.image_desktop,
@@ -9,8 +11,8 @@
         video_mobile: block.settings.video_mobile,
         video_desktop: block.settings.video_desktop,
         heading: block.settings.heading,
-        subheading: block.settings.subheading,
         heading_style: block.settings.heading_style,
+        subheading: block.settings.subheading,
         link_text_1: block.settings.link_text_1,
         link_url_1: block.settings.link_url_1,
         link_style_1: block.settings.link_style_1,
@@ -21,17 +23,7 @@
       -%}
     {% endfor %}
   </div>
-  <slider-dots>
-  </slider-dots>
 </hero-slider>
-
-<template id="template-hero-slider-dot-inactive">
-  <slider-dot class=""></slider-dot>
-</template>
-
-<template id="template-hero-slider-dot-active">
-  <slider-dot class=""></slider-dot>
-</template>
 
 {% schema %}
 {
@@ -93,6 +85,26 @@
           "content": "Content"
         },
         {
+          "type": "select",
+          "id": "heading_style",
+          "label": "Heading Style",
+          "default": "light",
+          "options": [
+            {
+              "value": "light",
+              "label": "Light"
+            },
+            {
+              "value": "dark",
+              "label": "Dark"
+            },
+            {
+              "value": "alt",
+              "label": "Alternate"
+            }
+          ]
+        },
+        {
           "type": "text",
           "id": "subheading",
           "label": "Subheading"
@@ -101,22 +113,6 @@
           "type": "text",
           "id": "heading",
           "label": "Heading"
-        },
-        {
-          "type": "select",
-          "id": "heading_style",
-          "label": "Heading Style",
-          "default": "dark",
-          "options": [
-            {
-              "value": "dark",
-              "label": "Dark"
-            },
-            {
-              "value": "light",
-              "label": "Light"
-            }
-          ]
         },
         {
           "type": "text",

@@ -1,4 +1,13 @@
+{% liquid
+  if section.settings.heading_style == 'light'
+    assign rich_text_class = 'text-white'
+  else
+    assign rich_text_class = 'text-navy'
+  endif
+%}
+
 {%- render 'text-banner',
+  class: rich_text_class,
   heading: section.settings.heading,
   subheading: section.settings.subheading,
   content: section.settings.content,
@@ -19,6 +28,26 @@
     {
       "type": "header",
       "content": "Content"
+    },
+    {
+      "type": "select",
+      "id": "heading_style",
+      "label": "Heading Style",
+      "default": "light",
+      "options": [
+        {
+          "value": "light",
+          "label": "Light"
+        },
+        {
+          "value": "dark",
+          "label": "Dark"
+        },
+        {
+          "value": "alt",
+          "label": "Alternate"
+        }
+      ]
     },
     {
       "type": "text",

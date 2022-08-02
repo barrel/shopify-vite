@@ -21,23 +21,21 @@ class ProductGridToggle extends HTMLElement {
 
     // Set initial state with first product grid visible
     toggleProductGridVisibility('1')
+
+    this.parentElement.addEventListener('shopify:block:select', (event) => {
+      const index = [...event.target.parentElement.children].indexOf(event.target)
+      console.log({ event, index })
+      toggleProductGridVisibility(`${index + 1}`)
+      const checkbox = event.target.querySelector('input')
+
+      if (!checkbox.checked) {
+        checkbox.checked = true
+      }
+    })
   }
 
   get siblingProductGridSections () {
-    const siblingSections = document.querySelectorAll(`#${this.parentElement.id} ~ .shopify-section`)
-    const siblingProductGridSections = []
-
-    Array.from(siblingSections).every((siblingSection, index) => {
-      if (siblingSection.firstElementChild?.getAttribute('data-module') === 'product-grid') {
-        siblingProductGridSections.push(siblingSection)
-
-        return index < this.querySelectorAll('label').length
-      }
-
-      return false
-    })
-
-    return siblingProductGridSections
+    return this.parentElement.querySelectorAll('[data-module="product-grid"]')
   }
 }
 

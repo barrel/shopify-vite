@@ -1,13 +1,17 @@
-<collection-product-grid>
-  {% render 'collection-filters' %}
-  {% paginate collection.products by 20 %}
-    {% render 'product-grid', products: collection.products %}
-    <div data-slot="collection-product-grid-pagination" data-pagination class="text-center">
-      {% unless paginate.next.url == blank %}
-        <a data-pagination-link href="{{ paginate.next.url }}">Load More</a>
-        <span class="hidden" data-pagination-loading>Loading...</span>
-        {% comment %} {{ paginate | default_pagination }} {% endcomment %}
-      {% endunless %}
-    </div>
-  {% endpaginate %}
+<collection-product-grid class="flex">
+  <div>
+    {% render 'collection-filters' %}
+  </div>
+  <div class="flex-1">
+    {% paginate collection.products by 20 %}
+      {% render 'product-grid', products: collection.products %}
+      <div data-slot="collection-product-grid-pagination" data-pagination class="text-center">
+        {% unless paginate.next.url == blank %}
+          <a data-pagination-link href="{{ paginate.next.url }}">Load More</a>
+          <span class="hidden" data-pagination-loading>Loading...</span>
+          {% comment %} {{ paginate | default_pagination }} {% endcomment %}
+        {% endunless %}
+      </div>
+    {% endpaginate %}
+  </div>
 </collection-product-grid>

@@ -32,7 +32,7 @@
   endif
 
   if slide_index != blank
-    assign attr = 'data-slide-index=' | append: slide_index
+    assign attr = attr | append: ' data-slide-index=' | append: slide_index
   endif
 %}
 

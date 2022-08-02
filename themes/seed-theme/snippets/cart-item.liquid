@@ -7,7 +7,7 @@
 <cart-item data-key="{{ item.key }}" class="{{ class }}">
   <div class="relative w-[134px] h-[134px] flex-shrink-0">
     <a href="{{ item.url }}" tabindex="-1" aria-hidden="true" class="absolute inset-0 z-10"></a>
-    {% render 'responsive-image', image: item.image, class: "absolute inset-0", max_width: 134 %}
+    {% render 'responsive-image', image: item.image, class: "absolute inset-0 w-full h-full", max_width: 134, object_fit: 'contain' %}
   </div>
   <div class="flex flex-col">
     <div>

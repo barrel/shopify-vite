@@ -1,12 +1,13 @@
 {% liquid
   comment
     Retrieve original collection to generate full list of filters
-  endcomment
+
   for shop_collection in collections
     if shop_collection.title == collection.title
       assign original_collection = shop_collection
     endif
   endfor
+  endcomment
 
   comment
     Parse active tag-based filters from URL path
@@ -75,7 +76,7 @@
         </ul>
       </details>
     {% endfor %}
-    {% for original_filter in original_collection.filters %}
+    {% for original_filter in collection.filters %}
       {% liquid
         assign filter = original_filter
         assign filter_disabled = true

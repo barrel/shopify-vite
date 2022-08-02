@@ -8,11 +8,11 @@
           "settings": {
             "background_type": "video",
             "image_alt": "",
-            "video_mobile": "https:\/\/movietrailers.apple.com\/movies\/disney\/thor-love-and-thunder\/thor-love-and-thunder-trailer-1_h720p.mov",
-            "video_desktop": "",
+            "video_mobile": "http:\/\/trailers.apple.com\/movies\/paramount\/iron_man\/iron_man-clip_h720p.mov",
+            "video_desktop": "http:\/\/trailers.apple.com\/movies\/paramount\/iron_man\/iron_man-clip_h1080p.mov",
+            "heading_style": "light",
             "subheading": "",
             "heading": "Mix up your kitchen routine.",
-            "heading_style": "light",
             "link_text_1": "Shop Now",
             "link_url_1": "",
             "link_style_1": "light",
@@ -28,9 +28,9 @@
             "image_alt": "",
             "video_mobile": "",
             "video_desktop": "",
+            "heading_style": "light",
             "subheading": "",
             "heading": "Heading 1",
-            "heading_style": "dark",
             "link_text_1": "",
             "link_url_1": "",
             "link_style_1": "light",
@@ -49,47 +49,51 @@
     },
     "home_product_grid_toggle": {
       "type": "product-grid-toggle",
+      "blocks": {
+        "36177fb6-50e7-47b6-b384-14f74bbc9526": {
+          "type": "product-grid",
+          "settings": {
+            "toggle_text": "Outfit your kitchen",
+            "products": [
+              "black-sunglasses",
+              "blue-denim-jacket",
+              "blue-twill-shirt",
+              "black-straight-leg-jeans"
+            ]
+          }
+        },
+        "87b985f7-229f-45f8-bd5d-f936a601e5f7": {
+          "type": "product-grid",
+          "settings": {
+            "toggle_text": "Get the perfect yard",
+            "products": [
+              "2020-spirit-horse-vineyards-estate-cavallino-pinot-grigio",
+              "2015-mathew-bruno-napa-valley-cabernet-sauvignon",
+              "2018-priest-ranch-snake-oil-1",
+              "2015-somerston-cabernet-sauvignon-block-96"
+            ]
+          }
+        },
+        "a1f72149-6bac-4499-b7ea-e181b65e56f9": {
+          "type": "product-grid",
+          "settings": {
+            "toggle_text": "The cleanest clean",
+            "products": [
+              "velvet-blazer",
+              "teal-flared-leggings",
+              "tan-winter-jacket",
+              "tomato"
+            ]
+          }
+        }
+      },
+      "block_order": [
+        "36177fb6-50e7-47b6-b384-14f74bbc9526",
+        "87b985f7-229f-45f8-bd5d-f936a601e5f7",
+        "a1f72149-6bac-4499-b7ea-e181b65e56f9"
+      ],
       "settings": {
-        "heading": "Spend more time enjoying your space, inside & out.",
-        "toggle_text_1": "Outfit Your Kitchen",
-        "toggle_text_2": "Get The Perfect Yard",
-        "toggle_text_3": "The Cleanest Clean"
-      }
-    },
-    "home_product_grid_1": {
-      "type": "product-grid",
-      "settings": {
-        "products": [
-          "hfs115j10",
-          "hnvc220bcz10",
-          "hfs215j01",
-          "bdst3in1ct"
-        ],
-        "sort": "manual"
-      }
-    },
-    "home_product_grid_2": {
-      "type": "product-grid",
-      "settings": {
-        "products": [
-          "bdstgakt9702",
-          "bdstctbk01",
-          "bdstctbl02",
-          "hmsct0001ff"
-        ],
-        "sort": "manual"
-      }
-    },
-    "home_product_grid_3": {
-      "type": "product-grid",
-      "settings": {
-        "products": [
-          "bdst19900ff",
-          "bdst14440ff",
-          "bdht20001",
-          "behb101"
-        ],
-        "sort": "manual"
+        "heading": "Spend more time enjoying your space, inside & out."
       }
     },
     "home_content_grid_1": {
@@ -128,37 +132,29 @@
     "1652310628c65556fc": {
       "type": "shoppable-banner",
       "blocks": {
-        "2bb379d9-53d2-4aa6-a55e-1c91d6149b6b": {
+        "6e851a18-187f-4cdb-88a2-e210a17f0f7f": {
           "type": "shoppable-product",
           "settings": {
-            "product": "hfs115j10",
-            "horizontal_position": 11,
-            "vertical_position": 30
-          }
-        },
-        "20a7fbe0-bb01-4fc0-b524-7211c33dbfac": {
-          "type": "shoppable-product",
-          "settings": {
-            "product": "hfs215j01",
-            "horizontal_position": 80,
+            "product": "black-high-rise-jeans",
+            "horizontal_position": 15,
             "vertical_position": 15
           }
         },
-        "6f893695-cba8-447a-8301-2b091fc94c53": {
+        "bd1acfd8-5ab8-4267-b04a-bc3867607104": {
           "type": "shoppable-product",
           "settings": {
-            "product": "hfs215j01",
-            "horizontal_position": 56,
-            "vertical_position": 82
+            "product": "2017-emeritus-vineyards-hallberg-ranch-elite-pinot-noir",
+            "horizontal_position": 55,
+            "vertical_position": 77
           }
         }
       },
       "block_order": [
-        "2bb379d9-53d2-4aa6-a55e-1c91d6149b6b",
-        "20a7fbe0-bb01-4fc0-b524-7211c33dbfac",
-        "6f893695-cba8-447a-8301-2b091fc94c53"
+        "6e851a18-187f-4cdb-88a2-e210a17f0f7f",
+        "bd1acfd8-5ab8-4267-b04a-bc3867607104"
       ],
       "settings": {
+        "heading_style": "light",
         "subheading": "",
         "heading": "The Holiday Gift Guide Is Here",
         "content": "<p>We take care of your people with products for all occasions.<\/p>",
@@ -166,6 +162,7 @@
         "link_url": "",
         "link_style": "dark",
         "image_position": "background",
+        "image": "shopify:\/\/shop_images\/lauren-fleischmann-R2aodqJn3b8-unsplash_2160x_a44b5c34-9478-4c30-9e5c-d256223be541.jpg",
         "image_alt": ""
       }
     },
@@ -215,6 +212,19 @@
         "link_url": "\/",
         "link_style": "dark",
         "image_position": "none",
+        "image_alt": ""
+      }
+    },
+    "165944737162d27549": {
+      "type": "text-banner",
+      "settings": {
+        "subheading": "This is a label",
+        "heading": "This is a multi-line header for this module",
+        "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla lacinia urna a risus consequat, sit amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia. amet rhoncus orci maximus. Duis dictum nisl quis molestie lacinia.<\/p>",
+        "link_text": "Optional Button",
+        "link_url": "\/",
+        "link_style": "dark",
+        "image_position": "right",
         "image_alt": ""
       }
     },
@@ -273,12 +283,10 @@
   "order": [
     "home_hero_slider",
     "home_product_grid_toggle",
-    "home_product_grid_1",
-    "home_product_grid_2",
-    "home_product_grid_3",
     "home_content_grid_1",
     "1652310628c65556fc",
     "165756098281cbbf0a",
+    "165944737162d27549",
     "home_content_grid_2",
     "home_collection_grid"
   ]

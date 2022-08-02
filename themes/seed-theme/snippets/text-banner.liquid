@@ -80,11 +80,11 @@
       assign image_attr = 'style="--tw-aspect-h: calc(' | append: image.height | append: '/' | append: image.width | append: '*' | append: 730 | append: ')"'
     endif
   else
-    assign image_class = image_class | append: ' z-0'
+    assign image_class = image_class | append: ' z-0 w-full'
   endif
 %}
 
-<div data-module="text-banner">
+<div class="{{ class }}" data-module="text-banner">
   <div data-inner class="{{ inner_class | strip_newlines | strip }}">
     <div data-content-container class="{{ content_container_class | strip_newlines | strip }}">
       {% render 'rich-text',
@@ -115,7 +115,7 @@
         <div class="absolute inset-0">
           {% for block in blocks %}
             {% if block.type == "shoppable-product" %}
-              <a class="absolute z-20 text-white" style="top: {{ block.settings.vertical_position }}%; left: {{ block.settings.horizontal_position }}%">{{ block.settings.product.title }}</a>
+              <a class="absolute z-20 text-white" style="top: {{ block.settings.vertical_position }}%; left: {{ block.settings.horizontal_position }}%" href="{{ block.settings.product.url }}">{{ block.settings.product.title }}</a>
             {% endif %}
           {% endfor %}
         </div>

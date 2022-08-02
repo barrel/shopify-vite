@@ -1,5 +1,7 @@
 {% liquid
-  if section.settings.toggle_text_3 == blank
+  if section.blocks.size == 1
+    assign grid_cols_class = 'grid-cols-1'
+  elsif section.blocks.size == 2
     assign grid_cols_class = 'grid-cols-2'
   else
     assign grid_cols_class = 'grid-cols-3'
@@ -13,28 +15,19 @@
     {% render 'rich-text', heading: section.settings.heading %}
   </div>
   <div class="{{ toggle_wrapper_class }}">
-    <label>
-      <input class="peer" type="radio" name="{{- section.id -}}" value="1" checked>
-      <span class="peer-checked:font-bold">
-        {{- section.settings.toggle_text_1 -}}
-      </span>
-    </label>
-    <label>
-      <input class="peer" type="radio" name="{{- section.id -}}" value="2">
-      <span class="peer-checked:font-bold">
-        {{- section.settings.toggle_text_2 -}}
-      </span>
-    </label>
-    {% unless section.settings.toggle_text_3 == blank %}
-      <label>
-        <input class="peer" type="radio" name="{{- section.id -}}" value="3">
+    {% for block in section.blocks %}
+      <label {{ block.shopify_attributes }}>
+        <input class="peer" type="radio" name="{{- section.id -}}" value="{{ forloop.index | add: 1 }}" {% if forloop.first %}checked{% endif %}>
         <span class="peer-checked:font-bold">
-          {{- section.settings.toggle_text_3 -}}
+          {{- block.settings.toggle_text -}}
         </span>
       </label>
-    {% endunless %}
+    {% endfor %}
   </div>
 </product-grid-toggle>
+{% for block in section.blocks %}
+  {% render 'product-grid', products: block.settings.products %}
+{% endfor %}
 
 {% schema %}
 {
@@ -44,27 +37,27 @@
       "type": "text",
       "id": "heading",
       "label": "Heading"
-    },
-    {
-      "type": "text",
-      "id": "toggle_text_1",
-      "label": "Toggle Text 1"
-    },
-    {
-      "type": "text",
-      "id": "toggle_text_2",
-      "label": "Toggle Text 2"
-    },
-    {
-      "type": "text",
-      "id": "toggle_text_3",
-      "label": "Toggle Text 3 (optional)"
-    },
-    {
-      "type": "header",
-      "content": "Notes",
-      "info": "This section should be immediately followed by 2-3 Product Grid sections. Only one of the Product Grids will be visible at a time based on the selected value of the toggle."
     }
-  ]
+  ],
+  "blocks": [
+    {
+      "type": "product-grid",
+      "name": "Product Grid",
+      "settings": [
+        {
+          "type": "text",
+          "id": "toggle_text",
+          "label": "Toggle Text"
+        },
+        {
+          "type": "product_list",
+          "id": "products",
+          "label": "Products",
+          "info": "Select one or more products to feature in this section."
+        }
+      ]
+    }
+  ],
+  "max_blocks": 3
 }
 {% endschema %}
