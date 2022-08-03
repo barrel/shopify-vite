@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 0.0.3
+
+### Patch Changes
+
+- Add style tag for style.css when build.cssCodeSplit is disabled
+
 ## 0.0.2
 
 ### Patch Changes
