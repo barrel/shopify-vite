@@ -80,6 +80,11 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
           assetTags.push(viteEntryTag(entryName, tagsForEntry.join('\n  '), assetTags.length === 0))
         }
+
+        // css link when cssCodeSplit is false
+        if (src === 'style.css' && !config.build.cssCodeSplit) {
+          assetTags.push(viteEntryTag(src, stylesheetTag(file), false))
+        }
       })
 
       const viteTagSnippetContent = viteTagDisclaimer + assetTags.join('\n') + '\n{% endif %}\n'
