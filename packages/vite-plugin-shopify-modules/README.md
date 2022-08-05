@@ -117,4 +117,4 @@ See [seed-theme](https://github.com/barrel/barrel-shopify/tree/main/themes/seed-
 
 ## Bugs
 
-Please create an issue if you found any bugs, to help me improve this project!
+Please create an issue if you found any bugs, to help us improve this project!
