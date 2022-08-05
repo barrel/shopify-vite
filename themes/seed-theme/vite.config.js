@@ -12,7 +12,7 @@ export default defineConfig({
   plugins: [
     // "Shopify" plugin enables entrypoint detection, smart generation of script and link tags, and support for Shopify CDN-hosted assets
     shopify({
-      additionalEntrypoints: ['modules/**/*.js']
+      additionalEntrypoints: ['modules/**/*.js', 'foo/**/*.js', 'just-another-entry-point.ts']
     }),
     // "Shopify Modules" plugin enables "modules" folder pattern
     shopifyModules(),

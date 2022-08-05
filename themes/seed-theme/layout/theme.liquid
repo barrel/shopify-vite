@@ -28,7 +28,10 @@
     {% render 'social-meta-tags' %}
     {% render 'structured-data' %}
     {% render 'vite-client' %}
-    {% render 'vite-tag' with 'base.css' %}
+    {% render 'vite-tag' with 'entrypoints/base.css' %}
+    {%- render 'vite-tag' with 'entrypoints/theme.js' -%}
+    {%- render 'vite-tag' with 'foo/bar.js' -%}
+    {%- render 'vite-tag' with 'just-another-entry-point.ts' -%}
 
     <script>
       document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
