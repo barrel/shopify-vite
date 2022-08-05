@@ -27,7 +27,7 @@
 {% unless template.name == "cart" %}
   <span class="fixed inset-0 bg-black z-40 opacity-0 pointer-events-none [.peer.open~&]:opacity-20 [.peer.open~&]:pointer-events-auto transition-opacity" onclick="document.querySelector('shopify-cart').closeDrawer()">
 {% endunless %}
-{% render 'vite-tag' with '@modules/cart' %}
+{% render 'vite-tag' with 'modules/cart/cart.js' %}
 {% schema %}
 {
   "name": "Cart",
