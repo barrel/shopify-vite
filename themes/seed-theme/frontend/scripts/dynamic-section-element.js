@@ -69,13 +69,11 @@ class DynamicSectionElement extends HTMLElement {
   loadScripts () {
     setTimeout(() => {
       this.querySelectorAll('script').forEach((scriptEl) => {
-        if (!document.head.querySelector(`script[src="${scriptEl.src}"]`)) {
-          const newScriptEl = document.createElement('script')
-          Array.from(scriptEl.attributes).forEach(attribute => {
-            newScriptEl.setAttribute(attribute.name, attribute.value)
-          })
-          scriptEl.parentNode.replaceChild(newScriptEl, scriptEl)
-        }
+        const newScriptEl = document.createElement('script')
+        Array.from(scriptEl.attributes).forEach(attribute => {
+          newScriptEl.setAttribute(attribute.name, attribute.value)
+        })
+        scriptEl.parentNode.replaceChild(newScriptEl, scriptEl)
       })
     })
   }

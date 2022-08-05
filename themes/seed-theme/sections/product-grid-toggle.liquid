@@ -28,7 +28,7 @@
 {% for block in section.blocks %}
   {% render 'product-grid', products: block.settings.products %}
 {% endfor %}
-{% render 'vite-tag' with  '@modules/product-grid-toggle' %}
+{% render 'vite-tag' with '@modules/product-grid-toggle' %}
 {% schema %}
 {
   "name": "Product Grid Toggle",
