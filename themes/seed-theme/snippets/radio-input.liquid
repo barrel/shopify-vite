@@ -1,0 +1,8 @@
+<div class="{{ class }}">
+  {% if input %}
+    {{ input }}
+  {% else %}
+    <input id="{{ id }}" class="inline-block" type="radio" name="{{ name }}" value="{{ value }}" />
+  {% endif %}
+  <label class="inline-block" for="{{ id }}">{{ label }}</label>
+</div>
