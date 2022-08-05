@@ -40,7 +40,9 @@ export default {
       // Front-end source code directory
       sourceCodeDir: "frontend",
       // Front-end entry points directory
-      entrypointsDir: "frontend/entrypoints"
+      entrypointsDir: "frontend/entrypoints",
+      // Additional files to use as entry points (accepts an array of file paths or glob patterns)
+      additionalEntrypoints: []
     })
   ]
 };
