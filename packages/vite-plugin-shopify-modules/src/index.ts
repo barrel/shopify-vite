@@ -3,6 +3,7 @@ import path from 'path'
 import { Plugin, ResolvedConfig } from 'vite'
 import { throttle } from 'lodash'
 import chokidar from 'chokidar'
+import glob from 'fast-glob'
 
 import { VitePluginShopifyModulesOptions, ResolvedVitePluginShopifyModulesOptions, resolveOptions } from './options'
 
@@ -23,8 +24,35 @@ export default function shopifyModules (options: VitePluginShopifyModulesOptions
   return {
     name: 'vite-plugin-shopify-modules',
     enforce: 'post',
+    config () {
+      return {
+        resolve: {
+          alias: {
+            '@modules': path.resolve(resolvedOptions.modulesDir),
+            '~modules': path.resolve(resolvedOptions.modulesDir)
+          }
+        }
+      }
+    },
     configResolved (config) {
       _config = config
+    },
+    resolveId: async (id) => {
+      // Check if path is within modules directory
+      if (!path.relative(path.resolve(resolvedOptions.modulesDir), id).includes('..')) {
+        const fileStat = await fs.stat(id)
+
+        // Check if path refers to folder instead of file
+        if (fileStat.isDirectory()) {
+          // Check if module script file exists matching folder name
+          const results = await glob(`${id}/${path.basename(id)}.{js,jsx,ts,tsx}`, { onlyFiles: true })
+
+          // Resolve to actual file path instead of module shorthand
+          if (results.length > 0) {
+            return results[0]
+          }
+        }
+      }
     },
     buildStart: () => {
       // Link modules on build start
