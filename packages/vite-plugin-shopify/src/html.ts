@@ -39,7 +39,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
       debug({ assetHost })
 
-      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir) + viteTagSnippetDev(assetHost, options.entrypointsDir)
+      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir) + viteTagSnippetDev(assetHost, options.entrypointsDir, modulesPath)
       const viteClientSnippetContent = viteClientSnippetDev(assetHost)
 
       // Write vite-tag snippet for development server
@@ -147,14 +147,22 @@ const stylesheetTag = (fileName: string): string =>
   `{{ '${fileName}' | asset_url | stylesheet_tag }}`
 
 // Generate vite-tag snippet for development
-const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/entrypoints'): string =>
+const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/entrypoints', modulesPath = ''): string =>
   `{% liquid
   assign file_url = path | prepend: '${assetHost}/${entrypointsDir}/'
-  assign file_extension = path | split: '.' | last
+  assign file_name = path | split: '/' | last
+  if file_name contains '.'
+    assign file_extension = file_name | split: '.' | last
+  endif
   assign css_extensions = '${KNOWN_CSS_EXTENSIONS.join('|')}' | split: '|'
   assign is_css = false
   if css_extensions contains file_extension
     assign is_css = true
+  endif
+  assign modules_path = '${modulesPath}'
+  if file_extension == blank and modules_path != blank and file_url contains modules_path
+    assign module_name = path | split: '/' | last
+    assign file_url = file_url | append: '/' | append: module_name | append: '.js'
   endif
 %}
 {% if is_css == true %}
