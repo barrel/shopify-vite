@@ -102,7 +102,7 @@ export default {
 
 ```
 // modules/cart-drawer/cart-drawer.section.liquid
-{% render 'vite-tag' with '@modules/cart-drawer' }
+{% render 'vite-tag' with '@modules/cart-drawer' %}
 ```
 
 See the [vite-plugin-shopify docs](https://github.com/barrel/barrel-shopify/tree/main/packages/vite-plugin-shopify) for more details on the plugin configuration and `vite-tag` snippet usage.
