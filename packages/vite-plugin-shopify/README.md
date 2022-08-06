@@ -36,12 +36,12 @@ export default {
     /* Plugin options are not required, defaults shown */
     viteShopify({
       // Root path to your Shopify theme directory (location of snippets, sections, templates, etc.)
-      themeRoot: "./",
-      // Front-end source code directory
+      themeRoot: process.cwd(),
+      // Front-end source code directory (relative to themeRoot)
       sourceCodeDir: "frontend",
-      // Front-end entry points directory
-      entrypointsDir: "frontend/entrypoints",
-      // Additional files to use as entry points (accepts an array of file paths or glob patterns)
+      // Front-end entry points directory (relative to sourceCodeDir)
+      entrypointsDir: "entrypoints",
+      // Additional files to use as entry points (accepts an array of file paths or glob patterns, relative to themeRoot)
       additionalEntrypoints: []
     })
   ]
@@ -87,7 +87,7 @@ In your `<head>` element add this
 Then render the `vite-tag` snippet (in your `<head>` element too) to insert tags for loading assets from a given entrypoint file:
 
 ```liquid
-{% render 'vite-tag' with 'theme.ts' %}
+{% render 'vite-tag' with 'entrypoints/theme.ts' %}
 ```
 
 - `vite-plugin-shopify` will generate new versions of `vite-tag.liquid` during development and on each production build.
@@ -98,10 +98,10 @@ Then render the `vite-tag` snippet (in your `<head>` element too) to insert tags
 - When running the development server, these tags are omitted, as Vite will load the dependencies as separate modules.
 
 ```txt
-{% render 'vite-tag' with 'theme.ts' %}
+{% render 'vite-tag' with 'entrypoints/theme.ts' %}
 
 # HTML output (development)
-<script src="http://localhost:5173/theme.ts" type="module"></script>
+<script src="http://localhost:5173/frontend/entrypoints/theme.ts" type="module"></script>
 
 # HTML output (production)
 <link rel="stylesheet" href="{{ 'theme.4d95c99b.css' | asset_url }}">
