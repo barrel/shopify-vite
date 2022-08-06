@@ -28,9 +28,7 @@ export const resolveOptions = (
   const entrypointsDir = options.entrypointsDir !== undefined
     ? path.join(sourceCodeDir, options.entrypointsDir)
     : path.join(sourceCodeDir, 'entrypoints')
-  const additionalEntrypoints = options.additionalEntrypoints !== undefined
-    ? options.additionalEntrypoints
-    : []
+  const additionalEntrypoints = options.additionalEntrypoints ?? []
 
   return {
     themeRoot,
