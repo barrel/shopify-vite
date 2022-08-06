@@ -46,6 +46,8 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
         fs.readFileSync(path.resolve(options.themeRoot, 'assets/manifest.json'), 'utf8')
       ) as Manifest
 
+      debug({ chunkNames: Object.keys(manifest), themeRoot: options.themeRoot, sourceCodeDir: options.sourceCodeDir, entrypointsDir: options.entrypointsDir })
+
       Object.keys(manifest).forEach((src) => {
         const { file, isEntry, css, imports } = manifest[src]
         const ext = path.extname(src)
