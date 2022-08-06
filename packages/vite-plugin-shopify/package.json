@@ -33,8 +33,7 @@
   },
   "dependencies": {
     "debug": "^4.3.4",
-    "fast-glob": "^3.2.11",
-    "magic-string": "^0.26.2"
+    "fast-glob": "^3.2.11"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"
