@@ -29,9 +29,9 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
       const assetHost = `${protocol}//${host}:${port}`
 
-      debug({ assetHost })
+      debug({ assetHost, themeRoot: options.themeRoot, sourceCodeDir: options.sourceCodeDir, entrypointsDir: options.entrypointsDir })
 
-      const viteTagSnippetContent = viteTagSnippetDev(assetHost, options.entrypointsDir)
+      const viteTagSnippetContent = viteTagSnippetDev(assetHost, options.themeRoot, options.sourceCodeDir, options.entrypointsDir)
       const viteClientSnippetContent = viteClientSnippetDev(assetHost)
 
       // Write vite-tag snippet for development server
@@ -54,7 +54,10 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
         // Generate tags for JS and CSS entry points
         if (isEntry === true) {
-          const entryName = path.relative(options.entrypointsDir, src)
+          const entryName = src.includes(path.relative(options.sourceCodeDir, options.entrypointsDir))
+            ? path.relative(options.sourceCodeDir, src)
+            : path.relative(options.themeRoot, src)
+
           const tagsForEntry = []
 
           if (ext.match(CSS_EXTENSIONS_REGEX) !== null) {
@@ -119,9 +122,13 @@ const stylesheetTag = (fileName: string): string =>
   `{{ '${fileName}' | asset_url | stylesheet_tag }}`
 
 // Generate vite-tag snippet for development
-const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/entrypoints'): string =>
-  `${viteTagDisclaimer}{% liquid
-  assign file_url = vite-tag | prepend: '${assetHost}/${entrypointsDir}/'
+const viteTagSnippetDev = (assetHost: string, themeRoot: string, sourceCodeDir: string, entrypointsDir: string): string =>
+  `{% liquid
+  if vite-tag contains '${path.relative(sourceCodeDir, entrypointsDir)}'
+    assign file_url = vite-tag | prepend: '${assetHost}/${path.relative(themeRoot, sourceCodeDir)}/'
+  else
+    assign file_url = vite-tag | prepend: '${assetHost}/'
+  endif
   assign file_extension = vite-tag | split: '.' | last
   assign css_extensions = '${KNOWN_CSS_EXTENSIONS.join('|')}' | split: '|'
   assign is_css = false

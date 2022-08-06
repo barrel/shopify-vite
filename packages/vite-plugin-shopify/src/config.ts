@@ -45,8 +45,8 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
         resolve: {
           // Provide import alias to source code dir for convenience
           alias: {
-            '~': path.resolve(options.sourceCodeDir),
-            '@': path.resolve(options.sourceCodeDir)
+            '~': options.sourceCodeDir,
+            '@': options.sourceCodeDir
           }
         },
         server: {
