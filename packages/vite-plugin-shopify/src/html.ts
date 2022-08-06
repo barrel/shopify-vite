@@ -31,8 +31,8 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
       debug({ assetHost, themeRoot: options.themeRoot, sourceCodeDir: options.sourceCodeDir, entrypointsDir: options.entrypointsDir })
 
-      const viteTagSnippetContent = viteTagSnippetDev(assetHost, options.themeRoot, options.sourceCodeDir, options.entrypointsDir)
-      const viteClientSnippetContent = viteClientSnippetDev(assetHost)
+      const viteTagSnippetContent = viteTagDisclaimer + viteTagSnippetDev(assetHost, options.themeRoot, options.sourceCodeDir, options.entrypointsDir)
+      const viteClientSnippetContent = viteTagDisclaimer + viteClientSnippetDev(assetHost)
 
       // Write vite-tag snippet for development server
       fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
@@ -86,7 +86,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
           assetTags.push(viteEntryTag(entryName, tagsForEntry.join('\n  '), assetTags.length === 0))
         }
 
-        // css link when cssCodeSplit is false
+        // Generate entry tag for bundled "style.css" file when cssCodeSplit is false
         if (src === 'style.css' && !config.build.cssCodeSplit) {
           assetTags.push(viteEntryTag(src, stylesheetTag(file), false))
         }
@@ -142,5 +142,5 @@ const viteTagSnippetDev = (assetHost: string, themeRoot: string, sourceCodeDir: 
   <script src="{{ file_url }}" type="module" crossorigin="anonymous"></script>
 {% endif %}
 `
-const viteClientSnippetDev = (assetHost = 'http://localhost:5173'): string =>
-  `${viteTagDisclaimer}<script src="${assetHost}/@vite/client" type="module"></script>\n`
+const viteClientSnippetDev = (assetHost: string): string =>
+  `<script src="${assetHost}/@vite/client" type="module"></script>\n`
