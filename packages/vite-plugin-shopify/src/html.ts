@@ -41,9 +41,15 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
       fs.writeFileSync(viteClientSnippetPath, viteClientSnippetContent)
     },
     closeBundle () {
+      const manifestFilePath = path.resolve(options.themeRoot, 'assets/manifest.json')
+
+      if (!fs.existsSync(manifestFilePath)) {
+        return
+      }
+
       const assetTags: string[] = []
       const manifest = JSON.parse(
-        fs.readFileSync(path.resolve(options.themeRoot, 'assets/manifest.json'), 'utf8')
+        fs.readFileSync(manifestFilePath, 'utf8')
       ) as Manifest
 
       Object.keys(manifest).forEach((src) => {
