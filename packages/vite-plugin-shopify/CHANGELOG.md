@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 0.0.4
+
+### Patch Changes
+
+- Fix error when restarting dev server
+
 ## 0.0.3
 
 ### Patch Changes
