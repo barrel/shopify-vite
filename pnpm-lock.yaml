@@ -63,10 +63,12 @@ importers:
   packages/vite-plugin-shopify-modules:
     specifiers:
       chokidar: ^3.5.3
+      fast-glob: ^3.2.11
       lodash: ^4.17.21
       tsconfig: workspace:*
     dependencies:
       chokidar: 3.5.3
+      fast-glob: 3.2.11
       lodash: 4.17.21
     devDependencies:
       tsconfig: link:../tsconfig

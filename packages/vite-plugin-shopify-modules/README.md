@@ -4,10 +4,10 @@ This plugin enables Shopify theme developers to structure their code into "modul
 
 ## Features
 
-* Automatically associates each module folder with the matching snippet or section files based on file name
-* Generates symbolic links to corresponding liquid files from module folders
-* Moves liquid files created within module folders to correct theme folders and replaces them with symlinks
-* Fully compatible with Shopify GitHub integration and Shopify CLI features for syncing updates from remote theme
+- Automatically associates each module folder with the matching snippet or section files based on file name
+- Generates symbolic links to corresponding liquid files from module folders
+- Moves liquid files created within module folders to correct theme folders and replaces them with symlinks
+- Fully compatible with Shopify GitHub integration and Shopify CLI features for syncing updates from remote theme
 
 ## Install
 
@@ -28,16 +28,16 @@ Add `shopifyModules` plugin to vite.config.js / vite.config.ts:
 
 ```ts
 // vite.config.js / vite.config.ts
-import { shopifyModules } from 'vite-plugin-shopify-modules'
+import shopifyModules from "vite-plugin-shopify-modules";
 
 export default {
   plugins: [
     shopifyModules({
       // Default options shown:
-      modulesDir: 'modules'
+      modulesDir: "modules"
     })
   ]
-}
+};
 ```
 
 - Create a "modules" folder alongside your theme folders, or use the `modulesDir` plugin option to specify an alternate location.
@@ -65,9 +65,51 @@ my-theme
   └── templates
 ```
 
+## Using module scripts
+
+Adding a script file to a module folder will not have any effect until the file is imported and loaded into your theme.
+
+This plugin generates an alias to simplify the syntax when importing files from other directories.
+
+- `@modules` or `~modules` will be resolved to the configured modules path.
+- Additionally, you may omit the JS filename to import module scripts using a shorthand syntax.
+
+Given the default file structure shown above, the following imports are equivalent:
+
+```
+// frontend/entrypoints/main.js
+import "../../modules/cart-drawer/cart-drawer.js"
+import "@modules/cart-drawer/cart-drawer.js"
+import "@modules/cart-drawer"
+```
+
+When used in combination with the `additionalEntrypoints` option from vite-plugin-shopify, you also have the option to treat each module script as its own entry point to be loaded directly onto a page using a script tag. For example:
+
+```
+// vite.config.js / vite.config.ts
+import shopify from "vite-plugin-shopify";
+import shopifyModules from "vite-plugin-shopify-modules";
+
+export default {
+  plugins: [
+    shopify({
+      additionalEntrypoints: ['modules/**/*.js']
+    }),
+    shopifyModules()
+  ]
+}
+```
+
+```
+// modules/cart-drawer/cart-drawer.section.liquid
+{% render 'vite-tag' with '@modules/cart-drawer' %}
+```
+
+See the [vite-plugin-shopify docs](https://github.com/barrel/barrel-shopify/tree/main/packages/vite-plugin-shopify) for more details on the plugin configuration and `vite-tag` snippet usage.
+
 ## Example
 
-See [seed-theme](https://github.com/barrel/barrel-shopify/tree/main/packages/seed-theme) for an example Shopify theme using this plugin.
+See [seed-theme](https://github.com/barrel/barrel-shopify/tree/main/themes/seed-theme) for an example Shopify theme using this plugin.
 
 ## To-Do
 
@@ -75,4 +117,4 @@ See [seed-theme](https://github.com/barrel/barrel-shopify/tree/main/packages/see
 
 ## Bugs
 
-Please create an issue if you found any bugs, to help me improve this project!
+Please create an issue if you found any bugs, to help us improve this project!

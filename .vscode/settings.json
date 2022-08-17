@@ -13,5 +13,10 @@
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features",
     "editor.formatOnSave": false
-  }
+  },
+  "eslint.workingDirectories": [
+    "./packages/vite-plugin-shopify",
+    "./packages/vite-plugin-shopify-modules",
+    "./packages/vite-plugin-shopify-theme-settings"
+  ]
 }

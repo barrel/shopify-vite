@@ -39,6 +39,7 @@ class DynamicSectionElement extends HTMLElement {
     if (this.dataset.slot) {
       // If parent element has data-slot attribute, replace entire contents
       this.innerHTML = newEl.querySelector(`[data-slot="${this.dataset.slot}"]`).innerHTML
+      this.loadScripts()
       return
     }
 
@@ -59,6 +60,21 @@ class DynamicSectionElement extends HTMLElement {
         // Replace original content with new slot elements
         oldSlotEl.innerHTML = newEl.querySelector(`[data-slot="${slotName}"]`).innerHTML
       }
+    })
+
+    this.loadScripts()
+  }
+
+  // Re-inject scripts contained within the updated module to allow them to load
+  loadScripts () {
+    setTimeout(() => {
+      this.querySelectorAll('script').forEach((scriptEl) => {
+        const newScriptEl = document.createElement('script')
+        Array.from(scriptEl.attributes).forEach(attribute => {
+          newScriptEl.setAttribute(attribute.name, attribute.value)
+        })
+        scriptEl.parentNode.replaceChild(newScriptEl, scriptEl)
+      })
     })
   }
 }

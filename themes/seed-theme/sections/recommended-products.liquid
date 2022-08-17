@@ -6,7 +6,7 @@
     {% render 'product-grid', products: recommendations.products %}
   {% endif %}
 </recommended-products>
-
+{% render 'vite-tag' with '@modules/recommended-products' %}
 {% schema %}
 {
   "name": "Recommended Products",

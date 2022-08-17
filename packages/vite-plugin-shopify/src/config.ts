@@ -19,6 +19,12 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
       const origin = `${protocol}//${host as string}:${port}`
       const socketProtocol = https === true ? 'wss' : 'ws'
 
+      let input = glob.sync(path.join(options.entrypointsDir, '**/*'), { onlyFiles: true })
+
+      options.additionalEntrypoints.forEach((globPattern) => {
+        input = input.concat(glob.sync(globPattern, { onlyFiles: true }))
+      })
+
       const generatedConfig: UserConfig = {
         // Use relative base path so to load imported assets from Shopify CDN
         base: './',
@@ -30,9 +36,7 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
           // Do not use subfolder for static assets
           assetsDir: '',
           // Configure bundle entry points
-          rollupOptions: {
-            input: glob.sync(path.join(options.entrypointsDir, '**/*'), { onlyFiles: true })
-          },
+          rollupOptions: { input },
           // Output manifest file for backend integration
           manifest: true
         },

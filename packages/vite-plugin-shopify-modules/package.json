@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "chokidar": "^3.5.3",
+    "fast-glob": "^3.2.11",
     "lodash": "^4.17.21"
   },
   "devDependencies": {

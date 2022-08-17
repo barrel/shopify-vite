@@ -1,0 +1,14 @@
+{% assign initial_index = initial_index | default: 1 %}
+<slider-dots>
+  {% for index in (1..slides_count) %}
+    {% liquid
+      if initial_index == index
+        assign active = true
+      else
+        assign active = false
+      endif
+    %}
+    <button data-active="{{ active }}" class="appearance-none inline-block cursor-pointer w-2 h-2 m-1 rounded-full bg-gray-300 hover:bg-gray-500 [&[data-active=true]]:bg-black"></button>
+  {% endfor %}
+</slider-dots>
+{% render 'vite-tag' with '@modules/slider-dots' %}

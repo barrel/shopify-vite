@@ -8,16 +8,16 @@ module.exports = {
       sans: ['Helvetica Neue', ...defaultTheme.fontFamily.sans]
     },
     fontSize: {
-      xs: ['14px', { lineHeight: '1' }],
-      sm: ['15px', { lineHeight: '1' }],
-      base: ['17px', { lineHeight: '1' }],
-      lg: ['19px', { lineHeight: '1' }],
-      xl: ['23px', { lineHeight: '1' }],
-      '2xl': ['26px', { lineHeight: '1' }],
-      '3xl': ['28px', { lineHeight: '1' }],
-      '4xl': ['32px', { lineHeight: '1' }],
-      '5xl': ['42px', { lineHeight: '1' }],
-      '6xl': ['54px', { lineHeight: '1' }]
+      xs: ['14px', { lineHeight: '120%' }],
+      sm: ['15px', { lineHeight: '125%' }],
+      base: ['17px', { lineHeight: '125%' }],
+      lg: ['19px', { lineHeight: '120%' }],
+      xl: ['23px', { lineHeight: '120%' }],
+      '2xl': ['26px', { lineHeight: '120%' }],
+      '3xl': ['28px', { lineHeight: '115%' }],
+      '4xl': ['32px', { lineHeight: '110%' }],
+      '5xl': ['42px', { lineHeight: '110%' }],
+      '6xl': ['54px', { lineHeight: '110%' }]
     },
     // NOTE: If these values change, update corresponding break_* variables in liquid snippets
     screens: {
