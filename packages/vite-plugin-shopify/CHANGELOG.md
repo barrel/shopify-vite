@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 0.0.5
+
+### Patch Changes
+
+- feef172: Add "additionalEntrypoints" option and support for shorthand imports from vite-plugin-shopify-modules
+
 ## 0.0.4
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # vite-shopify
 
+## 0.0.7
+
+### Patch Changes
+
+- Updated dependencies [feef172]
+- Updated dependencies [feef172]
+  - vite-plugin-shopify-modules@0.0.3
+  - vite-plugin-shopify@0.0.5
+
 ## 0.0.6
 
 ### Patch Changes
