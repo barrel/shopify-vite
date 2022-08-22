@@ -190,7 +190,7 @@ const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir =
   assign modules_path = '${modulesPath}'
   if file_extension == blank and modules_path != blank and file_url contains modules_path
     assign module_name = path | split: '/' | last
-    assign file_url = file_url | append: '/' | append: module_name | append: '.js'
+    assign file_url = file_url | append: '/' | append: module_name
   endif
 %}
 {% if is_css == true %}
@@ -199,5 +199,6 @@ const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir =
   <script src="{{ file_url }}" type="module" crossorigin="anonymous"></script>
 {% endif %}
 `
+
 const viteClientSnippetDev = (assetHost = 'http://localhost:5173'): string =>
   `${viteTagDisclaimer}<script src="${assetHost}/@vite/client" type="module"></script>\n`
