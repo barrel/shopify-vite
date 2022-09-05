@@ -87,8 +87,17 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
             if (typeof imports !== 'undefined' && imports.length > 0) {
               imports.forEach((importFilename: string) => {
                 const chunk = manifest[importFilename]
+                const { css } = chunk
                 // Render preload tags for JS imports
                 tagsForEntry.push(preloadTag(chunk.file, 'script'))
+
+                // Render style tag for JS imports
+                if (typeof css !== 'undefined' && css.length > 0) {
+                  css.forEach((cssFileName: string) => {
+                    // Render style tag for imported CSS file
+                    tagsForEntry.push(stylesheetTag(cssFileName))
+                  })
+                }
               })
             }
 
