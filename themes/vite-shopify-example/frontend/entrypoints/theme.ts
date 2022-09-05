@@ -22,3 +22,7 @@ element.innerHTML = `
 `
 document.body.appendChild(element)
 setupCounter(document.querySelector('#counter'))
+
+import('@/components/icon-bag').then(({ default: iconBag }) => {
+  console.log(iconBag)
+}).catch(error => console.error(error))
