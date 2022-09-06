@@ -89,7 +89,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
                 const chunk = manifest[importFilename]
                 const { css } = chunk
                 // Render preload tags for JS imports
-                tagsForEntry.push(preloadTag(chunk.file, 'script'))
+                tagsForEntry.push(preloadScriptTag(chunk.file))
 
                 // Render style tag for JS imports
                 if (typeof css !== 'undefined' && css.length > 0) {
@@ -150,8 +150,8 @@ const viteEntryTag = (entryPaths: string[], tag: string, isFirstEntry = false): 
   `{% ${!isFirstEntry ? 'els' : ''}if ${entryPaths.map((entryName) => `path == "${entryName}"`).join(' or ')} %}\n  ${tag}`
 
 // Generate a preload link tag for a script or style asset
-const preloadTag = (fileName: string, as: 'script' | 'style'): string =>
-  `<link rel="${as === 'script' ? 'modulepreload' : 'preload'}" href="{{ '${fileName}' | asset_url }}" as="${as}">`
+const preloadScriptTag = (fileName: string): string =>
+  `<link rel="modulepreload" href="{{ '${fileName}' | asset_url }}" crossorigin="anonymous">`
 
 // Generate a production script tag for a script asset
 const scriptTag = (fileName: string): string =>
