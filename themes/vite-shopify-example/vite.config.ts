@@ -3,7 +3,12 @@ import shopify from 'vite-plugin-shopify'
 
 export default defineConfig({
   plugins: [
-    shopify()
+    shopify({
+      additionalEntrypoints: [
+        'frontend/foo.ts', // relative to sourceCodeDir
+        'resources/bar.ts' // relative to themeRoot
+      ]
+    })
   ],
   build: {
     emptyOutDir: true
