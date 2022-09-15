@@ -151,6 +151,7 @@ importers:
       tsconfig: workspace:*
       vite: ^3.0.0
       vite-plugin-shopify: workspace:*
+      vite-plugin-shopify-modules: workspace:*
     dependencies:
       lodash-es: 4.17.21
     devDependencies:
@@ -159,6 +160,7 @@ importers:
       tsconfig: link:../../packages/tsconfig
       vite: 3.0.0_sass@1.52.3
       vite-plugin-shopify: link:../../packages/vite-plugin-shopify
+      vite-plugin-shopify-modules: link:../../packages/vite-plugin-shopify-modules
 
 packages:
 
@@ -4244,6 +4246,7 @@ packages:
     resolution: {integrity: sha512-C0WQT0gezHuw6AdY1M2jxUO83Rjf0HP7Sk1DtXj6j1EwkQNZrHAg2XPWlq62oqEhYvONq5pkC2Y9oPljWToLmQ==}
     engines: {node: '>=4.2.0'}
     hasBin: true
+    dev: false
 
   /unbox-primitive/1.0.2:
     resolution: {integrity: sha512-61pPlCD9h51VoreyJ0BReideM3MDKMKnh6+V9L08331ipq6Q8OFXZYiqP6n/tbHx4s5I9uRhcye6BrbkizkBDw==}
