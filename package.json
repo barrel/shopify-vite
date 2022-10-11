@@ -13,7 +13,8 @@
     "lint": "turbo run lint",
     "change:add": "changeset add",
     "change:version": "changeset version",
-    "change:publish": "npm run build && changeset publish"
+    "change:publish": "npm run build && changeset publish",
+    "build:docs": "cd packages/vite-shopify-docs && npm run build"
   },
   "engines": {
     "node": ">=16.0.0"
