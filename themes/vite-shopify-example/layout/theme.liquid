@@ -11,11 +11,13 @@
 
   <meta name="description" content="">
 
-  {%- render 'vite-client' -%}
-  {%- render 'vite-tag' with 'theme.scss' -%}
-  {%- render 'vite-tag' with 'theme.ts' -%}
-  {%- render 'vite-tag' with '@/foo.ts' -%}
-  {%- render 'vite-tag' with '/resources/bar.ts' -%}
+  {%- liquid
+    render 'vite-client'
+    render 'vite-tag' with 'theme.scss', preload_stylesheet: true
+    render 'vite-tag' with 'theme.ts'
+    render 'vite-tag' with '@/foo.ts'
+    render 'vite-tag' with '/resources/bar.ts'
+  -%}
 
   {{ content_for_header }}
 </head>
