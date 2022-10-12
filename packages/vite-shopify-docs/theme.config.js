@@ -12,6 +12,8 @@ export default {
   ),
   head: (
     <>
+      <link href="https://assets.website-files.com/5f3add15d795920eaf6cc5f9/62e3ebeb835d5be5b3cbdce0_9eaedcbc5d9881129eef2000356270e5.webp" rel="shortcut icon" type="image/x-icon"/>
+      <link href="https://assets.website-files.com/5f3add15d795920eaf6cc5f9/5f875e551e4aef7702da0a2c_barrel-website-webclip.jpg" rel="apple-touch-icon"/>
       {/* <meta name="msapplication-TileColor" content="#ffffff" />
       <meta name="theme-color" content="#ffffff" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -62,5 +64,6 @@ export default {
   nextLinks: true,
   footer: true,
   footerText: <>Made with ❤️ by <a href="https://www.barrelny.com/">Barrel</a></>,
-  unstable_faviconGlyph: '👋'
+  footerEditLink: false,
+  unstable_faviconGlyph: '🚀'
 }

@@ -1,3 +1,5 @@
+import Callout from 'nextra-theme-docs/callout'
+
 # Getting Started
 
 ## Installation
@@ -31,9 +33,9 @@ export default {
       // Path to front-end entry points path
       entrypointsDir: 'frontend/entrypoints',
       // Additional files to use as entry points (accepts an array of file paths or glob patterns)
-      additionalEntrypoints: []
-    })
-  ]
+      additionalEntrypoints: [],
+    }),
+  ],
 }
 ```
 
@@ -43,13 +45,17 @@ Create an entry point file in one of Vite's supported file formats and place it 
 {% render 'vite-tag' with 'theme.ts' %}
 ```
 
-To enable support for Vite's HMR functionality, render the vite-client snippet somewhere in your theme code:
+To enable support for Vite's HMR functionality (optional), render the vite-client snippet somewhere in your theme code:
 
 ```liquid
 {% render 'vite-client' %}
 ```
 
-(Note: The `vite-tag` and `vite-client` liquid snippets will be auto-generated and inserted into your theme's snippets folder each time you run the Vite development server or initiate a production build.)
+<Callout>
+  Note: The `vite-tag` and `vite-client` liquid snippet files will be
+  auto-generated and inserted into your theme's snippets folder each time you
+  run the Vite development server or initiate a production build.
+</Callout>
 
 ## Development & Deployment
 
@@ -80,4 +86,4 @@ The following example provides a `start` command to run the Vite and Shopify ser
 }
 ```
 
-(Note: The above example depends on the [npm-run-all](https://www.npmjs.com/package/npm-run-all) package being installed to your project.)
+_Note: The above example depends on the [npm-run-all](https://www.npmjs.com/package/npm-run-all) package being installed to your project._
