@@ -144,23 +144,13 @@ const viteTagEntryPath = (
   })
 
   return `{%- liquid
-  assign path_sep = '/'
-  assign path_segments = vite-tag | split: path_sep
-  if path_segments[0] == blank
+  assign path_prefix = vite-tag | slice: 0
+  assign is_relative_to_theme_root = false
+  if path_prefix == '/'
     assign is_relative_to_theme_root = true
-  else
-    assign is_relative_to_theme_root = false
   endif
   if is_relative_to_theme_root
-    assign new_path = ''
-    for segment in path_segments
-      if forloop.first
-        assign new_path = new_path | append: '${path.relative(entrypointsDir, themeRoot)}'
-      else
-        assign new_path = new_path | append: path_sep | append: segment
-      endif
-    endfor
-    assign path = new_path
+    assign path = vite-tag | prepend: '${path.relative(entrypointsDir, themeRoot)}'
   else
     assign path = vite-tag | ${replacements.map(([from, to]) => `replace: '${from}/', '${to}/'`).join(' | ')}
   endif
