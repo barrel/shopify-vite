@@ -39,7 +39,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
       debug({ assetHost })
 
-      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir) + viteTagSnippetDev(assetHost, options.entrypointsDir, modulesPath)
+      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, options.themeRoot) + viteTagSnippetDev(assetHost, options.entrypointsDir, modulesPath)
       const viteClientSnippetContent = viteClientSnippetDev(assetHost)
 
       // Write vite-tag snippet for development server
@@ -116,7 +116,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
         }
       })
 
-      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir) + assetTags.join('\n') + '\n{% endif %}\n'
+      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, options.themeRoot) + assetTags.join('\n') + '\n{% endif %}\n'
 
       // Write vite-tag snippet for production build
       fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
@@ -132,7 +132,8 @@ const viteTagDisclaimer = '{% comment %}\n  IMPORTANT: This snippet is automatic
 // Generate liquid variable with resolved path by replacing aliases
 const viteTagEntryPath = (
   resolveAlias: Array<{ find: string | RegExp, replacement: string }>,
-  entrypointsDir: string
+  entrypointsDir: string,
+  themeRoot: string
 ): string => {
   const replacements: Array<[string, string]> = []
 
@@ -142,7 +143,18 @@ const viteTagEntryPath = (
     }
   })
 
-  return `{% assign path = vite-tag | ${replacements.map(([from, to]) => `replace: '${from}/', '${to}/'`).join(' | ')} %}\n`
+  return `{%- liquid
+  assign path_prefix = vite-tag | slice: 0
+  assign is_relative_to_theme_root = false
+  if path_prefix == '/'
+    assign is_relative_to_theme_root = true
+  endif
+  if is_relative_to_theme_root
+    assign path = vite-tag | prepend: '${path.relative(entrypointsDir, themeRoot)}'
+  else
+    assign path = vite-tag | ${replacements.map(([from, to]) => `replace: '${from}/', '${to}/'`).join(' | ')}
+  endif
+-%}\n`
 }
 
 // Generate conditional statement for entry tag
