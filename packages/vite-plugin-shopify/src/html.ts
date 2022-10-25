@@ -67,7 +67,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
         // Generate tags for JS and CSS entry points
         if (isEntry === true) {
           const entryName = path.relative(options.entrypointsDir, src)
-          const entryPaths = [entryName]
+          const entryPaths = [`/${src}`, entryName]
           const tagsForEntry = []
 
           if (ext.match(CSS_EXTENSIONS_REGEX) !== null) {
@@ -144,18 +144,7 @@ const viteTagEntryPath = (
     }
   })
 
-  return `{%- liquid
-  assign path_prefix = vite-tag | slice: 0
-  assign is_relative_to_theme_root = false
-  if path_prefix == '/'
-    assign is_relative_to_theme_root = true
-  endif
-  if is_relative_to_theme_root
-    assign path = vite-tag | prepend: '${path.relative(entrypointsDir, themeRoot)}'
-  else
-    assign path = vite-tag | ${replacements.map(([from, to]) => `replace: '${from}/', '${to}/'`).join(' | ')}
-  endif
--%}\n`
+  return `{% assign path = vite-tag | ${replacements.map(([from, to]) => `replace: '${from}/', '${to}/'`).join(' | ')} %}\n`
 }
 
 // Generate conditional statement for entry tag
@@ -177,7 +166,13 @@ const stylesheetTag = (fileName: string): string =>
 // Generate vite-tag snippet for development
 const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/entrypoints', modulesPath = ''): string =>
   `{% liquid
-  assign file_url = path | prepend: '${assetHost}/${entrypointsDir}/'
+  assign path_prefix = path | slice: 0
+  if path_prefix == '/'
+    assign file_url_prefix = '${assetHost}'
+  else
+    assign file_url_prefix = '${assetHost}/${entrypointsDir}/'
+  endif
+  assign file_url = path | prepend: file_url_prefix
   assign file_name = path | split: '/' | last
   if file_name contains '.'
     assign file_extension = file_name | split: '.' | last
@@ -189,8 +184,7 @@ const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir =
   endif
   assign modules_path = '${modulesPath}'
   if file_extension == blank and modules_path != blank and file_url contains modules_path
-    assign module_name = path | split: '/' | last
-    assign file_url = file_url | append: '/' | append: module_name
+    assign file_url = file_url | append: '/' | append: file_name
   endif
 %}
 {% if is_css == true %}
