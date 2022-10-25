@@ -123,6 +123,13 @@ Loading `additionalEntrypoints`:
 {%- render 'vite-tag' with '/resources/bar.ts' -%} # leading slash is required
 ```
 
+Preloading stylesheets:
+
+```
+{%- render 'vite-tag' with 'theme.css', preload_stylesheet: true -%}
+```
+> **Note**: The `preload_stylesheet` parameter will enable the `preload` parameter of the `stylesheet_tag`, use it sparingly e.g. consider preloading only render-blocking stylesheets. [Learn more](https://shopify.dev/themes/best-practices/performance#use-resource-hints-to-preload-key-resources)
+
 ### Import aliases
 
 For convenience, `~/` and `@/` are aliased to your `frontend` folder, which simplifies imports:

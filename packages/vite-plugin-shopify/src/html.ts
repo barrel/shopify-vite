@@ -171,7 +171,7 @@ const scriptTag = (fileName: string): string =>
 
 // Generate a production stylesheet link tag for a style asset
 const stylesheetTag = (fileName: string): string =>
-  `{{ '${fileName}' | asset_url | stylesheet_tag }}`
+  `{{ '${fileName}' | asset_url | stylesheet_tag: preload: preload_stylesheet }}`
 
 // Generate vite-tag snippet for development
 const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/entrypoints', modulesPath = ''): string =>
