@@ -136,9 +136,10 @@ const viteTagEntryPath = (
   themeRoot: string
 ): string => {
   const replacements: Array<[string, string]> = []
+  const aliasRegex = /^[@|~|](modules)?/
 
   resolveAlias.forEach((alias) => {
-    if (typeof alias.find === 'string') {
+    if (typeof alias.find === 'string' && aliasRegex.test(alias.find)) {
       replacements.push([alias.find, path.relative(entrypointsDir, alias.replacement)])
     }
   })
