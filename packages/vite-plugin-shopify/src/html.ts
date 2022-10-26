@@ -39,7 +39,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
       debug({ assetHost })
 
-      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, options.themeRoot) + viteTagSnippetDev(assetHost, options.entrypointsDir, modulesPath)
+      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir) + viteTagSnippetDev(assetHost, options.entrypointsDir, modulesPath)
       const viteClientSnippetContent = viteClientSnippetDev(assetHost)
 
       // Write vite-tag snippet for development server
@@ -116,7 +116,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
         }
       })
 
-      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, options.themeRoot) + assetTags.join('\n') + '\n{% endif %}\n'
+      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir) + assetTags.join('\n') + '\n{% endif %}\n'
 
       // Write vite-tag snippet for production build
       fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
@@ -132,8 +132,7 @@ const viteTagDisclaimer = '{% comment %}\n  IMPORTANT: This snippet is automatic
 // Generate liquid variable with resolved path by replacing aliases
 const viteTagEntryPath = (
   resolveAlias: Array<{ find: string | RegExp, replacement: string }>,
-  entrypointsDir: string,
-  themeRoot: string
+  entrypointsDir: string
 ): string => {
   const replacements: Array<[string, string]> = []
 
