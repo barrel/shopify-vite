@@ -13,12 +13,15 @@
     "dev:sync": "run-p vite:serve \"shopify:serve -- --theme-editor-sync\"",
     "start": "cross-env NODE_ENV=production run-s vite:build shopify:serve",
     "start:sync": "cross-env NODE_ENV=production run-s vite:build \"shopify:serve -- --theme-editor-sync\"",
-    "vite:serve": "vite",
+    "watch": "run-p vite:watch shopify:serve",
+    "watch:sync": "run-p vite:watch \"shopify:serve -- --theme-editor-sync\"",
     "vite:build": "vite build",
+    "vite:serve": "rm -rf assets && vite",
+    "vite:watch": "rm -rf assets && cross-env VITE_WATCH=true vite build",
     "shopify:serve": "shopify theme serve",
-    "shopify:push": "shopify theme push --ignore config/settings_data.json templates/*.json locales/*.json",
-    "shopify:push:unsafe": "shopify theme push",
+    "shopify:push": "shopify theme push --nodelete --ignore config/settings_data.json templates/*.json locales/*.json",
     "shopify:push:new": "shopify theme push --unpublished",
+    "shopify:push:unsafe": "shopify theme push",
     "shopify:pull": "shopify theme pull --nodelete"
   },
   "dependencies": {
