@@ -1,5 +1,12 @@
 # vite-plugin-shopify
 
+## 0.0.6
+
+### Patch Changes
+
+- Add support for preload_stylesheet parameter on vite-tag snippet
+- Allow specifying entry file for vite-tag by absolute path (relative to root)
+
 ## 0.0.5
 
 ### Patch Changes
