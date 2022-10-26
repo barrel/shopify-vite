@@ -112,6 +112,26 @@ Then render the `vite-tag` snippet (in your `<head>` element too) to insert tags
 - In development mode, assets are loaded from the Vite development server host.
 - In production mode, assets are loaded from the Shopify CDN using the `asset_url` filter and a relative base path.
 
+Loading `additionalEntrypoints`:
+
+```txt
+# Relative to sourceCodeDir
+{%- render 'vite-tag' with '@/foo.ts' -%}
+{%- render 'vite-tag' with '~/foo.ts' -%}
+
+# Relative to themeRoot
+{%- render 'vite-tag' with '/resources/bar.ts' -%} # leading slash is required
+```
+
+Preloading stylesheets:
+
+```
+{%- render 'vite-tag' with 'theme.css', preload_stylesheet: true -%}
+```
+> **Note**: The `preload_stylesheet` parameter will enable the `preload` parameter of the `stylesheet_tag`, use it sparingly e.g. consider preloading only render-blocking stylesheets. [Learn more](https://shopify.dev/themes/best-practices/performance#use-resource-hints-to-preload-key-resources)
+
+### Import aliases
+
 For convenience, `~/` and `@/` are aliased to your `frontend` folder, which simplifies imports:
 
 ```ts

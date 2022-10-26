@@ -67,7 +67,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
         // Generate tags for JS and CSS entry points
         if (isEntry === true) {
           const entryName = path.relative(options.entrypointsDir, src)
-          const entryPaths = [entryName]
+          const entryPaths = [`/${src}`, entryName]
           const tagsForEntry = []
 
           if (ext.match(CSS_EXTENSIONS_REGEX) !== null) {
@@ -159,12 +159,18 @@ const scriptTag = (fileName: string): string =>
 
 // Generate a production stylesheet link tag for a style asset
 const stylesheetTag = (fileName: string): string =>
-  `{{ '${fileName}' | asset_url | stylesheet_tag }}`
+  `{{ '${fileName}' | asset_url | stylesheet_tag: preload: preload_stylesheet }}`
 
 // Generate vite-tag snippet for development
 const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/entrypoints', modulesPath = ''): string =>
   `{% liquid
-  assign file_url = path | prepend: '${assetHost}/${entrypointsDir}/'
+  assign path_prefix = path | slice: 0
+  if path_prefix == '/'
+    assign file_url_prefix = '${assetHost}'
+  else
+    assign file_url_prefix = '${assetHost}/${entrypointsDir}/'
+  endif
+  assign file_url = path | prepend: file_url_prefix
   assign file_name = path | split: '/' | last
   if file_name contains '.'
     assign file_extension = file_name | split: '.' | last
@@ -176,8 +182,7 @@ const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir =
   endif
   assign modules_path = '${modulesPath}'
   if file_extension == blank and modules_path != blank and file_url contains modules_path
-    assign module_name = path | split: '/' | last
-    assign file_url = file_url | append: '/' | append: module_name | append: '.js'
+    assign file_url = file_url | append: '/' | append: file_name
   endif
 %}
 {% if is_css == true %}
@@ -186,5 +191,6 @@ const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir =
   <script src="{{ file_url }}" type="module" crossorigin="anonymous"></script>
 {% endif %}
 `
+
 const viteClientSnippetDev = (assetHost = 'http://localhost:5173'): string =>
   `${viteTagDisclaimer}<script src="${assetHost}/@vite/client" type="module"></script>\n`
