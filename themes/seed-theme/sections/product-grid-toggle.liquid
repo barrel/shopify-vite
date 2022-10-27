@@ -1,33 +1,54 @@
 {% liquid
-  if section.blocks.size == 1
-    assign grid_cols_class = 'grid-cols-1'
-  elsif section.blocks.size == 2
-    assign grid_cols_class = 'grid-cols-2'
-  else
-    assign grid_cols_class = 'grid-cols-3'
+  if template.name == 'index'
+    assign defer_additional_tabs = true
   endif
-
-  assign toggle_wrapper_class = "inline-grid grid-cols-2 gap-x-6 " | append: grid_cols_class
 %}
-
-<product-grid-toggle data-module="product-grid-toggle" class="block text-center">
-  <div>
+<product-grid-toggle data-module="product-grid-toggle" {% if defer_additional_tabs %}defer-additional-tabs{% endif %}>
+  <div class="block text-center">
     {% render 'rich-text', heading: section.settings.heading %}
-  </div>
-  <div class="{{ toggle_wrapper_class }}">
-    {% for block in section.blocks %}
-      <label {{ block.shopify_attributes }}>
-        <input class="peer" type="radio" name="{{- section.id -}}" value="{{ forloop.index | add: 1 }}" {% if forloop.first %}checked{% endif %}>
-        <span class="peer-checked:font-bold">
+    <div class="inline-flex overflow-auto max-w-full">
+      {% for block in section.blocks %}
+        <button
+          {{ block.shopify_attributes }}
+          data-toggle="{{ forloop.index0 }}"
+          class="h2 m-4 text-gray-400 whitespace-nowrap [&.active]:text-black [&.active]:underline{% if forloop.first %} active{% endif %}"
+        >
           {{- block.settings.toggle_text -}}
-        </span>
-      </label>
-    {% endfor %}
+        </button>
+      {% endfor %}
+    </div>
   </div>
+  {% for block in section.blocks %}
+    {% liquid
+      assign render_block = true
+
+      if defer_additional_tabs
+        if template.suffix != 'ajax' and forloop.index0 != 0
+          assign render_block = false
+        elsif template.suffix == 'ajax' and forloop.index0 == 0
+          assign render_block = false
+        endif
+      endif
+    %}
+    <div data-slot="product-grid-toggle-{{ forloop.index }}" class="{% if forloop.index0 > 0 %}hidden{% endif %}">
+      {% if render_block == true %}
+        {% liquid
+          assign lazy_load_images = true
+          if template.name contains 'index' and forloop.index0 == 0
+            assign lazy_load_images = false
+          endif
+
+          if block.type == 'curated-product-grid'
+            assign grid_products = block.settings.products
+          else
+            assign grid_products = block.settings.collection.products
+          endif
+        %}
+        {% render 'product-grid', products: grid_products, lazy_load_images: lazy_load_images, enable_slider: true %}
+      {% endif %}
+    </div>
+  {% endfor %}
 </product-grid-toggle>
-{% for block in section.blocks %}
-  {% render 'product-grid', products: block.settings.products %}
-{% endfor %}
 {% render 'vite-tag' with '@modules/product-grid-toggle' %}
 {% schema %}
 {
@@ -41,8 +62,8 @@
   ],
   "blocks": [
     {
-      "type": "product-grid",
-      "name": "Product Grid",
+      "type": "curated-product-grid",
+      "name": "Curated Product Grid",
       "settings": [
         {
           "type": "text",
@@ -54,6 +75,23 @@
           "id": "products",
           "label": "Products",
           "info": "Select one or more products to feature in this section."
+        }
+      ]
+    },
+    {
+      "type": "collection-product-grid",
+      "name": "Collection Product Grid",
+      "settings": [
+        {
+          "type": "text",
+          "id": "toggle_text",
+          "label": "Toggle Text"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection",
+          "info": "Select a collection from which to feature products in this section."
         }
       ]
     }

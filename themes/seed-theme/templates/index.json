@@ -50,47 +50,36 @@
     "home_product_grid_toggle": {
       "type": "product-grid-toggle",
       "blocks": {
-        "36177fb6-50e7-47b6-b384-14f74bbc9526": {
-          "type": "product-grid",
+        "b83b1750-6549-4aab-a81a-c2c5f41bfb9b": {
+          "type": "collection-product-grid",
           "settings": {
-            "toggle_text": "Outfit your kitchen",
-            "products": [
-              "black-sunglasses",
-              "blue-denim-jacket",
-              "blue-twill-shirt",
-              "black-straight-leg-jeans"
-            ]
+            "toggle_text": "Outerwear",
+            "collection": "outerwear"
           }
         },
-        "87b985f7-229f-45f8-bd5d-f936a601e5f7": {
-          "type": "product-grid",
+        "269e873b-8ef3-462e-aaa4-736ef3342d59": {
+          "type": "collection-product-grid",
           "settings": {
-            "toggle_text": "Get the perfect yard",
+            "toggle_text": "Denim",
+            "collection": "denim"
+          }
+        },
+        "9fdaf22b-f1be-4b1e-829a-20814bc16d13": {
+          "type": "curated-product-grid",
+          "settings": {
+            "toggle_text": "Random Stuff",
             "products": [
               "2020-spirit-horse-vineyards-estate-cavallino-pinot-grigio",
-              "2015-mathew-bruno-napa-valley-cabernet-sauvignon",
-              "2018-priest-ranch-snake-oil-1",
-              "2015-somerston-cabernet-sauvignon-block-96"
-            ]
-          }
-        },
-        "a1f72149-6bac-4499-b7ea-e181b65e56f9": {
-          "type": "product-grid",
-          "settings": {
-            "toggle_text": "The cleanest clean",
-            "products": [
-              "velvet-blazer",
-              "teal-flared-leggings",
-              "tan-winter-jacket",
-              "tomato"
+              "brera-frame-only",
+              "velvet-blazer"
             ]
           }
         }
       },
       "block_order": [
-        "36177fb6-50e7-47b6-b384-14f74bbc9526",
-        "87b985f7-229f-45f8-bd5d-f936a601e5f7",
-        "a1f72149-6bac-4499-b7ea-e181b65e56f9"
+        "b83b1750-6549-4aab-a81a-c2c5f41bfb9b",
+        "269e873b-8ef3-462e-aaa4-736ef3342d59",
+        "9fdaf22b-f1be-4b1e-829a-20814bc16d13"
       ],
       "settings": {
         "heading": "Spend more time enjoying your space, inside & out."
