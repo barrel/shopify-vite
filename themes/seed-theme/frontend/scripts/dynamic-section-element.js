@@ -44,7 +44,11 @@ class DynamicSectionElement extends HTMLElement {
     }
 
     // Find all descendant elements with data-slot attribute and update each with new contents
-    const oldSlots = this.querySelectorAll('[data-slot]')
+    let oldSlots = this.querySelectorAll('[data-slot]')
+
+    if (options.onlySlots?.length) {
+      oldSlots = [...oldSlots].filter((slotEl) => options.onlySlots.includes(slotEl.dataset.slot))
+    }
 
     oldSlots.forEach((oldSlotEl) => {
       const slotName = oldSlotEl.dataset.slot
