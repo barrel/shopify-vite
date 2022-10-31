@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 0.0.7
+
+### Patch Changes
+
+- Remove query strings from shopify asset URLS in vite tag snippet
+
 ## 0.0.6
 
 ### Patch Changes
