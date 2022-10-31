@@ -151,15 +151,15 @@ const viteEntryTag = (entryPaths: string[], tag: string, isFirstEntry = false): 
 
 // Generate a preload link tag for a script or style asset
 const preloadScriptTag = (fileName: string): string =>
-  `<link rel="modulepreload" href="{{ '${fileName}' | asset_url }}" crossorigin="anonymous">`
+  `<link rel="modulepreload" href="{{ '${fileName}' | asset_url | split: '?' | first }}" crossorigin="anonymous">`
 
 // Generate a production script tag for a script asset
 const scriptTag = (fileName: string): string =>
-  `<script src="{{ '${fileName}' | asset_url }}" type="module" crossorigin="anonymous"></script>`
+  `<script src="{{ '${fileName}' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>`
 
 // Generate a production stylesheet link tag for a style asset
 const stylesheetTag = (fileName: string): string =>
-  `{{ '${fileName}' | asset_url | stylesheet_tag: preload: preload_stylesheet }}`
+  `{{ '${fileName}' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}`
 
 // Generate vite-tag snippet for development
 const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/entrypoints', modulesPath = ''): string =>
