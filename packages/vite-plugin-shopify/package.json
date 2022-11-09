@@ -27,7 +27,7 @@
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "watch": "tsup src/index.ts --dts --format cjs,esm --watch",
     "lint": "eslint .",
-    "test": "vitest"
+    "test": "vitest run"
   },
   "peerDependencies": {
     "vite": "^3.0.0"
