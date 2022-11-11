@@ -52,12 +52,14 @@ importers:
       debug: ^4.3.4
       fast-glob: ^3.2.11
       magic-string: ^0.26.2
+      normalize-path: ^3.0.0
       tsconfig: workspace:*
       vitest: ^0.25.0
     dependencies:
       debug: 4.3.4
       fast-glob: 3.2.11
       magic-string: 0.26.2
+      normalize-path: 3.0.0
     devDependencies:
       tsconfig: link:../tsconfig
       vitest: 0.25.0
