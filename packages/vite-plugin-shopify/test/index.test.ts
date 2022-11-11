@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import path from 'path'
-import { build, UserConfig } from 'vite'
-import shopify from '../src/index'
+import { build } from 'vite'
+import shopify from '../src'
 import fs from 'fs/promises'
 
 describe('vite-plugin-shopify', () => {
@@ -11,7 +11,7 @@ describe('vite-plugin-shopify', () => {
       sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend')
     })[0]
 
-    const config = plugin.config({}, { command: 'build', mode: 'production' }) as UserConfig
+    const config = plugin.config({}, { command: 'build', mode: 'production' })
 
     expect(config.build.manifest).toBe(true)
     expect(config.build.rollupOptions.input[0]).toMatch('theme.css')
