@@ -1,8 +1,7 @@
 import path from 'path'
-import { Plugin, UserConfig, mergeConfig } from 'vite'
+import { Plugin, UserConfig, mergeConfig, normalizePath } from 'vite'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
-import { normalizePath } from 'vite'
 
 import { ResolvedVitePluginShopifyOptions } from './options'
 
