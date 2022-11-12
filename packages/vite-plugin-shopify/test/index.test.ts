@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import path from 'path'
-import { build } from 'vite'
+import { build, normalizePath } from 'vite'
 import shopify from '../src'
 import fs from 'fs/promises'
 
@@ -13,9 +13,15 @@ describe('vite-plugin-shopify', () => {
 
     const config = plugin.config({}, { command: 'build', mode: 'production' })
 
-    expect(config.build.manifest).toBe(true)
-    expect(config.build.rollupOptions.input[0]).toMatch('theme.css')
-    expect(config.build.rollupOptions.input[1]).toMatch('theme.ts')
+    expect(config.base).toEqual('./')
+    expect(config.publicDir).toEqual(false)
+    expect(config.build.outDir).toEqual(path.join(__dirname, '__fixtures__', 'assets'))
+    expect(config.build.assetsDir).toEqual('')
+    expect(config.build.manifest).toEqual(true)
+    expect(config.build.rollupOptions.input).toEqual([
+      normalizePath(path.resolve(path.join(__dirname, '__fixtures__', 'frontend', 'entrypoints', 'theme.css'))),
+      normalizePath(path.resolve(path.join(__dirname, '__fixtures__', 'frontend', 'entrypoints', 'theme.ts')))
+    ])
   })
 
   it('builds out .liquid files', async () => {

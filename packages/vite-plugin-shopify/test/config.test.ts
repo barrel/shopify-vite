@@ -32,7 +32,7 @@ describe('vite-plugin-shopify:config', () => {
   })
 
   it('accepts a partial configuration', () => {
-    const options = resolveOptions({})
+    const options = resolveOptions({ additionalEntrypoints: ['resources/js/*.js'] })
     const userConfig = plugin(options)
     const config = userConfig.config({
       server: {
@@ -45,6 +45,7 @@ describe('vite-plugin-shopify:config', () => {
 
     expect(config.server.port).toEqual(3000)
     expect(config.build.sourcemap).toBe(true)
+    expect(config.build.rollupOptions.input).toEqual(['frontend/entrypoints/app.js', 'resources/js/app.js'])
   })
 })
 
@@ -73,7 +74,12 @@ describe('resolveOptions', () => {
 vi.mock('fast-glob', () => {
   return {
     default: {
-      sync: () => ['frontend/entrypoints/app.js']
+      sync: vi.fn()
+        // mock default entries
+        .mockReturnValueOnce(['frontend/entrypoints/app.js'])
+        // mock default entries + additional entries
+        .mockReturnValueOnce(['frontend/entrypoints/app.js'])
+        .mockReturnValueOnce(['resources/js/app.js'])
     }
   }
 })
