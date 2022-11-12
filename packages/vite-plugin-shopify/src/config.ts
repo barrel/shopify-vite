@@ -15,7 +15,7 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
     config (config: UserConfig): UserConfig {
       const host = config.server?.host ?? 'localhost'
       const port = config.server?.port ?? 5173
-      const https = config?.server?.https
+      const https = config.server?.https
       const protocol = https === true ? 'https:' : 'http:'
       const origin = `${protocol}//${host as string}:${port}`
       const socketProtocol = https === true ? 'wss' : 'ws'
