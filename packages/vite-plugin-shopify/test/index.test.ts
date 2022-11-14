@@ -5,7 +5,7 @@ import shopify from '../src'
 import fs from 'fs/promises'
 
 describe('vite-plugin-shopify', () => {
-  it('runs as expected', async () => {
+  it('builds out .liquid files for production', async () => {
     await build({
       logLevel: 'silent',
       plugins: [
