@@ -1,4 +1,5 @@
 import path from 'path'
+import { normalizePath } from 'vite'
 
 export interface VitePluginShopifyOptions {
   themeRoot?: string
@@ -19,7 +20,7 @@ export const resolveOptions = (
 ): ResolvedVitePluginShopifyOptions => {
   const themeRoot = typeof options.themeRoot !== 'undefined' ? path.normalize(options.themeRoot) : './'
   const sourceCodeDir = typeof options.sourceCodeDir !== 'undefined' ? path.normalize(options.sourceCodeDir) : 'frontend'
-  const entrypointsDir = typeof options.entrypointsDir !== 'undefined' ? path.normalize(options.entrypointsDir) : path.posix.join(sourceCodeDir, 'entrypoints')
+  const entrypointsDir = typeof options.entrypointsDir !== 'undefined' ? path.normalize(options.entrypointsDir) : normalizePath(path.join(sourceCodeDir, 'entrypoints'))
   const additionalEntrypoints = typeof options.additionalEntrypoints !== 'undefined' ? options.additionalEntrypoints : []
 
   return {
