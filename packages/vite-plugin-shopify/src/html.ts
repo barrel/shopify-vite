@@ -30,7 +30,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
         modulesPath = path.relative(options.entrypointsDir, modulesAlias.replacement)
       }
     },
-    configureServer () {
+    configureServer ({ config }) {
       const protocol = config.server?.https === true ? 'https:' : 'http:'
       const host = typeof config.server?.host === 'string' ? config.server.host : 'localhost'
       const port = typeof config.server?.port !== 'undefined' ? config.server.port : 5173
