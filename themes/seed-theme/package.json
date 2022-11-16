@@ -18,11 +18,12 @@
     "vite:build": "vite build",
     "vite:serve": "rm -rf assets && vite",
     "vite:watch": "rm -rf assets && cross-env VITE_WATCH=true vite build",
-    "shopify:serve": "shopify theme serve",
-    "shopify:push": "shopify theme push --nodelete --ignore config/settings_data.json templates/*.json locales/*.json",
-    "shopify:push:new": "shopify theme push --unpublished",
-    "shopify:push:unsafe": "shopify theme push",
-    "shopify:pull": "shopify theme pull --nodelete"
+    "shopify:serve": "dotenv shopify theme dev",
+    "shopify:push": "dotenv shopify theme push --nodelete --ignore config/settings_data.json templates/*.json locales/*.json",
+    "shopify:push:new": "dotenv shopify theme push --unpublished",
+    "shopify:push:unsafe": "dotenv shopify theme push",
+    "shopify:pull": "dotenv shopify theme pull --nodelete",
+    "shopify:pull:content": "dotenv shopify theme pull --nodelete --only config/settings_data.json templates/*.json locales/*.json"
   },
   "dependencies": {
     "@shopify/theme-addresses": "^4.1.1",
@@ -37,14 +38,17 @@
     "tailwindcss": "^3.1.5"
   },
   "devDependencies": {
+    "@shopify/cli": "^3.23.0",
+    "@shopify/theme": "^3.23.0",
     "cross-env": "^7.0.3",
+    "dotenv-cli": "^6.0.0",
     "npm-run-all": "^4.1.5",
     "postcss": "^8.4.12",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^14.1.0",
     "postcss-mixins": "^9.0.2",
     "postcss-preset-env": "^7.4.3",
-    "vite": "^3.0.0",
+    "vite": "^3.2.3",
     "vite-plugin-shopify": "workspace:*",
     "vite-plugin-shopify-modules": "workspace:*",
     "vite-plugin-shopify-theme-settings": "workspace:*"

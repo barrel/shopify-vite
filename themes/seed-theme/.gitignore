@@ -2,3 +2,4 @@
 /config/settings_schema.json
 /snippets/vite-tag.liquid
 /snippets/vite-client.liquid
+.env
