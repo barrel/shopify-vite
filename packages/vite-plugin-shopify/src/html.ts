@@ -35,7 +35,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
       const host = typeof config.server?.host === 'string' ? config.server.host : 'localhost'
       const port = typeof config.server?.port !== 'undefined' ? config.server.port : 5173
 
-      const assetHost = `${protocol}//${host}:${port}`
+      const assetHost = typeof config.server?.origin === 'string' ? config.server.origin : `${protocol}//${host}:${port}`
 
       debug({ assetHost })
 
