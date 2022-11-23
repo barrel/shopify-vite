@@ -51,8 +51,13 @@ const generateSettingsSchemaJson = async (options: ResolvedVitePluginShopifyThem
   if (existsSync(schemaSourceDir)) {
     const sourceFiles = await fs.readdir(schemaSourceDir)
 
-    const settingsSchema = await Promise.all(
+    const schemaFragments = await Promise.all(
       sourceFiles.map(async (fileName) => JSON.parse(await fs.readFile(path.join(schemaSourceDir, fileName), 'utf-8')))
+    )
+
+    const settingsSchema = schemaFragments.reduce(
+      (schema, fragment) => schema.concat(fragment),
+      []
     )
 
     await fs.writeFile(
