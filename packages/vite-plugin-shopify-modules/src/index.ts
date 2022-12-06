@@ -1,4 +1,4 @@
-import { promises as fs, existsSync } from 'fs'
+import { promises as fs, existsSync, readdirSync, lstatSync } from 'fs'
 import path from 'path'
 import { Plugin, ResolvedConfig } from 'vite'
 import { throttle } from 'lodash'
@@ -78,10 +78,22 @@ const linkModules = ({ modulesDir, themeRoot }: ResolvedVitePluginShopifyModules
   if (existsSync(modulesDir)) {
     fs.readdir(modulesDir)
       .then(
-        async (modules: string[]) => await Promise.all(modules.flatMap((module) => [
-          setupSectionSymlink(module, { modulesDir, sectionsDir }),
-          setupSnippetSymlink(module, { modulesDir, snippetsDir })
-        ])),
+        async (modules: string[]) => await Promise.all(modules.flatMap((module) => {
+          const currentPath = path.resolve(modulesDir, module)
+          // nested modules : if current path is a directory and has sub dir, re-run link modules script
+          if (lstatSync(currentPath).isDirectory()) {
+            const items = readdirSync(currentPath, { withFileTypes: true })
+            const hasSubDir = items.find(dirent => dirent.isDirectory())
+            if (hasSubDir != null) {
+              linkModules({ modulesDir: currentPath, themeRoot })
+            }
+          }
+
+          return [
+            setupSectionSymlink(module, { modulesDir, sectionsDir }),
+            setupSnippetSymlink(module, { modulesDir, snippetsDir })
+          ]
+        })),
         (err) => { throw err }
       )
   }
