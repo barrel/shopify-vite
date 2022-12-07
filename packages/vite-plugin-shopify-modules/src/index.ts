@@ -81,7 +81,7 @@ const linkModules = ({ modulesDir, themeRoot }: ResolvedVitePluginShopifyModules
         async (modules: string[]) => await Promise.all(modules.flatMap((module) => {
           const currentPath = path.resolve(modulesDir, module)
           // nested modules : if current path is a directory and has sub dir, re-run link modules script
-          if (lstatSync(currentPath).isDirectory()) {
+          if (existsSync(currentPath) && lstatSync(currentPath).isDirectory()) {
             const items = readdirSync(currentPath, { withFileTypes: true })
             const hasSubDir = items.find(dirent => dirent.isDirectory())
             if (hasSubDir != null) {
