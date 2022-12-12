@@ -1,5 +1,11 @@
 # vite-plugin-shopify-theme-settings
 
+## 0.0.5
+
+### Patch Changes
+
+- Allow source fragments for settings_schema to contain multiple sections as an array instead of just one section object per fragment
+
 ## 0.0.4
 
 ### Patch Changes

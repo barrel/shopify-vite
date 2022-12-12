@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-shopify",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Vite plugin providing integration for Shopify themes",
   "keywords": [
     "vite",

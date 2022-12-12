@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 0.0.8
+
+### Patch Changes
+
+- Remove version query from Shopify assets to avoid double-loading when files are used as both entry points and imported chunks
+
 ## 0.0.7
 
 ### Patch Changes
