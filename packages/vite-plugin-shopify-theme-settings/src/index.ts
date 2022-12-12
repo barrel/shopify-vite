@@ -32,7 +32,7 @@ export default function shopifyThemeSettings (options: VitePluginShopifyThemeSet
     },
     async closeBundle () {
       // Generate new settings_schema.json when finishing production build
-      void generateSettingsSchemaJsonFn()
+      await generateSettingsSchemaJsonFn()
     }
   }
 }
@@ -51,8 +51,13 @@ const generateSettingsSchemaJson = async (options: ResolvedVitePluginShopifyThem
   if (existsSync(schemaSourceDir)) {
     const sourceFiles = await fs.readdir(schemaSourceDir)
 
-    const settingsSchema = await Promise.all(
+    const schemaFragments = await Promise.all(
       sourceFiles.map(async (fileName) => JSON.parse(await fs.readFile(path.join(schemaSourceDir, fileName), 'utf-8')))
+    )
+
+    const settingsSchema = schemaFragments.reduce(
+      (schema, fragment) => schema.concat(fragment),
+      []
     )
 
     await fs.writeFile(

@@ -1,0 +1,4 @@
+assets
+vite-tag.liquid
+vite-client.liquid
+test/__fixtures__/config/settings_schema.json
