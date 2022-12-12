@@ -32,7 +32,7 @@ export default function shopifyThemeSettings (options: VitePluginShopifyThemeSet
     },
     async closeBundle () {
       // Generate new settings_schema.json when finishing production build
-      void generateSettingsSchemaJsonFn()
+      await generateSettingsSchemaJsonFn()
     }
   }
 }
