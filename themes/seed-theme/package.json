@@ -48,7 +48,7 @@
     "postcss-import": "^14.1.0",
     "postcss-mixins": "^9.0.2",
     "postcss-preset-env": "^7.4.3",
-    "vite": "^3.2.3",
+    "vite": "^4.0.0",
     "vite-plugin-shopify": "workspace:*",
     "vite-plugin-shopify-modules": "workspace:*",
     "vite-plugin-shopify-theme-settings": "workspace:*"
