@@ -143,10 +143,6 @@ import "@/styles/my_styles.css";
 
 See the [vite-shopify-example](https://github.com/barrel/barrel-shopify/tree/main/themes/vite-shopify-example) theme for a basic demonstration of `vite-plugin-shopify` usage.
 
-## To-Do
-
-- [ ] Unit tests
-
 ## Bugs
 
 Please create an issue if you found any bugs, to help us improve this project!

@@ -1,5 +1,5 @@
 import path from 'path'
-import { Plugin, UserConfig, mergeConfig } from 'vite'
+import { Plugin, UserConfig, mergeConfig, normalizePath } from 'vite'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
 
@@ -14,12 +14,12 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
     config (config: UserConfig): UserConfig {
       const host = config.server?.host ?? 'localhost'
       const port = config.server?.port ?? 5173
-      const https = config?.server?.https
+      const https = config.server?.https
       const protocol = https === true ? 'https:' : 'http:'
       const origin = `${protocol}//${host as string}:${port}`
       const socketProtocol = https === true ? 'wss' : 'ws'
 
-      let input = glob.sync(path.join(options.entrypointsDir, '**/*'), { onlyFiles: true })
+      let input = glob.sync(normalizePath(path.join(options.entrypointsDir, '**/*')), { onlyFiles: true })
 
       options.additionalEntrypoints.forEach((globPattern) => {
         input = input.concat(glob.sync(globPattern, { onlyFiles: true }))

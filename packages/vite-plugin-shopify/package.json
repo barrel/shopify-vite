@@ -26,17 +26,18 @@
     "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "watch": "tsup src/index.ts --dts --format cjs,esm --watch",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "vitest run"
   },
   "peerDependencies": {
-    "vite": "^3.0.0"
+    "vite": "^3.2.3"
   },
   "dependencies": {
     "debug": "^4.3.4",
-    "fast-glob": "^3.2.11",
-    "magic-string": "^0.26.2"
+    "fast-glob": "^3.2.11"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "vitest": "^0.25.0"
   }
 }
