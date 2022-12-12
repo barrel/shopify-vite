@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-import { PackageManifest } from '@pnpm/types'
+import { getPackage } from './package'
 
 export interface VitePluginShopifyThemeSettingsOptions {
   schemaSourceDir?: string
@@ -23,7 +23,7 @@ export const resolveOptions = (
   options: VitePluginShopifyThemeSettingsOptions
 ): ResolvedVitePluginShopifyThemeSettingsOptions => {
   // Load values from package.json
-  const pkg = JSON.parse(fs.readFileSync('package.json', 'utf-8')) as PackageManifest
+  const pkg = getPackage()
   // Get initial replacement values from user-provided options
   const values = typeof options.values !== 'undefined' ? options.values : {}
 

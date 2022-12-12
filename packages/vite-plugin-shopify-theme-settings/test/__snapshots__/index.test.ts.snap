@@ -5,7 +5,7 @@ exports[`vite-plugin-shopify > builds out settings_schema.json as expected 1`] =
   {
     \\"name\\": \\"theme_info\\",
     \\"theme_name\\": \\"vite-plugin-shopify-theme-settings\\",
-    \\"theme_version\\": \\"0.0.4\\",
+    \\"theme_version\\": \\"0.0.0\\",
     \\"theme_author\\": \\"Barrel, LLC\\",
     \\"theme_documentation_url\\": \\"https://THEME_DOCUMENTATION_URL.com/\\",
     \\"theme_support_url\\": \\"https://THEME_SUPPORT_URL.com/\\"
