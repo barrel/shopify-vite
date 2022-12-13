@@ -1,5 +1,5 @@
 import path from 'path'
-import { Plugin, UserConfig, mergeConfig, normalizePath } from 'vite'
+import { Plugin, UserConfig, mergeConfig, normalizePath, ChunkMetadata } from 'vite'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
 
@@ -64,6 +64,20 @@ export default function shopifyConfig (options: ResolvedVitePluginShopifyOptions
       debug(generatedConfig)
 
       return mergeConfig(generatedConfig, config)
+    },
+    // Note: This can be removed once https://github.com/vitejs/vite/issues/9583 is resolved
+    augmentChunkHash (chunkInfo) {
+      // @ts-expect-error - Vite extends Rollup's "RenderedChunk" type with additional metadata, but this is not reflected on the Rollup Plugin class' augmentChunkHash argument
+      const { importedCss, importedAssets } = chunkInfo.viteMetadata as ChunkMetadata
+
+      const importedModules = Array.from([
+        ...importedCss,
+        ...importedAssets
+      ])
+
+      if (importedModules.length > 0) {
+        return importedModules.toString()
+      }
     }
   }
 }
