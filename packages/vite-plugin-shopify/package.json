@@ -30,7 +30,7 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "vite": "^3.2.3"
+    "vite": "^4.0.0"
   },
   "dependencies": {
     "debug": "^4.3.4",
@@ -38,6 +38,6 @@
   },
   "devDependencies": {
     "tsconfig": "workspace:*",
-    "vitest": "^0.25.0"
+    "vitest": "^0.25.7"
   }
 }

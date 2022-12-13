@@ -14,6 +14,6 @@ export default defineConfig({
     shopifyModules()
   ],
   build: {
-    emptyOutDir: true
+    sourcemap: true
   }
 })

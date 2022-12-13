@@ -24,5 +24,5 @@ document.body.appendChild(element)
 setupCounter(document.querySelector('#counter'))
 
 import('@/components/icon-bag').then(({ default: iconBag }) => {
-  console.log(iconBag)
+  document.body.appendChild(iconBag)
 }).catch(error => console.error(error))

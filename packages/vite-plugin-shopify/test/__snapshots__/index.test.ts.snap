@@ -6,10 +6,10 @@ exports[`vite-plugin-shopify > builds out .liquid files for production 1`] = `
   Do not attempt to modify this file directly, as any changes will be overwritten by the next build.
 {% endcomment %}
 {% assign path = vite-tag | replace: '~/', '../' | replace: '@/', '../' %}
-{% if path == \\"/test/__fixtures__/frontend/entrypoints/theme.ts\\" or path == \\"theme.ts\\" %}
-  <script src=\\"{{ 'theme.28b76453.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
-{% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.css\\" or path == \\"theme.css\\" %}
-  {{ 'theme.1a84b608.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+{% if path == \\"/test/__fixtures__/frontend/entrypoints/theme.css\\" or path == \\"theme.css\\" %}
+  {{ 'theme-1a84b608.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+{% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.ts\\" or path == \\"theme.ts\\" %}
+  <script src=\\"{{ 'theme-62e8cc4d.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
 {% endif %}
 "
 `;
