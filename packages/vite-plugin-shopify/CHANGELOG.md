@@ -1,5 +1,12 @@
 # vite-plugin-shopify
 
+## 0.0.9
+
+### Patch Changes
+
+- Upgrade to Vite 4.0.0
+- Ensure entry file hashes are updated when imported chunks are modified
+
 ## 0.0.8
 
 ### Patch Changes
