@@ -13,7 +13,7 @@
   // Install Shopify CLI and dependencies
 	"postCreateCommand": "gem install bundler && npm install -g @shopify/cli @shopify/theme",
   // Make forwarded ports for Vite and Shopify servers publicly visible
-	"postAttachCommand": "gh codespace ports visibility 5173:public 9292:public -c $CODESPACE_NAME",
+	"postAttachCommand": "gh codespace ports visibility 5173:public 9292:public -c $CODESPACE_NAME && exit",
   // Configure port forwarding for Vite and Shopify dev servers
 	"forwardPorts": [
 		5173,
