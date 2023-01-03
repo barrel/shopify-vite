@@ -39,7 +39,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^4.2.1",
-    "vite": "^4.0.0"
+    "vite": "^4.0.4"
   },
   "packageManager": "pnpm@7.1.0"
 }
