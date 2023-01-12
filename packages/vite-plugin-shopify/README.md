@@ -76,14 +76,6 @@ frontend
 
 In your `<head>` element add this
 
-```liquid
-{%- render 'vite-client' -%}
-```
-
-- `vite-plugin-shopify` will generate `vite-client.liquid`.
-- This will add a `<script>` tag to load the ViteJS HMR client.
-- This will only render if the dev server is running.
-
 Then render the `vite-tag` snippet (in your `<head>` element too) to insert tags for loading assets from a given entrypoint file:
 
 ```liquid
@@ -96,6 +88,7 @@ Then render the `vite-tag` snippet (in your `<head>` element too) to insert tags
 - In production mode, the `asset_url` filter is used to load resources from the Shopify CDN.
 - In production mode, the `vite-tag` snippet will automatically render separate tags for loading stylesheets and preloading imported JS chunks.
 - When running the development server, these tags are omitted, as Vite will load the dependencies as separate modules.
+- During development, the `vite-tag` snippet will render a `<script>` that includes the Vite client script to enable HMR.
 
 ```txt
 {% render 'vite-tag' with 'theme.ts' %}
