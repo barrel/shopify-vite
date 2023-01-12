@@ -30,7 +30,7 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "vite": "^4.0.0"
+    "vite": "^4.0.4"
   },
   "dependencies": {
     "chokidar": "^3.5.3",

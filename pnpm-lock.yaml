@@ -20,7 +20,7 @@ importers:
       tsup: ^6.1.2
       turbo: ^1.3.0
       typescript: ^4.7.4
-      vite: ^4.0.0
+      vite: ^4.0.4
     dependencies:
       '@changesets/cli': 2.23.0
       cross-env: 7.0.3
@@ -39,7 +39,7 @@ importers:
       eslint-plugin-import: 2.26.0_ffi3uiz42rv3jyhs6cr7p7qqry
       eslint-plugin-node: 11.1.0_eslint@7.32.0
       eslint-plugin-promise: 4.3.1
-      vite: 4.0.0_@types+node@18.0.0
+      vite: 4.0.4_@types+node@18.0.0
 
   packages/create-shopify-theme:
     specifiers: {}
@@ -52,12 +52,12 @@ importers:
       debug: ^4.3.4
       fast-glob: ^3.2.11
       tsconfig: workspace:*
-      vite: ^4.0.0
+      vite: ^4.0.4
       vitest: ^0.25.7
     dependencies:
       debug: 4.3.4
       fast-glob: 3.2.11
-      vite: 4.0.0
+      vite: 4.0.4
     devDependencies:
       tsconfig: link:../tsconfig
       vitest: 0.25.7
@@ -68,12 +68,12 @@ importers:
       fast-glob: ^3.2.11
       lodash: ^4.17.21
       tsconfig: workspace:*
-      vite: ^4.0.0
+      vite: ^4.0.4
     dependencies:
       chokidar: 3.5.3
       fast-glob: 3.2.11
       lodash: 4.17.21
-      vite: 4.0.0
+      vite: 4.0.4
     devDependencies:
       tsconfig: link:../tsconfig
 
@@ -82,12 +82,12 @@ importers:
       chokidar: ^3.5.3
       lodash: ^4.17.21
       tsconfig: workspace:*
-      vite: ^4.0.0
+      vite: ^4.0.4
       vitest: ^0.25.0
     dependencies:
       chokidar: 3.5.3
       lodash: 4.17.21
-      vite: 4.0.0
+      vite: 4.0.4
     devDependencies:
       tsconfig: link:../tsconfig
       vitest: 0.25.7
@@ -131,7 +131,7 @@ importers:
       postcss-mixins: ^9.0.2
       postcss-preset-env: ^7.4.3
       tailwindcss: ^3.1.5
-      vite: ^4.0.0
+      vite: ^4.0.4
       vite-plugin-shopify: workspace:*
       vite-plugin-shopify-modules: workspace:*
       vite-plugin-shopify-theme-settings: workspace:*
@@ -157,7 +157,7 @@ importers:
       postcss-import: 14.1.0_postcss@8.4.14
       postcss-mixins: 9.0.2_postcss@8.4.14
       postcss-preset-env: 7.7.1_postcss@8.4.14
-      vite: 4.0.0
+      vite: 4.0.4
       vite-plugin-shopify: link:../../packages/vite-plugin-shopify
       vite-plugin-shopify-modules: link:../../packages/vite-plugin-shopify-modules
       vite-plugin-shopify-theme-settings: link:../../packages/vite-plugin-shopify-theme-settings
@@ -168,7 +168,7 @@ importers:
       lodash-es: ^4.17.21
       sass: ^1.52.2
       tsconfig: workspace:*
-      vite: ^4.0.0
+      vite: ^4.0.4
       vite-plugin-shopify: workspace:*
       vite-plugin-shopify-modules: workspace:*
     dependencies:
@@ -177,7 +177,7 @@ importers:
       cross-env: 7.0.3
       sass: 1.52.3
       tsconfig: link:../../packages/tsconfig
-      vite: 4.0.0_sass@1.52.3
+      vite: 4.0.4_sass@1.52.3
       vite-plugin-shopify: link:../../packages/vite-plugin-shopify
       vite-plugin-shopify-modules: link:../../packages/vite-plugin-shopify-modules
 
@@ -7260,8 +7260,8 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
-  /postcss/8.4.19:
-    resolution: {integrity: sha512-h+pbPsyhlYj6N2ozBmHhHrs9DzGmbaarbLvWipMRO7RLS+v4onj26MPFXA5OBYFxyqYhUJK456SwDcY9H2/zsA==}
+  /postcss/8.4.20:
+    resolution: {integrity: sha512-6Q04AXR1212bXr5fh03u8aAwbLxAQNGQ/Q1LNa0VfOI06ZAlhPHtQvE4OIdpj4kLThXilalPnmDSOD65DcHt+g==}
     engines: {node: ^10 || ^12 || >=14}
     dependencies:
       nanoid: 3.3.4
@@ -9085,8 +9085,8 @@ packages:
       vfile-message: 3.1.2
     dev: false
 
-  /vite/4.0.0:
-    resolution: {integrity: sha512-ynad+4kYs8Jcnn8J7SacS9vAbk7eMy0xWg6E7bAhS1s79TK+D7tVFGXVZ55S7RNLRROU1rxoKlvZ/qjaB41DGA==}
+  /vite/4.0.4:
+    resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -9111,14 +9111,14 @@ packages:
         optional: true
     dependencies:
       esbuild: 0.16.4
-      postcss: 8.4.19
+      postcss: 8.4.20
       resolve: 1.22.1
       rollup: 3.7.3
     optionalDependencies:
       fsevents: 2.3.2
 
-  /vite/4.0.0_@types+node@18.0.0:
-    resolution: {integrity: sha512-ynad+4kYs8Jcnn8J7SacS9vAbk7eMy0xWg6E7bAhS1s79TK+D7tVFGXVZ55S7RNLRROU1rxoKlvZ/qjaB41DGA==}
+  /vite/4.0.4_@types+node@18.0.0:
+    resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -9144,15 +9144,15 @@ packages:
     dependencies:
       '@types/node': 18.0.0
       esbuild: 0.16.4
-      postcss: 8.4.19
+      postcss: 8.4.20
       resolve: 1.22.1
       rollup: 3.7.3
     optionalDependencies:
       fsevents: 2.3.2
     dev: true
 
-  /vite/4.0.0_sass@1.52.3:
-    resolution: {integrity: sha512-ynad+4kYs8Jcnn8J7SacS9vAbk7eMy0xWg6E7bAhS1s79TK+D7tVFGXVZ55S7RNLRROU1rxoKlvZ/qjaB41DGA==}
+  /vite/4.0.4_sass@1.52.3:
+    resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -9177,7 +9177,7 @@ packages:
         optional: true
     dependencies:
       esbuild: 0.16.4
-      postcss: 8.4.19
+      postcss: 8.4.20
       resolve: 1.22.1
       rollup: 3.7.3
       sass: 1.52.3
@@ -9220,7 +9220,7 @@ packages:
       tinybench: 2.3.1
       tinypool: 0.3.0
       tinyspy: 1.0.2
-      vite: 4.0.0_@types+node@18.0.0
+      vite: 4.0.4_@types+node@18.0.0
     transitivePeerDependencies:
       - less
       - sass
