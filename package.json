@@ -14,7 +14,7 @@
     "change:add": "changeset add",
     "change:version": "changeset version",
     "change:publish": "npm run build && changeset publish",
-    "build:docs": "cd packages/vite-shopify-docs && npm run build",
+    "docs:build": "npm -C docs run build",
     "test": "turbo run test --filter=vite-plugin-*"
   },
   "engines": {
