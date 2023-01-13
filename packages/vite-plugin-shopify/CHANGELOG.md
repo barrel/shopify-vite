@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 0.0.10
+
+### Patch Changes
+
+- Upgrade to Vite 4.0.4
+
 ## 0.0.9
 
 ### Patch Changes
