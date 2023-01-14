@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 0.0.11
+
+### Patch Changes
+
+- Fix issue with empty vite-client.liquid snippet! ([#33](https://github.com/barrel/barrel-shopify/pull/33)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
 ## 0.0.10
 
 ### Patch Changes
