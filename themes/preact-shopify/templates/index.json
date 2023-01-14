@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "hello_world": {
+      "type": "hello-world"
+    }
+  },
+  "order": [
+    "hello_world"
+  ]
+}
