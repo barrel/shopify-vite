@@ -14,7 +14,6 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
   let modulesPath = ''
 
   const viteTagSnippetPath = path.resolve(options.themeRoot, 'snippets/vite-tag.liquid')
-  const viteClientSnippetPath = path.resolve(options.themeRoot, 'snippets/vite-client.liquid')
 
   return {
     name: 'vite-plugin-shopify-html',
@@ -40,13 +39,9 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
       debug({ assetHost })
 
       const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir) + viteTagSnippetDev(assetHost, options.entrypointsDir, modulesPath)
-      const viteClientSnippetContent = viteClientSnippetDev(assetHost)
 
       // Write vite-tag snippet for development server
       fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
-
-      // Wirte vite-client snippet for development server
-      fs.writeFileSync(viteClientSnippetPath, viteClientSnippetContent)
     },
     closeBundle () {
       const manifestFilePath = path.resolve(options.themeRoot, 'assets/manifest.json')
@@ -120,9 +115,6 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
       // Write vite-tag snippet for production build
       fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
-
-      // Wirte vite-client snippet for production build
-      fs.writeFileSync(viteClientSnippetPath, viteTagDisclaimer)
     }
   }
 }
@@ -185,12 +177,10 @@ const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir =
     assign file_url = file_url | append: '/' | append: file_name
   endif
 %}
+<script src="${assetHost}/@vite/client" type="module"></script>
 {% if is_css == true %}
   {{ file_url | stylesheet_tag }}
 {% else %}
   <script src="{{ file_url }}" type="module" crossorigin="anonymous"></script>
 {% endif %}
 `
-
-const viteClientSnippetDev = (assetHost = 'http://localhost:5173'): string =>
-  `${viteTagDisclaimer}<script src="${assetHost}/@vite/client" type="module"></script>\n`

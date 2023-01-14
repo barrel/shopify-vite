@@ -31,9 +31,7 @@ describe('vite-plugin-shopify:html', () => {
     })
 
     const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })
-    const clientHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-client.liquid'), { encoding: 'utf8' })
 
     expect(tagsHtml).toMatchSnapshot()
-    expect(clientHtml).toMatchSnapshot()
   })
 })
