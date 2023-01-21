@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import type { Manifest, Plugin, ResolvedConfig } from 'vite'
+import { Manifest, Plugin, ResolvedConfig, normalizePath } from 'vite'
 import createDebugger from 'debug'
 
 import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
@@ -61,7 +61,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
 
         // Generate tags for JS and CSS entry points
         if (isEntry === true) {
-          const entryName = path.relative(options.entrypointsDir, src)
+          const entryName = normalizePath(path.relative(options.entrypointsDir, src))
           const entryPaths = [`/${src}`, entryName]
           const tagsForEntry = []
 
@@ -130,7 +130,7 @@ const viteTagEntryPath = (
 
   resolveAlias.forEach((alias) => {
     if (typeof alias.find === 'string') {
-      replacements.push([alias.find, path.relative(entrypointsDir, alias.replacement)])
+      replacements.push([alias.find, normalizePath(path.relative(entrypointsDir, alias.replacement))])
     }
   })
 
