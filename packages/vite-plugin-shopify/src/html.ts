@@ -26,7 +26,7 @@ export default function shopifyHTML (options: ResolvedVitePluginShopifyOptions):
       const modulesAlias = config.resolve.alias.find((value) => value.find === '@modules')
       if (modulesAlias != null) {
         // Store relative path to modules directory
-        modulesPath = path.relative(options.entrypointsDir, modulesAlias.replacement)
+        modulesPath = normalizePath(path.relative(options.entrypointsDir, modulesAlias.replacement))
       }
     },
     configureServer ({ config }) {
