@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 0.0.12
+
+### Patch Changes
+
+- Normalize path separators to use POSIX. Resolves [#35](https://github.com/barrel/barrel-shopify/issues/35) ([#37](https://github.com/barrel/barrel-shopify/pull/37)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
 ## 0.0.11
 
 ### Patch Changes
