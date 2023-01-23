@@ -24,6 +24,14 @@ describe('vite-plugin-shopify:html', () => {
             {
               find: '@',
               replacement: path.posix.join(__dirname, '__fixtures__', 'frontend')
+            },
+            {
+              find: '@modules',
+              replacement: path.posix.join(__dirname, '__fixtures__', 'modules')
+            },
+            {
+              find: '~modules',
+              replacement: path.posix.join(__dirname, '__fixtures__', 'modules')
             }
           ]
         }
