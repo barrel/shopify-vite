@@ -1,7 +1,6 @@
 import { promises as fs, existsSync } from 'fs'
 import path from 'path'
 import { Plugin, ResolvedConfig } from 'vite'
-import { throttle } from 'lodash'
 import chokidar from 'chokidar'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
@@ -13,16 +12,6 @@ const debug = createDebugger('vite-plugin-shopify:modules')
 export default function shopifyModules (options: VitePluginShopifyModulesOptions = {}): Plugin {
   const resolvedOptions = resolveOptions(options)
   let _config: ResolvedConfig
-
-  // Create throttled function for generating module symlinks
-  const linkModulesFn = throttle(
-    linkModules.bind(null, resolvedOptions),
-    500,
-    {
-      leading: true,
-      trailing: false
-    }
-  )
 
   return {
     name: 'vite-plugin-shopify-modules',
@@ -66,53 +55,44 @@ export default function shopifyModules (options: VitePluginShopifyModulesOptions
       }
       return null
     },
-    buildStart: () => {
+    buildStart: async () => {
+      const modulePaths = await glob(`${resolvedOptions.modulesDir}/**/*.{section,snippet}.liquid`)
+
       // Link modules on build start
-      linkModulesFn()
+      await Promise.all(modulePaths.map(async (modulePath) => {
+        return await linkModule(modulePath, resolvedOptions)
+      }))
 
       if (_config.command === 'serve') {
         // Watch for relevant file or directory changes to re-run script
         chokidar.watch([resolvedOptions.modulesDir, '(sections|snippets)/*.liquid'], {
           ignoreInitial: true,
           followSymlinks: false
-        }).on('all', linkModulesFn)
+        }).on('all', (event, path) => debug({ path }))
       }
     }
   }
 }
 
 // Check for module folders with corresponding liquid files and set up symlinks as needed
-const linkModules = ({ modulesDir, themeRoot }: ResolvedVitePluginShopifyModulesOptions): void => {
+const linkModule = async (modulePath: string, { modulesDir, themeRoot }: ResolvedVitePluginShopifyModulesOptions): Promise<void> => {
+  const themeFilePath = getThemeFilePath(modulePath, { modulesDir, themeRoot })
+  return await setupSymlink(modulePath, themeFilePath)
+}
+
+const getThemeFilePath = (modulePath: string, { modulesDir, themeRoot }: ResolvedVitePluginShopifyModulesOptions): string => {
   const rootPath = path.resolve(themeRoot)
   const sectionsDir = path.resolve(rootPath, './sections')
   const snippetsDir = path.resolve(rootPath, './snippets')
+  const fileName = path.basename(modulePath)
 
-  if (existsSync(modulesDir)) {
-    fs.readdir(modulesDir)
-      .then(
-        async (modules: string[]) => await Promise.all(modules.flatMap((module) => [
-          setupSectionSymlink(module, { modulesDir, sectionsDir }),
-          setupSnippetSymlink(module, { modulesDir, snippetsDir })
-        ])),
-        (err) => { throw err }
-      )
+  if (fileName.includes('.section.liquid')) {
+    const moduleName = fileName.replace(/\.section/, '')
+    return path.join(sectionsDir, `${moduleName}`)
   }
-}
 
-// Set up symlink for module's liquid section file
-const setupSectionSymlink = async (moduleName: string, pathConfig: { modulesDir: string, sectionsDir: string }): Promise<void> => {
-  const moduleSectionPath = path.join(pathConfig.modulesDir, `${moduleName}/${moduleName}.section.liquid`)
-  const themeSectionPath = path.join(pathConfig.sectionsDir, `${moduleName}.liquid`)
-
-  return await setupSymlink(moduleSectionPath, themeSectionPath)
-}
-
-// Set up symlink for module's liquid snippet file
-const setupSnippetSymlink = async (moduleName: string, pathConfig: { modulesDir: string, snippetsDir: string }): Promise<void> => {
-  const moduleSnippetPath = path.join(pathConfig.modulesDir, `${moduleName}/${moduleName}.snippet.liquid`)
-  const themeSnippetPath = path.join(pathConfig.snippetsDir, `${moduleName}.liquid`)
-
-  return await setupSymlink(moduleSnippetPath, themeSnippetPath)
+  const moduleName = fileName.replace(/\.snippet/, '')
+  return path.join(snippetsDir, `${moduleName}`)
 }
 
 // Move liquid file from module path to theme path and generate symbolic link
