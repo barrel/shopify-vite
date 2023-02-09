@@ -1,5 +1,13 @@
 # vite-plugin-shopify-modules
 
+## 0.0.6
+
+### Patch Changes
+
+- If a module script exists, resolve it ([#40](https://github.com/barrel/barrel-shopify/pull/40)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+- Recreate symlinks on windows ([#41](https://github.com/barrel/barrel-shopify/pull/41)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+- Test for vite-plugin-shopify-modules ([#42](https://github.com/barrel/barrel-shopify/pull/42)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
 ## 0.0.5
 
 ### Patch Changes
