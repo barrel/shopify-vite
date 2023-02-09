@@ -4,8 +4,11 @@ import { Plugin, ResolvedConfig } from 'vite'
 import { throttle } from 'lodash'
 import chokidar from 'chokidar'
 import glob from 'fast-glob'
+import createDebugger from 'debug'
 
 import { VitePluginShopifyModulesOptions, ResolvedVitePluginShopifyModulesOptions, resolveOptions } from './options'
+
+const debug = createDebugger('vite-plugin-shopify:modules')
 
 export default function shopifyModules (options: VitePluginShopifyModulesOptions = {}): Plugin {
   const resolvedOptions = resolveOptions(options)
@@ -116,6 +119,8 @@ const setupSnippetSymlink = async (moduleName: string, pathConfig: { modulesDir:
 const setupSymlink = async (modulePath: string, themePath: string): Promise<void> => {
   let modulePathStats
 
+  debug({ modulePath, themePath })
+
   try {
     modulePathStats = await fs.lstat(modulePath)
   } catch (e) {
@@ -123,12 +128,18 @@ const setupSymlink = async (modulePath: string, themePath: string): Promise<void
   }
 
   if (typeof modulePathStats === 'undefined') {
-    if (existsSync(themePath)) {
+    // If no existing file at module path, skip
+    return
+  }
+
+  if (existsSync(themePath)) {
+    if (!modulePathStats.isSymbolicLink()) {
       // If theme file exists but hasn't been linked, create symlink
+      await fs.unlink(modulePath)
       await fs.symlink(path.relative(path.dirname(modulePath), themePath), modulePath)
     }
 
-    // If no existing file at module path, skip
+    // If theme path file already exists, skip
     return
   }
 
@@ -139,12 +150,6 @@ const setupSymlink = async (modulePath: string, themePath: string): Promise<void
     }
 
     // If module path file is already a symlink, skip
-    return
-  }
-
-  if (existsSync(themePath)) {
-    // If theme path file already exists, log warning and skip
-    console.warn(`WARNING: Conflicting liquid files found at ${modulePath} and ${themePath}.`)
     return
   }
 
