@@ -26,7 +26,8 @@
     "dev": "npm run build -- --watch",
     "build": "tsup src/index.ts --dts --format cjs,esm",
     "watch": "tsup src/index.ts --dts --format cjs,esm --watch",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "vitest run"
   },
   "peerDependencies": {
     "vite": "^4.0.4"
@@ -38,6 +39,7 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "vitest": "^0.25.7"
   }
 }
