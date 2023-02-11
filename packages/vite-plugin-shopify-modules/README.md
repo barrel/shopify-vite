@@ -111,10 +111,6 @@ See the [vite-plugin-shopify docs](https://github.com/barrel/barrel-shopify/tree
 
 See [seed-theme](https://github.com/barrel/barrel-shopify/tree/main/themes/seed-theme) for an example Shopify theme using this plugin.
 
-## To-Do
-
-- [ ] Unit tests
-
 ## Bugs
 
 Please create an issue if you found any bugs, to help us improve this project!
