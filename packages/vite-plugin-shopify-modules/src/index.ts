@@ -5,7 +5,7 @@ import chokidar from 'chokidar'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
 
-import { VitePluginShopifyModulesOptions, ResolvedVitePluginShopifyModulesOptions, resolveOptions } from './options'
+import { VitePluginShopifyModulesOptions, resolveOptions } from './options'
 
 const debug = createDebugger('vite-plugin-shopify:modules')
 
@@ -72,12 +72,12 @@ export default function shopifyModules (options: VitePluginShopifyModulesOptions
 }
 
 // Check for module folders with corresponding liquid files and set up symlinks as needed
-const linkModule = (modulePath: string, { modulesDir, themeRoot }: ResolvedVitePluginShopifyModulesOptions): void => {
+const linkModule = (modulePath: string, { modulesDir, themeRoot }: Required<VitePluginShopifyModulesOptions>): void => {
   const themeFilePath = getThemeFilePath(modulePath, { modulesDir, themeRoot })
   setupSymlink(modulePath, themeFilePath)
 }
 
-const getThemeFilePath = (modulePath: string, { modulesDir, themeRoot }: ResolvedVitePluginShopifyModulesOptions): string => {
+const getThemeFilePath = (modulePath: string, { modulesDir, themeRoot }: Required<VitePluginShopifyModulesOptions>): string => {
   const rootPath = path.resolve(themeRoot)
   const sectionsDir = path.resolve(rootPath, './sections')
   const snippetsDir = path.resolve(rootPath, './snippets')
