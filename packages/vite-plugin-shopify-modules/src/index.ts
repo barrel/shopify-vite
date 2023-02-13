@@ -1,6 +1,6 @@
 import { lstatSync, renameSync, unlinkSync, symlinkSync, existsSync, statSync } from 'fs'
 import path from 'path'
-import { Plugin } from 'vite'
+import { Plugin, normalizePath } from 'vite'
 import chokidar from 'chokidar'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
@@ -52,7 +52,7 @@ export default function shopifyModules (options: VitePluginShopifyModulesOptions
       return null
     },
     buildEnd: async () => {
-      const modulePaths = await glob(`${resolvedOptions.modulesDir}/**/*.{section,snippet}.liquid`)
+      const modulePaths = await glob(`${normalizePath(resolvedOptions.modulesDir)}/**/*.{section,snippet}.liquid`)
 
       // Link modules on build start
       modulePaths.forEach(modulePath => linkModule(modulePath, resolvedOptions))
