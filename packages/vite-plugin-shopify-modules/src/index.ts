@@ -58,7 +58,7 @@ export default function shopifyModules (options: VitePluginShopifyModulesOptions
       modulePaths.forEach(modulePath => linkModule(modulePath, resolvedOptions))
     },
     configureServer () {
-      const watcher = chokidar.watch([resolvedOptions.modulesDir], {
+      const watcher = chokidar.watch([`${resolvedOptions.modulesDir}/**/*.liquid`], {
         ignoreInitial: true,
         followSymlinks: false
       })
