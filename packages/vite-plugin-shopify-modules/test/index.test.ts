@@ -33,6 +33,7 @@ describe('vite-plugin-shopify:modules', () => {
 
     expect(existsSync(path.join(__dirname, '__fixtures__', 'snippets', 'multirow.liquid'))).toEqual(true)
     expect(existsSync(path.join(__dirname, '__fixtures__', 'sections', 'multirow.liquid'))).toEqual(true)
+    expect(existsSync(path.join(__dirname, '__fixtures__', 'sections', 'foo.liquid'))).toEqual(false)
     expect(lstatSync(path.join(__dirname, '__fixtures__', 'modules', 'multirow', 'multirow.section.liquid')).isSymbolicLink()).toEqual(true)
     expect(lstatSync(path.join(__dirname, '__fixtures__', 'modules', 'multirow', 'multirow.snippet.liquid')).isSymbolicLink()).toEqual(true)
     expect(lstatSync(path.join(__dirname, '__fixtures__', 'modules', 'collage', 'collage.section.liquid')).isSymbolicLink()).toEqual(true)

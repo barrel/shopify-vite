@@ -35,8 +35,7 @@
   "dependencies": {
     "chokidar": "^3.5.3",
     "debug": "^4.3.4",
-    "fast-glob": "^3.2.11",
-    "lodash": "^4.17.21"
+    "fast-glob": "^3.2.11"
   },
   "devDependencies": {
     "tsconfig": "workspace:*",

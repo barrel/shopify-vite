@@ -81,7 +81,6 @@ importers:
       chokidar: ^3.5.3
       debug: ^4.3.4
       fast-glob: ^3.2.11
-      lodash: ^4.17.21
       tsconfig: workspace:*
       vite: ^4.0.4
       vitest: ^0.25.7
@@ -89,7 +88,6 @@ importers:
       chokidar: 3.5.3
       debug: 4.3.4
       fast-glob: 3.2.11
-      lodash: 4.17.21
       vite: 4.0.4
     devDependencies:
       tsconfig: link:../tsconfig

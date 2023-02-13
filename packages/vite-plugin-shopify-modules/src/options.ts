@@ -5,14 +5,9 @@ export interface VitePluginShopifyModulesOptions {
   themeRoot?: string
 }
 
-export interface ResolvedVitePluginShopifyModulesOptions {
-  modulesDir: string
-  themeRoot: string
-}
-
 export const resolveOptions = (
   options: VitePluginShopifyModulesOptions
-): ResolvedVitePluginShopifyModulesOptions => ({
+): Required<VitePluginShopifyModulesOptions> => ({
   modulesDir: typeof options.modulesDir !== 'undefined' ? path.normalize(options.modulesDir) : 'modules',
   themeRoot: typeof options.themeRoot !== 'undefined' ? path.normalize(options.themeRoot) : './'
 })

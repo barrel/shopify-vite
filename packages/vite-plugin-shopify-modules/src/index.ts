@@ -1,28 +1,16 @@
-import { promises as fs, existsSync } from 'fs'
+import { lstatSync, renameSync, unlinkSync, symlinkSync, existsSync, statSync } from 'fs'
 import path from 'path'
-import { Plugin, ResolvedConfig } from 'vite'
-import { throttle } from 'lodash'
+import { Plugin, normalizePath } from 'vite'
 import chokidar from 'chokidar'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
 
-import { VitePluginShopifyModulesOptions, ResolvedVitePluginShopifyModulesOptions, resolveOptions } from './options'
+import { VitePluginShopifyModulesOptions, resolveOptions } from './options'
 
 const debug = createDebugger('vite-plugin-shopify:modules')
 
 export default function shopifyModules (options: VitePluginShopifyModulesOptions = {}): Plugin {
   const resolvedOptions = resolveOptions(options)
-  let _config: ResolvedConfig
-
-  // Create throttled function for generating module symlinks
-  const linkModulesFn = throttle(
-    linkModules.bind(null, resolvedOptions),
-    500,
-    {
-      leading: true,
-      trailing: false
-    }
-  )
 
   return {
     name: 'vite-plugin-shopify-modules',
@@ -37,14 +25,11 @@ export default function shopifyModules (options: VitePluginShopifyModulesOptions
         }
       }
     },
-    configResolved (config) {
-      _config = config
-    },
     resolveId: async (id) => {
       // Check if path is within modules directory
       if (!path.relative(path.resolve(resolvedOptions.modulesDir), id).includes('..')) {
         try {
-          const fileStat = await fs.stat(id)
+          const fileStat = statSync(id)
 
           // Check if path refers to folder instead of file
           if (fileStat.isDirectory()) {
@@ -66,63 +51,63 @@ export default function shopifyModules (options: VitePluginShopifyModulesOptions
       }
       return null
     },
-    buildStart: () => {
-      // Link modules on build start
-      linkModulesFn()
+    buildEnd: async () => {
+      const modulePaths = await glob(`${normalizePath(resolvedOptions.modulesDir)}/**/*.liquid`)
 
-      if (_config.command === 'serve') {
-        // Watch for relevant file or directory changes to re-run script
-        chokidar.watch([resolvedOptions.modulesDir, '(sections|snippets)/*.liquid'], {
-          ignoreInitial: true,
-          followSymlinks: false
-        }).on('all', linkModulesFn)
-      }
+      // Link modules on build end
+      modulePaths.forEach(modulePath => linkModule(modulePath, resolvedOptions))
+    },
+    configureServer () {
+      const watcher = chokidar.watch([`${resolvedOptions.modulesDir}/**/*.liquid`], {
+        ignoreInitial: true,
+        followSymlinks: false
+      })
+
+      // Watch for relevant file or directory changes to re-run script
+      watcher.on('add', path => linkModule(path, resolvedOptions))
+      watcher.on('change', path => linkModule(path, resolvedOptions))
+      watcher.on('unlink', path => linkModule(path, resolvedOptions))
     }
   }
 }
 
 // Check for module folders with corresponding liquid files and set up symlinks as needed
-const linkModules = ({ modulesDir, themeRoot }: ResolvedVitePluginShopifyModulesOptions): void => {
+const linkModule = (modulePath: string, { modulesDir, themeRoot }: Required<VitePluginShopifyModulesOptions>): void => {
+  const themeFilePath = getThemeFilePath(modulePath, { modulesDir, themeRoot })
+  setupSymlink(modulePath, themeFilePath)
+}
+
+const getThemeFilePath = (modulePath: string, { modulesDir, themeRoot }: Required<VitePluginShopifyModulesOptions>): string => {
   const rootPath = path.resolve(themeRoot)
   const sectionsDir = path.resolve(rootPath, './sections')
   const snippetsDir = path.resolve(rootPath, './snippets')
+  const fileName = path.basename(modulePath)
 
-  if (existsSync(modulesDir)) {
-    fs.readdir(modulesDir)
-      .then(
-        async (modules: string[]) => await Promise.all(modules.flatMap((module) => [
-          setupSectionSymlink(module, { modulesDir, sectionsDir }),
-          setupSnippetSymlink(module, { modulesDir, snippetsDir })
-        ])),
-        (err) => { throw err }
-      )
+  if (/\.section.liquid/.test(fileName)) {
+    const moduleName = fileName.replace(/\.section/, '')
+    return path.join(sectionsDir, `${moduleName}`)
   }
-}
 
-// Set up symlink for module's liquid section file
-const setupSectionSymlink = async (moduleName: string, pathConfig: { modulesDir: string, sectionsDir: string }): Promise<void> => {
-  const moduleSectionPath = path.join(pathConfig.modulesDir, `${moduleName}/${moduleName}.section.liquid`)
-  const themeSectionPath = path.join(pathConfig.sectionsDir, `${moduleName}.liquid`)
-
-  return await setupSymlink(moduleSectionPath, themeSectionPath)
-}
-
-// Set up symlink for module's liquid snippet file
-const setupSnippetSymlink = async (moduleName: string, pathConfig: { modulesDir: string, snippetsDir: string }): Promise<void> => {
-  const moduleSnippetPath = path.join(pathConfig.modulesDir, `${moduleName}/${moduleName}.snippet.liquid`)
-  const themeSnippetPath = path.join(pathConfig.snippetsDir, `${moduleName}.liquid`)
-
-  return await setupSymlink(moduleSnippetPath, themeSnippetPath)
+  const moduleName = fileName.replace(/\.snippet/, '')
+  return path.join(snippetsDir, `${moduleName}`)
 }
 
 // Move liquid file from module path to theme path and generate symbolic link
-const setupSymlink = async (modulePath: string, themePath: string): Promise<void> => {
+const setupSymlink = (modulePath: string, themePath: string): void => {
+  const moduleDir = path.basename(path.dirname(modulePath))
   let modulePathStats
+  const fileName = path.basename(modulePath)
+  const regex = new RegExp(moduleDir)
+  const isPotentialModuleName = regex.test(fileName)
 
-  debug({ modulePath, themePath })
+  debug({ modulePath, themePath, moduleDir, fileName })
+
+  if (!isPotentialModuleName) {
+    return
+  }
 
   try {
-    modulePathStats = await fs.lstat(modulePath)
+    modulePathStats = lstatSync(modulePath)
   } catch (e) {
     //
   }
@@ -135,8 +120,8 @@ const setupSymlink = async (modulePath: string, themePath: string): Promise<void
   if (existsSync(themePath)) {
     if (!modulePathStats.isSymbolicLink()) {
       // If theme file exists but hasn't been linked, create symlink
-      await fs.unlink(modulePath)
-      await fs.symlink(path.relative(path.dirname(modulePath), themePath), modulePath)
+      unlinkSync(modulePath)
+      symlinkSync(path.relative(path.dirname(modulePath), themePath), modulePath)
     }
 
     // If theme path file already exists, skip
@@ -146,7 +131,7 @@ const setupSymlink = async (modulePath: string, themePath: string): Promise<void
   if (modulePathStats.isSymbolicLink()) {
     if (!existsSync(themePath)) {
       // If symlink exists without target file, delete it
-      await fs.unlink(modulePath)
+      unlinkSync(modulePath)
     }
 
     // If module path file is already a symlink, skip
@@ -154,8 +139,8 @@ const setupSymlink = async (modulePath: string, themePath: string): Promise<void
   }
 
   // Move liquid file to theme folder
-  await fs.rename(modulePath, themePath)
+  renameSync(modulePath, themePath)
 
   // Generate symlink from module path to theme path
-  await fs.symlink(path.relative(path.dirname(modulePath), themePath), modulePath)
+  symlinkSync(path.relative(path.dirname(modulePath), themePath), modulePath)
 }
