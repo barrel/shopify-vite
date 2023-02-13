@@ -52,7 +52,7 @@ export default function shopifyModules (options: VitePluginShopifyModulesOptions
       return null
     },
     buildEnd: async () => {
-      const modulePaths = await glob(`${normalizePath(resolvedOptions.modulesDir)}/**/*.{section,snippet}.liquid`)
+      const modulePaths = await glob(`${normalizePath(resolvedOptions.modulesDir)}/**/*.liquid`)
 
       // Link modules on build start
       modulePaths.forEach(modulePath => linkModule(modulePath, resolvedOptions))
@@ -83,7 +83,7 @@ const getThemeFilePath = (modulePath: string, { modulesDir, themeRoot }: Require
   const snippetsDir = path.resolve(rootPath, './snippets')
   const fileName = path.basename(modulePath)
 
-  if (fileName.includes('.section.liquid')) {
+  if (/\.section.liquid/.test(fileName)) {
     const moduleName = fileName.replace(/\.section/, '')
     return path.join(sectionsDir, `${moduleName}`)
   }
@@ -94,9 +94,17 @@ const getThemeFilePath = (modulePath: string, { modulesDir, themeRoot }: Require
 
 // Move liquid file from module path to theme path and generate symbolic link
 const setupSymlink = (modulePath: string, themePath: string): void => {
+  const moduleDir = path.basename(path.dirname(modulePath))
   let modulePathStats
+  const fileName = path.basename(modulePath)
+  const regex = new RegExp(moduleDir)
+  const isPotentialModuleName = regex.test(fileName)
 
-  debug({ modulePath, themePath })
+  debug({ modulePath, themePath, moduleDir, fileName })
+
+  if (!isPotentialModuleName) {
+    return
+  }
 
   try {
     modulePathStats = lstatSync(modulePath)
