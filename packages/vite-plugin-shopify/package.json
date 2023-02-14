@@ -24,7 +24,7 @@
   },
   "scripts": {
     "dev": "npm run build -- --watch",
-    "build": "tsup src/index.ts --dts --format cjs,esm",
+    "build": "tsup src/index.ts --dts --format cjs,esm && cp src/dev-server-index.html dist/",
     "watch": "tsup src/index.ts --dts --format cjs,esm --watch",
     "lint": "eslint .",
     "test": "vitest run"
