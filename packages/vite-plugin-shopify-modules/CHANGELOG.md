@@ -1,5 +1,11 @@
 # vite-plugin-shopify-modules
 
+## 0.0.7
+
+### Patch Changes
+
+- Refactor modules plugin algorithm ([#43](https://github.com/barrel/barrel-shopify/pull/43)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
 ## 0.0.6
 
 ### Patch Changes
