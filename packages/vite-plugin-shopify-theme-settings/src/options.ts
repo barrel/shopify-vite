@@ -10,17 +10,9 @@ export interface VitePluginShopifyThemeSettingsOptions {
   }
 }
 
-export interface ResolvedVitePluginShopifyThemeSettingsOptions {
-  schemaSourceDir: string
-  themeRoot: string
-  values: {
-    [key: string]: string
-  }
-}
-
 export const resolveOptions = (
   options: VitePluginShopifyThemeSettingsOptions
-): ResolvedVitePluginShopifyThemeSettingsOptions => {
+): Required<VitePluginShopifyThemeSettingsOptions> => {
   // Load values from package.json
   const pkg = getPackage()
   // Get initial replacement values from user-provided options

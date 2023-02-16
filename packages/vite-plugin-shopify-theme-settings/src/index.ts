@@ -3,7 +3,7 @@ import path from 'path'
 import { Plugin } from 'vite'
 import { throttle } from 'lodash'
 
-import { VitePluginShopifyThemeSettingsOptions, ResolvedVitePluginShopifyThemeSettingsOptions, resolveOptions } from './options'
+import { VitePluginShopifyThemeSettingsOptions, resolveOptions } from './options'
 
 export default function shopifyThemeSettings (options: VitePluginShopifyThemeSettingsOptions = {}): Plugin {
   const resolvedOptions = resolveOptions(options)
@@ -37,7 +37,7 @@ export default function shopifyThemeSettings (options: VitePluginShopifyThemeSet
   }
 }
 
-const generateSettingsSchemaJson = async (options: ResolvedVitePluginShopifyThemeSettingsOptions): Promise<void> => {
+const generateSettingsSchemaJson = async (options: Required<VitePluginShopifyThemeSettingsOptions>): Promise<void> => {
   const { schemaSourceDir, themeRoot } = options
 
   function replaceSettingsSchemaValues<T> (key: string, value: T): T | string {
