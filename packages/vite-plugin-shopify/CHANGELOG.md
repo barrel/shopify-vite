@@ -1,5 +1,12 @@
 # vite-plugin-shopify
 
+## 0.0.13
+
+### Patch Changes
+
+- Remove redundant types ([#44](https://github.com/barrel/barrel-shopify/pull/44)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+- Improve DX ([#45](https://github.com/barrel/barrel-shopify/pull/45)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
 ## 0.0.12
 
 ### Patch Changes
