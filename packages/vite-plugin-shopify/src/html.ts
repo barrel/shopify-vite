@@ -29,7 +29,7 @@ export default function shopifyHTML (options: Required<VitePluginShopifyOptions>
         modulesPath = normalizePath(path.relative(options.entrypointsDir, modulesAlias.replacement))
       }
     },
-    configureServer ({ config }) {
+    configureServer ({ config, middlewares }) {
       const protocol = config.server?.https === true ? 'https:' : 'http:'
       const host = typeof config.server?.host === 'string' ? config.server.host : 'localhost'
       const port = typeof config.server?.port !== 'undefined' ? config.server.port : 5173
@@ -42,6 +42,18 @@ export default function shopifyHTML (options: Required<VitePluginShopifyOptions>
 
       // Write vite-tag snippet for development server
       fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
+
+      return () => middlewares.use((req, res, next) => {
+        if (req.url === '/index.html') {
+          res.statusCode = 404
+
+          res.end(
+            fs.readFileSync(path.join(__dirname, 'dev-server-index.html')).toString()
+          )
+        }
+
+        next()
+      })
     },
     closeBundle () {
       const manifestFilePath = path.resolve(options.themeRoot, 'assets/manifest.json')
