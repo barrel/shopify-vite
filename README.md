@@ -1,4 +1,4 @@
-# @barrelny/shopify
+# Barrel Shopify
 
 <a href="https://github.com/barrel/barrel-shopify/actions"><img src="https://github.com/barrel/barrel-shopify/workflows/CI/badge.svg" alt="Build Status"></a>
 <a href="https://www.npmjs.com/package/vite-plugin-shopify"><img src="https://img.shields.io/npm/dt/vite-plugin-shopify" alt="Total Downloads"></a>
