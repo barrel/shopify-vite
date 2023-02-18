@@ -146,4 +146,4 @@ We would like to specifically thank the following projects, for inspiring us and
 
 - [vite_ruby](https://github.com/ElMassimo/vite_ruby)
 - [laravel-vite](https://github.com/innocenzi/laravel-vite)
-- [nuxt.js](https://github.com/nuxt/framework)
+- [Laravel Vite Plugin](https://github.com/laravel/vite-plugin)
