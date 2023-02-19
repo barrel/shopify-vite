@@ -30,4 +30,4 @@ created with ❤︎ by [Barrel](https://www.barrelny.com/), a full-service DTC e
 
 ## License
 
-[MIT](https://github.com/barrel/barrel-shopify/blob/main/LICENSE.md).
+This project is licensed under the [MIT License](https://github.com/barrel/barrel-shopify/blob/main/LICENSE.md).
