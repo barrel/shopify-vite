@@ -5,7 +5,7 @@
 <a href="https://www.npmjs.com/package/vite-plugin-shopify"><img src="https://img.shields.io/npm/v/vite-plugin-shopify" alt="Latest Stable Version"></a>
 <a href="https://www.npmjs.com/package/vite-plugin-shopify"><img src="https://img.shields.io/npm/l/vite-plugin-shopify" alt="License"></a>
 
-Modern Frontend Tooling for Shopify Theme Development using Vite for a best-in-class developer experience
+Modern frontend tooling for Shopify theme development using Vite for a best-in-class developer experience
 created with ❤︎ by [Barrel](https://www.barrelny.com/), a full-service DTC e-commerce agency based in New York City.
 
 ## Packages
