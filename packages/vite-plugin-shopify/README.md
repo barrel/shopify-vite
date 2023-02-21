@@ -1,6 +1,6 @@
 # vite-plugin-shopify
 
-`vite-plugin-shopify` aims to integrate Vite as seamlessly as possible with Shopify themes for a best-in-class developer experience.
+`vite-plugin-shopify` aims to integrate Vite as seamlessly as possible with Shopify themes to optimize your theme development experience.
 
 ## Features
 
@@ -9,6 +9,7 @@
 - 🏷 Smart generation of `script` and `link` tags for entrypoints
 - 🌎 Full support for assets served from Shopify CDN
 - 👌 Zero-Config
+- 🔩 Extensible
 
 ## Install
 
@@ -24,9 +25,7 @@ pnpm add vite-plugin-shopify -D
 
 ## Usage
 
-### Vite Plugin
-
-Add the `shopify` plugin to `vite.config.js` / `vite.config.ts`:
+Add the `vite-plugin-shopify` to your `vite.config.js` file and configure it:
 
 ```ts
 import viteShopify from "vite-plugin-shopify";
@@ -50,12 +49,12 @@ export default {
 
 You can customize this file as needed. Check Vite's [plugins](https://vitejs.dev/plugins/) and [config reference](https://vitejs.dev/config/) for more info.
 
-### File structure
+### Project structure
 
-The Shopify Vite plugin treats each script and stylesheet in the entrypoints directory (`frontend/entrypoints` by default) as an input for the Vite build. You can organize the rest of your frontend code however you'd like. For example:
+The Shopify Vite Plugin treats JavaScript and CSS files in the entrypoints directory (`frontend/entrypoints` by default) as entry points for Vite. You can organize the rest of your frontend code however you'd like. For example:
 
 ```bash
-frontend
+theme/frontend
   ├── entrypoints
   │   │ # Vite entry point files
   │   │── theme.ts
@@ -69,59 +68,58 @@ frontend
       └── logo.svg
 ```
 
-- Only script and stylesheet files are supported as entrypoints.
-- You can customize where `vite-plugin-shopify` loads entrypoints by specifying a value for the `entrypointsDir` plugin option.
-
 ### Adding scripts and styles to your theme
 
-In your `<head>` element add this
-
-Then render the `vite-tag` snippet (in your `<head>` element too) to insert tags for loading assets from a given entrypoint file:
+With your Vite entry points configured, you only need to reference them with the auto-generated `vite-tag` snippet that you add to the `<head>` of your theme's layout:
 
 ```liquid
-{% render 'vite-tag' with 'theme.ts' %}
+{% liquid
+  render 'vite-tag' with 'theme.scss'
+  render 'vite-tag' with 'theme.ts'
+%}
 ```
 
-- `vite-plugin-shopify` will generate new versions of `vite-tag.liquid` during development and on each production build.
-- The `vite-tag` snippet will render HTML tags to load the provided entrypoint.
-- Script tags are generated with a `type="module"` and `crossorigin` attributes like Vite does by default.
-- In production mode, the `asset_url` filter is used to load resources from the Shopify CDN.
+The Vite Shopify Plugin will generate new versions of the `vite-tag` snippet during development and on each production build.
+
+- In development mode, your assets are served from the Vite development server.
+- In development mode, the `vite-tag` snippet will inject the Vite client to enable Hot Module Replacement.
+- In production mode, the `asset_url` filter is used to load assets from the Shopify CDN.
 - In production mode, the `vite-tag` snippet will automatically render separate tags for loading stylesheets and preloading imported JS chunks.
-- When running the development server, these tags are omitted, as Vite will load the dependencies as separate modules.
-- During development, the `vite-tag` snippet will render a `<script>` that includes the Vite client script to enable HMR.
+- Script tags are generated with a `type="module"` and `crossorigin` attributes like Vite does by default.
 
-```txt
-{% render 'vite-tag' with 'theme.ts' %}
+  ```txt
+  {% render 'vite-tag' with 'theme.ts' %}
 
-# HTML output (development)
-<script src="http://localhost:5173/theme.ts" type="module"></script>
+  # HTML output (development)
+  <script src="http://localhost:5173/@vite/client" type="module"></script>
+  <script src="http://localhost:5173/theme.ts" type="module"></script>
 
-# HTML output (production)
-<link rel="stylesheet" href="{{ 'theme.4d95c99b.css' | asset_url }}">
-<script src="{{ 'theme.3b623fca.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
-<link href="{{ 'lodash.13b0d649.js' | asset_url }}" rel="modulepreload" as="script" crossorigin="anonymous">
+  # HTML output (production)
+  <link rel="stylesheet" href="{{ 'theme.4d95c99b.css' | asset_url }}">
+  <script src="{{ 'theme.3b623fca.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
+  <link href="{{ 'lodash.13b0d649.js' | asset_url | split: '?' | first }}" rel="modulepreload" as="script" crossorigin="anonymous">
+  ```
+
+#### Loading `additionalEntrypoints`
+
+```liquid
+{% liquid
+  # Relative to sourceCodeDir
+  render 'vite-tag' with '@/foo.ts'
+  render 'vite-tag' with '~/foo.ts'
+
+  # Relative to themeRoot
+  render 'vite-tag' with '/resources/bar.ts' # leading slash is required
+%}
 ```
 
-- In development mode, assets are loaded from the Vite development server host.
-- In production mode, assets are loaded from the Shopify CDN using the `asset_url` filter and a relative base path.
+#### Preloading stylesheets
 
-Loading `additionalEntrypoints`:
-
-```txt
-# Relative to sourceCodeDir
-{%- render 'vite-tag' with '@/foo.ts' -%}
-{%- render 'vite-tag' with '~/foo.ts' -%}
-
-# Relative to themeRoot
-{%- render 'vite-tag' with '/resources/bar.ts' -%} # leading slash is required
+```liquid
+{% render 'vite-tag' with 'theme.scss', preload_stylesheet: true %}
 ```
 
-Preloading stylesheets:
-
-```
-{%- render 'vite-tag' with 'theme.css', preload_stylesheet: true -%}
-```
-> **Note**: The `preload_stylesheet` parameter will enable the `preload` parameter of the `stylesheet_tag`, use it sparingly e.g. consider preloading only render-blocking stylesheets. [Learn more](https://shopify.dev/themes/best-practices/performance#use-resource-hints-to-preload-key-resources)
+The `preload_stylesheet` parameter will enable the `preload` parameter of the `stylesheet_tag` filter, use it sparingly e.g. consider preloading only render-blocking stylesheets. [Learn more](https://shopify.dev/themes/best-practices/performance#use-resource-hints-to-preload-key-resources)
 
 ### Import aliases
 
