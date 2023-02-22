@@ -74,7 +74,7 @@ languages such as TypeScript, JSX, TSX, and Sass) within the `frontend/entrypoin
 ```
 
 ::: tip
-Read the [Configuration Reference](/config/) of the Shopify Vite Plugin for a full overview of all supported configuration options.
+Read the [Configuration Reference](/guide/configuration) of the Shopify Vite Plugin for a full overview of all supported configuration options.
 :::
 
 ### Loading your Scripts and Styles
@@ -149,7 +149,7 @@ You can pass the `preload_stylesheet` variable to the `vite-tag` snippet to enab
 Out of the box, the Shopify Vite Plugin uses sensible conventions to help you add Vite with zero configuration to existing Shopify themes; however,
 sometimes you may need to customize the Plugin's behavior.
 
-Every configuration option is described in the [Configuration Reference](/config/).
+Every configuration option is described in the [Configuration Reference](/guide/configuration).
 
 ### Loading additional entry points
 
