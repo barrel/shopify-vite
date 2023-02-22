@@ -2,93 +2,164 @@
 
 ## Overview
 
-Shopify Vite Plugin is a project that aims to integrate [Vite](https://vitejs.dev/) as seemlessly as possible
-with [Shopify themes](https://shopify.dev/docs/themes) to optimize your theme development experience.
+Shopify Vite Plugin is a project that aims to integrate [Vite](https://vitejs.dev/) as seamlessly
+as possible with [Shopify themes](https://shopify.dev/docs/themes) to optimize your theme development experience by
+providing sensible built-in configurations that should work for the majority of themes and a
+snippet to load your assets for development and production.
 
-## Installation
+## Installation in an existing theme
 
-Add `vite` and `vite-plugin-shopify` to your project's `devDependencies`:
+### Installing Node
+
+You must ensure that Node.js (16+) and NPM are installed before running Vite and the Shopify plugin:
 
 ```bash
-# npm
-npm i -D vite vite-plugin-shopify
-
-# pnpm
-pnpm add -D vite vite-plugin-shopify
-
-# Yarn
-yarn add -D vite vite-plugin-shopify
+node -v
+npm -v
 ```
 
-## Usage
+You can easily install the latest version of Node and NPM using simple graphical
+installers from [the official Node website](https://nodejs.org/en/download/).
 
-Next, create a `vite.config.js` file in your project root directory and add the `shopify` plugin:
+### Installing Vite and the Shopify Vite Plugin
+
+First, create a `package.json` file with `npm init -y` in the root of your theme's directory structure.
+
+Next, install Vite and the Shopify plugin via NPM.
+
+```bash
+npm i -D vite vite-plugin-shopify
+```
+
+Finally, adjust your `package.json` by adding the following [scripts](https://docs.npmjs.com/cli/v9/using-npm/scripts):
+
+```
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1", // [!code --]
+    "dev": "vite dev", // [!code ++]
+    "build": "vite build" // [!code ++]
+  },
+  "keywords": [],
+  "author": "",
+```
+
+### Configure Vite
+
+Create a `vite.config.js` file in your project root directory and add the Shopify plugin. You are free to customize this
+file based on your needs; check Vite's [plugins](https://vitejs.dev/plugins/) and [config reference](https://vitejs.dev/config/) for more info.
 
 ```js
 import shopify from 'vite-plugin-shopify'
 
 export default {
   plugins: [
-    // Plugin options are not required (defaults shown)
     shopify({
-      // Path to Shopify theme directory (location of snippets, sections, templates, etc.)
-      themeRoot: './',
-      // Path to front-end source code path
-      sourceCodeDir: 'frontend',
-      // Path to front-end entry points path
-      entrypointsDir: 'frontend/entrypoints',
-      // Additional files to use as entry points (accepts an array of file paths or glob patterns)
-      additionalEntrypoints: [],
-    }),
-  ],
+      // your configuration options here...
+    })
+  ]
 }
 ```
 
-Create an entry point file (these may be JavaScript or CSS files) and place it in your `entrypointsDir` directory.
+The Shopify Vite Plugin does not require you to specify the entry points for your theme. By default, it treats JavaScript and CSS files (including preprocessed
+languages such as TypeScript, JSX, TSX, and Sass) within the `frontend/entrypoints` folder in the root of your project as entry points for Vite.
 
-Finally, insert the script or stylesheet into the desired location of your theme by passing in a relative path from the entrypoints directory to the `vite-tag` liquid snippet. For example, given an entry point file located at `frontend/entrypoints/theme.ts`:
-
-```liquid
-{% render 'vite-tag' with 'theme.ts' %}
+```
+/
+└── frontend/
+    └── entrypoints/
+        ├── theme.scss
+        └── theme.ts
 ```
 
-The `vite-tag` snippet will automatically inject the Vite client to enable Hot Module Replacement during dev.
-
-::: warning
-The `vite-tag` snippet file will be
-auto-generated and inserted into your theme's snippets folder each time you
-run the Vite development server or initiate a production build.
+::: tip
+Read the [Configuration Reference](/config/) of the Shopify Vite Plugin for a full overview of all supported configuration options.
 :::
 
-## Development & Deployment
+### Loading your Scripts and Styles
 
-To start development, run the `vite` CLI command. In development, the `vite-tag` snippet will output a module script tag or stylesheet link tag which loads the desired entry point file from the Vite development server. In production, the snippet will output a tag to load the compiled asset from Shopify's CDN, along with additional script and link tags for any imported modules.
+The Shopify Vite Plugin generates a `vite-tag` snippet to load your assets for development and production.
+
+With your Vite entry points configured, you only need to reference them with the `vite-tag` snippet that you add to the `<head>` of your theme's layout:
 
 ```liquid
-<!-- HTML output from vite-tag snippet (development) -->
-<script src="http://localhost:5173/theme.ts" type="module"></script>
-
-<!-- HTML output from vite-tag snippet (production) -->
-<link rel="stylesheet" href="{{ 'theme.4d95c99b.css' | asset_url }}">
-<script src="{{ 'theme.3b623fca.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
-<link href="{{ 'lodash.13b0d649.js' | asset_url }}" rel="modulepreload" as="script" crossorigin="anonymous">
+{% liquid
+  # Relative to entrypointsDir
+  render 'vite-tag' with 'theme.scss'
+  render 'vite-tag' with 'theme.ts'
+%}
 ```
 
-We recommend adding [script commands](https://docs.npmjs.com/cli/v8/using-npm/scripts) to your project's `package.json` file to integrate the Vite server with the [Shopify CLI](https://shopify.dev/themes/tools/cli).
+During development, the `vite-tag` will load your assets from the Vite development server and inject the Vite client to enable Hot Module Replacement.
+In build mode, the snippet will load your compiled and versioned assets, including any imported CSS, and use the `asset_url` filter to serve your assets
+from the Shopify content delivery network (CDN).
 
-The following example provides a `start` command to run the Vite and Shopify servers in parallel, and a `deploy` command to compile assets for production and push the theme code to your Shopify store.
+## Running Vite
 
-```json
-"scripts": {
-  "start": "run-p vite:serve shopify:serve",
-  "deploy": "run-s vite:build shopify:push",
-  "vite:serve": "vite",
-  "vite:build": "vite build",
-  "shopify:serve": "shopify theme serve",
-  "shopify:push": "shopify theme push"
+There are two ways you can run Vite. You may run the development server via the `dev` command, which is useful while developing locally.
+The development server will automatically detect changes to your files and instantly reflect them in any open browser windows.
+
+```bash
+npm run dev
+```
+
+Or, running the `build` command will version and bundle your application's assets and get them ready for you to deploy to production:
+
+```bash
+npm run build
+```
+
+## Working with JavaScript
+
+### Aliases
+
+For convenience, `~/` and `@/` are aliased to your `sourceCodeDir` folder, which simplifies imports:
+
+```js
+import App from '@/components/App.vue'
+import '@/styles/my_styles.css'
+```
+
+## Working with Stylesheets
+
+You can learn more about Vite's CSS support within the [Vite documentation](https://vitejs.dev/guide/features.html#css). If you are using PostCSS plugins such as [Tailwind](https://tailwindcss.com/), you may create
+a `postcss.config.js` file in the root of your project and Vite will automatically apply it:
+
+```js
+module.exports = {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {}
+  }
 }
 ```
 
-::: info
-The above example depends on the [npm-run-all](https://www.npmjs.com/package/npm-run-all) package being installed to your project._
-:::
+### Preloading Stylesheets
+
+You can pass the `preload_stylesheet` variable to the `vite-tag` snippet to enable the `preload` parameter of the `stylesheet_tag` filter. Use it sparingly. For example, consider preloading only render-blocking stylesheets.
+[Learn more](https://shopify.dev/themes/best-practices/performance#use-resource-hints-to-preload-key-resources).
+
+```liquid
+{% render 'vite-tag' with 'theme.scss', preload_stylesheet: true %}
+```
+
+## Advanced Customization
+
+Out of the box, the Shopify Vite Plugin uses sensible conventions to help you add Vite with zero configuration to existing Shopify themes; however,
+sometimes you may need to customize the Plugin's behavior.
+
+Every configuration option is described in the [Configuration Reference](/config/).
+
+### Loading additional entry points
+
+```liquid
+{% liquid
+  # Relative to sourceCodeDir
+  render 'vite-tag' with '@/foo.ts'
+  render 'vite-tag' with '~/foo.ts'
+
+  # Relative to themeRoot
+  render 'vite-tag' with '/resources/bar.ts' # leading slash is required
+%}
+```
