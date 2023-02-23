@@ -77,7 +77,8 @@ Read the [Configuration Reference](/guide/configuration) of the Shopify Vite Plu
 
 ### Loading your Scripts and Styles
 
-The Shopify Vite Plugin generates a `vite-tag` snippet to load your assets for development and production.
+The Shopify Vite Plugin generates a `vite-tag` snippet which includes `<script>` and `<link>` tags, and all the liquid logic needed
+to load your assets.
 
 With your Vite entry points configured, you only need to reference them with the `vite-tag` snippet that you add to the `<head>` of your theme's layout:
 
