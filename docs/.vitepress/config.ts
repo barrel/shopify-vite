@@ -47,6 +47,12 @@ export default defineConfig({
       copyright: 'Made with ❤️ by Barrel'
     },
 
+    algolia: {
+      appId: 'LWPLHR2236',
+      apiKey: 'e33d44a0b2110e96d001eeb527ff015b',
+      indexName: 'shopify-vite'
+    },
+
     nav: [
       { text: 'Guide', link: '/guide/' },
       { text: 'Config Reference', link: '/guide/configuration' },
