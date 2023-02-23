@@ -2,8 +2,8 @@
   "private": true,
   "scripts": {
     "dev": "vitepress dev",
-    "start": "vitepress build",
-    "build": "vitepress preview"
+    "build": "vitepress build",
+    "preview": "vitepress preview"
   },
   "devDependencies": {
     "vitepress": "1.0.0-alpha.46",
