@@ -1,4 +1,6 @@
-export default {
+import { defineConfig } from 'vitepress'
+
+export default defineConfig({
   title: 'Shopify Vite Plugin',
   description: 'Vite integration for Shopify themes',
 
@@ -16,6 +18,10 @@ export default {
             link: '/guide/'
           },
           {
+            text: 'Example Projects',
+            link: '/guide/example-projects'
+          },
+          {
             text: 'Configuration Reference',
             link: '/guide/configuration'
           }
@@ -23,9 +29,18 @@ export default {
       }
     ],
 
+    editLink: {
+      pattern: 'https://github.com/barrel/shopify-vite/edit/main/docs/:path',
+      text: 'Edit this page on GitHub'
+    },
+
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/barrel/shopify-vite' }
+    ],
+
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright (c) Barrel LLC'
+      copyright: 'Copyright (c) Barrel'
     }
   }
-}
+})
