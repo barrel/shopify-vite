@@ -35,7 +35,11 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/barrel/shopify-vite' }
+      { icon: 'github', link: 'https://github.com/barrel/shopify-vite' },
+      { icon: 'twitter', link: 'https://twitter.com/barrelny' },
+      { icon: 'instagram', link: 'https://www.instagram.com/barrelny/' },
+      { icon: 'facebook', link: 'https://www.facebook.com/barrelny' },
+      { icon: 'linkedin', link: 'https://www.linkedin.com/company/barrel/' }
     ],
 
     footer: {
