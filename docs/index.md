@@ -2,6 +2,7 @@
 layout: home
 
 title: Shopify Vite Plugin
+titleTemplate: Vite integration for Shopify themes
 
 features:
   - icon: ⚡️
