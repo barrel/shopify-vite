@@ -35,7 +35,7 @@ import Button from './Button.vue'
               size="medium"
               theme="alt"
               text="View on Github"
-              href="https://github.com/barrel/barrel-shopify/tree/main/packages/vite-plugin-shopify"
+              href="https://github.com/barrel/shopify-vite"
               :isExternal=true
             />
           </div>
