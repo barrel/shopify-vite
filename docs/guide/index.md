@@ -94,7 +94,7 @@ During development, the `vite-tag` will load your assets from the Vite developme
 In build mode, the snippet will load your compiled and versioned assets, including any imported CSS, and use the `asset_url` filter to serve your assets
 from the Shopify content delivery network (CDN).
 
-### Loading [`additionalEntrypoints`](/guide/configuration)
+### Loading `additionalEntrypoints`
 
 ```liquid
 {% liquid
@@ -119,6 +119,13 @@ The development server will automatically detect changes to your files and insta
 ```bash
 npm run dev
 ```
+
+::: info
+This is the Vite development server that provides Hot Module Replacement for your Shopify theme's assets, such as scripts or styles.
+
+To access your Shopify theme, you will need to serve it locally using the [Shopify CLI](https://shopify.dev/docs/themes/tools/cli) and the `shopify theme dev` command.
+:::
+
 Or, running the `build` command will version and bundle your application's assets and get them ready for you to deploy to production:
 
 ```bash
