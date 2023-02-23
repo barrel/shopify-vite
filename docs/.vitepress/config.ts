@@ -49,7 +49,7 @@ export default defineConfig({
 
     nav: [
       { text: 'Guide', link: '/guide/' },
-      { text: 'Config', link: '/guide/configuration' },
+      { text: 'Config Reference', link: '/guide/configuration' },
       {
         text: 'Plugins',
         items: [
