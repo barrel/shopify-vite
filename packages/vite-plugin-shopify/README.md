@@ -6,7 +6,7 @@
 
 - ⚡️ [Everything Vite provides](https://vitejs.dev/guide/features.html), plus:
 - 🤖 Automatic entrypoint detection
-- 🏷 Smart generation of `script` and `link` tags for entrypoints
+- 🏷 Smart tag generation to load your entrypoints
 - 🌎 Full support for assets served from Shopify CDN
 - 👌 Zero-Config
 - 🔩 Extensible

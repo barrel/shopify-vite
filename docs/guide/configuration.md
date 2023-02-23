@@ -43,15 +43,3 @@ Front-end entry points directory.
 - **Default:** `[]`
 
 Additional files to use as entry points (accepts an array of file paths or glob patterns).
-
-__Example:__
-
-```js
-{
-  additionalEntrypoints: [
-    'frontend/foo.ts', // relative to sourceCodeDir
-    'bar.ts', // relative to themeRoot
-    'resources/**/*.{ts,js}'
-  ]
-}
-```
