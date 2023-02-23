@@ -80,7 +80,7 @@ import Button from './Button.vue'
 
 @media (min-width: 640px) {
   .main {
-    padding-top: 24px;
+    padding-top: 32px;
   }
 }
 
