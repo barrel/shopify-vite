@@ -8,13 +8,13 @@
   "scripts": {
     "build": "turbo run build --filter=vite-plugin-*",
     "dev": "turbo run dev --filter=vite-plugin-* --parallel",
-    "seed:dev": "cd themes/seed-theme && npm run dev",
-    "seed:dev:sync": "cd themes/seed-theme && npm run dev:sync",
     "lint": "turbo run lint",
     "change:add": "changeset add",
     "change:version": "changeset version",
     "change:publish": "npm run build && changeset publish",
-    "docs:build": "npm -C docs run build",
+    "docs:dev": "pnpm -C docs run dev",
+    "docs:build": "pnpm -C docs run build",
+    "docs:preview": "pnpm -C docs run dev",
     "test": "turbo run test --filter=vite-plugin-*"
   },
   "engines": {

@@ -2,6 +2,10 @@
   "name": "vite-plugin-shopify",
   "version": "1.0.0",
   "description": "Vite plugin providing integration for Shopify themes",
+  "repository": {
+    "url": "barrel/shopify-vite",
+    "directory": "packages/vite-plugin-shopify"
+  },
   "keywords": [
     "vite",
     "shopify",
