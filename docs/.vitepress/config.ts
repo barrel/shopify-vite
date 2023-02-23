@@ -44,7 +44,19 @@ export default defineConfig({
 
     footer: {
       message: 'Released under the MIT License.',
-      copyright: 'Copyright (c) Barrel'
-    }
+      copyright: 'Made with ❤️ by Barrel'
+    },
+
+    nav: [
+      { text: 'Guide', link: '/guide/' },
+      { text: 'Config', link: '/guide/configuration' },
+      {
+        text: 'Plugins',
+        items: [
+          { text: 'Shopify Modules', link: 'https://github.com/barrel/shopify-vite/tree/main/packages/vite-plugin-shopify-modules' },
+          { text: 'Shopify Theme Settings', link: 'https://github.com/barrel/shopify-vite/tree/main/packages/vite-plugin-shopify-theme-settings' }
+        ]
+      }
+    ]
   }
 })
