@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 1.0.1
+
+### Patch Changes
+
+- Shopify Vite Docs ([#48](https://github.com/barrel/shopify-vite/pull/48)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
 ## 1.0.0
 
 ### Major Changes
