@@ -1,0 +1,5 @@
+[[redirects]]
+  from = "https://shopify-vite.netlify.app/*"
+  to = "https://shopify-vite.barrelny.com/:splat"
+  status = 301
+  force = true
