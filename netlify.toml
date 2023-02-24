@@ -4,5 +4,5 @@
 [build]
   base = "docs/"
   ignore = "git diff --quiet 'HEAD^' HEAD ."
-  publish = "docs/.vitepress/dist"
+  publish = ".vitepress/dist"
   command = "pnpm build"
