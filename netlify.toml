@@ -1,5 +1,8 @@
-[[redirects]]
-  from = "https://shopify-vite.netlify.app/*"
-  to = "https://shopify-vite.barrelny.com/:splat"
-  status = 301
-  force = true
+[build.environment]
+  NODE_VERSION = "16"
+  NPM_FLAGS = "--version" # prevent Netlify npm install
+
+[build]
+	base = "docs/"
+  publish = ".vitepress/dist"
+  command = "npx pnpm i --store=node_modules/.pnpm-store && npm run build"
