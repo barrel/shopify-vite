@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'node:path'
 import { Plugin, UserConfig, mergeConfig, normalizePath } from 'vite'
 import glob from 'fast-glob'
 import createDebugger from 'debug'

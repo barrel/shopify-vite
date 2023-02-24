@@ -1,5 +1,5 @@
-import fs from 'fs'
-import path from 'path'
+import fs from 'node:fs'
+import path from 'node:path'
 import { Manifest, Plugin, ResolvedConfig, normalizePath } from 'vite'
 import createDebugger from 'debug'
 
@@ -166,7 +166,7 @@ const stylesheetTag = (fileName: string): string =>
   `{{ '${fileName}' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}`
 
 // Generate vite-tag snippet for development
-const viteTagSnippetDev = (assetHost = 'http://localhost:5173', entrypointsDir = 'frontend/entrypoints', modulesPath = ''): string =>
+const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, modulesPath: string): string =>
   `{% liquid
   assign path_prefix = path | slice: 0
   if path_prefix == '/'
