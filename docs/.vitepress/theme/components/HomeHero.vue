@@ -18,7 +18,7 @@ import Button from './Button.vue'
         <h1 class="name">
           <span class="clip">Shopify Vite Plugin</span>
         </h1>
-        <p  class="tagline">The best of both worlds, seamlessly together.</p>
+        <p  class="tagline">Vite integration for Shopify themes.</p>
 
         <div class="actions">
           <div class="action">
