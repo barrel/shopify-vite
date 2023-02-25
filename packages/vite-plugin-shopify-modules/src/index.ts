@@ -4,6 +4,7 @@ import { Plugin, normalizePath } from 'vite'
 import chokidar from 'chokidar'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
+import debounce from 'just-debounce'
 
 import { VitePluginShopifyModulesOptions, resolveOptions } from './options'
 
@@ -63,10 +64,11 @@ export default function shopifyModules (options: VitePluginShopifyModulesOptions
         followSymlinks: false
       })
 
+      // Create debounced function for generating module symlinks
+      const linkModulesFn = debounce((_event: string, path: string) => linkModule(path, resolvedOptions), 100)
+
       // Watch for relevant file or directory changes to re-run script
-      watcher.on('add', path => linkModule(path, resolvedOptions))
-      watcher.on('change', path => linkModule(path, resolvedOptions))
-      watcher.on('unlink', path => linkModule(path, resolvedOptions))
+      watcher.on('all', linkModulesFn)
     }
   }
 }
