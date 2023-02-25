@@ -96,20 +96,34 @@ from the Shopify content delivery network (CDN).
 
 ### Loading `additionalEntrypoints`
 
-```liquid
+::: code-group
+
+```liquid [theme.liquid]
 {% liquid
   # Relative to sourceCodeDir
   render 'vite-tag' with '@/foo.ts'
   render 'vite-tag' with '~/foo.ts'
-%}
-```
 
-```liquid
-{% liquid
   # Relative to themeRoot
   render 'vite-tag' with '/bar.ts' # leading slash is required
 %}
 ```
+
+```js [vite.config.js]
+import shopify from 'vite-plugin-shopify'
+
+export default {
+  plugins: [
+    shopify({
+      additionalEntrypoints: [
+        'frontend/foo.ts', // Relative to sourceCodeDir
+        'bar.ts' // Relative to themeRoot
+      ]
+    })
+  ]
+}
+```
+:::
 
 ## Running Vite
 
