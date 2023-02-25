@@ -2,6 +2,10 @@
   "name": "vite-plugin-shopify-modules",
   "version": "0.0.7",
   "description": "Vite plugin for organizing Shopify theme code into modules",
+  "repository": {
+    "url": "barrel/shopify-vite",
+    "directory": "packages/vite-plugin-shopify-modules"
+  },
   "keywords": [
     "vite",
     "shopify",
@@ -35,7 +39,8 @@
   "dependencies": {
     "chokidar": "^3.5.3",
     "debug": "^4.3.4",
-    "fast-glob": "^3.2.11"
+    "fast-glob": "^3.2.11",
+    "just-debounce": "^1.1.0"
   },
   "devDependencies": {
     "tsconfig": "workspace:*",
