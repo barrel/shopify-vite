@@ -16,7 +16,7 @@ features:
     details: Smart tag generation to load the scripts and styles of your theme.
   - icon: 🌎
     title: Shopify CDN Support
-    details: Full support for assets served from Shopify's CDN.
+    details: Full support for assets served from Shopify CDN.
   - icon: 👌
     title: Zero-Config
     details: Sensible built-in default configs for use in existing themes.
