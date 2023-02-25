@@ -104,7 +104,7 @@ from the Shopify content delivery network (CDN).
   render 'vite-tag' with '@/foo.ts'
   render 'vite-tag' with '~/foo.ts'
 
-  # Relative to themeRoot
+  # Relative to project root
   render 'vite-tag' with '/bar.ts' # leading slash is required
 %}
 ```
@@ -117,7 +117,7 @@ export default {
     shopify({
       additionalEntrypoints: [
         'frontend/foo.ts', // Relative to sourceCodeDir
-        'bar.ts' // Relative to themeRoot
+        'bar.ts' // Relative to project root
       ]
     })
   ]
