@@ -1,5 +1,5 @@
-import { lstatSync, renameSync, unlinkSync, symlinkSync, existsSync, statSync } from 'fs'
-import path from 'path'
+import { lstatSync, renameSync, unlinkSync, symlinkSync, existsSync, statSync } from 'node:fs'
+import path from 'node:path'
 import { Plugin, normalizePath } from 'vite'
 import chokidar from 'chokidar'
 import glob from 'fast-glob'
