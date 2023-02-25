@@ -51,10 +51,10 @@ export default function shopifyModules (options: VitePluginShopifyModulesOptions
       }
       return null
     },
-    buildEnd: async () => {
+    buildStart: async () => {
       const modulePaths = await glob(`${normalizePath(resolvedOptions.modulesDir)}/**/*.liquid`)
 
-      // Link modules on build end
+      // Link modules on build start
       modulePaths.forEach(modulePath => linkModule(modulePath, resolvedOptions))
     },
     configureServer () {
