@@ -3,6 +3,6 @@
 
 [build]
   base = "docs/"
-  ignore = "git diff --quiet 'HEAD^' HEAD ."
+  # ignore = "git diff --quiet 'HEAD^' HEAD ."
   publish = ".vitepress/dist"
   command = "pnpm build"
