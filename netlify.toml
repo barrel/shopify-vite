@@ -1,6 +1,3 @@
-[build.environment]
-  NODE_VERSION = "16"
-
 [build]
   base = "docs/"
   publish = ".vitepress/dist"
