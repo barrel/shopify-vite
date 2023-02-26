@@ -2,6 +2,10 @@
   "name": "vite-plugin-shopify-theme-settings",
   "version": "0.0.7",
   "description": "Vite plugin for merging Shopify theme settings from multiple source files",
+  "repository": {
+    "url": "barrel/shopify-vite",
+    "directory": "packages/vite-plugin-shopify-theme-settings"
+  },
   "keywords": [
     "vite",
     "shopify",
@@ -34,7 +38,7 @@
   },
   "dependencies": {
     "chokidar": "^3.5.3",
-    "lodash": "^4.17.21"
+    "just-debounce": "^1.1.0"
   },
   "devDependencies": {
     "tsconfig": "workspace:*",
