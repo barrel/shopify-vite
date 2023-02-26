@@ -78,14 +78,12 @@ importers:
     specifiers:
       chokidar: ^3.5.3
       just-debounce: ^1.1.0
-      lodash: ^4.17.21
       tsconfig: workspace:*
       vite: ^4.0.4
       vitest: ^0.25.0
     dependencies:
       chokidar: 3.5.3
       just-debounce: 1.1.0
-      lodash: 4.17.21
       vite: 4.0.4
     devDependencies:
       tsconfig: link:../tsconfig
