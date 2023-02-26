@@ -8,7 +8,6 @@ import { VitePluginShopifyThemeSettingsOptions, resolveOptions } from './options
 export default function shopifyThemeSettings (options: VitePluginShopifyThemeSettingsOptions = {}): Plugin {
   const resolvedOptions = resolveOptions(options)
 
-  // Create throttled function for generating settings_schema.json
   return {
     name: 'vite-plugin-shopify-theme-settings',
     configureServer (server) {
@@ -24,9 +23,9 @@ export default function shopifyThemeSettings (options: VitePluginShopifyThemeSet
           }
         }, 100))
     },
-    closeBundle () {
+    async closeBundle () {
       // Generate new settings_schema.json when finishing production build
-      void generateSettingsSchemaJson(resolvedOptions)
+      await generateSettingsSchemaJson(resolvedOptions)
     }
   }
 }
