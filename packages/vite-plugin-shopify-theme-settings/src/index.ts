@@ -17,7 +17,7 @@ export default function shopifyThemeSettings (options: VitePluginShopifyThemeSet
       server.watcher
         .add(resolvedOptions.schemaSourceDir)
         .on('all', debounce((_event: string, path: string) => {
-          if (path.includes(resolvedOptions.schemaSourceDir)) {
+          if (new RegExp(resolvedOptions.schemaSourceDir).test(path)) {
             // Generate new settings_schema.json when source files change in development
             void generateSettingsSchemaJson(resolvedOptions)
           }
