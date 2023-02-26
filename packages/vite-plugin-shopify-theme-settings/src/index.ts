@@ -1,7 +1,7 @@
-import { promises as fs, existsSync } from 'fs'
-import path from 'path'
+import { promises as fs, existsSync } from 'node:fs'
+import path from 'node:path'
 import { Plugin } from 'vite'
-import { throttle } from 'lodash'
+import debounce from 'just-debounce'
 
 import { VitePluginShopifyThemeSettingsOptions, resolveOptions } from './options'
 
@@ -9,30 +9,24 @@ export default function shopifyThemeSettings (options: VitePluginShopifyThemeSet
   const resolvedOptions = resolveOptions(options)
 
   // Create throttled function for generating settings_schema.json
-  const generateSettingsSchemaJsonFn = throttle(
-    generateSettingsSchemaJson.bind(null, resolvedOptions),
-    500,
-    { leading: true, trailing: false }
-  )
-
   return {
     name: 'vite-plugin-shopify-theme-settings',
-    async configureServer (server) {
+    configureServer (server) {
       // Generate new settings_schema.json when starting development server
-      void generateSettingsSchemaJsonFn()
+      void generateSettingsSchemaJson(resolvedOptions)
 
       server.watcher
         .add(resolvedOptions.schemaSourceDir)
-        .on('all', (eventName, eventPath) => {
-          if (eventPath.includes(resolvedOptions.schemaSourceDir)) {
+        .on('all', debounce((_event: string, path: string) => {
+          if (path.includes(resolvedOptions.schemaSourceDir)) {
             // Generate new settings_schema.json when source files change in development
-            void generateSettingsSchemaJsonFn()
+            void generateSettingsSchemaJson(resolvedOptions)
           }
-        })
+        }, 100))
     },
-    async closeBundle () {
+    closeBundle () {
       // Generate new settings_schema.json when finishing production build
-      await generateSettingsSchemaJsonFn()
+      void generateSettingsSchemaJson(resolvedOptions)
     }
   }
 }
