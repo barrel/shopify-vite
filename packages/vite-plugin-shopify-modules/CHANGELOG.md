@@ -1,5 +1,12 @@
 # vite-plugin-shopify-modules
 
+## 0.0.8
+
+### Patch Changes
+
+- Bugfixes ([#52](https://github.com/barrel/shopify-vite/pull/52)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+- Clean up ([#54](https://github.com/barrel/shopify-vite/pull/54)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
 ## 0.0.7
 
 ### Patch Changes

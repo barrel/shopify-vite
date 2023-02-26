@@ -1,5 +1,12 @@
 # vite-plugin-shopify-theme-settings
 
+## 0.0.8
+
+### Patch Changes
+
+- Use debounce ([#53](https://github.com/barrel/shopify-vite/pull/53)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+- Clean up ([#54](https://github.com/barrel/shopify-vite/pull/54)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
 ## 0.0.7
 
 ### Patch Changes

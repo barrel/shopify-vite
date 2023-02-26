@@ -1,6 +1,6 @@
 {
   "name": "vite-plugin-shopify-modules",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Vite plugin for organizing Shopify theme code into modules",
   "repository": {
     "url": "barrel/shopify-vite",
