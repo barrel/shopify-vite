@@ -89,7 +89,7 @@ from the Shopify content delivery network (CDN).
 
 ```liquid
 {% liquid
-  # Relative to themeRoot
+  # Relative to project root
   render 'vite-tag' with '/bar.ts' # leading slash is required
 %}
 ```
