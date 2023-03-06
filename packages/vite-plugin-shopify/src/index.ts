@@ -1,6 +1,7 @@
 import { Plugin } from 'vite'
 
-import { VitePluginShopifyOptions, resolveOptions } from './options'
+import { resolveOptions } from './options'
+import type { VitePluginShopifyOptions } from './types'
 import shopifyConfig from './config'
 import shopifyHtml from './html'
 

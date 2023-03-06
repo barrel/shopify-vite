@@ -1,12 +1,6 @@
 import path from 'node:path'
 import { normalizePath } from 'vite'
-
-export interface VitePluginShopifyOptions {
-  themeRoot?: string
-  entrypointsDir?: string
-  additionalEntrypoints?: string[]
-  sourceCodeDir?: string
-}
+import type { VitePluginShopifyOptions } from './types'
 
 export const resolveOptions = (
   options: VitePluginShopifyOptions

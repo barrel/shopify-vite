@@ -3,7 +3,7 @@ import { Plugin, UserConfig, mergeConfig, normalizePath } from 'vite'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
 
-import { VitePluginShopifyOptions } from './options'
+import type { VitePluginShopifyOptions } from './types'
 
 const debug = createDebugger('vite-plugin-shopify:config')
 
@@ -14,10 +14,9 @@ export default function shopifyConfig (options: Required<VitePluginShopifyOption
     config (config: UserConfig): UserConfig {
       const host = config.server?.host ?? 'localhost'
       const port = config.server?.port ?? 5173
-      const https = config.server?.https
-      const protocol = https === true ? 'https:' : 'http:'
-      const origin = `${protocol}//${host as string}:${port}`
-      const socketProtocol = https === true ? 'wss' : 'ws'
+      const https = config.server?.https ?? false
+      const origin = config.server?.origin ?? '__shopify_vite_placeholder__'
+      const socketProtocol = https === false ? 'ws' : 'wss'
 
       let input = glob.sync(normalizePath(path.join(options.entrypointsDir, '**/*')), { onlyFiles: true })
 
@@ -54,7 +53,7 @@ export default function shopifyConfig (options: Required<VitePluginShopifyOption
           origin,
           strictPort: true,
           hmr: {
-            host: host as string,
+            host: typeof host === 'string' ? host : undefined,
             port,
             protocol: socketProtocol
           }
