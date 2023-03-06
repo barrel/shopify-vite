@@ -165,6 +165,7 @@ importers:
 
   themes/vite-shopify-example:
     specifiers:
+      '@vitejs/plugin-basic-ssl': ^1.0.1
       cross-env: ^7.0.3
       lodash-es: ^4.17.21
       sass: ^1.52.2
@@ -175,6 +176,7 @@ importers:
     dependencies:
       lodash-es: 4.17.21
     devDependencies:
+      '@vitejs/plugin-basic-ssl': 1.0.1_vite@4.0.4
       cross-env: 7.0.3
       sass: 1.57.1
       tsconfig: link:../../packages/tsconfig
@@ -1956,6 +1958,15 @@ packages:
     dependencies:
       '@typescript-eslint/types': 4.33.0
       eslint-visitor-keys: 2.1.0
+    dev: true
+
+  /@vitejs/plugin-basic-ssl/1.0.1_vite@4.0.4:
+    resolution: {integrity: sha512-pcub+YbFtFhaGRTo1832FQHQSHvMrlb43974e2eS8EKleR3p1cDdkJFPci1UhwkEf1J9Bz+wKBSzqpKp7nNj2A==}
+    engines: {node: '>=14.6.0'}
+    peerDependencies:
+      vite: ^3.0.0 || ^4.0.0
+    dependencies:
+      vite: 4.0.4_sass@1.57.1
     dev: true
 
   /abort-controller/3.0.0:
