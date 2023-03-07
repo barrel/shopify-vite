@@ -1,16 +1,18 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import { AddressInfo } from 'node:net'
 import { Manifest, Plugin, ResolvedConfig, normalizePath } from 'vite'
 import createDebugger from 'debug'
 
 import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
-import { VitePluginShopifyOptions } from './options'
+import type { VitePluginShopifyOptions, DevServerUrl } from './types'
 
 const debug = createDebugger('vite-plugin-shopify:html')
 
 // Plugin for generating vite-tag liquid theme snippet with entry points for JS and CSS assets
 export default function shopifyHTML (options: Required<VitePluginShopifyOptions>): Plugin {
   let config: ResolvedConfig
+  let viteDevServerUrl: DevServerUrl
   let modulesPath = ''
 
   const viteTagSnippetPath = path.resolve(options.themeRoot, 'snippets/vite-tag.liquid')
@@ -29,20 +31,30 @@ export default function shopifyHTML (options: Required<VitePluginShopifyOptions>
         modulesPath = normalizePath(path.relative(options.entrypointsDir, modulesAlias.replacement))
       }
     },
-    configureServer ({ config, middlewares }) {
-      const protocol = config.server?.https === true ? 'https:' : 'http:'
-      const host = typeof config.server?.host === 'string' ? config.server.host : 'localhost'
-      const port = typeof config.server?.port !== 'undefined' ? config.server.port : 5173
+    transform (code) {
+      if (config.command === 'serve') {
+        return code.replace(/__shopify_vite_placeholder__/g, viteDevServerUrl)
+      }
+    },
+    configureServer ({ config, middlewares, httpServer }) {
+      httpServer?.once('listening', () => {
+        const address = httpServer?.address()
 
-      const assetHost = typeof config.server?.origin === 'string' ? config.server.origin : `${protocol}//${host}:${port}`
+        const isAddressInfo = (x: string | AddressInfo | null | undefined): x is AddressInfo => typeof x === 'object'
 
-      debug({ assetHost })
+        if (isAddressInfo(address)) {
+          viteDevServerUrl = resolveDevServerUrl(address, config)
 
-      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir) + viteTagSnippetDev(assetHost, options.entrypointsDir, modulesPath)
+          debug({ address, viteDevServerUrl })
 
-      // Write vite-tag snippet for development server
-      fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
+          const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir) + viteTagSnippetDev(viteDevServerUrl, options.entrypointsDir, modulesPath)
 
+          // Write vite-tag snippet for development server
+          fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
+        }
+      })
+
+      // Serve the dev-server-index.html page
       return () => middlewares.use((req, res, next) => {
         if (req.url === '/index.html') {
           res.statusCode = 404
@@ -56,6 +68,10 @@ export default function shopifyHTML (options: Required<VitePluginShopifyOptions>
       })
     },
     closeBundle () {
+      if (config.command === 'serve') {
+        return
+      }
+
       const manifestFilePath = path.resolve(options.themeRoot, 'assets/manifest.json')
 
       if (!fs.existsSync(manifestFilePath)) {
@@ -196,3 +212,32 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, modulesPat
   <script src="{{ file_url }}" type="module" crossorigin="anonymous"></script>
 {% endif %}
 `
+
+/**
+ * Resolve the dev server URL from the server address and configuration.
+ */
+function resolveDevServerUrl (address: AddressInfo, config: ResolvedConfig): DevServerUrl {
+  const configHmrProtocol = typeof config.server.hmr === 'object' ? config.server.hmr.protocol : null
+  const clientProtocol = configHmrProtocol !== null ? (configHmrProtocol === 'wss' ? 'https' : 'http') : null
+  const serverProtocol = config.server.https !== false ? 'https' : 'http'
+  const protocol = clientProtocol ?? serverProtocol
+
+  const configHmrHost = typeof config.server.hmr === 'object' ? config.server.hmr.host : null
+  const configHost = typeof config.server.host === 'string' ? config.server.host : null
+  const serverAddress = isIpv6(address) ? `[${address.address}]` : address.address
+  const host = configHmrHost ?? configHost ?? serverAddress
+
+  const configHmrClientPort = typeof config.server.hmr === 'object' ? config.server.hmr.clientPort : null
+  const port = configHmrClientPort ?? address.port
+
+  return `${protocol}://${host}:${port}`
+}
+
+function isIpv6 (address: AddressInfo): boolean {
+  return address.family === 'IPv6' ||
+    // In node >=18.0 <18.4 this was an integer value. This was changed in a minor version.
+    // See: https://github.com/laravel/vite-plugin/issues/103
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-expect-error-next-line
+    address.family === 6
+}
