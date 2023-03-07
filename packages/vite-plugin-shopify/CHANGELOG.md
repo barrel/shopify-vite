@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 1.0.2
+
+### Patch Changes
+
+- Bugfix/server host ([#56](https://github.com/barrel/shopify-vite/pull/56)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
 ## 1.0.1
 
 ### Patch Changes
