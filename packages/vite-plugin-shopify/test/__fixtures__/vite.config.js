@@ -3,7 +3,7 @@ import path from 'node:path'
 /** @type {import('vite').UserConfig} */
 export default {
   server: {
-    host: 'localhost',
+    host: 'localhost'
   },
   resolve: {
     alias: [
