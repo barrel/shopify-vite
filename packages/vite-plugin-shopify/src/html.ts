@@ -68,6 +68,10 @@ export default function shopifyHTML (options: Required<VitePluginShopifyOptions>
       })
     },
     closeBundle () {
+      if (config.command === 'serve') {
+        return
+      }
+
       const manifestFilePath = path.resolve(options.themeRoot, 'assets/manifest.json')
 
       if (!fs.existsSync(manifestFilePath)) {
