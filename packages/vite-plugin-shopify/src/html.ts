@@ -54,7 +54,7 @@ export default function shopifyHTML (options: Required<VitePluginShopifyOptions>
         }
       })
 
-      // Serve dev-server page
+      // Serve the dev-server-index.html page
       return () => middlewares.use((req, res, next) => {
         if (req.url === '/index.html') {
           res.statusCode = 404
