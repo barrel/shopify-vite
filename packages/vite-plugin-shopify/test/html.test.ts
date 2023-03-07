@@ -23,6 +23,8 @@ describe('vite-plugin-shopify:html', () => {
 
     configureServer(viteServer)
 
+    viteServer.httpServer?.emit('listening')
+
     const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })
 
     await viteServer.close()
