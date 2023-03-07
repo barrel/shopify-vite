@@ -36,15 +36,15 @@ describe('vite-plugin-shopify:config', () => {
     const userConfig = plugin(options)
     const config = userConfig.config({
       server: {
+        host: '0.0.0.0',
         port: 3000
       },
-      build: {
-        sourcemap: true
-      }
+      publicDir: 'public'
     }, { command: 'serve', mode: 'development' })
 
+    expect(config.server.host).toBe('0.0.0.0')
     expect(config.server.port).toEqual(3000)
-    expect(config.build.sourcemap).toBe(true)
+    expect(config.publicDir).toEqual('public')
     expect(config.build.rollupOptions.input).toEqual(['frontend/entrypoints/app.js', 'resources/js/app.js'])
   })
 })
