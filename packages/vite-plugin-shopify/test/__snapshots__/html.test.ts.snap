@@ -9,9 +9,9 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development 1`]
 {% liquid
   assign path_prefix = path | slice: 0
   if path_prefix == '/'
-    assign file_url_prefix = 'http://localhost:5173'
+    assign file_url_prefix = 'https://[::1]:5173'
   else
-    assign file_url_prefix = 'http://localhost:5173/test/__fixtures__/frontend/entrypoints/'
+    assign file_url_prefix = 'https://[::1]:5173/test/__fixtures__/frontend/entrypoints/'
   endif
   assign file_url = path | prepend: file_url_prefix
   assign file_name = path | split: '/' | last
@@ -28,7 +28,7 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development 1`]
     assign file_url = file_url | append: '/' | append: file_name
   endif
 %}
-<script src=\\"http://localhost:5173/@vite/client\\" type=\\"module\\"></script>
+<script src=\\"https://[::1]:5173/@vite/client\\" type=\\"module\\"></script>
 {% if is_css == true %}
   {{ file_url | stylesheet_tag }}
 {% else %}
