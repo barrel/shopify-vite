@@ -16,7 +16,8 @@ describe('vite-plugin-shopify:html', () => {
 
     const viteServer = await (
       await createServer({
-        logLevel: 'silent'
+        logLevel: 'silent',
+        configFile: path.join(__dirname, '__fixtures__', 'vite.config.js')
       })
     ).listen()
 
