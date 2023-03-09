@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from 'vitest'
 import { resolveOptions } from '../src/options'
 import plugin from '../src/config'
-import path from 'path'
+import path from 'node:path'
 
 describe('vite-plugin-shopify:config', () => {
   afterEach(() => {

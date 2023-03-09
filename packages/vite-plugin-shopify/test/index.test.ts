@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest'
-import path from 'path'
+import path from 'node:path'
 import { build } from 'vite'
 import shopify from '../src'
 import modules from '../../vite-plugin-shopify-modules/src'
-import fs from 'fs/promises'
+import fs from 'node:fs/promises'
 
 describe('vite-plugin-shopify', () => {
   it('builds out .liquid files for production', async () => {
