@@ -9,11 +9,13 @@ export const resolveOptions = (
   const sourceCodeDir = options.sourceCodeDir ?? 'frontend'
   const entrypointsDir = options.entrypointsDir ?? normalizePath(path.join(sourceCodeDir, 'entrypoints'))
   const additionalEntrypoints = options.additionalEntrypoints ?? []
+  const snippetFile = options.snippetFile ?? 'vite-tag.liquid'
 
   return {
     themeRoot,
     sourceCodeDir,
     entrypointsDir,
-    additionalEntrypoints
+    additionalEntrypoints,
+    snippetFile
   }
 }
