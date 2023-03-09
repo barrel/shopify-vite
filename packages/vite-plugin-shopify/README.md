@@ -42,6 +42,8 @@ export default {
       entrypointsDir: 'frontend/entrypoints',
       // Additional files to use as entry points (accepts an array of file paths or glob patterns)
       additionalEntrypoints: []
+      // Specifies the file name of the snippet that loads your assets
+      snippetFile: 'vite-tag.liquid'
     })
   ]
 }
