@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import shopify from 'vite-plugin-shopify'
 import basicSsl from '@vitejs/plugin-basic-ssl'
+import { resolve } from 'node:path'
 
 export default defineConfig({
   server: {
@@ -11,8 +12,8 @@ export default defineConfig({
   publicDir: 'public',
   resolve: {
     alias: {
-      '~~': '/frontend',
-      '@@': '/frontend'
+      '~~': resolve('frontend'),
+      '@@': resolve('frontend')
     }
   },
   plugins: [
