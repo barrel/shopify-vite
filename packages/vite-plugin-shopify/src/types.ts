@@ -7,5 +7,3 @@ export interface VitePluginShopifyOptions {
 }
 
 export type DevServerUrl = `${'http' | 'https'}://${string}:${number}`
-
-export type LiquidFile = `${string}.liquid`
