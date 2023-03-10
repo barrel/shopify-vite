@@ -1,9 +1,0 @@
-{% layout none %}
-{% comment %}
-  NOTE: This template is used to dynamically render content for the recently-viewed-products module.
-{% endcomment %}
-{% paginate search.results by 50 %}
-  <div data-slot="product-grid-results">
-    {% render 'product-grid', products: search.results %}
-  </div>
-{% endpaginate %}

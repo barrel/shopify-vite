@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import shopify from 'vite-plugin-shopify'
-import shopifyModules from 'vite-plugin-shopify-modules'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 
 export default defineConfig({
@@ -23,10 +22,9 @@ export default defineConfig({
       additionalEntrypoints: [
         'frontend/foo.ts', // relative to sourceCodeDir
         'resources/bar.ts', // relative to themeRoot
-        'modules/**/*.{ts,js}'
+        'resources/cart-drawer.ts'
       ]
-    }),
-    shopifyModules()
+    })
   ],
   build: {
     sourcemap: true

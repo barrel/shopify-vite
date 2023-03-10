@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest'
 import path from 'node:path'
 import { build } from 'vite'
 import shopify from '../src'
-import modules from '../../vite-plugin-shopify-modules/src'
 import fs from 'node:fs/promises'
 
 describe('vite-plugin-shopify', () => {
@@ -13,10 +12,6 @@ describe('vite-plugin-shopify', () => {
         shopify({
           themeRoot: path.join(__dirname, '__fixtures__'),
           sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend')
-        }),
-        modules({
-          themeRoot: path.join(__dirname, '__fixtures__'),
-          modulesDir: path.join(__dirname, '__fixtures__', 'modules')
         })
       ]
     })
