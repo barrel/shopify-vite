@@ -63,14 +63,7 @@ export default defineConfig({
 
     nav: [
       { text: 'Guide', link: '/guide/' },
-      { text: 'Config Reference', link: '/guide/configuration' },
-      {
-        text: 'Plugins',
-        items: [
-          { text: 'Shopify Modules', link: 'https://github.com/barrel/shopify-vite/tree/main/packages/vite-plugin-shopify-modules' },
-          { text: 'Shopify Theme Settings', link: 'https://github.com/barrel/shopify-vite/tree/main/packages/vite-plugin-shopify-theme-settings' }
-        ]
-      }
+      { text: 'Config Reference', link: '/guide/configuration' }
     ]
   }
 })
