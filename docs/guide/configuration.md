@@ -46,7 +46,7 @@ Additional files to use as entry points (accepts an array of file paths or glob 
 
 ## snippetFile
 
-- **Type:** `LiquidFile`
+- **Type:** `string`
 - **Default:** `vite-tag.liquid`
 
 Specifies the file name of the snippet that loads your assets.
