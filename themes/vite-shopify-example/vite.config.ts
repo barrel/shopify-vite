@@ -6,7 +6,15 @@ import basicSsl from '@vitejs/plugin-basic-ssl'
 export default defineConfig({
   server: {
     host: true,
-    https: true
+    https: true,
+    port: 3000
+  },
+  publicDir: 'public',
+  resolve: {
+    alias: {
+      '~~': '/frontend',
+      '@@': '/frontend'
+    }
   },
   plugins: [
     basicSsl(),

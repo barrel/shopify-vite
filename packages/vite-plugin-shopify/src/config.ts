@@ -1,5 +1,5 @@
 import path from 'node:path'
-import { Plugin, UserConfig, mergeConfig, normalizePath } from 'vite'
+import { Plugin, UserConfig, normalizePath } from 'vite'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
 
@@ -17,6 +17,10 @@ export default function shopifyConfig (options: Required<VitePluginShopifyOption
       const https = config.server?.https ?? false
       const origin = config.server?.origin ?? '__shopify_vite_placeholder__'
       const socketProtocol = https === false ? 'ws' : 'wss'
+      const defaultAliases: Record<string, string> = {
+        '~': path.resolve(options.sourceCodeDir),
+        '@': path.resolve(options.sourceCodeDir)
+      }
 
       let input = glob.sync(normalizePath(path.join(options.entrypointsDir, '**/*')), { onlyFiles: true })
 
@@ -26,43 +30,58 @@ export default function shopifyConfig (options: Required<VitePluginShopifyOption
 
       const generatedConfig: UserConfig = {
         // Use relative base path so to load imported assets from Shopify CDN
-        base: './',
+        base: config.base ?? './',
         // Do not use "public" directory
-        publicDir: false,
+        publicDir: config.publicDir ?? false,
         build: {
           // Output files to "assets" directory
-          outDir: path.join(options.themeRoot, 'assets'),
+          outDir: config.build?.outDir ?? path.join(options.themeRoot, 'assets'),
           // Do not use subfolder for static assets
-          assetsDir: '',
+          assetsDir: config.build?.assetsDir ?? '',
           // Configure bundle entry points
-          rollupOptions: { input },
+          rollupOptions: {
+            input: config.build?.rollupOptions?.input ?? input
+          },
           // Output manifest file for backend integration
-          manifest: true
+          manifest: config.build?.manifest ?? true
         },
         resolve: {
           // Provide import alias to source code dir for convenience
-          alias: {
-            '~': path.resolve(options.sourceCodeDir),
-            '@': path.resolve(options.sourceCodeDir)
-          }
+          alias: Array.isArray(config.resolve?.alias)
+            ? [
+                ...config.resolve?.alias ?? [],
+                ...Object.keys(defaultAliases).map(alias => ({
+                  find: alias,
+                  replacement: defaultAliases[alias]
+                }))
+              ]
+            : {
+                ...defaultAliases,
+                ...config.resolve?.alias
+              }
         },
         server: {
           host,
           https,
           port,
           origin,
-          strictPort: true,
-          hmr: {
-            host: typeof host === 'string' ? host : undefined,
-            port,
-            protocol: socketProtocol
-          }
+          strictPort: config.server?.strictPort ?? true,
+          hmr: config.server?.hmr === false
+            ? false
+            : {
+                host: typeof host === 'string' ? host : undefined,
+                port,
+                protocol: socketProtocol,
+                ...config.server?.hmr === true ? {} : config.server?.hmr
+              }
         }
       }
 
       debug(generatedConfig)
 
-      return mergeConfig(generatedConfig, config)
+      // Return partial config (recommended)
+      // See: https://vitejs.dev/guide/api-plugin.html#config
+      return generatedConfig
     }
   }
 }
