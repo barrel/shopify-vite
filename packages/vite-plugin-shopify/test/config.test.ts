@@ -57,6 +57,7 @@ describe('resolveOptions', () => {
     expect(options.sourceCodeDir).toBe('frontend')
     expect(options.entrypointsDir).toBe('frontend/entrypoints')
     expect(options.additionalEntrypoints).toEqual([])
+    expect(options.snippetFile).toEqual('vite-tag.liquid')
   })
 
   it('accepts a partial configuration', () => {

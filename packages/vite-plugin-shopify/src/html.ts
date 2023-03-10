@@ -15,7 +15,7 @@ export default function shopifyHTML (options: Required<VitePluginShopifyOptions>
   let viteDevServerUrl: DevServerUrl
   let modulesPath = ''
 
-  const viteTagSnippetPath = path.resolve(options.themeRoot, 'snippets/vite-tag.liquid')
+  const viteTagSnippetPath = path.resolve(options.themeRoot, `snippets/${options.snippetFile}`)
 
   return {
     name: 'vite-plugin-shopify-html',
