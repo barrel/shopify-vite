@@ -12,13 +12,14 @@ export default defineConfig({
   publicDir: 'public',
   resolve: {
     alias: {
-      '~~': '/frontend',
-      '@@': '/frontend'
+      '~~': 'frontend',
+      '@@': 'frontend'
     }
   },
   plugins: [
     basicSsl(),
     shopify({
+      snippetFile: 'vite-tag.liquid',
       additionalEntrypoints: [
         'frontend/foo.ts', // relative to sourceCodeDir
         'resources/bar.ts', // relative to themeRoot
