@@ -11,8 +11,8 @@ export default defineConfig({
   publicDir: 'public',
   resolve: {
     alias: {
-      '~~': 'frontend',
-      '@@': 'frontend'
+      '~~': '/frontend',
+      '@@': '/frontend'
     }
   },
   plugins: [
