@@ -15,6 +15,10 @@ export default {
       {
         find: '@',
         replacement: path.posix.join(__dirname, 'frontend')
+      },
+      {
+        find: '@@',
+        replacement: path.posix.join(__dirname, 'resources', 'js')
       }
     ]
   }
