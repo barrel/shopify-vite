@@ -8,11 +8,11 @@ exports[`vite-plugin-shopify > builds out .liquid files for production 1`] = `
 {% assign path = vite-tag | replace: '@@/', '../../resources/js/' | replace: '~/', '../' | replace: '@/', '../' %}
 {% if path == \\"/test/__fixtures__/frontend/entrypoints/theme.css\\" or path == \\"theme.css\\" %}
   {{ 'theme-1a84b608.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
-{% elsif path == \\"/test/__fixtures__/resources/js/foo.js\\" or path == \\"../../resources/js/foo.js\\" %}
-  <script src=\\"{{ 'foo-add44336.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
-  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-ec808ebb.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
 {% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.ts\\" or path == \\"theme.ts\\" %}
   <script src=\\"{{ 'theme-add44336.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
+  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-ec808ebb.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
+{% elsif path == \\"/test/__fixtures__/resources/js/foo.js\\" or path == \\"../../resources/js/foo.js\\" %}
+  <script src=\\"{{ 'foo-add44336.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
   <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-ec808ebb.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
 {% endif %}
 "
