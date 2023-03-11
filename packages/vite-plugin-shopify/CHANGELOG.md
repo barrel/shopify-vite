@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 2.0.1
+
+### Patch Changes
+
+- snippetFile option Fix ([#64](https://github.com/barrel/shopify-vite/pull/64)). Thanks [@slavamak](https://github.com/slavamak)!
+
 ## 2.0.0
 
 ### Major Changes
@@ -14,7 +20,7 @@ and confusion.
 
 > **Note**
 > After removing "vite-plugin-shopify-modules" from your theme, you could manually configure the `@modules` alias in Vite to maintain
-compatibility with this alias in your code.
+> compatibility with this alias in your code.
 
 ## 1.0.2
 
