@@ -79,8 +79,7 @@ vi.mock('fast-glob', () => {
         // mock default entries
         .mockReturnValueOnce(['frontend/entrypoints/app.js'])
         // mock default entries + additional entries
-        .mockReturnValueOnce(['frontend/entrypoints/app.js'])
-        .mockReturnValueOnce(['resources/js/app.js'])
+        .mockReturnValueOnce(['frontend/entrypoints/app.js', 'resources/js/app.js'])
     }
   }
 })
