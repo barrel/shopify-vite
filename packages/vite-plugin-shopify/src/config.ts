@@ -22,10 +22,11 @@ export default function shopifyConfig (options: Required<VitePluginShopifyOption
         '@': path.resolve(options.sourceCodeDir)
       }
 
-      const input = glob.sync([
-        normalizePath(path.join(options.entrypointsDir, '**/*')),
-        ...options.additionalEntrypoints
-      ], { onlyFiles: true })
+      let input = glob.sync(normalizePath(path.join(options.entrypointsDir, '**/*')), { onlyFiles: true })
+
+      options.additionalEntrypoints.forEach((globPattern) => {
+        input = input.concat(glob.sync(globPattern, { onlyFiles: true }))
+      })
 
       const generatedConfig: UserConfig = {
         // Use relative base path so to load imported assets from Shopify CDN
