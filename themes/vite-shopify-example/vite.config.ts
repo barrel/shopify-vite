@@ -13,7 +13,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@@': resolve('resources/js'),
-      '@modules': resolve('modules')
+      '@modules': resolve('frontend/modules')
     }
   },
   plugins: [
@@ -23,8 +23,8 @@ export default defineConfig({
       additionalEntrypoints: [
         'frontend/foo.ts', // relative to sourceCodeDir
         'frontend/bar.ts',
-        'resources/**/*.js', // relative to themeRoot
-        'modules/**/*.ts'
+        'frontend/modules/**/*.ts',
+        'resources/**/*.js' // relative to themeRoot
       ]
     })
   ],

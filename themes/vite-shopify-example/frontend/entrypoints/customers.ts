@@ -1,5 +1,5 @@
 import 'vite/modulepreload-polyfill'
-import '@/styles/checkout.scss'
+import '@/styles/customers.scss'
 import iconBag from '@/components/icon-bag'
 
 document.body.appendChild(iconBag)
