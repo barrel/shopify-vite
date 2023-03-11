@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from 'vitest'
+import { describe, expect, it } from 'vitest'
 import path from 'node:path'
 import { build, normalizePath } from 'vite'
 import shopify from '../src'
@@ -12,9 +12,6 @@ describe('vite-plugin-shopify', () => {
         shopify({
           themeRoot: path.join(__dirname, '__fixtures__'),
           sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend'),
-          additionalEntrypoints: [
-            normalizePath(path.join(__dirname, '__fixtures__', 'resources', 'js', 'foo.js'))
-          ],
           snippetFile: 'vite-tag.liquid'
         })
       ],
@@ -29,18 +26,4 @@ describe('vite-plugin-shopify', () => {
 
     expect(tagsHtml).toMatchSnapshot()
   })
-})
-
-vi.mock('fast-glob', () => {
-  return {
-    default: {
-      sync: vi.fn()
-        // mock entries
-        .mockReturnValueOnce([
-          path.join(__dirname, '__fixtures__', 'resources', 'js', 'foo.js'),
-          path.join(__dirname, '__fixtures__', 'frontend', 'entrypoints', 'theme.css'),
-          path.join(__dirname, '__fixtures__', 'frontend', 'entrypoints', 'theme.ts')
-        ])
-    }
-  }
 })
