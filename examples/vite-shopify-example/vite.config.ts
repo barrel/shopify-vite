@@ -19,7 +19,7 @@ export default defineConfig({
   plugins: [
     basicSsl(),
     shopify({
-      snippetFile: 'vite-tag.liquid',
+      snippetFile: 'vite.liquid',
       additionalEntrypoints: [
         'frontend/foo.ts', // relative to sourceCodeDir
         'frontend/bar.ts',

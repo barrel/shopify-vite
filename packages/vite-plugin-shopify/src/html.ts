@@ -15,6 +15,7 @@ export default function shopifyHTML (options: Required<VitePluginShopifyOptions>
   let viteDevServerUrl: DevServerUrl
 
   const viteTagSnippetPath = path.resolve(options.themeRoot, `snippets/${options.snippetFile}`)
+  const viteTagSnippetName = options.snippetFile.replace(/\.[^.]+$/, '')
 
   return {
     name: 'vite-plugin-shopify-html',
@@ -39,7 +40,7 @@ export default function shopifyHTML (options: Required<VitePluginShopifyOptions>
 
           debug({ address, viteDevServerUrl })
 
-          const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir) + viteTagSnippetDev(viteDevServerUrl, options.entrypointsDir)
+          const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + viteTagSnippetDev(viteDevServerUrl, options.entrypointsDir)
 
           // Write vite-tag snippet for development server
           fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
@@ -126,7 +127,7 @@ export default function shopifyHTML (options: Required<VitePluginShopifyOptions>
         }
       })
 
-      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir) + assetTags.join('\n') + '\n{% endif %}\n'
+      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + assetTags.join('\n') + '\n{% endif %}\n'
 
       // Write vite-tag snippet for production build
       fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
@@ -139,7 +140,8 @@ const viteTagDisclaimer = '{% comment %}\n  IMPORTANT: This snippet is automatic
 // Generate liquid variable with resolved path by replacing aliases
 const viteTagEntryPath = (
   resolveAlias: Array<{ find: string | RegExp, replacement: string }>,
-  entrypointsDir: string
+  entrypointsDir: string,
+  snippetName: string
 ): string => {
   const replacements: Array<[string, string]> = []
 
@@ -149,7 +151,7 @@ const viteTagEntryPath = (
     }
   })
 
-  return `{% assign path = vite-tag | ${replacements.map(([from, to]) => `replace: '${from}/', '${to}/'`).join(' | ')} %}\n`
+  return `{% assign path = ${snippetName} | ${replacements.map(([from, to]) => `replace: '${from}/', '${to}/'`).join(' | ')} %}\n`
 }
 
 // Generate conditional statement for entry tag
