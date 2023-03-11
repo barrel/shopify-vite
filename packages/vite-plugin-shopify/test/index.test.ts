@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import path from 'node:path'
-import { build } from 'vite'
+import { build, normalizePath } from 'vite'
 import shopify from '../src'
 import fs from 'node:fs/promises'
 
@@ -13,14 +13,14 @@ describe('vite-plugin-shopify', () => {
           themeRoot: path.join(__dirname, '__fixtures__'),
           sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend'),
           additionalEntrypoints: [
-            path.join(__dirname, '__fixtures__', 'resources', 'js', 'foo.js')
+            normalizePath(path.join(__dirname, '__fixtures__', 'resources', 'js', 'foo.js'))
           ],
           snippetFile: 'vite-tag.liquid'
         })
       ],
       resolve: {
         alias: {
-          '@@': path.resolve(path.join(__dirname, '__fixtures__', 'resources', 'js'))
+          '@@': normalizePath(path.resolve(path.join(__dirname, '__fixtures__', 'resources', 'js')))
         }
       }
     })
