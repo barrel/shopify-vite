@@ -15,8 +15,9 @@
     render 'vite-tag' with 'theme.scss', preload_stylesheet: true
     render 'vite-tag' with 'theme.ts'
     render 'vite-tag' with '@/foo.ts'
-    render 'vite-tag' with '/resources/bar.ts'
-    render 'vite-tag' with '@modules/baz.ts'
+    render 'vite-tag' with '~/bar.ts'
+    render 'vite-tag' with '/resources/js/baz.js'
+    render 'vite-tag' with '@modules/qux.ts'
   -%}
 
   {{ content_for_header }}

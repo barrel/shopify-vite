@@ -12,10 +12,8 @@ export default defineConfig({
   publicDir: 'public',
   resolve: {
     alias: {
-      '~~': resolve('frontend'),
-      '@@': resolve('frontend'),
-      '@modules': resolve('modules'),
-      '~modules': resolve('modules')
+      '@@': resolve('resources/js'),
+      '@modules': resolve('modules')
     }
   },
   plugins: [
@@ -24,8 +22,8 @@ export default defineConfig({
       snippetFile: 'vite-tag.liquid',
       additionalEntrypoints: [
         'frontend/foo.ts', // relative to sourceCodeDir
-        'resources/bar.ts', // relative to themeRoot
-        'resources/cart-drawer.ts',
+        'frontend/bar.ts',
+        'resources/**/*.js', // relative to themeRoot
         'modules/**/*.ts'
       ]
     })
