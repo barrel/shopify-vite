@@ -13,7 +13,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '~~': resolve('frontend'),
-      '@@': resolve('frontend')
+      '@@': resolve('frontend'),
+      '@modules': resolve('resources/modules'),
+      '~modules': resolve('resources/modules')
     }
   },
   plugins: [
@@ -23,7 +25,8 @@ export default defineConfig({
       additionalEntrypoints: [
         'frontend/foo.ts', // relative to sourceCodeDir
         'resources/bar.ts', // relative to themeRoot
-        'resources/cart-drawer.ts'
+        'resources/cart-drawer.ts',
+        'resourses/modules/**.ts'
       ]
     })
   ],
