@@ -11,9 +11,18 @@ describe('vite-plugin-shopify', () => {
       plugins: [
         shopify({
           themeRoot: path.join(__dirname, '__fixtures__'),
-          sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend')
+          sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend'),
+          additionalEntrypoints: [
+            path.join(__dirname, '__fixtures__', 'resources', 'js', 'foo.js')
+          ],
+          snippetFile: 'vite-tag.liquid'
         })
-      ]
+      ],
+      resolve: {
+        alias: {
+          '@@': path.resolve(path.join(__dirname, '__fixtures__', 'resources', 'js'))
+        }
+      }
     })
 
     const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })
