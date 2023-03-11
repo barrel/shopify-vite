@@ -1,5 +1,5 @@
 {
-  "name": "@barrelny/preact-shopify",
+  "name": "preact-shopify",
   "private": true,
   "scripts": {
     "dev": "vite",
