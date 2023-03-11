@@ -18,8 +18,8 @@ Modern frontend tooling for Shopify theme development using Vite for a best-in-c
 | Theme                                                               |
 | ------------------------------------------------------------------- |
 | [hydrogen-theme](https://github.com/montalvomiguelo/hydrogen-theme) |
-| [preact-shopify](./themes/preact-shopify)                           |
-| [vite-shopify-example](./themes/vite-shopify-example)               |
+| [preact-shopify](./examples/preact-shopify)                           |
+| [vite-shopify-example](./examples/vite-shopify-example)               |
 
 ## Contribution
 
