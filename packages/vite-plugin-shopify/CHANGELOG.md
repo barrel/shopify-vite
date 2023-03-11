@@ -1,5 +1,21 @@
 # vite-plugin-shopify
 
+## 2.0.0
+
+### Major Changes
+
+We have deprecated the `vite-plugin-shopify-modules` and `vite-plugin-shopify-theme-settings` packages from our NPM repository.
+These packages are no longer necessary and do not provide any additional benefit, and their presence can cause additional complexity
+and confusion.
+
+- Deprecate legacy packages ([#62](https://github.com/barrel/shopify-vite/pull/62)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+- Add snippetFile option ([#61](https://github.com/barrel/shopify-vite/pull/61)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+- Clean up config hook ([#59](https://github.com/barrel/shopify-vite/pull/59)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
+> **Note**
+> After removing "vite-plugin-shopify-modules" from your theme, you could manually configure the `@modules` alias in Vite to maintain
+compatibility with this alias in your code.
+
 ## 1.0.2
 
 ### Patch Changes
