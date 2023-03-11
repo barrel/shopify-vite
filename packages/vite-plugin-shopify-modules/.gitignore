@@ -1,5 +1,0 @@
-assets
-test/__fixtures__/sections/*
-!test/__fixtures__/sections/collage.liquid
-test/__fixtures__/snippets/*
-!test/__fixtures__/snippets/collage.liquid

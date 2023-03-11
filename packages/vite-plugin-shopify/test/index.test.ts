@@ -1,8 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import path from 'node:path'
-import { build } from 'vite'
+import { build, normalizePath } from 'vite'
 import shopify from '../src'
-import modules from '../../vite-plugin-shopify-modules/src'
 import fs from 'node:fs/promises'
 
 describe('vite-plugin-shopify', () => {
@@ -12,13 +11,15 @@ describe('vite-plugin-shopify', () => {
       plugins: [
         shopify({
           themeRoot: path.join(__dirname, '__fixtures__'),
-          sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend')
-        }),
-        modules({
-          themeRoot: path.join(__dirname, '__fixtures__'),
-          modulesDir: path.join(__dirname, '__fixtures__', 'modules')
+          sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend'),
+          snippetFile: 'vite-tag.liquid'
         })
-      ]
+      ],
+      resolve: {
+        alias: {
+          '@@': normalizePath(path.resolve(path.join(__dirname, '__fixtures__', 'resources', 'js')))
+        }
+      }
     })
 
     const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })

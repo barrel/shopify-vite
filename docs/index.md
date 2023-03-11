@@ -13,7 +13,7 @@ features:
     details: Your theme's JavaScript and CSS files are treated as entrypoints for Vite.
   - icon: 🏷
     title: Smart tag generation
-    details: Smart tag generation to load the scripts and styles of your theme.
+    details: Smart tags will be generated to load the scripts and styles of your theme.
   - icon: 🌎
     title: Shopify CDN Support
     details: Full support for assets served from Shopify's CDN.

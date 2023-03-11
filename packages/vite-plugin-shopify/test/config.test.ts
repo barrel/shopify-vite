@@ -17,7 +17,7 @@ describe('vite-plugin-shopify:config', () => {
     expect(config.publicDir).toEqual(false)
     expect(config.build.outDir).toBe('assets')
     expect(config.build.assetsDir).toBe('')
-    expect(config.build.rollupOptions.input).toEqual(['frontend/entrypoints/app.js'])
+    expect(config.build.rollupOptions.input).toEqual(['frontend/entrypoints/theme.js'])
     expect(config.build.manifest).toBe(true)
     expect(config.resolve.alias['~']).toMatch(path.resolve('frontend'))
     expect(config.resolve.alias['@']).toMatch(path.resolve('frontend'))
@@ -45,7 +45,7 @@ describe('vite-plugin-shopify:config', () => {
     expect(config.server.host).toBe('0.0.0.0')
     expect(config.server.port).toEqual(3000)
     expect(config.publicDir).toEqual('public')
-    expect(config.build.rollupOptions.input).toEqual(['frontend/entrypoints/app.js', 'resources/js/app.js'])
+    expect(config.build.rollupOptions.input).toEqual(['frontend/entrypoints/theme.js', 'resources/js/foo.js'])
   })
 })
 
@@ -77,10 +77,9 @@ vi.mock('fast-glob', () => {
     default: {
       sync: vi.fn()
         // mock default entries
-        .mockReturnValueOnce(['frontend/entrypoints/app.js'])
+        .mockReturnValueOnce(['frontend/entrypoints/theme.js'])
         // mock default entries + additional entries
-        .mockReturnValueOnce(['frontend/entrypoints/app.js'])
-        .mockReturnValueOnce(['resources/js/app.js'])
+        .mockReturnValueOnce(['frontend/entrypoints/theme.js', 'resources/js/foo.js'])
     }
   }
 })

@@ -17,12 +17,8 @@ export default {
         replacement: path.posix.join(__dirname, 'frontend')
       },
       {
-        find: '@modules',
-        replacement: path.posix.join(__dirname, 'modules')
-      },
-      {
-        find: '~modules',
-        replacement: path.posix.join(__dirname, 'modules')
+        find: '@@',
+        replacement: path.posix.join(__dirname, 'resources', 'js')
       }
     ]
   }

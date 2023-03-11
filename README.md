@@ -12,16 +12,14 @@ Modern frontend tooling for Shopify theme development using Vite for a best-in-c
 | Package                                                                             | Changelog                                                               |
 | ----------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | [vite-plugin-shopify](./packages/vite-plugin-shopify)                               | [Changelog](./packages/vite-plugin-shopify/CHANGELOG.md)                |
-| [vite-plugin-shopify-modules](./packages/vite-plugin-shopify-modules)               | [Changelog](./packages/vite-plugin-shopify-modules/CHANGELOG.md)        |
-| [vite-plugin-shopify-theme-settings](./packages/vite-plugin-shopify-theme-settings) | [Changelog](./packages/vite-plugin-shopify-theme-settings/CHANGELOG.md) |
 
 ## Examples
 
 | Theme                                                               |
 | ------------------------------------------------------------------- |
 | [hydrogen-theme](https://github.com/montalvomiguelo/hydrogen-theme) |
-| [preact-shopify](./themes/preact-shopify)                           |
-| [vite-shopify-example](./themes/vite-shopify-example)               |
+| [preact-shopify](./examples/preact-shopify)                           |
+| [vite-shopify-example](./examples/vite-shopify-example)               |
 
 ## Contribution
 

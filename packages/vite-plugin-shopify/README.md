@@ -41,7 +41,7 @@ export default {
       // Front-end entry points directory
       entrypointsDir: 'frontend/entrypoints',
       // Additional files to use as entry points (accepts an array of file paths or glob patterns)
-      additionalEntrypoints: []
+      additionalEntrypoints: [],
       // Specifies the file name of the snippet that loads your assets
       snippetFile: 'vite-tag.liquid'
     })
@@ -116,7 +116,7 @@ import '@/styles/my_styles.css'
 
 ## Example
 
-See the [vite-shopify-example](https://github.com/barrel/barrel-shopify/tree/main/themes/vite-shopify-example) theme for a basic demonstration of `vite-plugin-shopify` usage.
+See the [vite-shopify-example](https://github.com/barrel/barrel-shopify/tree/main/examples/vite-shopify-example) theme for a basic demonstration of `vite-plugin-shopify` usage.
 
 ## Bugs
 
