@@ -15,11 +15,17 @@ Modern frontend tooling for Shopify theme development using Vite for a best-in-c
 
 ## Examples
 
-| Theme                                                               |
-| ------------------------------------------------------------------- |
-| [hydrogen-theme](https://github.com/montalvomiguelo/hydrogen-theme) |
-| [preact-shopify](./examples/preact-shopify)                           |
-| [vite-shopify-example](./examples/vite-shopify-example)               |
+| Theme App Extension
+| --------------------------------------------------------------------------------------- |
+| [Shopify Vite Extension](https://github.com/montalvomiguelo/theme-app-extension-vite)   |
+
+---
+
+| Theme                                                                |
+| -------------------------------------------------------------------- |
+| [Hydrogen Theme](https://github.com/montalvomiguelo/hydrogen-theme)  |
+| [Preact Shopify](./examples/preact-shopify)                          |
+| [Basic Example](./examples/vite-shopify-example)                     |
 
 ## Contribution
 
