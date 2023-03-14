@@ -22,7 +22,7 @@ export default defineConfig({
         text: 'Guide',
         items: [
           {
-            text: 'Gettin Started',
+            text: 'Getting Started',
             link: '/guide/'
           },
           {
