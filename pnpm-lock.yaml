@@ -98,9 +98,11 @@ importers:
     specifiers:
       '@preset/core': ^0.9.1
       '@types/node': ^18.15.3
+      tsconfig: workspace:*
     devDependencies:
       '@preset/core': 0.9.1
       '@types/node': 18.15.3
+      tsconfig: link:../../packages/tsconfig
 
 packages:
 
