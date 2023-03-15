@@ -3,6 +3,11 @@ export default definePreset({
   options: {
     // ...
   },
+  postInstall: ({ hl }) => [
+    `Run the development server with ${hl('npm run dev') as string}`,
+    `Edit your entry points in ${hl('frontend/entrypoints') as string}`,
+    `Build for production with ${hl('npm run build') as string}`
+  ],
   handler: async () => {
     await group({
       title: 'install Node dependencies',
