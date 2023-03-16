@@ -29,7 +29,15 @@ export default definePreset({
         })
       }
     })
-    await extractTemplates()
-    // ...
+
+    await group({
+      title: 'extract Vite scaffolding',
+      handler: async () => {
+        await extractTemplates({
+          title: 'extract templates',
+          from: 'default'
+        })
+      }
+    })
   }
 })
