@@ -86,31 +86,31 @@ async function installTailwind (): Promise<void> {
         title: 'extract Tailwind CSS config',
         from: 'tailwind'
       })
+
+      await editFiles({
+        title: 'remove placeholder CSS',
+        files: 'frontend/entrypoints/main.css',
+        operations: [
+          { type: 'remove-line', match: /charset/ }
+        ]
+      })
+
+      await editFiles({
+        title: 'add Tailwind CSS imports',
+        files: 'frontend/entrypoints/main.css',
+        operations: [
+          {
+            skipIf: (content) => content.includes('tailwind'),
+            type: 'add-line',
+            lines: [
+              '@tailwind base;',
+              '@tailwind components;',
+              '@tailwind utilities;'
+            ],
+            position: 'prepend'
+          }
+        ]
+      })
     }
-  })
-
-  await editFiles({
-    title: 'remove placeholder CSS',
-    files: 'frontend/entrypoints/main.css',
-    operations: [
-      { type: 'remove-line', match: /charset/ }
-    ]
-  })
-
-  await editFiles({
-    title: 'add Tailwind CSS imports',
-    files: 'frontend/entrypoints/main.css',
-    operations: [
-      {
-        skipIf: (content) => content.includes('tailwind'),
-        type: 'add-line',
-        lines: [
-          '@tailwind base;',
-          '@tailwind components;',
-          '@tailwind utilities;'
-        ],
-        position: 'prepend'
-      }
-    ]
   })
 }
