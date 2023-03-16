@@ -80,7 +80,7 @@ async function installTailwind (): Promise<void> {
   })
 
   await group({
-    title: 'extract Tailwind scaffoling',
+    title: 'extract Tailwind scaffolding',
     handler: async () => {
       await extractTemplates({
         title: 'extract Tailwind CSS config',
