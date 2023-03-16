@@ -49,7 +49,8 @@ async function installVite (): Promise<void> {
     handler: async () => {
       await extractTemplates({
         title: 'extract templates',
-        from: 'default'
+        from: 'default',
+        extractDotFiles: true
       })
 
       await editFiles({
