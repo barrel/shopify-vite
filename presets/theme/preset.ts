@@ -23,14 +23,16 @@ async function installVite (): Promise<void> {
         install: [
           'vite',
           'vite-plugin-shopify'
-        ]
+        ],
+        dev: true
       })
 
       await editFiles({
         files: 'package.json',
         operations: [
           { type: 'edit-json', merge: { scripts: { dev: 'vite', build: 'vite build' } } }
-        ]
+        ],
+        title: 'update package.json'
       })
 
       await editFiles({
