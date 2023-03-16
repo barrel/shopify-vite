@@ -4,9 +4,9 @@ export default definePreset({
     // ...
   },
   postInstall: ({ hl }) => [
-    `Run the development server with ${hl('npm run dev') as string}`,
-    `Edit your entry points in ${hl('frontend/entrypoints') as string}`,
-    `Build for production with ${hl('npm run build') as string}`
+    `Run the development server with ${hl('npm run dev')}`,
+    `Edit your entry points in ${hl('frontend/entrypoints')}`,
+    `Build for production with ${hl('npm run build')}`
   ],
   handler: async () => {
     await group({
