@@ -55,7 +55,7 @@ async function installVite (): Promise<void> {
 
       await editFiles({
         title: 'add vite-tag snippet',
-        files: 'layout/theme.liquid',
+        files: ['layout/theme.liquid', 'layout/password.liquid'],
         operations: [{
           type: 'add-line',
           match: /content_for_header/,
