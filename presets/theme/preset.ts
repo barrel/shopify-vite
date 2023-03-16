@@ -61,8 +61,8 @@ async function installVite (): Promise<void> {
           match: /content_for_header/,
           position: 'before',
           lines: [
-            '{%- render \'vite-tag\' with \'theme.css\' -%}',
-            '{%- render \'vite-tag\' with \'theme.js\' -%}',
+            '{%- render \'vite-tag\' with \'main.css\' -%}',
+            '{%- render \'vite-tag\' with \'main.js\' -%}',
             ''
           ]
         }]
