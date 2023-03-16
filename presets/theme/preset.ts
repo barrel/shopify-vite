@@ -1,7 +1,7 @@
 export default definePreset({
-  name: 'theme',
+  name: 'shopify-vite/theme',
   options: {
-    // ...
+    base: true
   },
   postInstall: ({ hl }) => [
     `Run the development server with ${hl('npm run dev')}`,
@@ -9,7 +9,9 @@ export default definePreset({
     `Build for production with ${hl('npm run build')}`
   ],
   handler: async (context) => {
-    await installVite()
+    if (context.options.base) {
+      await installVite()
+    }
   }
 })
 
@@ -34,6 +36,16 @@ async function installVite (): Promise<void> {
         ],
         title: 'update package.json'
       })
+    }
+  })
+
+  await group({
+    title: 'extract Vite scaffolding',
+    handler: async () => {
+      await extractTemplates({
+        title: 'extract templates',
+        from: 'default'
+      })
 
       await editFiles({
         title: 'update .gitignore',
@@ -54,16 +66,6 @@ async function installVite (): Promise<void> {
             ''
           ]
         }]
-      })
-    }
-  })
-
-  await group({
-    title: 'extract Vite scaffolding',
-    handler: async () => {
-      await extractTemplates({
-        title: 'extract templates',
-        from: 'default'
       })
     }
   })
