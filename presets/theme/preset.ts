@@ -1,7 +1,8 @@
 export default definePreset({
   name: 'shopify-vite:theme',
   options: {
-    base: true
+    base: true,
+    tailwindcss: true
   },
   postInstall: ({ hl }) => [
     `Run the development server with ${hl('npm run dev')}`,
@@ -11,6 +12,10 @@ export default definePreset({
   handler: async (context) => {
     if (context.options.base) {
       await installVite()
+    }
+
+    if (context.options.tailwindcss) {
+      await installTailwind()
     }
   }
 })
@@ -48,12 +53,6 @@ async function installVite (): Promise<void> {
       })
 
       await editFiles({
-        title: 'update .gitignore',
-        files: '.gitignore',
-        operations: [{ type: 'add-line', position: 'prepend', lines: 'node_modules' }]
-      })
-
-      await editFiles({
         title: 'add vite-tag snippet',
         files: 'layout/theme.liquid',
         operations: [{
@@ -68,5 +67,49 @@ async function installVite (): Promise<void> {
         }]
       })
     }
+  })
+}
+
+async function installTailwind (): Promise<void> {
+  await installPackages({
+    title: 'install Tailwind CSS',
+    for: 'node',
+    install: ['tailwindcss', 'autoprefixer', 'postcss'],
+    dev: true
+  })
+
+  await group({
+    title: 'extract Tailwind scaffoling',
+    handler: async () => {
+      await extractTemplates({
+        title: 'extract Tailwind CSS config',
+        from: 'tailwind'
+      })
+    }
+  })
+
+  await editFiles({
+    title: 'remove placeholder CSS',
+    files: 'frontend/entrypoints/theme.css',
+    operations: [
+      { type: 'remove-line', match: /charset/ }
+    ]
+  })
+
+  await editFiles({
+    title: 'add Tailwind CSS imports',
+    files: 'frontend/entrypoints/theme.css',
+    operations: [
+      {
+        skipIf: (content) => content.includes('tailwind'),
+        type: 'add-line',
+        lines: [
+          '@tailwind base;',
+          '@tailwind components;',
+          '@tailwind utilities;'
+        ],
+        position: 'prepend'
+      }
+    ]
   })
 }
