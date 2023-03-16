@@ -1,0 +1,11 @@
+{
+  "extends": "tsconfig/base.json",
+  "compilerOptions": {
+    "types": ["node", "@preset/core/globals"]
+  },
+  "include": [
+    "./*.ts",
+    "./src/**/*.ts"
+  ],
+  "exclude": ["templates", "node_modules"]
+}

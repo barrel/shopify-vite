@@ -4,7 +4,8 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "examples/*"
+    "examples/*",
+    "presets/*"
   ],
   "scripts": {
     "build": "turbo run build --filter=vite-plugin-*",
