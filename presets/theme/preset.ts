@@ -1,5 +1,5 @@
 export default definePreset({
-  name: 'shopify-vite/theme',
+  name: 'shopify-vite:theme',
   options: {
     base: true
   },
