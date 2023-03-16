@@ -12,7 +12,7 @@
 <br />
 
 <div align="center">
-  This preset installs <a href="https://vitejs.dev">Vite</a> and <a href="https://tailwindcss.com">Tailwind CSS</a> in an existing Shopify theme.
+  This preset installs <a href="https://vitejs.dev">Vite</a> and <a href="https://tailwindcss.com">Tailwind CSS</a> in a fresh Shopify theme.
   <br />
   <a href="https://shopify-vite.barrelny.com">Documentation</a>
   <br />
