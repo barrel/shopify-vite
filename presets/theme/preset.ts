@@ -91,7 +91,7 @@ async function installTailwind (): Promise<void> {
 
   await editFiles({
     title: 'remove placeholder CSS',
-    files: 'frontend/entrypoints/theme.css',
+    files: 'frontend/entrypoints/main.css',
     operations: [
       { type: 'remove-line', match: /charset/ }
     ]
@@ -99,7 +99,7 @@ async function installTailwind (): Promise<void> {
 
   await editFiles({
     title: 'add Tailwind CSS imports',
-    files: 'frontend/entrypoints/theme.css',
+    files: 'frontend/entrypoints/main.css',
     operations: [
       {
         skipIf: (content) => content.includes('tailwind'),
