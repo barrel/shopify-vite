@@ -7,5 +7,14 @@
     "dist",
     "build",
     "node_modules"
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["frontend/*"],
+      "~/*": ["frontend/*"],
+      "@@/*": ["resources/js/*"],
+      "@modules/*": ["frontend/modules/*"]
+    }
+  }
 }
