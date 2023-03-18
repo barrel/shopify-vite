@@ -7,7 +7,7 @@
 </p>
 
 <h2 align="center">Vite preset for Shopify themes</h2>
-<pre><div align="center">npx @preset/cli apply barrel/shopify-vite --path presets/theme</div></pre>
+<pre><div align="center">npx @preset/cli apply barrel/shopify-vite --path preset</div></pre>
 
 <br />
 

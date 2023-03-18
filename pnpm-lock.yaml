@@ -94,7 +94,7 @@ importers:
       tsconfig: link:../tsconfig
       vitest: 0.25.8
 
-  presets/theme:
+  preset:
     specifiers:
       '@preset/core': ^0.9.1
       '@types/node': ^18.15.3
@@ -102,7 +102,7 @@ importers:
     devDependencies:
       '@preset/core': 0.9.1
       '@types/node': 18.15.3
-      tsconfig: link:../../packages/tsconfig
+      tsconfig: link:../packages/tsconfig
 
 packages:
 
