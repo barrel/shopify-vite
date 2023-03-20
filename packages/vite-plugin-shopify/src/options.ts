@@ -1,10 +1,10 @@
 import path from 'node:path'
 import { normalizePath } from 'vite'
-import type { VitePluginShopifyOptions } from './types'
+import type { Options } from './types'
 
 export const resolveOptions = (
-  options: VitePluginShopifyOptions
-): Required<VitePluginShopifyOptions> => {
+  options: Options
+): Required<Options> => {
   const themeRoot = options.themeRoot ?? './'
   const sourceCodeDir = options.sourceCodeDir ?? 'frontend'
   const entrypointsDir = options.entrypointsDir ?? normalizePath(path.join(sourceCodeDir, 'entrypoints'))

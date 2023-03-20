@@ -5,12 +5,12 @@ import { Manifest, Plugin, ResolvedConfig, normalizePath } from 'vite'
 import createDebugger from 'debug'
 
 import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
-import type { VitePluginShopifyOptions, DevServerUrl } from './types'
+import type { Options, DevServerUrl } from './types'
 
 const debug = createDebugger('vite-plugin-shopify:html')
 
 // Plugin for generating vite-tag liquid theme snippet with entry points for JS and CSS assets
-export default function shopifyHTML (options: Required<VitePluginShopifyOptions>): Plugin {
+export default function shopifyHTML (options: Required<Options>): Plugin {
   let config: ResolvedConfig
   let viteDevServerUrl: DevServerUrl
 

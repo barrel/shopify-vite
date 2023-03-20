@@ -1,11 +1,11 @@
 import { Plugin } from 'vite'
 
 import { resolveOptions } from './options'
-import type { VitePluginShopifyOptions } from './types'
+import type { Options } from './types'
 import shopifyConfig from './config'
 import shopifyHtml from './html'
 
-const vitePluginShopify = (options: VitePluginShopifyOptions = {}): Plugin[] => {
+const vitePluginShopify = (options: Options = {}): Plugin[] => {
   const resolvedOptions = resolveOptions(options)
 
   const plugins = [
