@@ -9,7 +9,7 @@ const vitePluginShopify = (options: VitePluginShopifyOptions = {}): Plugin[] => 
   const resolvedOptions = resolveOptions(options)
 
   const plugins = [
-    //  Apply plugin for configuring Vite settings
+    // Apply plugin for configuring Vite settings
     shopifyConfig(resolvedOptions),
     // Apply plugin for generating HTML asset tags through vite-tag snippet
     shopifyHtml(resolvedOptions)
