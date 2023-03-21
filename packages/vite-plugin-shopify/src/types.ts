@@ -1,4 +1,4 @@
-export interface VitePluginShopifyOptions {
+export interface Options {
   /**
    * Root path to your Shopify theme directory.
    *

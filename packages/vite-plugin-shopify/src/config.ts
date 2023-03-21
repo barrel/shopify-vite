@@ -3,12 +3,12 @@ import { Plugin, UserConfig, normalizePath } from 'vite'
 import glob from 'fast-glob'
 import createDebugger from 'debug'
 
-import type { VitePluginShopifyOptions } from './types'
+import type { Options } from './types'
 
 const debug = createDebugger('vite-plugin-shopify:config')
 
 // Plugin for setting necessary Vite config to support Shopify plugin functionality
-export default function shopifyConfig (options: Required<VitePluginShopifyOptions>): Plugin {
+export default function shopifyConfig (options: Required<Options>): Plugin {
   return {
     name: 'vite-plugin-shopify-config',
     config (config: UserConfig): UserConfig {
