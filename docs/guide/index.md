@@ -28,7 +28,7 @@ First, create a `package.json` file with `npm init -y` in the root of your theme
 Next, install Vite and the Shopify plugin via NPM.
 
 ```bash
-npm i -D vite vite-plugin-shopify
+npm i -D vite vite-plugin-shopify @by-association-only/vite-plugin-shopify-clean
 ```
 
 Finally, adjust your `package.json` by adding the following [scripts](https://docs.npmjs.com/cli/v9/using-npm/scripts):
@@ -52,9 +52,14 @@ file based on your needs; check Vite's [plugins](https://vitejs.dev/plugins/) an
 
 ```js
 import shopify from 'vite-plugin-shopify'
+import cleanup from '@by-association-only/vite-plugin-shopify-clean'
 
 export default {
+  build: {
+    emptyOutDir: false
+  },
   plugins: [
+    cleanup(),
     shopify()
   ]
 }
