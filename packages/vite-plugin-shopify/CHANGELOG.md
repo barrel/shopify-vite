@@ -1,5 +1,12 @@
 # vite-plugin-shopify
 
+## 2.0.2
+
+### Patch Changes
+
+- JSDocs ([#67](https://github.com/barrel/shopify-vite/pull/67)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+- Rename Options interface ([#69](https://github.com/barrel/shopify-vite/pull/69)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
 ## 2.0.1
 
 ### Patch Changes
