@@ -133,18 +133,16 @@ The development server will automatically detect changes to your files and insta
 Or, running the `build` command will version and bundle your application's assets and get them ready for you to deploy to production:
 
 ```bash
+# Run the Vite development server...
 npm run dev
-```
 
-::: info
-This is the Vite development server that provides Hot Module Replacement for your Shopify theme's assets, such as scripts or styles.
-
-To access your Shopify theme, you will need to serve it locally using the [Shopify CLI](https://shopify.dev/docs/themes/tools/cli) and the `shopify theme dev` command.
-:::
-
-```bash
+# Build and version the assets for production...
 npm run build
 ```
+
+::: tip
+We recommend adding scripts to your project's package.json file to [launch the Shopify and Vite servers in parallel](/guide/troubleshooting#launch-shopify-vite).
+:::
 
 ## Working with JavaScript
 
