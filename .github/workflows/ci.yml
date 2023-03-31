@@ -17,6 +17,8 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
+        with:
+          version: 7
 
       - name: Set node
         uses: actions/setup-node@v3
@@ -24,14 +26,11 @@ jobs:
           node-version: 16.x
           cache: pnpm
 
-      - name: Setup
-        run: npm i -g @antfu/ni
-
       - name: Install
-        run: nci
+        run: pnpm install --no-frozen-lockfile
 
       - name: Lint
-        run: nr lint
+        run: pnpm lint
 
   test:
     runs-on: ${{ matrix.os }}
@@ -47,6 +46,8 @@ jobs:
 
       - name: Install pnpm
         uses: pnpm/action-setup@v2
+        with:
+          version: 7
 
       - name: Set node ${{ matrix.node }}
         uses: actions/setup-node@v3
@@ -54,14 +55,11 @@ jobs:
           node-version: ${{ matrix.node }}
           cache: pnpm
 
-      - name: Setup
-        run: npm i -g @antfu/ni
-
       - name: Install
-        run: nci
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build
-        run: nr build
+        run: pnpm build
 
       - name: Test
-        run: nr test
+        run: pnpm test
