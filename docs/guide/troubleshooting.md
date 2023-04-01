@@ -13,11 +13,10 @@ You can use [`concurrently`](https://github.com/open-cli-tools/concurrently) or 
   "private": true,
   "scripts": {
     "dev": "vite", // [!code --]
-    "build": "vite build", // [!code --]
-    "dev": "run-p -sr vite:dev shopify:dev", // [!code ++]
-    "build": "vite build", // [!code ++]
-    "vite:dev": "vite", // [!code ++]
-    "shopify:dev": "shopify theme dev --store $npm_package_config_store" // [!code ++]
+    "dev": "run-p -sr dev:shopify dev:vite", // [!code ++]
+    "dev:shopify": "shopify theme dev --store $npm_package_config_store", // [!code ++]
+    "dev:vite": "vite", // [!code ++]
+    "build": "vite build"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5", // [!code ++]
