@@ -42,12 +42,11 @@ async function installVite (): Promise<void> {
             type: 'edit-json',
             merge: {
               scripts: {
-                dev: 'run-p -sr shopify:dev vite:dev',
+                dev: 'run-p -sr dev:shopify dev:vite',
+                'dev:shopify': 'shopify theme dev --live-reload full-page --store $npm_package_config_store',
+                'dev:vite': 'vite',
                 build: 'vite build',
-                preview: 'run-s build shopify:dev',
-                'vite:build': 'vite build',
-                'vite:dev': 'vite',
-                'shopify:dev': 'shopify theme dev --live-reload full-page --store $npm_package_config_store'
+                preview: 'run-s build dev:shopify'
               }
             }
           },
