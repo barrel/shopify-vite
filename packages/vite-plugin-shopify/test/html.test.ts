@@ -40,7 +40,7 @@ describe('vite-plugin-shopify:html', () => {
 
     const { configureServer } = html(options)
 
-    // Fakes for the vite-plugin-react plugin
+    // Fakes for the @vitejs/plugin-react plugin
     const plugins: Plugin[] = [
       // https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/src/index.ts#L104
       {

@@ -157,7 +157,7 @@ import '@/styles/my_styles.css'
 
 ### React
 
-If you would like to build your front-end using the [React](https://react.dev/) framework, then you will also need to install the [@vitejs/plugin-react](https://www.npmjs.com/package/@vitejs/plugin-react) plugin:
+If you would like to build your front-end using the [React](https://react.dev/) framework, then you will also need to install the [`@vitejs/plugin-react`](https://www.npmjs.com/package/@vitejs/plugin-react) plugin:
 
 ```bash
 npm i -D @vitejs/plugin-react
@@ -180,7 +180,7 @@ export default defineConfig({
 
 You will need to ensure that any files containing JSX have a `.jsx` or `.tsx` extension.
 
-During development, the `vite-tag` snippet will include [the react refresh script](https://github.com/vitejs/vite/issues/1984#issuecomment-778289660).
+When using React with `@vitejs/plugin-react`, the `vite-tag` snippet will include [the react refresh script](https://github.com/vitejs/vite/blob/main/docs/guide/backend-integration.md?plain=1#L50-L56) during dev.
 
 ## Working with Stylesheets
 
