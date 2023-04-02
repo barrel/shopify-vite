@@ -194,13 +194,7 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugi
 %}${reactPlugin === undefined
   ? ''
   : `
-<script type="module">
-  import RefreshRuntime from '${assetHost}/@react-refresh'
-  RefreshRuntime.injectIntoGlobalHook(window)
-  window.$RefreshReg$ = () => {}
-  window.$RefreshSig$ = () => (type) => type
-  window.__vite_plugin_react_preamble_installed__ = true
-</script>`}
+<script src="${assetHost}/@id/__x00__virtual:react-refresh" type="module"></script>`}
 <script src="${assetHost}/@vite/client" type="module"></script>
 {% if is_css == true %}
   {{ file_url | stylesheet_tag }}
