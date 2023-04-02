@@ -90,7 +90,7 @@ With your Vite entry points configured, you only need to reference them with the
 %}
 ```
 
-During development, the `vite-tag` will load your assets from the Vite development server and inject the Vite client to enable Hot Module Replacement.
+During development, the `vite-tag` snippet will load your assets from the Vite development server and inject the Vite client to enable Hot Module Replacement.
 In build mode, the snippet will load your compiled and versioned assets, including any imported CSS, and use the `asset_url` filter to serve your assets
 from the Shopify content delivery network (CDN).
 
@@ -154,6 +154,33 @@ For convenience, `~/` and `@/` are aliased to your `sourceCodeDir` folder, which
 import App from '@/components/App.vue'
 import '@/styles/my_styles.css'
 ```
+
+### React
+
+If you would like to build your front-end using the [React](https://react.dev/) framework, then you will also need to install the [@vitejs/plugin-react](https://www.npmjs.com/package/@vitejs/plugin-react) plugin:
+
+```bash
+npm i -D @vitejs/plugin-react
+```
+
+You may then include the plugin in your `vite.config.js` configuration file:
+
+```js
+import { defineConfig } from 'vite'
+import shopify from 'vite-plugin-shopify'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [
+    shopify(),
+    react()
+  ]
+})
+```
+
+You will need to ensure that any files containing JSX have a `.jsx` or `.tsx` extension.
+
+During development, the `vite-tag` snippet will include [the react refresh script](https://github.com/vitejs/vite/issues/1984#issuecomment-778289660).
 
 ## Working with Stylesheets
 
