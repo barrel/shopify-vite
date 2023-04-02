@@ -1,11 +1,12 @@
 import { useState } from 'react'
+import Header from '@/components/Header'
 
-function App() {
+function App () {
   const [count, setCount] = useState(0)
 
   return (
     <div>
-      <h1>Vite + React</h1>
+      <Header />
       <div>
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
