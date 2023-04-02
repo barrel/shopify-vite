@@ -1,7 +1,7 @@
 import { Plugin } from 'vite'
 
 export default function shopifyReactRefresh (): Plugin {
-  const virtualModuleId = 'virtual:react-refresh'
+  const virtualModuleId = 'vite-plugin-shopify:react-refresh'
   const resolvedVirtualModuleId = '\0' + virtualModuleId
 
   return {

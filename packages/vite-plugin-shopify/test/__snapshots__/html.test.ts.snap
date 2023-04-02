@@ -57,13 +57,7 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
     assign is_css = true
   endif
 %}
-<script type=\\"module\\">
-  import RefreshRuntime from 'http://localhost:5173/@react-refresh'
-  RefreshRuntime.injectIntoGlobalHook(window)
-  window.$RefreshReg$ = () => {}
-  window.$RefreshSig$ = () => (type) => type
-  window.__vite_plugin_react_preamble_installed__ = true
-</script>
+<script src=\\"http://localhost:5173/@id/__x00__vite-plugin-shopify:react-refresh\\" type=\\"module\\"></script>
 <script src=\\"http://localhost:5173/@vite/client\\" type=\\"module\\"></script>
 {% if is_css == true %}
   {{ file_url | stylesheet_tag }}
