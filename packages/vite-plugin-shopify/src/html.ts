@@ -40,7 +40,9 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
           debug({ address, viteDevServerUrl })
 
-          const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + viteTagSnippetDev(viteDevServerUrl, options.entrypointsDir)
+          const reactPlugin = config.plugins.find(plugin => plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh')
+
+          const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + viteTagSnippetDev(viteDevServerUrl, options.entrypointsDir, reactPlugin)
 
           // Write vite-tag snippet for development server
           fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
@@ -171,7 +173,7 @@ const stylesheetTag = (fileName: string): string =>
   `{{ '${fileName}' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}`
 
 // Generate vite-tag snippet for development
-const viteTagSnippetDev = (assetHost: string, entrypointsDir: string): string =>
+const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugin: Plugin | undefined): string =>
   `{% liquid
   assign path_prefix = path | slice: 0
   if path_prefix == '/'
@@ -189,7 +191,16 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string): string =>
   if css_extensions contains file_extension
     assign is_css = true
   endif
-%}
+%}${reactPlugin === undefined
+  ? ''
+  : `
+<script type="module">
+  import RefreshRuntime from '${assetHost}/@react-refresh'
+  RefreshRuntime.injectIntoGlobalHook(window)
+  window.$RefreshReg$ = () => {}
+  window.$RefreshSig$ = () => (type) => type
+  window.__vite_plugin_react_preamble_installed__ = true
+</script>`}
 <script src="${assetHost}/@vite/client" type="module"></script>
 {% if is_css == true %}
   {{ file_url | stylesheet_tag }}
