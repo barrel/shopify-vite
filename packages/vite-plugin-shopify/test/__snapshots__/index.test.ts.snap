@@ -9,7 +9,7 @@ exports[`vite-plugin-shopify > builds out .liquid files for production 1`] = `
 {% if path == \\"/test/__fixtures__/frontend/entrypoints/theme.css\\" or path == \\"theme.css\\" %}
   {{ 'theme-1a84b608.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.ts\\" or path == \\"theme.ts\\" %}
-  <script src=\\"{{ 'theme-ec808ebb.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
+  <script src=\\"{{ 'theme-3cfb730f.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
 {% endif %}
 "
 `;
