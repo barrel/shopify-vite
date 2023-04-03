@@ -14,11 +14,11 @@ export default function shopifyReactRefresh (): Plugin {
     load (id) {
       if (id === resolvedVirtualModuleId) {
         return `
-        import RefreshRuntime from '__shopify_vite_placeholder__/@react-refresh'
-        RefreshRuntime.injectIntoGlobalHook(window)
-        window.$RefreshReg$ = () => {}
-        window.$RefreshSig$ = () => (type) => type
-        window.__vite_plugin_react_preamble_installed__ = true
+          import RefreshRuntime from '__shopify_vite_placeholder__/@react-refresh'
+          RefreshRuntime.injectIntoGlobalHook(window)
+          window.$RefreshReg$ = () => {}
+          window.$RefreshSig$ = () => (type) => type
+          window.__vite_plugin_react_preamble_installed__ = true
         `
       }
     }
