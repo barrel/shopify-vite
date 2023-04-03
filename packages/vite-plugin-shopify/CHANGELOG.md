@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 2.1.0
+
+### Minor Changes
+
+- Add support for react and react-refresh ([#74](https://github.com/barrel/shopify-vite/pull/74)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
 ## 2.0.2
 
 ### Patch Changes
