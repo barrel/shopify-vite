@@ -29,7 +29,8 @@ async function installVite (): Promise<void> {
         for: 'node',
         install: [
           'vite',
-          'vite-plugin-shopify'
+          'vite-plugin-shopify',
+          'npm-run-all'
         ],
         dev: true
       })
@@ -37,7 +38,19 @@ async function installVite (): Promise<void> {
       await editFiles({
         files: 'package.json',
         operations: [
-          { type: 'edit-json', merge: { scripts: { dev: 'vite', build: 'vite build' } } }
+          {
+            type: 'edit-json',
+            merge: {
+              scripts: {
+                dev: 'run-p -sr dev:shopify dev:vite',
+                'dev:shopify': 'shopify theme dev --live-reload full-page --store $npm_package_config_store',
+                'dev:vite': 'vite',
+                build: 'vite build',
+                preview: 'run-s build dev:shopify'
+              }
+            }
+          },
+          { type: 'edit-json', merge: { config: { store: 'my-shop.myshopify.com' } } }
         ],
         title: 'update package.json'
       })

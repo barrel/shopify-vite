@@ -95,7 +95,7 @@ With your Vite entry points configured, you only need to reference them with the
 %}
 ```
 
-During development, the `vite-tag` will load your assets from the Vite development server and inject the Vite client to enable Hot Module Replacement.
+During development, the `vite-tag` snippet will load your assets from the Vite development server and inject the Vite client to enable Hot Module Replacement.
 In build mode, the snippet will load your compiled and versioned assets, including any imported CSS, and use the `asset_url` filter to serve your assets
 from the Shopify content delivery network (CDN).
 
@@ -138,18 +138,16 @@ The development server will automatically detect changes to your files and insta
 Or, running the `build` command will version and bundle your application's assets and get them ready for you to deploy to production:
 
 ```bash
+# Run the Vite development server...
 npm run dev
-```
 
-::: info
-This is the Vite development server that provides Hot Module Replacement for your Shopify theme's assets, such as scripts or styles.
-
-To access your Shopify theme, you will need to serve it locally using the [Shopify CLI](https://shopify.dev/docs/themes/tools/cli) and the `shopify theme dev` command.
-:::
-
-```bash
+# Build and version the assets for production...
 npm run build
 ```
+
+::: tip
+We recommend adding scripts to your project's package.json file to [launch the Shopify and Vite servers in parallel](/guide/troubleshooting#launch-shopify-vite).
+:::
 
 ## Working with JavaScript
 
@@ -161,6 +159,33 @@ For convenience, `~/` and `@/` are aliased to your `sourceCodeDir` folder, which
 import App from '@/components/App.vue'
 import '@/styles/my_styles.css'
 ```
+
+### React
+
+If you would like to build your front-end using the [React](https://react.dev/) framework, then you will also need to install the [`@vitejs/plugin-react`](https://www.npmjs.com/package/@vitejs/plugin-react) plugin:
+
+```bash
+npm i -D @vitejs/plugin-react
+```
+
+You may then include the plugin in your `vite.config.js` configuration file:
+
+```js
+import { defineConfig } from 'vite'
+import shopify from 'vite-plugin-shopify'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  plugins: [
+    shopify(),
+    react()
+  ]
+})
+```
+
+You will need to ensure that any files containing JSX have a `.jsx` or `.tsx` extension.
+
+When using React with `@vitejs/plugin-react`, the `vite-tag` snippet will include [the react refresh script](https://github.com/vitejs/vite/blob/main/docs/guide/backend-integration.md?plain=1#L50-L56) during dev.
 
 ## Working with Stylesheets
 

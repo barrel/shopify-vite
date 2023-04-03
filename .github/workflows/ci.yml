@@ -14,19 +14,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - name: Set node
         uses: actions/setup-node@v3
         with:
           node-version: 16.x
-
-      - name: Setup
-        run: npm i -g @antfu/ni
+          cache: pnpm
 
       - name: Install
-        run: nci
+        run: pnpm install --no-frozen-lockfile
 
       - name: Lint
-        run: nr lint
+        run: pnpm lint
 
   test:
     runs-on: ${{ matrix.os }}
@@ -39,19 +43,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 7
+
       - name: Set node ${{ matrix.node }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node }}
-
-      - name: Setup
-        run: npm i -g @antfu/ni
+          cache: pnpm
 
       - name: Install
-        run: nci
+        run: pnpm install --no-frozen-lockfile
 
       - name: Build
-        run: nr build
+        run: pnpm build
 
       - name: Test
-        run: nr test
+        run: pnpm test

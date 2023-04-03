@@ -1,4 +1,5 @@
 {
+  "name": "shopify-vite-preset",
   "private": true,
   "author": "Miguel Montalvo <miguel.montalvo@barrelny.com>",
   "license": "MIT",
