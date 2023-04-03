@@ -13,6 +13,8 @@ export default function shopifyReactRefresh (): Plugin {
     },
     load (id) {
       if (id === resolvedVirtualModuleId) {
+        // fast-refresh
+        // https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/src/fast-refresh.ts#L23-L29
         return `
           import RefreshRuntime from '__shopify_vite_placeholder__/@react-refresh'
           RefreshRuntime.injectIntoGlobalHook(window)
