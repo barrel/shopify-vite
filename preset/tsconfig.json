@@ -4,8 +4,7 @@
     "types": ["node", "@preset/core/globals"]
   },
   "include": [
-    "./*.ts",
-    "./src/**/*.ts"
+    "."
   ],
-  "exclude": ["templates", "node_modules"]
+  "exclude": ["node_modules"]
 }
