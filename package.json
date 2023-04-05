@@ -26,9 +26,7 @@
   },
   "devDependencies": {
     "@changesets/cli": "^2.23.0",
-    "@pnpm/types": "^8.3.0",
     "@types/debug": "^4.1.7",
-    "@types/lodash": "^4.14.182",
     "@types/node": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^4.33.0",
     "@typescript-eslint/parser": "^4.33.0",
