@@ -1,5 +1,12 @@
 # vite-plugin-shopify
 
+## 2.1.1
+
+### Patch Changes
+
+- Fix ESM support ([#77](https://github.com/barrel/shopify-vite/pull/77)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
+
+
 ## 2.1.0
 
 ### Minor Changes
