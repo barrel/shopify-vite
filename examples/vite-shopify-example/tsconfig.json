@@ -9,6 +9,7 @@
     "node_modules"
   ],
   "compilerOptions": {
+    "lib": ["esnext", "dom"],
     "baseUrl": ".",
     "paths": {
       "@/*": ["frontend/*"],
