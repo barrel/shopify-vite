@@ -19,7 +19,8 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
       const socketProtocol = https === false ? 'ws' : 'wss'
       const defaultAliases: Record<string, string> = {
         '~': path.resolve(options.sourceCodeDir),
-        '@': path.resolve(options.sourceCodeDir)
+        '@': path.resolve(options.sourceCodeDir),
+        '$': path.resolve(config.build?.outDir ?? path.join(options.themeRoot, 'assets'))
       }
 
       const input = glob.sync([
