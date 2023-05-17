@@ -6,7 +6,7 @@ export const resolveOptions = (
   options: Options
 ): Required<Options> => {
   const themeRoot = options.themeRoot ?? './'
-  const sourceCodeDir = options.sourceCodeDir ?? 'frontend'
+  const sourceCodeDir = options.sourceCodeDir ?? 'src'
   const entrypointsDir = options.entrypointsDir ?? normalizePath(path.join(sourceCodeDir, 'entrypoints'))
   const additionalEntrypoints = options.additionalEntrypoints ?? []
   const snippetFile = options.snippetFile ?? 'vite-tag.liquid'
