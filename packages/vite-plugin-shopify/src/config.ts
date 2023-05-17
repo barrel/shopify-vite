@@ -38,9 +38,15 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
           outDir: config.build?.outDir ?? path.join(options.themeRoot, 'assets'),
           // Do not use subfolder for static assets
           assetsDir: config.build?.assetsDir ?? '',
+          emptyOutDir: false,
           // Configure bundle entry points
           rollupOptions: {
-            input: config.build?.rollupOptions?.input ?? input
+            input: config.build?.rollupOptions?.input ?? input,
+            output: {
+              entryFileNames: `[name].js`,
+              chunkFileNames: `[name].js`,
+              assetFileNames: `[name].[ext]`
+            }
           },
           // Output manifest file for backend integration
           manifest: config.build?.manifest ?? true
