@@ -10,7 +10,7 @@ export default defineConfig({
     ['meta', { property: 'og:title', content: 'Shopify Vite Plugin' }],
     ['meta', { property: 'og:image', content: 'https://shopify-vite.netlify.app/og-image.png' }],
     ['meta', { property: 'og:url', content: 'https://shopify-vite.netlify.app/' }],
-    ['meta', { property: 'og:description', content: 'Vite integration for Shopify themes' }],
+    ['meta', { property: 'og:description', content: 'Vite integration for Shopify themes by [Barrel](https://www.barrelny.com)' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:site', content: '@barrelny' }],
     ['meta', { name: 'theme-color', content: '#646cff' }]
