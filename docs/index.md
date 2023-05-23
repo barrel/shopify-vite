@@ -2,7 +2,7 @@
 layout: home
 
 title: Shopify Vite Plugin
-titleTemplate: Vite integration for Shopify themes by [Barrel](https://www.barrelny.com)
+titleTemplate: Vite integration for Shopify themes by Barrel
 
 features:
   - icon: ⚡️
