@@ -175,8 +175,16 @@ const scriptTag = (fileName: string): string =>
   `<script src="{{ '${fileName}' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>`
 
 // Generate a production stylesheet link tag for a style asset
-const stylesheetTag = (fileName: string): string =>
-  `{{ '${fileName}' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}`
+const stylesheetTag = (fileName: string): string => {
+  if (!fileName.includes('.s-up') && !fileName.includes('.m-up')) {
+    return `{{ '${fileName}' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}`
+  } else if (fileName.includes('.s-up')) {
+    return `{{ '${fileName}' | asset_url | split: '?' | first | stylesheet_tag: media: '(min-width: 750px)' }}`
+  } else if (fileName.includes('.m-up')) {
+    return `{{ '${fileName}' | asset_url | split: '?' | first | stylesheet_tag: media: '(min-width: 990px)' }}`
+  }
+  throw new Error(`Unexpected stylesheet file name: ${fileName}`)
+}
 
 // Generate vite-tag snippet for development
 const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugin: Plugin | undefined): string =>
