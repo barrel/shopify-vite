@@ -94,6 +94,12 @@ During development, the `vite-tag` snippet will load your assets from the Vite d
 In build mode, the snippet will load your compiled and versioned assets, including any imported CSS, and use the `asset_url` filter to serve your assets
 from the Shopify content delivery network (CDN).
 
+::: warning
+The `vite-tag` snippet strips out the version parameter `?v` during build
+mode to [avoid downloading scripts twice](https://github.com/barrel/shopify-vite/pull/21). Always use hashed file names during
+build mode to ensure you get the latest version of your production assets.
+:::
+
 ### Loading `additionalEntrypoints`
 
 ::: code-group
