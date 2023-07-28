@@ -13,23 +13,25 @@ You can use [`concurrently`](https://github.com/open-cli-tools/concurrently) or 
   "private": true,
   "scripts": {
     "dev": "vite", // [!code --]
-    "dev": "run-p -sr dev:shopify dev:vite", // [!code ++]
-    "dev:shopify": "shopify theme dev --store $npm_package_config_store", // [!code ++]
+    "dev": "run-p -sr \"dev:shopify {@}\" \"dev:vite\" --", // [!code ++]
+    "dev:shopify": "shopify theme dev", // [!code ++]
     "dev:vite": "vite", // [!code ++]
+    "deploy": "run-s \"build\" \"deploy:shopify {@}\" --", // [!code ++]
+    "deploy:shopify": "shopify theme push", // [!code ++]
     "build": "vite build"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5", // [!code ++]
     "vite": "^4.2.1",
     "vite-plugin-shopify": "^2.0.2"
-  }, // [!code ++]
-  "config": { // [!code ++]
-    "store": "my-shop.myshopify.com" // [!code ++]
   }
 }
 ```
-
 :::
+
+```bash
+$ pnpm dev --store johns-apparel --live-reload full-page
+```
 
 ## How to cleanup the `assets/` folder?
 
