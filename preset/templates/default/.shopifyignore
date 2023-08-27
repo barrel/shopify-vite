@@ -9,6 +9,9 @@ postcss.config.cjs
 .prettierignore
 .prettierrc.json
 .theme-check.yml
-/.vscode
+.vscode/
 *.md
 translation.yml
+node_modules
+.git/
+.github/

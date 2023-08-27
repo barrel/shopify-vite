@@ -7,6 +7,23 @@ as possible with [Shopify themes](https://shopify.dev/docs/themes) to optimize y
 providing sensible built-in configurations that should work for the majority of themes and a
 snippet to load your assets for development and production.
 
+## Installation in a fresh theme
+
+The recommended and most straightforward approach to get started with Shopify Vite is to use the preset. It's a single command that will:
+
+* Create a `package.json` file
+* Add development dependencies on `vite` and `vite-plugin-shopify`
+* Update `package.json` scripts to use launch Vite and Shopify CLI in parallel
+* Create a `vite.config.js` file
+* Create a `.shopifyignore` file
+* Load Vite entries in your layout files `theme.liquid`/`password.liquid`
+
+To apply the preset, run the following command:
+
+```bash
+npx @preset/cli apply barrel/shopify-vite --path preset
+```
+
 ## Installation in an existing theme
 
 ### Installing Node
