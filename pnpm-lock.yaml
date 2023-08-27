@@ -131,6 +131,19 @@ importers:
 
   packages/tsconfig: {}
 
+  packages/vite-plugin-page-reload:
+    dependencies:
+      picocolors:
+        specifier: ^1.0.0
+        version: 1.0.0
+      vite:
+        specifier: ^4.0.4
+        version: 4.2.1(@types/node@18.15.11)(sass@1.60.0)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+
   packages/vite-plugin-shopify:
     dependencies:
       debug:

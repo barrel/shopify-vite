@@ -1,0 +1,40 @@
+{
+  "name": "vite-plugin-page-reload",
+  "version": "0.0.0",
+  "description": "",
+  "repository": {
+    "url": "barrel/shopify-vite",
+    "directory": "packages/vite-plugin-page-reload"
+  },
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "npm run watch",
+    "build": "tsup src/index.ts --dts --format esm --clean",
+    "watch": "tsup src/index.ts --dts --format esm --watch",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "vite": "^4.0.4"
+  },
+  "dependencies": {
+    "picocolors": "^1.0.0",
+    "picomatch": "^2.3.1"
+  },
+  "devDependencies": {
+    "@types/picomatch": "^2.3.0",
+    "tsconfig": "workspace:*"
+  }
+}
