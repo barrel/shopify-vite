@@ -11,13 +11,14 @@ You can use [`concurrently`](https://github.com/open-cli-tools/concurrently) or 
 ```json [package.json]
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "vite", // [!code --]
-    "dev": "run-p -sr \"dev:shopify {@}\" \"dev:vite\" --", // [!code ++]
-    "dev:shopify": "shopify theme dev", // [!code ++]
-    "dev:vite": "vite", // [!code ++]
-    "deploy": "run-s \"build\" \"deploy:shopify {@}\" --", // [!code ++]
-    "deploy:shopify": "shopify theme push", // [!code ++]
+    "dev": "run-p -sr \"shopify:dev -- {@}\" \"vite:dev\" --", // [!code ++]
+    "deploy": "run-s \"build\" \"shopify:push -- {@}\" --", // [!code ++]
+    "shopify:dev": "shopify theme dev", // [!code ++]
+    "vite:dev": "vite", // [!code ++]
+    "shopify:push": "shopify theme push", // [!code ++]
     "build": "vite build"
   },
   "devDependencies": {
@@ -30,7 +31,7 @@ You can use [`concurrently`](https://github.com/open-cli-tools/concurrently) or 
 :::
 
 ```bash
-$ pnpm dev --store johns-apparel --live-reload full-page
+$ npm run dev -- --store johns-apparel --live-reload full-page
 ```
 
 ## How to cleanup the `assets/` folder?
