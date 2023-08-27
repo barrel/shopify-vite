@@ -7,7 +7,7 @@ export default definePreset({
   postInstall: ({ hl }) => [
     `Run the development server with ${hl('npm run dev')}`,
     `Edit your entry points in ${hl('frontend/entrypoints')}`,
-    `Build for production with ${hl('npm run build')}`
+    `Deploy your theme with ${hl('npm run deploy')}`
   ],
   handler: async (context) => {
     if (context.options.base) {
@@ -41,16 +41,17 @@ async function installVite (): Promise<void> {
           {
             type: 'edit-json',
             merge: {
+              type: 'module',
               scripts: {
-                dev: 'run-p -sr dev:shopify dev:vite',
-                'dev:shopify': 'shopify theme dev --live-reload full-page --store $npm_package_config_store',
-                'dev:vite': 'vite',
-                build: 'vite build',
-                preview: 'run-s build dev:shopify'
+                dev: 'run-p -sr "shopify:dev -- {@}" "vite:dev" --',
+                deploy: 'run-s "vite:build" "shopify:push -- {@}" --',
+                'shopify:dev': 'shopify theme dev',
+                'shopify:push': 'shopify theme push',
+                'vite:dev': 'vite',
+                'vite:build': 'vite build'
               }
             }
-          },
-          { type: 'edit-json', merge: { config: { store: 'my-shop.myshopify.com' } } }
+          }
         ],
         title: 'update package.json'
       })
@@ -68,15 +69,16 @@ async function installVite (): Promise<void> {
 
       await editFiles({
         title: 'add vite-tag snippet',
-        files: ['layout/theme.liquid', 'layout/password.liquid'],
+        files: ['layout/*.liquid'],
         operations: [{
           type: 'add-line',
           match: /content_for_header/,
           position: 'before',
           lines: [
-            '{%- render \'vite-tag\' with \'main.css\' -%}',
-            '{%- render \'vite-tag\' with \'main.js\' -%}',
-            ''
+            '{%- liquid',
+            '  render \'vite-tag\' with \'main.css\'',
+            '  render \'vite-tag\' with \'main.js\'',
+            '-%}'
           ]
         }]
       })
