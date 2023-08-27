@@ -8,7 +8,7 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@preset/core": "^0.9.1",
+    "@preset/core": "^0.11.0",
     "@types/node": "^18.15.3",
     "tsconfig": "workspace:*"
   }

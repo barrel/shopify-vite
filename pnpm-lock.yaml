@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 importers:
 
   .:
@@ -149,8 +153,8 @@ importers:
   preset:
     devDependencies:
       '@preset/core':
-        specifier: ^0.9.1
-        version: 0.9.1
+        specifier: ^0.11.0
+        version: 0.11.0
       '@types/node':
         specifier: ^18.15.3
         version: 18.15.11
@@ -1191,8 +1195,8 @@ packages:
       - supports-color
     dev: true
 
-  /@preset/core@0.9.1:
-    resolution: {integrity: sha512-s8fYm9j2K3Axk81Jw94Hk2t1NxLssIpScrfIAw2e5hikPMsl000iTt49iEzi16IjsUXNs+OcXdPOjdt0nN2V6w==}
+  /@preset/core@0.11.0:
+    resolution: {integrity: sha512-jJ/LXk7XayEuMtbXtZz7GjwYLaY5tx+1DCodkBhKFp4c7xIjNcr0mhcnN7sHjShY4me40nxzUGtulVOfHqn3Kg==}
     dependencies:
       cac: 6.7.14
       debug: 4.3.4
