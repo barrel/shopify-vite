@@ -101,13 +101,6 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
             // Render script tag for JS entry
             tagsForEntry.push(scriptTag(file))
 
-            if (typeof css !== 'undefined' && css.length > 0) {
-              css.forEach((cssFileName: string) => {
-                // Render style tag for imported CSS file
-                tagsForEntry.push(stylesheetTag(cssFileName))
-              })
-            }
-
             if (typeof imports !== 'undefined' && imports.length > 0) {
               imports.forEach((importFilename: string) => {
                 const chunk = manifest[importFilename]
@@ -122,6 +115,13 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
                     tagsForEntry.push(stylesheetTag(cssFileName))
                   })
                 }
+              })
+            }
+
+            if (typeof css !== 'undefined' && css.length > 0) {
+              css.forEach((cssFileName: string) => {
+                // Render style tag for imported CSS file
+                tagsForEntry.push(stylesheetTag(cssFileName))
               })
             }
           }
