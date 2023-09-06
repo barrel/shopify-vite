@@ -1,7 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { AddressInfo } from 'node:net'
-import { fileURLToPath } from 'node:url'
 import { Manifest, Plugin, ResolvedConfig, normalizePath } from 'vite'
 import createDebugger from 'debug'
 
@@ -9,11 +8,6 @@ import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
 import type { Options, DevServerUrl } from './types'
 
 const debug = createDebugger('vite-plugin-shopify:html')
-
-// __dirname polyfill for ESM
-const _dirname = typeof __dirname !== 'undefined'
-  ? __dirname
-  : path.dirname(fileURLToPath(import.meta.url))
 
 // Plugin for generating vite-tag liquid theme snippet with entry points for JS and CSS assets
 export default function shopifyHTML (options: Required<Options>): Plugin {
@@ -61,7 +55,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
           res.statusCode = 404
 
           res.end(
-            fs.readFileSync(path.join(_dirname, 'dev-server-index.html')).toString()
+            fs.readFileSync(path.join(__dirname, 'dev-server-index.html')).toString()
           )
         }
 

@@ -28,8 +28,8 @@
   },
   "scripts": {
     "dev": "npm run watch",
-    "build": "tsup src/index.ts --dts --format cjs,esm --clean --publicDir",
-    "watch": "tsup src/index.ts --dts --format cjs,esm --watch --publicDir",
+    "build": "tsup src/index.ts --dts --format cjs,esm --clean --publicDir --shims",
+    "watch": "tsup src/index.ts --dts --format cjs,esm --watch --publicDir --shims",
     "lint": "eslint .",
     "test": "vitest run"
   },
