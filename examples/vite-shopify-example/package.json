@@ -13,6 +13,7 @@
     "sass": "^1.52.2",
     "tsconfig": "workspace:*",
     "vite": "^4.0.4",
+    "vite-plugin-page-reload": "workspace:*",
     "vite-plugin-shopify": "workspace:*"
   },
   "dependencies": {

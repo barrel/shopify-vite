@@ -125,11 +125,33 @@ importers:
       vite:
         specifier: ^4.0.4
         version: 4.2.1(@types/node@18.15.11)(sass@1.60.0)
+      vite-plugin-page-reload:
+        specifier: workspace:*
+        version: link:../../packages/vite-plugin-page-reload
       vite-plugin-shopify:
         specifier: workspace:*
         version: link:../../packages/vite-plugin-shopify
 
   packages/tsconfig: {}
+
+  packages/vite-plugin-page-reload:
+    dependencies:
+      picocolors:
+        specifier: ^1.0.0
+        version: 1.0.0
+      picomatch:
+        specifier: ^2.3.1
+        version: 2.3.1
+      vite:
+        specifier: ^4.0.4
+        version: 4.2.1(@types/node@18.15.11)(sass@1.60.0)
+    devDependencies:
+      '@types/picomatch':
+        specifier: ^2.3.0
+        version: 2.3.0
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
 
   packages/vite-plugin-shopify:
     dependencies:
@@ -1268,6 +1290,10 @@ packages:
 
   /@types/normalize-package-data@2.4.1:
     resolution: {integrity: sha512-Gj7cI7z+98M282Tqmp2K5EIsoouUEzbBJhQQzDE3jSIRk6r9gsz0oUokqIUR4u1R3dMHo0pDHM7sNOHyhulypw==}
+    dev: true
+
+  /@types/picomatch@2.3.0:
+    resolution: {integrity: sha512-O397rnSS9iQI4OirieAtsDqvCj4+3eY1J+EPdNTKuHuRWIfUoGyzX294o8C4KJYaLqgSrd2o60c5EqCU8Zv02g==}
     dev: true
 
   /@types/preact-custom-element@4.0.1:
