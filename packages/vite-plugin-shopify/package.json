@@ -14,22 +14,20 @@
   "author": "Barrel, LLC",
   "license": "MIT",
   "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
-  "types": "./dist/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "require": "./dist/index.js",
-      "import": "./dist/index.mjs",
-      "types": "./dist/index.d.ts"
+      "import": "./dist/index.mjs"
     }
   },
   "scripts": {
     "dev": "npm run watch",
-    "build": "tsup src/index.ts --dts --format cjs,esm --clean --publicDir",
-    "watch": "tsup src/index.ts --dts --format cjs,esm --watch --publicDir",
+    "build": "tsup src/index.ts --dts --format cjs,esm --clean --publicDir --shims",
+    "watch": "tsup src/index.ts --dts --format cjs,esm --watch --publicDir --shims",
     "lint": "eslint .",
     "test": "vitest run"
   },

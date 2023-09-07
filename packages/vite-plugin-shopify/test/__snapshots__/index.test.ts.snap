@@ -6,10 +6,17 @@ exports[`vite-plugin-shopify > builds out .liquid files for production 1`] = `
   Do not attempt to modify this file directly, as any changes will be overwritten by the next build.
 {% endcomment %}
 {% assign path = vite-tag | replace: '@@/', '../../resources/js/' | replace: '~/', '../' | replace: '@/', '../' %}
-{% if path == \\"/test/__fixtures__/frontend/entrypoints/theme.css\\" or path == \\"theme.css\\" %}
-  {{ 'theme-1a84b608.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
-{% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.ts\\" or path == \\"theme.ts\\" %}
-  <script src=\\"{{ 'theme-3cfb730f.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
+{% if path == \\"/test/__fixtures__/frontend/entrypoints/customers.js\\" or path == \\"customers.js\\" %}
+  <script src=\\"{{ 'customers-58a5ac95.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
+  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-3cfb730f.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
+  <link rel=\\"modulepreload\\" href=\\"{{ 'foo-46c287c0.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
+  {{ 'foo-480346c8.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {{ 'customers-56f8e94b.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+{% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.css\\" or path == \\"theme.css\\" %}
+  {{ 'theme-b72be805.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+{% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.js\\" or path == \\"theme.js\\" %}
+  <script src=\\"{{ 'theme-01eb4fab.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
+  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-3cfb730f.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
 {% endif %}
 "
 `;
