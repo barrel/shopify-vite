@@ -1,11 +1,16 @@
 # vite-plugin-shopify
 
+## 2.1.2
+
+### Patch Changes
+
+- Fix html tags order (#95). Thanks @ysemennikov
+
 ## 2.1.1
 
 ### Patch Changes
 
 - Fix ESM support ([#77](https://github.com/barrel/shopify-vite/pull/77)) by [@montalvomiguelo](https://github.com/montalvomiguelo)
-
 
 ## 2.1.0
 
