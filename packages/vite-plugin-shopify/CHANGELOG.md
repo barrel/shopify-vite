@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 2.1.3
+
+### Patch Changes
+
+- Parity bump
+
 ## 2.1.2
 
 ### Patch Changes
