@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 2.2.0
+
+### Minor Changes
+
+- Re-publish v2.1.2 as v2.2.0 for npm
+
 ## 2.1.2
 
 ### Patch Changes
