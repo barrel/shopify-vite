@@ -50,3 +50,10 @@ Additional files to use as entry points (accepts an array of file paths or glob 
 - **Default:** `"vite-tag.liquid"`
 
 Specifies the file name of the snippet that loads your assets.
+
+## versionNumbers
+
+- **Type:** `boolean`
+- **Default:** `false`
+
+Specifies whether to append version numbers to your production-ready asset URLs in [`snippetFile`](/guide/configuration.html#snippetfile).

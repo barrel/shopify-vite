@@ -30,6 +30,10 @@ export default defineConfig({
             link: '/guide/example-projects'
           },
           {
+            text: 'Recommended Plugins',
+            link: '/guide/plugins'
+          },
+          {
             text: 'Troubleshooting',
             link: '/guide/troubleshooting'
           },
@@ -68,7 +72,8 @@ export default defineConfig({
     nav: [
       { text: 'Guide', link: '/guide/' },
       { text: 'Config Reference', link: '/guide/configuration' },
-      { text: 'Examples', link: '/guide/example-projects' }
+      { text: 'Examples', link: '/guide/example-projects' },
+      { text: 'Plugins', link: '/guide/plugins' },
     ]
   }
 })
