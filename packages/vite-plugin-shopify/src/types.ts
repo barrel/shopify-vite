@@ -33,6 +33,13 @@ export interface Options {
    * @default 'vite-tag.liquid'
    */
   snippetFile?: string
+
+  /**
+   * Specifies whether to append version numbers to your production-ready asset URLs in {@link snippetFile}.
+   *
+   * @default false
+   */
+  versionNumbers?: boolean
 }
 
 export type DevServerUrl = `${'http' | 'https'}://${string}:${number}`
