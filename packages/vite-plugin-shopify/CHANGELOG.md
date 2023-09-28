@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 2.2.1
+
+### Patch Changes
+
+- Add version numbers option. Thanks to @slavamak!
+
 ## 2.2.0
 
 ### Minor Changes
