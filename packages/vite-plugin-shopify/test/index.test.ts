@@ -26,4 +26,27 @@ describe('vite-plugin-shopify', () => {
 
     expect(tagsHtml).toMatchSnapshot()
   })
+
+  it('builds out .liquid files for production with version numbers', async () => {
+    await build({
+      logLevel: 'silent',
+      plugins: [
+        shopify({
+          themeRoot: path.join(__dirname, '__fixtures__'),
+          sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend'),
+          snippetFile: 'vite-tag.liquid',
+          versionNumbers: true
+        })
+      ],
+      resolve: {
+        alias: {
+          '@@': normalizePath(path.resolve(path.join(__dirname, '__fixtures__', 'resources', 'js')))
+        }
+      }
+    })
+
+    const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })
+
+    expect(tagsHtml).toMatchSnapshot()
+  })
 })

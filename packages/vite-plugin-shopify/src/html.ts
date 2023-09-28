@@ -90,23 +90,23 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
           if (ext.match(CSS_EXTENSIONS_REGEX) !== null) {
             // Render style tag for CSS entry
-            tagsForEntry.push(stylesheetTag(file))
+            tagsForEntry.push(stylesheetTag(file, options.versionNumbers))
           } else {
             // Render script tag for JS entry
-            tagsForEntry.push(scriptTag(file))
+            tagsForEntry.push(scriptTag(file, options.versionNumbers))
 
             if (typeof imports !== 'undefined' && imports.length > 0) {
               imports.forEach((importFilename: string) => {
                 const chunk = manifest[importFilename]
                 const { css } = chunk
                 // Render preload tags for JS imports
-                tagsForEntry.push(preloadScriptTag(chunk.file))
+                tagsForEntry.push(preloadScriptTag(chunk.file, options.versionNumbers))
 
                 // Render style tag for JS imports
                 if (typeof css !== 'undefined' && css.length > 0) {
                   css.forEach((cssFileName: string) => {
                     // Render style tag for imported CSS file
-                    tagsForEntry.push(stylesheetTag(cssFileName))
+                    tagsForEntry.push(stylesheetTag(cssFileName, options.versionNumbers))
                   })
                 }
               })
@@ -115,7 +115,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
             if (typeof css !== 'undefined' && css.length > 0) {
               css.forEach((cssFileName: string) => {
                 // Render style tag for imported CSS file
-                tagsForEntry.push(stylesheetTag(cssFileName))
+                tagsForEntry.push(stylesheetTag(cssFileName, options.versionNumbers))
               })
             }
           }
@@ -125,7 +125,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
         // Generate entry tag for bundled "style.css" file when cssCodeSplit is false
         if (src === 'style.css' && !config.build.cssCodeSplit) {
-          assetTags.push(viteEntryTag([src], stylesheetTag(file), false))
+          assetTags.push(viteEntryTag([src], stylesheetTag(file, options.versionNumbers), false))
         }
       })
 
@@ -156,21 +156,29 @@ const viteTagEntryPath = (
   return `{% assign path = ${snippetName} | ${replacements.map(([from, to]) => `replace: '${from}/', '${to}/'`).join(' | ')} %}\n`
 }
 
+// Generate the asset's url with or without version numbers
+const assetUrl = (fileName: string, versionNumbers: boolean): string => {
+  if (!versionNumbers) {
+    return `'${fileName}' | asset_url | split: '?' | first`
+  }
+  return `'${fileName}' | asset_url`
+}
+
 // Generate conditional statement for entry tag
 const viteEntryTag = (entryPaths: string[], tag: string, isFirstEntry = false): string =>
   `{% ${!isFirstEntry ? 'els' : ''}if ${entryPaths.map((entryName) => `path == "${entryName}"`).join(' or ')} %}\n  ${tag}`
 
 // Generate a preload link tag for a script or style asset
-const preloadScriptTag = (fileName: string): string =>
-  `<link rel="modulepreload" href="{{ '${fileName}' | asset_url | split: '?' | first }}" crossorigin="anonymous">`
+const preloadScriptTag = (fileName: string, versionNumbers: boolean): string =>
+  `<link rel="modulepreload" href="{{ ${assetUrl(fileName, versionNumbers)} }}" crossorigin="anonymous">`
 
 // Generate a production script tag for a script asset
-const scriptTag = (fileName: string): string =>
-  `<script src="{{ '${fileName}' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>`
+const scriptTag = (fileName: string, versionNumbers: boolean): string =>
+  `<script src="{{ ${assetUrl(fileName, versionNumbers)} }}" type="module" crossorigin="anonymous"></script>`
 
 // Generate a production stylesheet link tag for a style asset
-const stylesheetTag = (fileName: string): string =>
-  `{{ '${fileName}' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}`
+const stylesheetTag = (fileName: string, versionNumbers: boolean): string =>
+  `{{ ${assetUrl(fileName, versionNumbers)} | stylesheet_tag: preload: preload_stylesheet }}`
 
 // Generate vite-tag snippet for development
 const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugin: Plugin | undefined): string =>

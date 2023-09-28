@@ -7,7 +7,7 @@ as possible with [Shopify themes](https://shopify.dev/docs/themes) to optimize y
 providing sensible built-in configurations that should work for the majority of themes and a
 snippet to load your assets for development and production.
 
-## Installation in a fresh theme
+## Preset
 
 The recommended and most straightforward approach to get started with Shopify Vite is to use the preset. It's a single command that will:
 
@@ -24,7 +24,7 @@ To apply the preset, run the following command:
 npx @preset/cli apply barrel/shopify-vite --path preset
 ```
 
-## Installation in an existing theme
+## Installation & Setup
 
 ### Installing Node
 
@@ -111,10 +111,11 @@ During development, the `vite-tag` snippet will load your assets from the Vite d
 In build mode, the snippet will load your compiled and versioned assets, including any imported CSS, and use the `asset_url` filter to serve your assets
 from the Shopify content delivery network (CDN).
 
-::: warning
-The `vite-tag` snippet strips out the version parameter `?v` during build
-mode to [avoid downloading scripts twice](https://github.com/barrel/shopify-vite/pull/21). Always use hashed file names during
-build mode to ensure you get the latest version of your production assets.
+::: tip
+The `vite-tag` snippet strips out the version numbers the [`asset_url`](https://shopify.dev/docs/api/liquid/filters/hosted_file-filters?shpxid=c35868c2-5FFD-41C5-7DCF-74F5F8AB5527#asset_url) filter generates for your production-ready asset by default in favor of
+loading the hashed file names that Vite generates out of the box.
+
+To enable the version numbers, use the [versionNumbers](/guide/configuration.html#versionnumbers) option of the Plugin.
 :::
 
 ### Loading `additionalEntrypoints`
