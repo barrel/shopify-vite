@@ -1,0 +1,38 @@
+{
+  "name": "vite-plugin-cleanup",
+  "version": "0.1.0",
+  "description": "",
+  "repository": {
+    "url": "barrel/shopify-vite",
+    "directory": "packages/vite-plugin-cleanup"
+  },
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "npm run watch",
+    "build": "tsup src/index.ts --dts --format esm --clean",
+    "watch": "tsup src/index.ts --dts --format esm --watch",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "vite": "^4.0.4"
+  },
+  "dependencies": {
+    "fast-glob": "^3.2.11"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*"
+  }
+}

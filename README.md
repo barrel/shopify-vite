@@ -13,6 +13,7 @@ Modern frontend tooling for Shopify theme development using Vite for a best-in-c
 | ------------------------------------------------------------- | ------------------------------------------------------------ |
 | [vite-plugin-shopify](./packages/vite-plugin-shopify)         | [Changelog](./packages/vite-plugin-shopify/CHANGELOG.md)     |
 | [vite-plugin-page-reload](./packages/vite-plugin-page-reload) | [Changelog](./packages/vite-plugin-page-reload/CHANGELOG.md) |
+| [vite-plugin-cleanup](./packages/vite-plugin-cleanup)         | [Changelog](./packages/vite-plugin-cleanup/CHANGELOG.md)     |
 
 ## Documentation
 

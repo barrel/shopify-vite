@@ -134,6 +134,19 @@ importers:
 
   packages/tsconfig: {}
 
+  packages/vite-plugin-cleanup:
+    dependencies:
+      fast-glob:
+        specifier: ^3.2.11
+        version: 3.2.12
+      vite:
+        specifier: ^4.0.4
+        version: 4.2.1(@types/node@18.15.11)(sass@1.60.0)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
+
   packages/vite-plugin-page-reload:
     dependencies:
       picocolors:
