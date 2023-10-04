@@ -90,7 +90,7 @@ languages such as TypeScript, JSX, TSX, and Sass) within the `frontend/entrypoin
         └── theme.ts
 ```
 
-::: tip
+::: info
 Read the [Configuration Reference](/guide/configuration) of the Shopify Vite Plugin for a full overview of all supported configuration options.
 :::
 
