@@ -9,7 +9,7 @@ snippet to load your assets for development and production.
 
 ## Preset
 
-The recommended and most straightforward approach to get started with Shopify Vite is to use the preset in a fresh [Shopify theme](https://shopify.dev/docs/themes/tools/cli/commands#init).
+The recommended and most straightforward approach to get started with Shopify Vite is to use the preset in a [fresh Shopify theme](https://shopify.dev/docs/themes/tools/cli/commands#init).
 
 ```bash
 npx @preset/cli apply barrel/shopify-vite --path preset
