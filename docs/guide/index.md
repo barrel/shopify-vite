@@ -9,20 +9,17 @@ snippet to load your assets for development and production.
 
 ## Preset
 
-The recommended and most straightforward approach to get started with Shopify Vite is to use the preset. It's a single command that will:
-
-* Create a `package.json` file
-* Add development dependencies on `vite` and `vite-plugin-shopify`
-* Update `package.json` scripts to use launch Vite and Shopify CLI in parallel
-* Create a `vite.config.js` file
-* Create a `.shopifyignore` file
-* Load Vite entries in your layout files `theme.liquid`/`password.liquid`
-
-To apply the preset, run the following command:
+The recommended and most straightforward approach to get started with Shopify Vite is to use the preset in a fresh [Shopify theme](https://shopify.dev/docs/themes/tools/cli/commands#init).
 
 ```bash
 npx @preset/cli apply barrel/shopify-vite --path preset
 ```
+
+More information about the preset can be found on its [repository](https://github.com/barrel/shopify-vite/tree/main/preset).
+
+::: info
+Once you have installed the preset, you do not need to follow the rest of the installation guide.
+:::
 
 ## Installation & Setup
 
@@ -111,7 +108,7 @@ During development, the `vite-tag` snippet will load your assets from the Vite d
 In build mode, the snippet will load your compiled and versioned assets, including any imported CSS, and use the `asset_url` filter to serve your assets
 from the Shopify content delivery network (CDN).
 
-::: tip
+::: info
 The `vite-tag` snippet strips out the version numbers the [`asset_url`](https://shopify.dev/docs/api/liquid/filters/hosted_file-filters?shpxid=c35868c2-5FFD-41C5-7DCF-74F5F8AB5527#asset_url) filter generates for your production-ready asset by default in favor of
 loading the hashed file names that Vite generates out of the box.
 
