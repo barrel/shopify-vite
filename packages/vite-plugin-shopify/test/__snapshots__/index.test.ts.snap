@@ -7,16 +7,16 @@ exports[`vite-plugin-shopify > builds out .liquid files for production 1`] = `
 {% endcomment %}
 {% assign path = vite-tag | replace: '@@/', '../../resources/js/' | replace: '~/', '../' | replace: '@/', '../' %}
 {% if path == \\"/test/__fixtures__/frontend/entrypoints/customers.js\\" or path == \\"customers.js\\" %}
-  <script src=\\"{{ 'customers-58a5ac95.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
-  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-3cfb730f.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
-  <link rel=\\"modulepreload\\" href=\\"{{ 'foo-46c287c0.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
-  {{ 'foo-480346c8.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
-  {{ 'customers-56f8e94b.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  <script src=\\"{{ 'customers-eJQN4JmY.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
+  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-9p4a8sJU.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
+  <link rel=\\"modulepreload\\" href=\\"{{ 'foo-fo_u-S9j.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
+  {{ 'foo-KvHhgPs6.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {{ 'customers-XJE1fJUn.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.css\\" or path == \\"theme.css\\" %}
-  {{ 'theme-b72be805.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {{ 'theme-kiakkSUl.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.js\\" or path == \\"theme.js\\" %}
-  <script src=\\"{{ 'theme-01eb4fab.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
-  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-3cfb730f.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
+  <script src=\\"{{ 'theme-47GZ2s79.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
+  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-9p4a8sJU.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
 {% endif %}
 "
 `;
@@ -28,16 +28,16 @@ exports[`vite-plugin-shopify > builds out .liquid files for production with vers
 {% endcomment %}
 {% assign path = vite-tag | replace: '@@/', '../../resources/js/' | replace: '~/', '../' | replace: '@/', '../' %}
 {% if path == \\"/test/__fixtures__/frontend/entrypoints/customers.js\\" or path == \\"customers.js\\" %}
-  <script src=\\"{{ 'customers-58a5ac95.js' | asset_url }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
-  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-3cfb730f.js' | asset_url }}\\" crossorigin=\\"anonymous\\">
-  <link rel=\\"modulepreload\\" href=\\"{{ 'foo-46c287c0.js' | asset_url }}\\" crossorigin=\\"anonymous\\">
-  {{ 'foo-480346c8.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
-  {{ 'customers-56f8e94b.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
+  <script src=\\"{{ 'customers-eJQN4JmY.js' | asset_url }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
+  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-9p4a8sJU.js' | asset_url }}\\" crossorigin=\\"anonymous\\">
+  <link rel=\\"modulepreload\\" href=\\"{{ 'foo-fo_u-S9j.js' | asset_url }}\\" crossorigin=\\"anonymous\\">
+  {{ 'foo-KvHhgPs6.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
+  {{ 'customers-XJE1fJUn.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.css\\" or path == \\"theme.css\\" %}
-  {{ 'theme-b72be805.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
+  {{ 'theme-kiakkSUl.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.js\\" or path == \\"theme.js\\" %}
-  <script src=\\"{{ 'theme-01eb4fab.js' | asset_url }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
-  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-3cfb730f.js' | asset_url }}\\" crossorigin=\\"anonymous\\">
+  <script src=\\"{{ 'theme-47GZ2s79.js' | asset_url }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
+  <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-9p4a8sJU.js' | asset_url }}\\" crossorigin=\\"anonymous\\">
 {% endif %}
 "
 `;
