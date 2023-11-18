@@ -1,5 +1,14 @@
 # vite-plugin-shopify
 
+## 3.0.0
+
+### Major Changes
+
+Shopify Vite Plugin is an ESM-only package. To use it with [Vite 5](https://vitejs.dev/blog/announcing-vite5), we need
+to add `"type": "module"` to the `package.json` of our projects OR change the extension of our Vite config file to `.mjs`/`.mts`.
+
+- Vite 5 support ([#89](https://github.com/barrel/shopify-vite/pull/89))
+
 ## 2.2.1
 
 ### Patch Changes
