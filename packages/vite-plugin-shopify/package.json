@@ -32,7 +32,7 @@
     "test": "vitest run"
   },
   "peerDependencies": {
-    "vite": "^4.0.4"
+    "vite": "^5.0.0"
   },
   "dependencies": {
     "debug": "^4.3.4",

@@ -27,7 +27,7 @@
     "typecheck": "tsc --noEmit"
   },
   "peerDependencies": {
-    "vite": "^4.0.4"
+    "vite": "^5.0.0"
   },
   "dependencies": {
     "picocolors": "^1.0.0",

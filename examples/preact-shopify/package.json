@@ -7,10 +7,10 @@
     "build": "vite build"
   },
   "devDependencies": {
-    "@preact/preset-vite": "^2.5.0",
+    "@preact/preset-vite": "^2.7.0",
     "@types/preact-custom-element": "^4.0.1",
     "sass": "^1.52.2",
-    "vite": "^4.0.4",
+    "vite": "^5.0.0",
     "vite-plugin-shopify": "workspace:*"
   },
   "dependencies": {
