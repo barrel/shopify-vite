@@ -14,9 +14,9 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
     config (config: UserConfig): UserConfig {
       const host = config.server?.host ?? 'localhost'
       const port = config.server?.port ?? 5173
-      const https = config.server?.https ?? false
+      const https = config.server?.https
       const origin = config.server?.origin ?? '__shopify_vite_placeholder__'
-      const socketProtocol = https === false ? 'ws' : 'wss'
+      const socketProtocol = https === undefined ? 'ws' : 'wss'
       const defaultAliases: Record<string, string> = {
         '~': path.resolve(options.sourceCodeDir),
         '@': path.resolve(options.sourceCodeDir)

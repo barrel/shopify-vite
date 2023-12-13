@@ -2,6 +2,7 @@
   "name": "react-shopify",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "cross-env DEBUG=vite-plugin-shopify:* vite",
     "build": "cross-env DEBUG=vite-plugin-shopify:* vite build"
@@ -13,9 +14,9 @@
   "devDependencies": {
     "@types/react": "^18.0.28",
     "@types/react-dom": "^18.0.11",
-    "@vitejs/plugin-react": "^3.1.0",
+    "@vitejs/plugin-react": "^4.2.0",
     "cross-env": "^7.0.3",
-    "vite": "^4.0.4",
+    "vite": "^5.0.0",
     "vite-plugin-shopify": "workspace:*"
   }
 }

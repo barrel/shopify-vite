@@ -45,11 +45,16 @@ Next, install Vite and the Shopify plugin via NPM.
 npm i -D vite vite-plugin-shopify
 ```
 
+::: tip
+The Shopify plugin is an ESM-only package. Don't use `require()` to import it, and make sure your nearest `package.json` contains `"type": "module"`, or change the file extension of your relevant files like `vite.config.js`/`vite.config.ts` to `.mjs`/`.mts`. Refer [Vite's troubleshooting guide](http://vitejs.dev/guide/troubleshooting.html#this-package-is-esm-only) for more details.
+:::
+
 Finally, adjust your `package.json` by adding the following [scripts](https://docs.npmjs.com/cli/v9/using-npm/scripts):
 
 ```
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1", // [!code --]
     "dev": "vite dev", // [!code ++]
@@ -85,7 +90,7 @@ languages such as TypeScript, JSX, TSX, and Sass) within the `frontend/entrypoin
         └── theme.ts
 ```
 
-::: tip
+::: info
 Read the [Configuration Reference](/guide/configuration) of the Shopify Vite Plugin for a full overview of all supported configuration options.
 :::
 

@@ -43,7 +43,9 @@ export default {
       // Additional files to use as entry points (accepts an array of file paths or glob patterns)
       additionalEntrypoints: [],
       // Specifies the file name of the snippet that loads your assets
-      snippetFile: 'vite-tag.liquid'
+      snippetFile: 'vite-tag.liquid',
+     // Specifies whether to append version numbers to your production-ready asset URLs in `snippetFile`
+      versionNumbers: false
     })
   ]
 }

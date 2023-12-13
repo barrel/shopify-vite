@@ -1,7 +1,8 @@
 {
   "name": "vite-plugin-shopify",
-  "version": "2.2.1",
+  "version": "3.0.0",
   "description": "Vite plugin providing integration for Shopify themes",
+  "type": "module",
   "repository": {
     "url": "barrel/shopify-vite",
     "directory": "packages/vite-plugin-shopify"
@@ -20,19 +21,18 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "import": "./dist/index.mjs"
+      "default": "./dist/index.js"
     }
   },
   "scripts": {
     "dev": "npm run watch",
-    "build": "tsup src/index.ts --dts --format cjs,esm --clean --publicDir --shims",
-    "watch": "tsup src/index.ts --dts --format cjs,esm --watch --publicDir --shims",
+    "build": "tsup src/index.ts --dts --format esm --clean --publicDir --shims",
+    "watch": "tsup src/index.ts --dts --format esm --watch --publicDir --shims",
     "lint": "eslint .",
     "test": "vitest run"
   },
   "peerDependencies": {
-    "vite": "^4.0.4"
+    "vite": "^5.0.0"
   },
   "dependencies": {
     "debug": "^4.3.4",

@@ -29,7 +29,7 @@ export default defineConfig({
       ]
     }),
     pageReload('/tmp/theme.update', {
-      delay: 1600
+      delay: 2000
     })
   ],
   build: {

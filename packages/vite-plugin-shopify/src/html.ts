@@ -67,7 +67,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
         return
       }
 
-      const manifestFilePath = path.resolve(options.themeRoot, 'assets/manifest.json')
+      const manifestFilePath = path.resolve(options.themeRoot, 'assets/.vite/manifest.json')
 
       if (!fs.existsSync(manifestFilePath)) {
         return
@@ -217,7 +217,7 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugi
 function resolveDevServerUrl (address: AddressInfo, config: ResolvedConfig): DevServerUrl {
   const configHmrProtocol = typeof config.server.hmr === 'object' ? config.server.hmr.protocol : null
   const clientProtocol = configHmrProtocol !== null ? (configHmrProtocol === 'wss' ? 'https' : 'http') : null
-  const serverProtocol = config.server.https !== false ? 'https' : 'http'
+  const serverProtocol = config.server.https !== undefined ? 'https' : 'http'
   const protocol = clientProtocol ?? serverProtocol
 
   const configHmrHost = typeof config.server.hmr === 'object' ? config.server.hmr.host : null

@@ -22,7 +22,7 @@ describe('vite-plugin-shopify:config', () => {
     expect(config.resolve.alias['~']).toMatch(path.resolve('frontend'))
     expect(config.resolve.alias['@']).toMatch(path.resolve('frontend'))
     expect(config.server.host).toBe('localhost')
-    expect(config.server.https).toEqual(false)
+    expect(config.server.https).toEqual(undefined)
     expect(config.server.port).toEqual(5173)
     expect(config.server.origin).toEqual('__shopify_vite_placeholder__')
     expect(config.server.strictPort).toEqual(true)
