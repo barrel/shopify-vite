@@ -67,7 +67,11 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
         return
       }
 
-      const manifestFilePath = path.resolve(options.themeRoot, 'assets/.vite/manifest.json')
+      const manifestOption = config.build?.manifest
+      const manifestFilePath = path.resolve(
+        options.themeRoot,
+        `assets/${typeof manifestOption === 'string' ? manifestOption : '.vite/manifest.json'}`
+      )
 
       if (!fs.existsSync(manifestFilePath)) {
         return
