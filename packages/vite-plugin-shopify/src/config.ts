@@ -42,7 +42,7 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
             input: config.build?.rollupOptions?.input ?? input
           },
           // Output manifest file for backend integration
-          manifest: config.build?.manifest ?? true
+          manifest: config.build?.manifest || true
         },
         resolve: {
           // Provide import alias to source code dir for convenience
