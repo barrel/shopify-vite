@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 3.0.1
+
+### Patch Changes
+
+- Fix issue with build.manifest option
+
 ## 3.0.0
 
 ### Major Changes
