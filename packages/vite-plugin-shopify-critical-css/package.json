@@ -1,0 +1,46 @@
+{
+  "name": "vite-plugin-shopify-critical-css",
+  "version": "0.0.1",
+  "description": "Vite plugin generate critical css for Shopify",
+  "type": "module",
+  "repository": {
+    "url": "barrel/shopify-vite",
+    "directory": "packages/vite-plugin-shopify-critical-css"
+  },
+  "keywords": [
+    "vite",
+    "shopify",
+    "vite-plugin"
+  ],
+  "author": "Barrel, LLC",
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "npm run watch",
+    "build": "tsup src/index.ts --dts --format esm --clean --publicDir --shims",
+    "watch": "tsup src/index.ts --dts --format esm --watch --publicDir --shims",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "peerDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.7",
+    "crittr": "^1.5.3",
+    "debug": "^4.3.4"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*",
+    "typescript": "^4.7.4"
+  }
+}
