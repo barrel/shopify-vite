@@ -1,11 +1,33 @@
-import { defineConfig } from 'vitepress'
+import { fileURLToPath, URL } from 'node:url'
+import { HeadConfig, defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: 'Shopify Vite Plugin',
   description: 'Vite integration for Shopify themes',
+  appearance: 'force-dark',
 
+  transformHead({ assets }) {
+    const head: HeadConfig[] = []
+
+    const headFont = assets.find(file => /IBMPlexSans.*\.woff2$/)
+
+    if (headFont) {
+      head.push([
+        'link',
+        {
+          rel: 'preload',
+          href: headFont,
+          as: 'font',
+          type: 'font/woff2',
+          crossOrigin: '',
+        }
+      ])
+    }
+
+    return head
+  },
   head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'Shopify Vite Plugin' }],
     ['meta', { property: 'og:image', content: 'https://shopify-vite.netlify.app/og-image.png' }],
@@ -17,6 +39,7 @@ export default defineConfig({
   ],
 
   themeConfig: {
+    logo: '/logo.svg',
     sidebar: [
       {
         text: 'Guide',
@@ -75,5 +98,23 @@ export default defineConfig({
       { text: 'Examples', link: '/guide/example-projects' },
       { text: 'Plugins', link: '/guide/plugins' },
     ]
+  },
+  vite: {
+    resolve: {
+      alias: [
+        {
+          find: /^.*\/(VPNavBarSocialLinks|VPNavScreenSocialLinks)\.vue$/,
+          replacement: fileURLToPath(
+            new URL('./theme/components/BrandButtons.vue', import.meta.url)
+          )
+        },
+        {
+          find: /^.*\/(VPFooter)\.vue$/,
+          replacement: fileURLToPath(
+            new URL('./theme/components/Footer.vue', import.meta.url)
+          )
+        }
+      ]
+    }
   }
 })
