@@ -25,7 +25,7 @@ describe('vite-plugin-shopify:config', () => {
     expect(config.server.https).toEqual(undefined)
     expect(config.server.port).toEqual(5173)
     expect(config.server.origin).toEqual('__shopify_vite_placeholder__')
-    expect(config.server.strictPort).toEqual(true)
+    expect(config.server.strictPort).toEqual(false)
     expect(config.server.hmr.host).toEqual('localhost')
     expect(config.server.hmr.port).toEqual(5173)
     expect(config.server.hmr.protocol).toEqual('ws')
