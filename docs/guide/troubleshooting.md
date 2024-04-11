@@ -34,7 +34,7 @@ You can use [`concurrently`](https://github.com/open-cli-tools/concurrently) or 
 $ npm run dev -- --store johns-apparel --live-reload full-page
 ```
 
-## How to cleanup the `assets/` folder (Vite 4)?
+## How to cleanup the `assets/` folder?
 
 To clean up the `assets/` folder, you can disable the default behavior of Vite emptying the
 `outDir` directory on build. Instead, use the
