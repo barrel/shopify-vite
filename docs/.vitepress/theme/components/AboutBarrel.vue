@@ -52,6 +52,15 @@
   margin-top: 20px;
 }
 
+.about-barrel__content a {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.about-barrel__content a:hover {
+  color: var(--vp-c-brand-lighter);
+}
+
 @media (min-width: 680px) {
   .about-barrel {
     width: calc(100% - 96px);

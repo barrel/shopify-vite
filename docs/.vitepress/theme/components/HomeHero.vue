@@ -55,6 +55,10 @@ import BrandButtons from './BrandButtons.vue'
   text-underline-offset: 4px;
 }
 
+.hero-heading a:hover {
+  color: var(--vp-c-brand-lighter);
+}
+
 .hero-text {
   margin-top: 12px;
   font-size: 18px;

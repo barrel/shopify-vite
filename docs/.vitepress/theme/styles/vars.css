@@ -119,16 +119,24 @@
 /* Custom CSS */
 
 :root {
-  --vp-font-family-base: "Helvetica";
   --vp-font-family-heading: "IBM Plex Sans";
   --vp-nav-logo-height: 30px;
   --vp-nav-height: 102px;
+  --vp-c-gutter: rgba(255, 255, 255, 0.1);
+  --docsearch-hit-active-color: #000;
 }
 
 @media (min-width: 960px) {
   :root {
     --vp-nav-logo-height: 43px;
   }
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url("/helveticaneue-light.woff2");
+  font-weight: 300;
+  font-style: normal;
 }
 
 @font-face {
@@ -145,11 +153,47 @@
   font-style: normal;
 }
 
-body {
+body.homepage {
   --vp-c-text-1: #fff;
+  --vp-font-family-base: "Helvetica Neue";
 
   background-image: url(/grain.png);
   position: relative;
+}
+
+body .VPSkipLink:focus {
+  font-family: var(--vp-font-family-heading);
+  color: #000;
+  font-size: 16px;
+  line-height: 1.3;
+  padding: 13px 32px;
+  border-radius: 30px;
+  display: inline-flex;
+  gap: 8px;
+  transition: background-color 0.2s;
+  border: 2px solid transparent;
+  background-color: rgba(84, 255, 235, 0.6);
+  border-color: rgba(84, 255, 235, 0.6);
+  margin-top: 10px;
+}
+
+.VPNav .VPNavBarHamburger .top,
+.VPNav .VPNavBarHamburger .middle,
+.VPNav .VPNavBarHamburger .bottom,
+.VPNav .VPNavBarHamburger:hover .top,
+.VPNav .VPNavBarHamburger:hover .middle,
+.VPNav .VPNavBarHamburger:hover .bottom {
+  background-color: #fff !important;
+  width: 16px;
+}
+
+.VPNav .VPNavBarHamburger:not(.active) .top,
+.VPNav .VPNavBarHamburger:not(.active) .middle,
+.VPNav .VPNavBarHamburger:not(.active) .bottom,
+.VPNav .VPNavBarHamburger:not(.active):hover .top,
+.VPNav .VPNavBarHamburger:not(.active):hover .middle,
+.VPNav .VPNavBarHamburger:not(.active):hover .bottom {
+  transform: none;
 }
 
 .VPNavScreen {
@@ -242,6 +286,11 @@ body {
 
 .brand-button--github {
   border-color: #fff;
+  transition: opacity 0.2s;
+}
+
+.brand-button--github:hover {
+  opacity: 0.8;
 }
 
 .brand-button--primary {
@@ -391,5 +440,25 @@ body {
 
   .VPHomeFeatures .VPFeature .details {
     font-size: 18px;
+  }
+}
+
+body:not(.homepage) .light-wrapper {
+  display: none;
+}
+
+body:not(.homepage) .VPNavBar {
+  background-image: none;
+}
+
+body:not(.homepage) .footer {
+  z-index: 10000;
+  background: var(--vp-sidebar-bg-color);
+  padding-top: 50px;
+}
+
+@media (min-width: 960px) {
+  body:not(.homepage) .footer {
+    padding-top: 80px;
   }
 }

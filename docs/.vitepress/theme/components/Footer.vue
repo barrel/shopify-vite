@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { useData } from 'vitepress'
+import { useData } from "vitepress";
 
-const data = useData()
-const nav = data.site.value?.themeConfig?.nav || []
-const socialLinks = data.site.value?.themeConfig?.socialLinks || []
+const data = useData();
+const nav = data.site.value?.themeConfig?.nav || [];
+const socialLinks = data.site.value?.themeConfig?.socialLinks || [];
 </script>
 
 <template>
@@ -73,6 +73,10 @@ const socialLinks = data.site.value?.themeConfig?.socialLinks || []
   letter-spacing: -0.04em;
 }
 
+.footer-nav__link:hover {
+  color: var(--vp-c-brand-lighter);
+}
+
 .footer__copyright {
   font-size: 16px;
   line-height: 1.45;
@@ -80,6 +84,10 @@ const socialLinks = data.site.value?.themeConfig?.socialLinks || []
 
 .footer__copyright a {
   text-decoration: underline;
+}
+
+.footer__copyright a:hover {
+  color: var(--vp-c-brand-lighter);
 }
 
 .footer-social__list {
@@ -134,7 +142,7 @@ const socialLinks = data.site.value?.themeConfig?.socialLinks || []
 
   .footer__logo img {
     max-width: 478px;
-  } 
+  }
 
   .footer-nav__link {
     font-weight: 500;
