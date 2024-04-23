@@ -286,11 +286,12 @@ body .VPSkipLink:focus {
 
 .brand-button--github {
   border-color: #fff;
-  transition: opacity 0.2s;
+  background-color: transparent;
+  transition: background-color 0.2s;
 }
 
 .brand-button--github:hover {
-  opacity: 0.8;
+  background-color: rgba(255, 255, 255, 0.15);
 }
 
 .brand-button--primary {

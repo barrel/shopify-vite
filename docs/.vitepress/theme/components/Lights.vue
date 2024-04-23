@@ -86,6 +86,7 @@ onUnmounted(() => {
   transform: rotate(-24deg);
   filter: blur(90px);
   border-radius: 300px;
+  opacity: 0.75;
 }
 
 .light-3 {
@@ -109,6 +110,7 @@ onUnmounted(() => {
   transform: rotate(24deg);
   filter: blur(90px);
   border-radius: 300px;
+  opacity: 0.75;
 }
 
 @media (min-width: 960px) {
