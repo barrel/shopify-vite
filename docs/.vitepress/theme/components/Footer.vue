@@ -71,6 +71,7 @@ const socialLinks = data.site.value?.themeConfig?.socialLinks || [];
   font-size: 27px;
   line-height: 1.45;
   letter-spacing: -0.04em;
+  transition: color 0.2s;
 }
 
 .footer-nav__link:hover {
@@ -84,6 +85,7 @@ const socialLinks = data.site.value?.themeConfig?.socialLinks || [];
 
 .footer__copyright a {
   text-decoration: underline;
+  transition: color 0.2s;
 }
 
 .footer__copyright a:hover {

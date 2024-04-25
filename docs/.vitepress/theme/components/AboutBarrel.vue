@@ -55,6 +55,7 @@
 .about-barrel__content a {
   text-decoration: underline;
   text-underline-offset: 2px;
+  transition: color 0.2s;
 }
 
 .about-barrel__content a:hover {
