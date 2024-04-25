@@ -64,7 +64,6 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
           https,
           port,
           origin,
-          strictPort: config.server?.strictPort ?? false,
           hmr: config.server?.hmr === false
             ? false
             : {
