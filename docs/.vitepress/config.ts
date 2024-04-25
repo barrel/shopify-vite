@@ -30,12 +30,12 @@ export default defineConfig({
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:title', content: 'Shopify Vite Plugin' }],
-    ['meta', { property: 'og:image', content: 'https://shopify-vite.netlify.app/og-image.png' }],
+    ['meta', { property: 'og:image', content: 'https://shopify-vite.netlify.app/og-image.jpg' }],
     ['meta', { property: 'og:url', content: 'https://shopify-vite.netlify.app/' }],
     ['meta', { property: 'og:description', content: 'Vite integration for Shopify themes by Barrel' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:site', content: '@barrelny' }],
-    ['meta', { name: 'theme-color', content: '#646cff' }]
+    ['meta', { name: 'theme-color', content: '#000000' }]
   ],
 
   themeConfig: {

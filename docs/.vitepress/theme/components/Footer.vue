@@ -32,7 +32,7 @@ const socialLinks = data.site.value?.themeConfig?.socialLinks || [];
         <ul class="footer-social__list">
           <template v-for="item in socialLinks">
             <li class="footer-social__item">
-              <a href="{{ item.link }}" target="_blank">
+              <a :href="item.link" target="_blank">
                 <img :src="`/${item.icon}.svg`" :alt="item.icon" />
               </a>
             </li>
@@ -71,6 +71,7 @@ const socialLinks = data.site.value?.themeConfig?.socialLinks || [];
   font-size: 27px;
   line-height: 1.45;
   letter-spacing: -0.04em;
+  transition: color 0.2s;
 }
 
 .footer-nav__link:hover {
@@ -84,6 +85,7 @@ const socialLinks = data.site.value?.themeConfig?.socialLinks || [];
 
 .footer__copyright a {
   text-decoration: underline;
+  transition: color 0.2s;
 }
 
 .footer__copyright a:hover {
