@@ -32,7 +32,7 @@ const socialLinks = data.site.value?.themeConfig?.socialLinks || [];
         <ul class="footer-social__list">
           <template v-for="item in socialLinks">
             <li class="footer-social__item">
-              <a href="{{ item.link }}" target="_blank">
+              <a :href="item.link" target="_blank">
                 <img :src="`/${item.icon}.svg`" :alt="item.icon" />
               </a>
             </li>
