@@ -182,7 +182,20 @@ const scriptTag = (fileName: string, versionNumbers: boolean): string =>
 
 // Generate a production stylesheet link tag for a style asset
 const stylesheetTag = (fileName: string, versionNumbers: boolean): string =>
-  `{{ ${assetUrl(fileName, versionNumbers)} | stylesheet_tag: preload: preload_stylesheet }}`
+  `{% if preload_stylesheet == 'defer' %}
+    <link
+      rel="preload"
+      fetchpriority="{{ fetchpriority | default: 'lowest' }}"
+      href="{{ ${assetUrl(fileName, versionNumbers)} }}"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    >
+    <noscript>
+      <link rel="stylesheet" href="{{ ${assetUrl(fileName, versionNumbers)} }}">
+    </noscript>
+  {% else %}
+    {{ ${assetUrl(fileName, versionNumbers)} | stylesheet_tag: preload: preload_stylesheet }}
+  {% endif %}`
 
 // Generate vite-tag snippet for development
 const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugin: Plugin | undefined): string =>
