@@ -10,10 +10,49 @@ exports[`vite-plugin-shopify > builds out .liquid files for production 1`] = `
   <script src=\\"{{ 'customers-eJQN4JmY.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
   <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-9p4a8sJU.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
   <link rel=\\"modulepreload\\" href=\\"{{ 'foo-fo_u-S9j.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
-  {{ 'foo-KvHhgPs6.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
-  {{ 'customers-XJE1fJUn.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {% if preload_stylesheet == 'defer' %}
+    <link
+      rel=\\"preload\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      href=\\"{{ 'foo-KvHhgPs6.css' | asset_url | split: '?' | first }}\\"
+      as=\\"style\\"
+      onload=\\"this.onload=null;this.rel='stylesheet'\\"
+    >
+    <noscript>
+      <link rel=\\"stylesheet\\" href=\\"{{ 'foo-KvHhgPs6.css' | asset_url | split: '?' | first }}\\">
+    </noscript>
+  {% else %}
+    {{ 'foo-KvHhgPs6.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {% endif %}
+  {% if preload_stylesheet == 'defer' %}
+    <link
+      rel=\\"preload\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      href=\\"{{ 'customers-XJE1fJUn.css' | asset_url | split: '?' | first }}\\"
+      as=\\"style\\"
+      onload=\\"this.onload=null;this.rel='stylesheet'\\"
+    >
+    <noscript>
+      <link rel=\\"stylesheet\\" href=\\"{{ 'customers-XJE1fJUn.css' | asset_url | split: '?' | first }}\\">
+    </noscript>
+  {% else %}
+    {{ 'customers-XJE1fJUn.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {% endif %}
 {% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.css\\" or path == \\"theme.css\\" %}
-  {{ 'theme-kiakkSUl.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {% if preload_stylesheet == 'defer' %}
+    <link
+      rel=\\"preload\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      href=\\"{{ 'theme-kiakkSUl.css' | asset_url | split: '?' | first }}\\"
+      as=\\"style\\"
+      onload=\\"this.onload=null;this.rel='stylesheet'\\"
+    >
+    <noscript>
+      <link rel=\\"stylesheet\\" href=\\"{{ 'theme-kiakkSUl.css' | asset_url | split: '?' | first }}\\">
+    </noscript>
+  {% else %}
+    {{ 'theme-kiakkSUl.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
+  {% endif %}
 {% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.js\\" or path == \\"theme.js\\" %}
   <script src=\\"{{ 'theme-47GZ2s79.js' | asset_url | split: '?' | first }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
   <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-9p4a8sJU.js' | asset_url | split: '?' | first }}\\" crossorigin=\\"anonymous\\">
@@ -31,10 +70,49 @@ exports[`vite-plugin-shopify > builds out .liquid files for production with vers
   <script src=\\"{{ 'customers-eJQN4JmY.js' | asset_url }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
   <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-9p4a8sJU.js' | asset_url }}\\" crossorigin=\\"anonymous\\">
   <link rel=\\"modulepreload\\" href=\\"{{ 'foo-fo_u-S9j.js' | asset_url }}\\" crossorigin=\\"anonymous\\">
-  {{ 'foo-KvHhgPs6.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
-  {{ 'customers-XJE1fJUn.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
+  {% if preload_stylesheet == 'defer' %}
+    <link
+      rel=\\"preload\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      href=\\"{{ 'foo-KvHhgPs6.css' | asset_url }}\\"
+      as=\\"style\\"
+      onload=\\"this.onload=null;this.rel='stylesheet'\\"
+    >
+    <noscript>
+      <link rel=\\"stylesheet\\" href=\\"{{ 'foo-KvHhgPs6.css' | asset_url }}\\">
+    </noscript>
+  {% else %}
+    {{ 'foo-KvHhgPs6.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
+  {% endif %}
+  {% if preload_stylesheet == 'defer' %}
+    <link
+      rel=\\"preload\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      href=\\"{{ 'customers-XJE1fJUn.css' | asset_url }}\\"
+      as=\\"style\\"
+      onload=\\"this.onload=null;this.rel='stylesheet'\\"
+    >
+    <noscript>
+      <link rel=\\"stylesheet\\" href=\\"{{ 'customers-XJE1fJUn.css' | asset_url }}\\">
+    </noscript>
+  {% else %}
+    {{ 'customers-XJE1fJUn.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
+  {% endif %}
 {% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.css\\" or path == \\"theme.css\\" %}
-  {{ 'theme-kiakkSUl.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
+  {% if preload_stylesheet == 'defer' %}
+    <link
+      rel=\\"preload\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      href=\\"{{ 'theme-kiakkSUl.css' | asset_url }}\\"
+      as=\\"style\\"
+      onload=\\"this.onload=null;this.rel='stylesheet'\\"
+    >
+    <noscript>
+      <link rel=\\"stylesheet\\" href=\\"{{ 'theme-kiakkSUl.css' | asset_url }}\\">
+    </noscript>
+  {% else %}
+    {{ 'theme-kiakkSUl.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
+  {% endif %}
 {% elsif path == \\"/test/__fixtures__/frontend/entrypoints/theme.js\\" or path == \\"theme.js\\" %}
   <script src=\\"{{ 'theme-47GZ2s79.js' | asset_url }}\\" type=\\"module\\" crossorigin=\\"anonymous\\"></script>
   <link rel=\\"modulepreload\\" href=\\"{{ 'modulepreload-polyfill-9p4a8sJU.js' | asset_url }}\\" crossorigin=\\"anonymous\\">
