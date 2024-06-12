@@ -106,6 +106,7 @@ With your Vite entry points configured, you only need to reference them with the
   # Relative to entrypointsDir
   render 'vite-tag' with 'theme.scss'
   render 'vite-tag' with 'theme.ts'
+  render 'vite-tag' with 'deferred.scss', preload_stylesheet: 'defer'
 %}
 ```
 
@@ -229,6 +230,17 @@ You can pass the `preload_stylesheet` variable to the `vite-tag` snippet to enab
 
 ```liquid
 {% render 'vite-tag' with 'theme.scss', preload_stylesheet: true %}
+```
+
+### Defer Loading Stylesheets
+
+You can pass the `preload_stylesheet: 'defer'` variable to the `vite-tag` snippet to defer loading stylesheets. For example, consider defer loading non-critical stylesheets.
+[Learn more](https://web.dev/articles/defer-non-critical-css).
+
+You can also pass the `fetchpriority` variable to the `vite-tag` snippet to indicate priority of deferred stylesheets. [Learn more](https://web.dev/articles/fetch-priority)
+
+```liquid
+{% render 'vite-tag' with 'deferred.scss', preload_stylesheet: 'defer', fetchpriority: 'low' %}
 ```
 
 ## Advanced Customization
