@@ -13,6 +13,7 @@
 
   {%- liquid
     render 'vite' with 'theme.scss', preload_stylesheet: true
+    render 'vite' with 'deferred.scss', preload_stylesheet: 'defer', fetchpriority: 'low'
     render 'vite' with 'theme.ts'
     render 'vite' with '@/foo.ts'
     render 'vite' with '~/bar.ts'
