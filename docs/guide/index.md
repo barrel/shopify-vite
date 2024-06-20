@@ -237,7 +237,7 @@ You can pass the `preload_stylesheet` variable to the `vite-tag` snippet to enab
 You can pass the `preload_stylesheet: 'defer'` variable to the `vite-tag` snippet to defer loading stylesheets. For example, consider defer loading non-critical stylesheets.
 [Learn more](https://web.dev/articles/defer-non-critical-css).
 
-You can also pass the `fetchpriority` variable to the `vite-tag` snippet to indicate priority of deferred stylesheets. [Learn more](https://web.dev/articles/fetch-priority)
+You can also pass the `fetchpriority` variable to the `vite-tag` snippet to indicate priority of deferred stylesheets. [Learn more](https://web.dev/articles/fetch-priority). Note that this option only has an effect when `preload_stylesheet` is set to `defer`.
 
 ```liquid
 {% render 'vite-tag' with 'deferred.scss', preload_stylesheet: 'defer', fetchpriority: 'low' %}
