@@ -13,7 +13,7 @@ exports[`vite-plugin-shopify > builds out .liquid files for production 1`] = `
   {% if preload_stylesheet == 'defer' %}
     <link
       rel=\\"preload\\"
-      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'low' }}\\"
       href=\\"{{ 'foo-KvHhgPs6.css' | asset_url | split: '?' | first }}\\"
       as=\\"style\\"
       onload=\\"this.onload=null;this.rel='stylesheet'\\"
@@ -27,7 +27,7 @@ exports[`vite-plugin-shopify > builds out .liquid files for production 1`] = `
   {% if preload_stylesheet == 'defer' %}
     <link
       rel=\\"preload\\"
-      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'low' }}\\"
       href=\\"{{ 'customers-XJE1fJUn.css' | asset_url | split: '?' | first }}\\"
       as=\\"style\\"
       onload=\\"this.onload=null;this.rel='stylesheet'\\"
@@ -42,7 +42,7 @@ exports[`vite-plugin-shopify > builds out .liquid files for production 1`] = `
   {% if preload_stylesheet == 'defer' %}
     <link
       rel=\\"preload\\"
-      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'low' }}\\"
       href=\\"{{ 'theme-kiakkSUl.css' | asset_url | split: '?' | first }}\\"
       as=\\"style\\"
       onload=\\"this.onload=null;this.rel='stylesheet'\\"
@@ -73,7 +73,7 @@ exports[`vite-plugin-shopify > builds out .liquid files for production with vers
   {% if preload_stylesheet == 'defer' %}
     <link
       rel=\\"preload\\"
-      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'low' }}\\"
       href=\\"{{ 'foo-KvHhgPs6.css' | asset_url }}\\"
       as=\\"style\\"
       onload=\\"this.onload=null;this.rel='stylesheet'\\"
@@ -87,7 +87,7 @@ exports[`vite-plugin-shopify > builds out .liquid files for production with vers
   {% if preload_stylesheet == 'defer' %}
     <link
       rel=\\"preload\\"
-      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'low' }}\\"
       href=\\"{{ 'customers-XJE1fJUn.css' | asset_url }}\\"
       as=\\"style\\"
       onload=\\"this.onload=null;this.rel='stylesheet'\\"
@@ -102,7 +102,7 @@ exports[`vite-plugin-shopify > builds out .liquid files for production with vers
   {% if preload_stylesheet == 'defer' %}
     <link
       rel=\\"preload\\"
-      fetchpriority=\\"{{ fetchpriority | default: 'lowest' }}\\"
+      fetchpriority=\\"{{ fetchpriority | default: 'low' }}\\"
       href=\\"{{ 'theme-kiakkSUl.css' | asset_url }}\\"
       as=\\"style\\"
       onload=\\"this.onload=null;this.rel='stylesheet'\\"
