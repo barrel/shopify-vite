@@ -185,7 +185,7 @@ const stylesheetTag = (fileName: string, versionNumbers: boolean): string =>
   `{% if preload_stylesheet == 'defer' %}
     <link
       rel="preload"
-      fetchpriority="{{ fetchpriority | default: 'lowest' }}"
+      fetchpriority="{{ fetchpriority | default: 'low' }}"
       href="{{ ${assetUrl(fileName, versionNumbers)} }}"
       as="style"
       onload="this.onload=null;this.rel='stylesheet'"
