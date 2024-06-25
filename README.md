@@ -9,10 +9,11 @@ Modern frontend tooling for Shopify theme development using Vite for a best-in-c
 
 ## Packages
 
-| Package                                                       | Changelog                                                    |
-| ------------------------------------------------------------- | ------------------------------------------------------------ |
-| [vite-plugin-shopify](./packages/vite-plugin-shopify)         | [Changelog](./packages/vite-plugin-shopify/CHANGELOG.md)     |
-| [vite-plugin-page-reload](./packages/vite-plugin-page-reload) | [Changelog](./packages/vite-plugin-page-reload/CHANGELOG.md) |
+| Package                                                                   | Changelog                                                          |
+| ------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| [vite-plugin-shopify](./packages/vite-plugin-shopify)                     | [Changelog](./packages/vite-plugin-shopify/CHANGELOG.md)           |
+| [vite-plugin-page-reload](./packages/vite-plugin-page-reload)             | [Changelog](./packages/vite-plugin-page-reload/CHANGELOG.md)       |
+| [vite-plugin-shopify-defer-css](./packages/vite-plugin-shopify-defer-css) | [Changelog](./packages/vite-plugin-shopify-defer-css/CHANGELOG.md) |
 
 ## Documentation
 

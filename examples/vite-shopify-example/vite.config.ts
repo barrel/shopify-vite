@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import shopify from 'vite-plugin-shopify'
 import pageReload from 'vite-plugin-page-reload'
+import deferCss from 'vite-plugin-shopify-defer-css'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 import { resolve } from 'node:path'
 
@@ -28,6 +29,7 @@ export default defineConfig({
         'resources/**/*.js' // relative to themeRoot
       ]
     }),
+    deferCss(),
     pageReload('/tmp/theme.update', {
       delay: 2000
     })

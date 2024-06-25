@@ -14,7 +14,8 @@
     "tsconfig": "workspace:*",
     "vite": "^5.0.0",
     "vite-plugin-page-reload": "workspace:*",
-    "vite-plugin-shopify": "workspace:*"
+    "vite-plugin-shopify": "workspace:*",
+    "vite-plugin-shopify-defer-css": "workspace:*"
   },
   "dependencies": {
     "lodash-es": "^4.17.21"
