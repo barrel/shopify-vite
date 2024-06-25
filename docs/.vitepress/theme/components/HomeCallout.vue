@@ -6,7 +6,7 @@ import BrandButtons from './BrandButtons.vue'
   <div class="home-callout">
     <div class="container">
       <div class="home-callout-text">
-        Upgrade your Shopify theme with the Shopify Vite Plugin
+        Upgrade your Shopify theme with the Volt - Shopify Vite Plugin
       </div>
       <BrandButtons />
     </div>

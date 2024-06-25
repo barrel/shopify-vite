@@ -2,7 +2,7 @@ import { fileURLToPath, URL } from 'node:url'
 import { HeadConfig, defineConfig } from 'vitepress'
 
 export default defineConfig({
-  title: 'Shopify Vite Plugin',
+  title: 'Volt - Shopify Vite Plugin',
   description: 'Vite integration for Shopify themes',
   appearance: 'force-dark',
 

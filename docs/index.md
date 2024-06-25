@@ -1,7 +1,7 @@
 ---
 layout: home
 
-title: Shopify Vite Plugin
+title: Volt - Shopify Vite Plugin
 titleTemplate: Vite integration for Shopify themes by Barrel
 
 features:

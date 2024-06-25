@@ -7,7 +7,7 @@
 
     <div class="about-barrel__content">
       <p>
-        The Shopify Vite Plugin was developed by Barrel.<br />
+        The Volt - Shopify Vite Plugin was developed by Barrel.<br />
         Barrel partners with brands to design, build, and optimize web experiences.
       </p>
 
