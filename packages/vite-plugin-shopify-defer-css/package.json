@@ -1,0 +1,38 @@
+{
+  "name": "vite-plugin-shopify-defer-css",
+  "version": "0.0.0",
+  "description": "",
+  "repository": {
+    "url": "barrel/shopify-vite",
+    "directory": "packages/vite-plugin-shopify-defer-css"
+  },
+  "license": "MIT",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "npm run watch",
+    "build": "tsup src/index.ts --dts --format esm --clean",
+    "watch": "tsup src/index.ts --dts --format esm --watch",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "vite": "^5.0.0"
+  },
+  "dependencies": {
+    "debug": "^4.3.4"
+  },
+  "devDependencies": {
+    "tsconfig": "workspace:*"
+  }
+}

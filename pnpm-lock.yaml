@@ -131,6 +131,9 @@ importers:
       vite-plugin-shopify:
         specifier: workspace:*
         version: link:../../packages/vite-plugin-shopify
+      vite-plugin-shopify-defer-css:
+        specifier: workspace:*
+        version: link:../../packages/vite-plugin-shopify-defer-css
 
   packages/tsconfig: {}
 
@@ -171,6 +174,19 @@ importers:
       vitest:
         specifier: ^0.25.7
         version: 0.25.8
+
+  packages/vite-plugin-shopify-defer-css:
+    dependencies:
+      debug:
+        specifier: ^4.3.4
+        version: 4.3.4
+      vite:
+        specifier: ^5.0.0
+        version: 5.0.0(@types/node@18.15.11)(sass@1.60.0)
+    devDependencies:
+      tsconfig:
+        specifier: workspace:*
+        version: link:../tsconfig
 
   preset:
     devDependencies:
