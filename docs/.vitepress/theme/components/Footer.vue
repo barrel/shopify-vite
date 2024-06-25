@@ -10,7 +10,7 @@ const socialLinks = data.site.value?.themeConfig?.socialLinks || [];
   <div class="footer">
     <div class="container">
       <div class="footer__logo">
-        <img src="/logo-footer.svg" alt="Volt - Shopify Vite Plugin" />
+        <img src="/logo-footer.svg" alt="Volt, a Vite plugin for Shopify development" />
       </div>
       <div class="footer__nav">
         <ul class="footer-nav__list">

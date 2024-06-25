@@ -1,7 +1,7 @@
 ---
 layout: home
 
-title: Volt - Shopify Vite Plugin
+title: Volt, a Vite plugin for Shopify development
 titleTemplate: Vite integration for Shopify themes by Barrel
 
 features:
