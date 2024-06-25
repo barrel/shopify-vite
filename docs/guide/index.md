@@ -2,7 +2,7 @@
 
 ## Overview
 
-Shopify Vite Plugin is a project that aims to integrate [Vite](https://vitejs.dev/) as seamlessly
+VoltShopify Vite Plugin is a project that aims to integrate [Vite](https://vitejs.dev/) as seamlessly
 as possible with [Shopify themes](https://shopify.dev/docs/themes) to optimize your theme development experience by
 providing sensible built-in configurations that should work for the majority of themes and a
 snippet to load your assets for development and production.
@@ -79,7 +79,7 @@ export default {
 }
 ```
 
-The Shopify Vite Plugin does not require you to specify the entry points for your theme. By default, it treats JavaScript and CSS files (including preprocessed
+The Volt - Shopify Vite Plugin does not require you to specify the entry points for your theme. By default, it treats JavaScript and CSS files (including preprocessed
 languages such as TypeScript, JSX, TSX, and Sass) within the `frontend/entrypoints` folder in the root of your project as entry points for Vite.
 
 ```
@@ -96,7 +96,7 @@ Read the [Configuration Reference](/guide/configuration) of the Shopify Vite Plu
 
 ### Loading your Scripts and Styles
 
-The Shopify Vite Plugin generates a `vite-tag` snippet which includes `<script>` and `<link>` tags, and all the liquid logic needed
+The Volt - Shopify Vite Plugin generates a `vite-tag` snippet which includes `<script>` and `<link>` tags, and all the liquid logic needed
 to load your assets.
 
 With your Vite entry points configured, you only need to reference them with the `vite-tag` snippet that you add to the `<head>` of your theme's layout:
@@ -233,7 +233,7 @@ You can pass the `preload_stylesheet` variable to the `vite-tag` snippet to enab
 
 ## Advanced Customization
 
-Out of the box, the Shopify Vite Plugin uses sensible conventions to help you add Vite with zero configuration to existing Shopify themes; however,
+Out of the box, the Volt - Shopify Vite Plugin uses sensible conventions to help you add Vite with zero configuration to existing Shopify themes; however,
 sometimes you may need to customize the Plugin's behavior.
 
 Every configuration option is described in the [Configuration Reference](/guide/configuration).

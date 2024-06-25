@@ -1,6 +1,6 @@
 # Configuration Reference
 
-The following reference covers all supported configuration options in Shopify Vite Plugin.
+The following reference covers all supported configuration options in Volt - Shopify Vite Plugin.
 
 ::: code-group
 ```js [vite.config.js]
