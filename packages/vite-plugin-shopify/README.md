@@ -51,7 +51,7 @@ export default {
 }
 ```
 
-Volt - Shopify Vite Plugin does not require you to specify the entry points for your theme. By default, it treats JavaScript and CSS files (including preprocessed
+Volt, a Vite plugin for Shopify development does not require you to specify the entry points for your theme. By default, it treats JavaScript and CSS files (including preprocessed
 languages such as TypeScript, JSX, TSX, and Sass) within the `frontend/entrypoints` folder in the root of your project as entry points for Vite.
 
 ```
@@ -64,7 +64,7 @@ languages such as TypeScript, JSX, TSX, and Sass) within the `frontend/entrypoin
 
 ### Adding scripts and styles to your theme
 
-Volt - Shopify Vite Plugin generates a `vite-tag` snippet which includes `<script>` and `<link>` tags, and all the liquid logic needed
+Volt, a Vite plugin for Shopify development generates a `vite-tag` snippet which includes `<script>` and `<link>` tags, and all the liquid logic needed
 to load your assets.
 
 With your Vite entry points configured, you only need to reference them with the `vite-tag` snippet that you add to the `<head>` of your theme's layout:

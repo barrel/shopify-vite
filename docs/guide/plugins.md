@@ -1,6 +1,6 @@
 # Recommended Plugins
 
-Using Volt - Shopify Vite Plugin is even more enjoyable with the following Plugins.
+Using Volt, a Vite plugin for Shopify development is even more enjoyable with the following Plugins.
 
 ## [vite-plugin-shopify-import-maps](https://github.com/slavamak/vite-plugin-shopify-import-maps)
 
