@@ -30,7 +30,7 @@ import BrandButtons from './BrandButtons.vue'
   line-height: 1.45;
   letter-spacing: -0.04em;
   text-align: center;
-  max-width: 600px;
+  max-width: 650px;
   margin-left: auto;
   margin-right: auto;
 }
