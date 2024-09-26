@@ -20,6 +20,7 @@ export default defineConfig({
   plugins: [
     basicSsl(),
     shopify({
+      tunnel: true,
       snippetFile: 'vite.liquid',
       additionalEntrypoints: [
         'frontend/foo.ts', // relative to sourceCodeDir

@@ -5,7 +5,7 @@ import { Manifest, Plugin, ResolvedConfig, normalizePath } from 'vite'
 import createDebugger from 'debug'
 
 import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
-import type { Options, DevServerUrl } from './types'
+import type { Options, DevServerUrl, FrontendURLResult } from './types'
 
 const debug = createDebugger('vite-plugin-shopify:html')
 
@@ -30,6 +30,8 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
       }
     },
     configureServer ({ config, middlewares, httpServer }) {
+      const tunnelOption = generateFrontendURL(options)
+
       httpServer?.once('listening', () => {
         const address = httpServer?.address()
 
@@ -38,7 +40,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
         if (isAddressInfo(address)) {
           viteDevServerUrl = resolveDevServerUrl(address, config)
 
-          debug({ address, viteDevServerUrl })
+          debug({ address, viteDevServerUrl, tunnelOption })
 
           const reactPlugin = config.plugins.find(plugin => plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh')
 
@@ -242,4 +244,22 @@ function isIpv6 (address: AddressInfo): boolean {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error-next-line
     address.family === 6
+}
+
+function generateFrontendURL (options: Required<Options>): FrontendURLResult {
+  let frontendPort = 4040
+  let frontendUrl = ''
+  let usingLocalhost = false
+
+  if (typeof options.tunnel !== 'string') {
+    usingLocalhost = true
+    return { frontendUrl, frontendPort, usingLocalhost }
+  }
+  const matches = options.tunnel.match(/(https:\/\/[^:]+):([0-9]+)/)
+  if (matches === null) {
+    throw new Error(`Invalid tunnel URL: ${options.tunnel}`)
+  }
+  frontendPort = Number(matches[2])
+  frontendUrl = matches[1]
+  return { frontendUrl, frontendPort, usingLocalhost }
 }

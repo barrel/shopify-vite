@@ -36,7 +36,8 @@
   },
   "dependencies": {
     "debug": "^4.3.4",
-    "fast-glob": "^3.2.11"
+    "fast-glob": "^3.2.11",
+    "untun": "^0.1.3"
   },
   "devDependencies": {
     "tsconfig": "workspace:*",
