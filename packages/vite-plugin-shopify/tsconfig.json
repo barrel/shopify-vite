@@ -7,5 +7,12 @@
     "dist",
     "build",
     "node_modules"
-  ]
+  ],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@shopify/cli-kit/*": ["./node_modules/@shopify/cli-kit/dist/public/*"],
+      "@shopify/plugin-cloudflare/hooks/*": ["node_modules/@shopify/plugin-cloudflare/dist/*"]
+    }
+  }
 }
