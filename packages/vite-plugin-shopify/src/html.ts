@@ -30,7 +30,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
       }
     },
     configureServer ({ config, middlewares, httpServer }) {
-      const tunnelOption = generateFrontendURL(options)
+      const tunnelConfig = resolveTunnelConfig(options)
 
       httpServer?.once('listening', () => {
         const address = httpServer?.address()
@@ -40,7 +40,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
         if (isAddressInfo(address)) {
           viteDevServerUrl = resolveDevServerUrl(address, config)
 
-          debug({ address, viteDevServerUrl, tunnelOption })
+          debug({ address, viteDevServerUrl, tunnelConfig })
 
           const reactPlugin = config.plugins.find(plugin => plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh')
 
@@ -246,15 +246,20 @@ function isIpv6 (address: AddressInfo): boolean {
     address.family === 6
 }
 
-function generateFrontendURL (options: Required<Options>): FrontendURLResult {
-  let frontendPort = 4040
+function resolveTunnelConfig (options: Required<Options>): FrontendURLResult {
+  let frontendPort = -1
   let frontendUrl = ''
   let usingLocalhost = false
 
-  if (typeof options.tunnel !== 'string') {
+  if (options.tunnel === false) {
     usingLocalhost = true
     return { frontendUrl, frontendPort, usingLocalhost }
   }
+
+  if (options.tunnel === true) {
+    return { frontendUrl, frontendPort, usingLocalhost }
+  }
+
   const matches = options.tunnel.match(/(https:\/\/[^:]+):([0-9]+)/)
   if (matches === null) {
     throw new Error(`Invalid tunnel URL: ${options.tunnel}`)
