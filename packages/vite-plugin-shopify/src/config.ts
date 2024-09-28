@@ -16,7 +16,6 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
       const port = config.server?.port ?? 5173
       const https = config.server?.https
       const origin = config.server?.origin ?? '__shopify_vite_placeholder__'
-      const socketProtocol = https === undefined ? 'ws' : 'wss'
       const defaultAliases: Record<string, string> = {
         '~': path.resolve(options.sourceCodeDir),
         '@': path.resolve(options.sourceCodeDir)
@@ -67,9 +66,6 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
           hmr: config.server?.hmr === false
             ? false
             : {
-                port,
-                protocol: socketProtocol,
-                ...(typeof host === 'string' && { host }),
                 ...(config.server?.hmr === true ? {} : config.server?.hmr)
               }
         }
