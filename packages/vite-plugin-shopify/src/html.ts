@@ -3,9 +3,12 @@ import path from 'node:path'
 import { AddressInfo } from 'node:net'
 import { Manifest, Plugin, ResolvedConfig, normalizePath } from 'vite'
 import createDebugger from 'debug'
+import startTunnel from '@shopify/plugin-cloudflare/hooks/tunnel'
+import colors from 'picocolors'
 
 import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
 import type { Options, DevServerUrl, FrontendURLResult } from './types'
+import type { TunnelClient } from '@shopify/cli-kit/node/plugins/tunnel'
 
 const debug = createDebugger('vite-plugin-shopify:html')
 
@@ -13,6 +16,8 @@ const debug = createDebugger('vite-plugin-shopify:html')
 export default function shopifyHTML (options: Required<Options>): Plugin {
   let config: ResolvedConfig
   let viteDevServerUrl: DevServerUrl
+  let tunnelClient: TunnelClient | undefined
+  let tunnelUrl: string | undefined
 
   const viteTagSnippetPath = path.resolve(options.themeRoot, `snippets/${options.snippetFile}`)
   const viteTagSnippetName = options.snippetFile.replace(/\.[^.]+$/, '')
@@ -32,6 +37,10 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
     configureServer ({ config, middlewares, httpServer }) {
       const tunnelConfig = resolveTunnelConfig(options)
 
+      if (tunnelConfig.frontendPort !== -1) {
+        config.server.port = tunnelConfig.frontendPort
+      }
+
       httpServer?.once('listening', () => {
         const address = httpServer?.address()
 
@@ -42,13 +51,53 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
           debug({ address, viteDevServerUrl, tunnelConfig })
 
+          setTimeout(() => {
+            config.logger.info(
+              `\n  ${colors.red(`${colors.bold('Shopify Vite')}`)}  ${colors.dim('plugin')} ${colors.bold(`v${pluginVersion()}`)}`
+            )
+            config.logger.info('')
+
+            if (options.tunnel !== false) {
+              if (tunnelConfig.frontendUrl === '') {
+                config.logger.info(
+                  `${colors.dim(`  ${colors.green('➜')}  Starting cloudflared tunnel to ${viteDevServerUrl}`)}`
+                )
+                void (async (): Promise<void> => {
+                  const hook = await startTunnel({
+                    config: null,
+                    provider: 'cloudflare',
+                    port: address.port
+                  })
+                  tunnelClient = hook.valueOrAbort()
+                  tunnelUrl = await pollTunnelUrl(tunnelClient)
+                  config.logger.info(
+                    `  ${colors.green('➜')}  ${colors.bold('Tunnel')}: ${colors.cyan(tunnelUrl.replace(/:(\d+)/, (_, port) => `:${colors.bold(port)}`))}`
+                  )
+                  const reactPlugin = config.plugins.find(plugin => plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh')
+                  const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + viteTagSnippetDev(tunnelUrl, options.entrypointsDir, reactPlugin)
+
+                  // Write vite-tag snippet for development server
+                  fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
+                })()
+              } else {
+                config.logger.info(
+                  `  ${colors.green('➜')}  ${colors.bold('Tunnel')}: ${colors.cyan(`${tunnelConfig.frontendUrl}:${tunnelConfig.frontendPort}`.replace(/:(\d+)/, (_, port) => `:${colors.bold(port)}`))}`
+                )
+              }
+            }
+          }, 100)
+
           const reactPlugin = config.plugins.find(plugin => plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh')
 
-          const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + viteTagSnippetDev(viteDevServerUrl, options.entrypointsDir, reactPlugin)
+          const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + viteTagSnippetDev(tunnelConfig.frontendUrl !== '' ? tunnelConfig.frontendUrl : viteDevServerUrl, options.entrypointsDir, reactPlugin)
 
           // Write vite-tag snippet for development server
           fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
         }
+      })
+
+      httpServer?.on('close', () => {
+        tunnelClient?.stopTunnel()
       })
 
       // Serve the dev-server-index.html page
@@ -267,4 +316,45 @@ function resolveTunnelConfig (options: Required<Options>): FrontendURLResult {
   frontendPort = Number(matches[2])
   frontendUrl = matches[1]
   return { frontendUrl, frontendPort, usingLocalhost }
+}
+
+/**
+ * Poll the tunnel provider every 0.5 until an URL or error is returned.
+ */
+async function pollTunnelUrl (tunnelClient: TunnelClient): Promise<string> {
+  return await new Promise<string>((resolve, reject) => {
+    let retries = 0
+    const pollTunnelStatus = async (): Promise<void> => {
+      const result = tunnelClient.getTunnelStatus()
+      debug(`Polling tunnel status for ${tunnelClient.provider} (attempt ${retries}): ${result.status}`)
+      if (result.status === 'error') {
+        return reject(result.message) // Changed AbortError to standard Error
+      }
+      if (result.status === 'connected') {
+        resolve(result.url)
+      } else {
+        retries += 1
+        startPolling()
+      }
+    }
+
+    const startPolling = (): void => {
+      setTimeout(() => {
+        void pollTunnelStatus()
+      }, 500)
+    }
+
+    void pollTunnelStatus()
+  })
+}
+
+/**
+ * The version of the Laravel Vite plugin being run.
+ */
+function pluginVersion (): string {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json')).toString())?.version
+  } catch {
+    return ''
+  }
 }
