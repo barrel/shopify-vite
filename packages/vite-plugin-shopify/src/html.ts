@@ -21,6 +21,8 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
   const viteTagSnippetPath = path.resolve(options.themeRoot, `snippets/${options.snippetFile}`)
   const viteTagSnippetName = options.snippetFile.replace(/\.[^.]+$/, '')
+  const viteTagSnippetPrefix = (config: ResolvedConfig): string =>
+    viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName)
 
   return {
     name: 'vite-plugin-shopify-html',
@@ -48,7 +50,9 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
         if (isAddressInfo(address)) {
           viteDevServerUrl = resolveDevServerUrl(address, config)
-          const reactPlugin = config.plugins.find(plugin => plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh')
+          const reactPlugin = config.plugins.find(plugin =>
+            plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh'
+          )
 
           debug({ address, viteDevServerUrl, tunnelConfig })
 
@@ -74,9 +78,11 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
                   config.logger.info(
                     `  ${colors.green('➜')}  ${colors.bold('Tunnel')}: ${colors.cyan(tunnelUrl.replace(/:(\d+)/, (_, port) => `:${colors.bold(port)}`))}`
                   )
-                  const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + viteTagSnippetDev(tunnelUrl, options.entrypointsDir, reactPlugin)
+                  const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
+                    tunnelUrl, options.entrypointsDir, reactPlugin
+                  )
 
-                  // Write vite-tag snippet for development server
+                  // Write vite-tag with a Cloudflare Tunnel URL
                   fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
                 } else {
                   tunnelUrl = tunnelConfig.frontendUrl
@@ -88,7 +94,11 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
             })()
           }, 100)
 
-          const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + viteTagSnippetDev(tunnelConfig.frontendUrl !== '' ? tunnelConfig.frontendUrl : viteDevServerUrl, options.entrypointsDir, reactPlugin)
+          const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
+            tunnelConfig.frontendUrl !== ''
+              ? tunnelConfig.frontendUrl
+              : viteDevServerUrl, options.entrypointsDir, reactPlugin
+          )
 
           // Write vite-tag snippet for development server
           fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
@@ -183,7 +193,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
         }
       })
 
-      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + assetTags.join('\n') + '\n{% endif %}\n'
+      const viteTagSnippetContent = viteTagSnippetPrefix(config) + assetTags.join('\n') + '\n{% endif %}\n'
 
       // Write vite-tag snippet for production build
       fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
@@ -254,8 +264,8 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugi
     assign is_css = true
   endif
 %}${reactPlugin === undefined
-  ? ''
-  : `
+    ? ''
+    : `
 <script src="${assetHost}/@id/__x00__vite-plugin-shopify:react-refresh" type="module"></script>`}
 <script src="${assetHost}/@vite/client" type="module"></script>
 {% if is_css == true %}
@@ -348,7 +358,7 @@ async function pollTunnelUrl (tunnelClient: TunnelClient): Promise<string> {
 }
 
 /**
- * The version of the Laravel Vite plugin being run.
+ * The version of the plugin being run.
  */
 function pluginVersion (): string {
   try {
