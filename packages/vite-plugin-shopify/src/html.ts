@@ -48,21 +48,22 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
         if (isAddressInfo(address)) {
           viteDevServerUrl = resolveDevServerUrl(address, config)
+          const reactPlugin = config.plugins.find(plugin => plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh')
 
           debug({ address, viteDevServerUrl, tunnelConfig })
 
           setTimeout(() => {
-            config.logger.info(
-              `\n  ${colors.red(`${colors.bold('Shopify Vite')}`)}  ${colors.dim('plugin')} ${colors.bold(`v${pluginVersion()}`)}`
-            )
-            config.logger.info('')
+            void (async (): Promise<void> => {
+              config.logger.info(
+                `\n  ${colors.red(`${colors.bold('Shopify Vite')}`)}  ${colors.dim('plugin')} ${colors.bold(`v${pluginVersion()}`)}`
+              )
+              config.logger.info('')
 
-            if (options.tunnel !== false) {
-              if (tunnelConfig.frontendUrl === '') {
-                config.logger.info(
-                  `${colors.dim(`  ${colors.green('➜')}  Starting cloudflared tunnel to ${viteDevServerUrl}`)}`
-                )
-                void (async (): Promise<void> => {
+              if (options.tunnel !== false) {
+                if (tunnelConfig.frontendUrl === '') {
+                  config.logger.info(
+                    `${colors.dim(`  ${colors.green('➜')}  Starting cloudflared tunnel to ${viteDevServerUrl}`)}`
+                  )
                   const hook = await startTunnel({
                     config: null,
                     provider: 'cloudflare',
@@ -73,22 +74,19 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
                   config.logger.info(
                     `  ${colors.green('➜')}  ${colors.bold('Tunnel')}: ${colors.cyan(tunnelUrl.replace(/:(\d+)/, (_, port) => `:${colors.bold(port)}`))}`
                   )
-                  const reactPlugin = config.plugins.find(plugin => plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh')
                   const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + viteTagSnippetDev(tunnelUrl, options.entrypointsDir, reactPlugin)
 
                   // Write vite-tag snippet for development server
                   fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
-                })()
-              } else {
-                tunnelUrl = tunnelConfig.frontendUrl
-                config.logger.info(
-                  `  ${colors.green('➜')}  ${colors.bold('Tunnel')}: ${colors.cyan(`${tunnelConfig.frontendUrl}:${tunnelConfig.frontendPort}`.replace(/:(\d+)/, (_, port) => `:${colors.bold(port)}`))}`
-                )
+                } else {
+                  tunnelUrl = tunnelConfig.frontendUrl
+                  config.logger.info(
+                    `  ${colors.green('➜')}  ${colors.bold('Tunnel')}: ${colors.cyan(`${tunnelConfig.frontendUrl}:${tunnelConfig.frontendPort}`.replace(/:(\d+)/, (_, port) => `:${colors.bold(port)}`))}`
+                  )
+                }
               }
-            }
+            })()
           }, 100)
-
-          const reactPlugin = config.plugins.find(plugin => plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh')
 
           const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + viteTagSnippetDev(tunnelConfig.frontendUrl !== '' ? tunnelConfig.frontendUrl : viteDevServerUrl, options.entrypointsDir, reactPlugin)
 
