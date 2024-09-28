@@ -10,5 +10,8 @@ module.exports = {
       './examples/*/tsconfig.json',
       './preset/tsconfig.json'
     ]
+  },
+  "rules": {
+    "@typescript-eslint/strict-boolean-expressions": "warn"
   }
 }
