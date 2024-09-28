@@ -31,7 +31,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
     },
     transform (code) {
       if (config.command === 'serve') {
-        return code.replace(/__shopify_vite_placeholder__/g, viteDevServerUrl)
+        return code.replace(/__shopify_vite_placeholder__/g, tunnelUrl ?? viteDevServerUrl)
       }
     },
     configureServer ({ config, middlewares, httpServer }) {
@@ -80,6 +80,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
                   fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
                 })()
               } else {
+                tunnelUrl = tunnelConfig.frontendUrl
                 config.logger.info(
                   `  ${colors.green('➜')}  ${colors.bold('Tunnel')}: ${colors.cyan(`${tunnelConfig.frontendUrl}:${tunnelConfig.frontendPort}`.replace(/:(\d+)/, (_, port) => `:${colors.bold(port)}`))}`
                 )
