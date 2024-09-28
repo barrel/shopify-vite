@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite'
 import shopify from 'vite-plugin-shopify'
 import pageReload from 'vite-plugin-page-reload'
-import basicSsl from '@vitejs/plugin-basic-ssl'
+// import basicSsl from '@vitejs/plugin-basic-ssl'
 import { resolve } from 'node:path'
 
 export default defineConfig({
@@ -13,7 +13,6 @@ export default defineConfig({
     }
   },
   plugins: [
-    basicSsl(),
     shopify({
       tunnel: true,
       snippetFile: 'vite.liquid',
@@ -27,6 +26,7 @@ export default defineConfig({
     pageReload('/tmp/theme.update', {
       delay: 2000
     })
+    // basicSsl()
   ],
   build: {
     sourcemap: true
