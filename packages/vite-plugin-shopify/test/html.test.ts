@@ -10,6 +10,37 @@ import { ok } from '@shopify/cli-kit/node/result'
 
 vi.mock('@shopify/plugin-cloudflare/hooks/tunnel')
 
+const mockHttpServer = {
+  once: vi.fn((_, callback) => {
+    callback()
+  }),
+  on: vi.fn((_, callback) => {
+    callback()
+  }),
+  address: vi.fn().mockReturnValue({ port: 5173 })
+} as unknown as http.Server
+
+const mockConfig: Partial<ResolvedConfig> = {
+  server: {} as any,
+  plugins: [],
+  resolve: {
+    alias: [
+      {
+        find: '@',
+        replacement: 'test/__fixtures__/frontend'
+      }
+    ]
+  } as any,
+  logger: {
+    info: vi.fn()
+  } as any
+}
+
+const mockViteDevServer = vi.mocked<ViteDevServer>({
+  httpServer: mockHttpServer,
+  config: mockConfig
+} as ViteDevServer)
+
 describe('vite-plugin-shopify:html', () => {
   it('builds out .liquid files for development', async () => {
     const options = resolveOptions({
@@ -77,37 +108,6 @@ describe('vite-plugin-shopify:html', () => {
   })
 
   it('builds out .liquid files for development with a cloudflare tunnel url', async () => {
-    const mockHttpServer = {
-      once: vi.fn((_, callback) => {
-        callback()
-      }),
-      on: vi.fn((_, callback) => {
-        callback()
-      }),
-      address: vi.fn().mockReturnValue({ port: 5173 })
-    } as unknown as http.Server
-
-    const mockConfig: Partial<ResolvedConfig> = {
-      server: {} as any,
-      plugins: [],
-      resolve: {
-        alias: [
-          {
-            find: '@',
-            replacement: 'test/__fixtures__/frontend'
-          }
-        ]
-      } as any,
-      logger: {
-        info: vi.fn()
-      } as any
-    }
-
-    const mockViteDevServer = vi.mocked<ViteDevServer>({
-      httpServer: mockHttpServer,
-      config: mockConfig
-    } as ViteDevServer)
-
     const mockResult = {
       status: 'connected',
       url: 'https://example.trycloudflare.com'
@@ -146,37 +146,6 @@ describe('vite-plugin-shopify:html', () => {
   })
 
   it('builds out .liquid files for development with an ngrok tunnel url', async () => {
-    const mockHttpServer = {
-      once: vi.fn((_, callback) => {
-        callback()
-      }),
-      on: vi.fn((_, callback) => {
-        callback()
-      }),
-      address: vi.fn().mockReturnValue({ port: 5173 })
-    } as unknown as http.Server
-
-    const mockConfig: Partial<ResolvedConfig> = {
-      server: {} as any,
-      plugins: [],
-      resolve: {
-        alias: [
-          {
-            find: '@',
-            replacement: 'test/__fixtures__/frontend'
-          }
-        ]
-      } as any,
-      logger: {
-        info: vi.fn()
-      } as any
-    }
-
-    const mockViteDevServer = vi.mocked<ViteDevServer>({
-      httpServer: mockHttpServer,
-      config: mockConfig
-    } as ViteDevServer)
-
     const options = resolveOptions({
       themeRoot: 'test/__fixtures__',
       sourceCodeDir: 'test/__fixtures__/frontend',
