@@ -144,4 +144,57 @@ describe('vite-plugin-shopify:html', () => {
 
     vi.useRealTimers()
   })
+
+  it('builds out .liquid files for development with an ngrok tunnel url', async () => {
+    const mockHttpServer = {
+      once: vi.fn((_, callback) => {
+        callback()
+      }),
+      on: vi.fn((_, callback) => {
+        callback()
+      }),
+      address: vi.fn().mockReturnValue({ port: 5173 })
+    } as unknown as http.Server
+
+    const mockConfig: Partial<ResolvedConfig> = {
+      server: {} as any,
+      plugins: [],
+      resolve: {
+        alias: [
+          {
+            find: '@',
+            replacement: 'test/__fixtures__/frontend'
+          }
+        ]
+      } as any,
+      logger: {
+        info: vi.fn()
+      } as any
+    }
+
+    const mockViteDevServer = vi.mocked<ViteDevServer>({
+      httpServer: mockHttpServer,
+      config: mockConfig
+    } as ViteDevServer)
+
+    const options = resolveOptions({
+      themeRoot: 'test/__fixtures__',
+      sourceCodeDir: 'test/__fixtures__/frontend',
+      tunnel: 'https://123abc.ngrok.io:3000'
+    })
+
+    vi.useFakeTimers()
+
+    const { configureServer } = html(options)
+
+    if (typeof configureServer === 'function') void configureServer(mockViteDevServer)
+
+    vi.advanceTimersByTime(100)
+
+    const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })
+
+    expect(tagsHtml).toMatchSnapshot()
+
+    vi.useRealTimers()
+  })
 })
