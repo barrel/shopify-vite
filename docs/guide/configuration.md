@@ -57,3 +57,10 @@ Specifies the file name of the snippet that loads your assets.
 - **Default:** `false`
 
 Specifies whether to append version numbers to your production-ready asset URLs in [`snippetFile`](/guide/configuration.html#snippetfile).
+
+## tunnel
+
+- **Type:** `boolean | string`
+- **Default:** `false`
+
+Enables the creation of Cloudflare tunnels during dev, allowing previews from any device.
