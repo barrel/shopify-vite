@@ -17,7 +17,7 @@ const mockHttpServer = {
   on: vi.fn((_, callback) => {
     callback()
   }),
-  address: vi.fn().mockReturnValue({ port: 5173 })
+  address: vi.fn().mockReturnValue({ address: 'localhost', port: 5173 })
 } as unknown as http.Server
 
 const mockConfig: Partial<ResolvedConfig> = {

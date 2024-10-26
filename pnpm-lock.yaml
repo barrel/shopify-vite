@@ -167,9 +167,6 @@ importers:
       fast-glob:
         specifier: ^3.2.11
         version: 3.2.12
-      picocolors:
-        specifier: ^1.0.0
-        version: 1.0.0
       vite:
         specifier: ^5.0.0
         version: 5.0.0(@types/node@18.15.11)(sass@1.60.0)

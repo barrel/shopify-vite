@@ -4,7 +4,7 @@ import { AddressInfo } from 'node:net'
 import { Manifest, Plugin, ResolvedConfig, normalizePath } from 'vite'
 import createDebugger from 'debug'
 import startTunnel from '@shopify/plugin-cloudflare/hooks/tunnel'
-import colors from 'picocolors'
+import { renderInfo, isTTY } from '@shopify/cli-kit/node/ui'
 
 import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
 import type { Options, DevServerUrl, FrontendURLResult } from './types'
@@ -58,38 +58,27 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
           setTimeout(() => {
             void (async (): Promise<void> => {
-              config.logger.info(
-                `\n  ${colors.red(`${colors.bold('Shopify Vite')}`)}  ${colors.dim('plugin')} ${colors.bold(`v${pluginVersion()}`)}`
-              )
-              config.logger.info('')
+              if (options.tunnel === false) {
+                return
+              }
+              if (tunnelConfig.frontendUrl === '') {
+                const hook = await startTunnel({
+                  config: null,
+                  provider: 'cloudflare',
+                  port: address.port
+                })
+                tunnelClient = hook.valueOrAbort()
+                tunnelUrl = await pollTunnelUrl(tunnelClient)
+                isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
+                const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
+                  tunnelUrl, options.entrypointsDir, reactPlugin
+                )
 
-              if (options.tunnel !== false) {
-                if (tunnelConfig.frontendUrl === '') {
-                  config.logger.info(
-                    `${colors.dim(`  ${colors.green('➜')}  Starting cloudflared tunnel to ${viteDevServerUrl}`)}`
-                  )
-                  const hook = await startTunnel({
-                    config: null,
-                    provider: 'cloudflare',
-                    port: address.port
-                  })
-                  tunnelClient = hook.valueOrAbort()
-                  tunnelUrl = await pollTunnelUrl(tunnelClient)
-                  config.logger.info(
-                    `  ${colors.green('➜')}  ${colors.bold('Tunnel')}: ${colors.cyan(tunnelUrl.replace(/:(\d+)/, (_, port) => `:${colors.bold(port)}`))}`
-                  )
-                  const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
-                    tunnelUrl, options.entrypointsDir, reactPlugin
-                  )
-
-                  // Write vite-tag with a Cloudflare Tunnel URL
-                  fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
-                } else {
-                  tunnelUrl = tunnelConfig.frontendUrl
-                  config.logger.info(
-                    `  ${colors.green('➜')}  ${colors.bold('Tunnel')}: ${colors.cyan(`${tunnelConfig.frontendUrl}:${tunnelConfig.frontendPort}`.replace(/:(\d+)/, (_, port) => `:${colors.bold(port)}`))}`
-                  )
-                }
+                // Write vite-tag with a Cloudflare Tunnel URL
+                fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
+              } else {
+                tunnelUrl = tunnelConfig.frontendUrl
+                isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
               }
             })()
           }, 100)
@@ -355,15 +344,4 @@ async function pollTunnelUrl (tunnelClient: TunnelClient): Promise<string> {
 
     void pollTunnelStatus()
   })
-}
-
-/**
- * The version of the plugin being run.
- */
-function pluginVersion (): string {
-  try {
-    return JSON.parse(fs.readFileSync(path.join(__dirname, '../package.json')).toString())?.version
-  } catch {
-    return ''
-  }
 }
