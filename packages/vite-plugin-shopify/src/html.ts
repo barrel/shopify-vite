@@ -61,25 +61,27 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
               if (options.tunnel === false) {
                 return
               }
-              if (tunnelConfig.frontendUrl === '') {
-                const hook = await startTunnel({
-                  config: null,
-                  provider: 'cloudflare',
-                  port: address.port
-                })
-                tunnelClient = hook.valueOrAbort()
-                tunnelUrl = await pollTunnelUrl(tunnelClient)
-                isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
-                const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
-                  tunnelUrl, options.entrypointsDir, reactPlugin
-                )
 
-                // Write vite-tag with a Cloudflare Tunnel URL
-                fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
-              } else {
+              if (tunnelConfig.frontendUrl !== '') {
                 tunnelUrl = tunnelConfig.frontendUrl
                 isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
+                return
               }
+
+              const hook = await startTunnel({
+                config: null,
+                provider: 'cloudflare',
+                port: address.port
+              })
+              tunnelClient = hook.valueOrAbort()
+              tunnelUrl = await pollTunnelUrl(tunnelClient)
+              isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
+              const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
+                tunnelUrl, options.entrypointsDir, reactPlugin
+              )
+
+              // Write vite-tag with a Cloudflare Tunnel URL
+              fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
             })()
           }, 100)
 
