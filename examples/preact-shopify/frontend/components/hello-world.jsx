@@ -32,4 +32,4 @@ function HelloWorld () {
   )
 }
 
-register(HelloWorld, 'hello-world')
+customElements.get('hello-world') || register(HelloWorld, 'hello-world');
