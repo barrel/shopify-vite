@@ -45,7 +45,9 @@ export default {
       // Specifies the file name of the snippet that loads your assets
       snippetFile: 'vite-tag.liquid',
      // Specifies whether to append version numbers to your production-ready asset URLs in `snippetFile`
-      versionNumbers: false
+      versionNumbers: false,
+     // Enables the creation of Cloudflare tunnels during dev, allowing previews from any device
+      tunnel: false
     })
   ]
 }

@@ -40,6 +40,19 @@ export interface Options {
    * @default false
    */
   versionNumbers?: boolean
+
+  /**
+   * Enables the creation of Cloudflare tunnels during dev, allowing previews from any device.
+   *
+   * @default false
+   */
+  tunnel?: boolean | string
 }
 
 export type DevServerUrl = `${'http' | 'https'}://${string}:${number}`
+
+export interface FrontendURLResult {
+  frontendUrl: string
+  frontendPort: number
+  usingLocalhost: boolean
+}

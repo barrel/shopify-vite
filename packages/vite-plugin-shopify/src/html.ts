@@ -3,9 +3,12 @@ import path from 'node:path'
 import { AddressInfo } from 'node:net'
 import { Manifest, Plugin, ResolvedConfig, normalizePath } from 'vite'
 import createDebugger from 'debug'
+import startTunnel from '@shopify/plugin-cloudflare/hooks/tunnel'
+import { renderInfo, isTTY } from '@shopify/cli-kit/node/ui'
 
 import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
-import type { Options, DevServerUrl } from './types'
+import type { Options, DevServerUrl, FrontendURLResult } from './types'
+import type { TunnelClient } from '@shopify/cli-kit/node/plugins/tunnel'
 
 const debug = createDebugger('vite-plugin-shopify:html')
 
@@ -13,9 +16,13 @@ const debug = createDebugger('vite-plugin-shopify:html')
 export default function shopifyHTML (options: Required<Options>): Plugin {
   let config: ResolvedConfig
   let viteDevServerUrl: DevServerUrl
+  let tunnelClient: TunnelClient | undefined
+  let tunnelUrl: string | undefined
 
   const viteTagSnippetPath = path.resolve(options.themeRoot, `snippets/${options.snippetFile}`)
   const viteTagSnippetName = options.snippetFile.replace(/\.[^.]+$/, '')
+  const viteTagSnippetPrefix = (config: ResolvedConfig): string =>
+    viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName)
 
   return {
     name: 'vite-plugin-shopify-html',
@@ -26,10 +33,16 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
     },
     transform (code) {
       if (config.command === 'serve') {
-        return code.replace(/__shopify_vite_placeholder__/g, viteDevServerUrl)
+        return code.replace(/__shopify_vite_placeholder__/g, tunnelUrl ?? viteDevServerUrl)
       }
     },
     configureServer ({ config, middlewares, httpServer }) {
+      const tunnelConfig = resolveTunnelConfig(options)
+
+      if (tunnelConfig.frontendPort !== -1) {
+        config.server.port = tunnelConfig.frontendPort
+      }
+
       httpServer?.once('listening', () => {
         const address = httpServer?.address()
 
@@ -37,16 +50,54 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
         if (isAddressInfo(address)) {
           viteDevServerUrl = resolveDevServerUrl(address, config)
+          const reactPlugin = config.plugins.find(plugin =>
+            plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh'
+          )
 
-          debug({ address, viteDevServerUrl })
+          debug({ address, viteDevServerUrl, tunnelConfig })
 
-          const reactPlugin = config.plugins.find(plugin => plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh')
+          setTimeout(() => {
+            void (async (): Promise<void> => {
+              if (options.tunnel === false) {
+                return
+              }
 
-          const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + viteTagSnippetDev(viteDevServerUrl, options.entrypointsDir, reactPlugin)
+              if (tunnelConfig.frontendUrl !== '') {
+                tunnelUrl = tunnelConfig.frontendUrl
+                isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
+                return
+              }
+
+              const hook = await startTunnel({
+                config: null,
+                provider: 'cloudflare',
+                port: address.port
+              })
+              tunnelClient = hook.valueOrAbort()
+              tunnelUrl = await pollTunnelUrl(tunnelClient)
+              isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
+              const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
+                tunnelUrl, options.entrypointsDir, reactPlugin
+              )
+
+              // Write vite-tag with a Cloudflare Tunnel URL
+              fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
+            })()
+          }, 100)
+
+          const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
+            tunnelConfig.frontendUrl !== ''
+              ? tunnelConfig.frontendUrl
+              : viteDevServerUrl, options.entrypointsDir, reactPlugin
+          )
 
           // Write vite-tag snippet for development server
           fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
         }
+      })
+
+      httpServer?.on('close', () => {
+        tunnelClient?.stopTunnel()
       })
 
       // Serve the dev-server-index.html page
@@ -133,7 +184,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
         }
       })
 
-      const viteTagSnippetContent = viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName) + assetTags.join('\n') + '\n{% endif %}\n'
+      const viteTagSnippetContent = viteTagSnippetPrefix(config) + assetTags.join('\n') + '\n{% endif %}\n'
 
       // Write vite-tag snippet for production build
       fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
@@ -204,8 +255,8 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugi
     assign is_css = true
   endif
 %}${reactPlugin === undefined
-  ? ''
-  : `
+    ? ''
+    : `
 <script src="${assetHost}/@id/__x00__vite-plugin-shopify:react-refresh" type="module"></script>`}
 <script src="${assetHost}/@vite/client" type="module"></script>
 {% if is_css == true %}
@@ -220,8 +271,8 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugi
  */
 function resolveDevServerUrl (address: AddressInfo, config: ResolvedConfig): DevServerUrl {
   const configHmrProtocol = typeof config.server.hmr === 'object' ? config.server.hmr.protocol : null
-  const clientProtocol = configHmrProtocol !== null ? (configHmrProtocol === 'wss' ? 'https' : 'http') : null
-  const serverProtocol = config.server.https !== undefined ? 'https' : 'http'
+  const clientProtocol = configHmrProtocol ? (configHmrProtocol === 'wss' ? 'https' : 'http') : null
+  const serverProtocol = config.server.https ? 'https' : 'http'
   const protocol = clientProtocol ?? serverProtocol
 
   const configHmrHost = typeof config.server.hmr === 'object' ? config.server.hmr.host : null
@@ -242,4 +293,57 @@ function isIpv6 (address: AddressInfo): boolean {
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-expect-error-next-line
     address.family === 6
+}
+
+function resolveTunnelConfig (options: Required<Options>): FrontendURLResult {
+  let frontendPort = -1
+  let frontendUrl = ''
+  let usingLocalhost = false
+
+  if (options.tunnel === false) {
+    usingLocalhost = true
+    return { frontendUrl, frontendPort, usingLocalhost }
+  }
+
+  if (options.tunnel === true) {
+    return { frontendUrl, frontendPort, usingLocalhost }
+  }
+
+  const matches = options.tunnel.match(/(https:\/\/[^:]+):([0-9]+)/)
+  if (matches === null) {
+    throw new Error(`Invalid tunnel URL: ${options.tunnel}`)
+  }
+  frontendPort = Number(matches[2])
+  frontendUrl = matches[1]
+  return { frontendUrl, frontendPort, usingLocalhost }
+}
+
+/**
+ * Poll the tunnel provider every 0.5 until an URL or error is returned.
+ */
+async function pollTunnelUrl (tunnelClient: TunnelClient): Promise<string> {
+  return await new Promise<string>((resolve, reject) => {
+    let retries = 0
+    const pollTunnelStatus = async (): Promise<void> => {
+      const result = tunnelClient.getTunnelStatus()
+      debug(`Polling tunnel status for ${tunnelClient.provider} (attempt ${retries}): ${result.status}`)
+      if (result.status === 'error') {
+        return reject(result.message) // Changed AbortError to standard Error
+      }
+      if (result.status === 'connected') {
+        resolve(result.url)
+      } else {
+        retries += 1
+        startPolling()
+      }
+    }
+
+    const startPolling = (): void => {
+      setTimeout(() => {
+        void pollTunnelStatus()
+      }, 500)
+    }
+
+    void pollTunnelStatus()
+  })
 }

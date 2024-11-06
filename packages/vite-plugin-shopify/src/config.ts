@@ -16,7 +16,6 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
       const port = config.server?.port ?? 5173
       const https = config.server?.https
       const origin = config.server?.origin ?? '__shopify_vite_placeholder__'
-      const socketProtocol = https === undefined ? 'ws' : 'wss'
       const defaultAliases: Record<string, string> = {
         '~': path.resolve(options.sourceCodeDir),
         '@': path.resolve(options.sourceCodeDir)
@@ -48,7 +47,7 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
           // Provide import alias to source code dir for convenience
           alias: Array.isArray(config.resolve?.alias)
             ? [
-                ...config.resolve?.alias ?? [],
+                ...(config.resolve?.alias ?? []),
                 ...Object.keys(defaultAliases).map(alias => ({
                   find: alias,
                   replacement: defaultAliases[alias]
@@ -67,10 +66,7 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
           hmr: config.server?.hmr === false
             ? false
             : {
-                host: typeof host === 'string' ? host : undefined,
-                port,
-                protocol: socketProtocol,
-                ...config.server?.hmr === true ? {} : config.server?.hmr
+                ...(config.server?.hmr === true ? {} : config.server?.hmr)
               }
         }
       }
