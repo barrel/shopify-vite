@@ -4,7 +4,11 @@
 
 ### Minor Changes
 
-- Add tunnel support via @shopify/plugin-cloudflare
+- Add tunnel support via @shopify/plugin-cloudflare ([#154](https://github.com/barrel/shopify-vite/pull/154))
+
+- Add crossorigin="anonymous" to development css links ([#126](https://github.com/barrel/shopify-vite/pull/126))
+
+- Disable strict port so server will not exit when port is already used ([#122](https://github.com/barrel/shopify-vite/pull/122))
 
 ## 3.0.1
 
