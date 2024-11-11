@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 3.1.0
+
+### Minor Changes
+
+- Add tunnel support via @shopify/plugin-cloudflare
+
 ## 3.0.1
 
 ### Patch Changes
