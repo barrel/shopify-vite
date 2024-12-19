@@ -1,5 +1,11 @@
 # vite-plugin-page-reload
 
+## 0.2.1
+
+### Patch Changes
+
+- Add Vite 6 support
+
 ## 0.2.0
 
 ### Minor Changes

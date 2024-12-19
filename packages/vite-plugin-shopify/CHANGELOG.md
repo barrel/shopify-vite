@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 3.1.1
+
+### Patch Changes
+
+- Add Vite 6 support
+
 ## 3.1.0
 
 ### Minor Changes
