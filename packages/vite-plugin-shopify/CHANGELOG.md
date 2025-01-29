@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 3.2.0
+
+### Minor Changes
+
+- Set Vite's new allowedHosts setting when using tunnels to fix CORS issues
+
 ## 3.1.1
 
 ### Patch Changes
