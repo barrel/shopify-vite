@@ -140,6 +140,8 @@ describe('vite-plugin-shopify:html', () => {
 
     const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })
 
+    expect(mockViteDevServer.config.server.allowedHosts).toContain(new URL(mockResult.url).hostname)
+
     expect(tagsHtml).toMatchSnapshot()
 
     vi.useRealTimers()
@@ -161,6 +163,8 @@ describe('vite-plugin-shopify:html', () => {
     vi.advanceTimersByTime(100)
 
     const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })
+
+    expect(mockViteDevServer.config.server.allowedHosts).toContain(new URL(options.tunnel).hostname)
 
     expect(tagsHtml).toMatchSnapshot()
 
