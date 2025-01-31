@@ -2,6 +2,32 @@
 
 If the suggestions here don't work, please try posting questions on [GitHub Discussions](https://github.com/barrel/shopify-vite/discussions).
 
+## Dev Server Cross-Origin Resource Sharing (CORS)
+
+If you're facing CORS issues while fetching assets from the Vite dev server, allow access for your custom origin using [Vite's built-in CORS configuration](https://vite.dev/config/server-options.html#server-cors). You can specify multiple origins in the `server.cors.origin` option in your vite.config.js file.
+
+::: code-group
+
+```js [vite.config.js]
+import shopify from 'vite-plugin-shopify'
+
+export default {
+  plugins: [
+    shopify()
+  ],
+  server: { // [!code ++]
+    cors: { // [!code ++]
+      origin: [ // [!code ++]
+        /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/, // [!code ++]
+        'https://johns-apparel.myshopify.com', // [!code ++]
+        'https://johnsapparel.com' // [!code ++]
+      ] // [!code ++]
+    } // [!code ++]
+  } // [!code ++]
+}
+```
+:::
+
 ## How to launch the Shopify and Vite servers in parallel? {#launch-shopify-vite}
 
 You can use [`concurrently`](https://github.com/open-cli-tools/concurrently) or [`npm-run-all`](https://github.com/mysticatea/npm-run-all) and [script commands](https://docs.npmjs.com/cli/v8/using-npm/scripts) to launch Vite and Shopify servers in parallel.
