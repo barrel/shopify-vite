@@ -12,7 +12,7 @@
     "cross-env": "^7.0.3",
     "sass": "^1.52.2",
     "tsconfig": "workspace:*",
-    "vite": "^6.0.0",
+    "vite": "^6.0.11",
     "vite-plugin-page-reload": "workspace:*",
     "vite-plugin-shopify": "workspace:*"
   },
