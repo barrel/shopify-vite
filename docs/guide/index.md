@@ -15,6 +15,13 @@ The recommended and most straightforward approach to get started with Shopify Vi
 npx @preset/cli apply barrel/shopify-vite --path preset
 ```
 
+The preset automatically sets up Vite and Tailwind CSS in your theme. You may add any of the following flags to customize the preset:
+
+| Flag                | Description                                                            |
+| ------------------- | ---------------------------------------------------------------------- |
+| `--no-base`         | Skip installing Vite                                                   |
+| `--no-tailwindcss`  | Skip installing Tailwind CSS                                           |
+
 More information about the preset can be found on its [repository](https://github.com/barrel/shopify-vite/tree/main/preset).
 
 ::: info
