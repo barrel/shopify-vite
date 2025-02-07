@@ -90,39 +90,41 @@ async function installTailwind (): Promise<void> {
   await installPackages({
     title: 'install Tailwind CSS',
     for: 'node',
-    install: ['tailwindcss', 'autoprefixer', 'postcss'],
+    install: ['tailwindcss', '@tailwindcss/vite'],
     dev: true
   })
 
   await group({
     title: 'extract Tailwind scaffolding',
     handler: async () => {
-      await extractTemplates({
-        title: 'extract Tailwind CSS config',
-        from: 'tailwind'
-      })
-
-      await editFiles({
-        title: 'remove placeholder CSS',
-        files: 'frontend/entrypoints/main.css',
-        operations: [
-          { type: 'remove-line', match: /charset/ }
-        ]
-      })
-
       await editFiles({
         title: 'add Tailwind CSS imports',
         files: 'frontend/entrypoints/main.css',
         operations: [
           {
             skipIf: (content) => content.includes('tailwind'),
+            type: 'update-content',
+            update: (content) => content.replace('@charset "utf-8";', '@import "tailwindcss" source("../..");')
+          }
+        ]
+      })
+
+      await editFiles({
+        title: 'register Tailwind CSS plugin',
+        files: 'vite.config.js',
+        operations: [
+          {
+            skipIf: (content) => content.includes('import tailwindcss from \'@tailwindcss/vite\''),
             type: 'add-line',
+            match: /import shopify from 'vite-plugin-shopify'/,
+            position: 'after',
             lines: [
-              '@tailwind base;',
-              '@tailwind components;',
-              '@tailwind utilities;'
-            ],
-            position: 'prepend'
+              'import tailwindcss from \'@tailwindcss/vite\''
+            ]
+          },
+          {
+            type: 'update-content',
+            update: (content) => content.replace('shopify()', 'shopify(),\n    tailwindcss()')
           }
         ]
       })
