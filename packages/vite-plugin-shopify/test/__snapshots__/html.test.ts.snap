@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`vite-plugin-shopify:html > builds out .liquid files for development 1`] = `
 "{% comment %}
@@ -24,11 +24,11 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development 1`]
     assign is_css = true
   endif
 %}
-<script src=\\"http://localhost:5173/@vite/client\\" type=\\"module\\"></script>
+<script src="http://localhost:5173/@vite/client" type="module"></script>
 {% if is_css == true %}
-  <link rel=\\"stylesheet\\" href=\\"{{ file_url }}\\" crossorigin=\\"anonymous\\">
+  <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
 {% else %}
-  <script src=\\"{{ file_url }}\\" type=\\"module\\"></script>
+  <script src="{{ file_url }}" type="module"></script>
 {% endif %}
 "
 `;
@@ -57,11 +57,11 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
     assign is_css = true
   endif
 %}
-<script src=\\"https://example.trycloudflare.com/@vite/client\\" type=\\"module\\"></script>
+<script src="https://example.trycloudflare.com/@vite/client" type="module"></script>
 {% if is_css == true %}
-  <link rel=\\"stylesheet\\" href=\\"{{ file_url }}\\" crossorigin=\\"anonymous\\">
+  <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
 {% else %}
-  <script src=\\"{{ file_url }}\\" type=\\"module\\"></script>
+  <script src="{{ file_url }}" type="module"></script>
 {% endif %}
 "
 `;
@@ -90,11 +90,11 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
     assign is_css = true
   endif
 %}
-<script src=\\"https://123abc.ngrok.io/@vite/client\\" type=\\"module\\"></script>
+<script src="https://123abc.ngrok.io/@vite/client" type="module"></script>
 {% if is_css == true %}
-  <link rel=\\"stylesheet\\" href=\\"{{ file_url }}\\" crossorigin=\\"anonymous\\">
+  <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
 {% else %}
-  <script src=\\"{{ file_url }}\\" type=\\"module\\"></script>
+  <script src="{{ file_url }}" type="module"></script>
 {% endif %}
 "
 `;
@@ -123,12 +123,12 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
     assign is_css = true
   endif
 %}
-<script src=\\"http://localhost:5173/@id/__x00__vite-plugin-shopify:react-refresh\\" type=\\"module\\"></script>
-<script src=\\"http://localhost:5173/@vite/client\\" type=\\"module\\"></script>
+<script src="http://localhost:5173/@id/__x00__vite-plugin-shopify:react-refresh" type="module"></script>
+<script src="http://localhost:5173/@vite/client" type="module"></script>
 {% if is_css == true %}
-  <link rel=\\"stylesheet\\" href=\\"{{ file_url }}\\" crossorigin=\\"anonymous\\">
+  <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
 {% else %}
-  <script src=\\"{{ file_url }}\\" type=\\"module\\"></script>
+  <script src="{{ file_url }}" type="module"></script>
 {% endif %}
 "
 `;
