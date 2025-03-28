@@ -3,7 +3,7 @@ import viteLogo from '@/images/vite.svg'
 import shopifyLogo from '@/images/shopify.svg'
 import register from 'preact-custom-element'
 
-function HelloWorld() {
+function HelloWorld () {
   const count = signal(0)
 
   return (
