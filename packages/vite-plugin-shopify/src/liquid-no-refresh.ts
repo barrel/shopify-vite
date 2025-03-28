@@ -3,10 +3,10 @@ import createDebugger from 'debug'
 
 const debug = createDebugger('vite-plugin-shopify:liquid-no-refresh')
 
-export default function shopifyLiquidNoRefresh(): Plugin {
+export default function shopifyLiquidNoRefresh (): Plugin {
   return {
     name: 'vite-plugin-shopify:liquid-tailwind-refresh',
-    handleHotUpdate(ctx) {
+    handleHotUpdate (ctx) {
       if (ctx.file.endsWith('.liquid')) {
         debug(ctx.file)
         // Filter out the liquid module to prevent a full refresh
