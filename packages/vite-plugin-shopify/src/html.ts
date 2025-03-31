@@ -6,7 +6,7 @@ import createDebugger from 'debug'
 import startTunnel from '@shopify/plugin-cloudflare/hooks/tunnel'
 import { renderInfo, isTTY } from '@shopify/cli-kit/node/ui'
 
-import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS } from './constants'
+import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS, hotReloadScriptId, hotReloadScriptUrl } from './constants'
 import type { Options, DevServerUrl, FrontendURLResult } from './types'
 import type { TunnelClient } from '@shopify/cli-kit/node/plugins/tunnel'
 
@@ -261,6 +261,7 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugi
     : `
 <script src="${assetHost}/@id/__x00__vite-plugin-shopify:react-refresh" type="module"></script>`}
 <script src="${assetHost}/@vite/client" type="module"></script>
+<script id="${hotReloadScriptId}" src="${hotReloadScriptUrl}" type="module"></script>
 {% if is_css == true %}
   <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
 {% else %}
