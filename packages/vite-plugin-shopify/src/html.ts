@@ -261,8 +261,10 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugi
     ? ''
     : `
 <script src="${assetHost}/@id/__x00__vite-plugin-shopify:react-refresh" type="module"></script>`}
-<script src="${assetHost}/@vite/client" type="module"></script>
-${themeHotReload ? `<script id="${hotReloadScriptId}" src="${hotReloadScriptUrl}" type="module"></script>` : ''}
+<script src="${assetHost}/@vite/client" type="module"></script>${!themeHotReload
+  ? ''
+  : `
+<script id="${hotReloadScriptId}" src="${hotReloadScriptUrl}" type="module"></script>`}
 {% if is_css == true %}
   <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
 {% else %}

@@ -107,6 +107,33 @@ describe('vite-plugin-shopify:html', () => {
     expect(tagsHtml).toMatchSnapshot()
   })
 
+  it('builds out .liquid files for development with themeHotReload disabled', async () => {
+    const options = resolveOptions({
+      themeRoot: 'test/__fixtures__',
+      sourceCodeDir: 'test/__fixtures__/frontend',
+      themeHotReload: false
+    })
+
+    const { configureServer } = html(options)
+
+    const viteServer = await (
+      await createServer({
+        logLevel: 'silent',
+        configFile: path.join(__dirname, '__fixtures__', 'vite.config.js')
+      })
+    ).listen()
+
+    configureServer(viteServer)
+
+    viteServer.httpServer?.emit('listening')
+
+    const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })
+
+    await viteServer.close()
+
+    expect(tagsHtml).toMatchSnapshot()
+  })
+
   it('builds out .liquid files for development with a cloudflare tunnel url', async () => {
     const mockResult = {
       status: 'connected',
