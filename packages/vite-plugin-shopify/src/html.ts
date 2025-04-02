@@ -79,7 +79,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
               config.server.allowedHosts = [new URL(tunnelUrl).hostname]
               isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
               const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
-                tunnelUrl, options.entrypointsDir, reactPlugin
+                tunnelUrl, options.entrypointsDir, reactPlugin, options.themeHotReload
               )
 
               // Write vite-tag with a Cloudflare Tunnel URL
@@ -90,7 +90,8 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
           const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
             tunnelConfig.frontendUrl !== ''
               ? tunnelConfig.frontendUrl
-              : viteDevServerUrl, options.entrypointsDir, reactPlugin
+              : viteDevServerUrl, options.entrypointsDir, reactPlugin,
+            options.themeHotReload
           )
 
           // Write vite-tag snippet for development server
@@ -238,7 +239,7 @@ const stylesheetTag = (fileName: string, versionNumbers: boolean): string =>
   `{{ ${assetUrl(fileName, versionNumbers)} | stylesheet_tag: preload: preload_stylesheet }}`
 
 // Generate vite-tag snippet for development
-const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugin: Plugin | undefined): string =>
+const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugin: Plugin | undefined, themeHotReload: boolean): string =>
   `{% liquid
   assign path_prefix = path | slice: 0
   if path_prefix == '/'
@@ -261,7 +262,7 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugi
     : `
 <script src="${assetHost}/@id/__x00__vite-plugin-shopify:react-refresh" type="module"></script>`}
 <script src="${assetHost}/@vite/client" type="module"></script>
-<script id="${hotReloadScriptId}" src="${hotReloadScriptUrl}" type="module"></script>
+${themeHotReload ? `<script id="${hotReloadScriptId}" src="${hotReloadScriptUrl}" type="module"></script>` : ''}
 {% if is_css == true %}
   <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
 {% else %}

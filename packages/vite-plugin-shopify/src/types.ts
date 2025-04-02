@@ -47,6 +47,11 @@ export interface Options {
    * @default false
    */
   tunnel?: boolean | string
+
+  /**
+   * Specifies whether to use the {@link https://www.npmjs.com/package/@shopify/theme-hot-reload @shopify/theme-hot-reload} script to enable hot reloading.
+   */
+  themeHotReload?: boolean
 }
 
 export type DevServerUrl = `${'http' | 'https'}://${string}:${number}`
