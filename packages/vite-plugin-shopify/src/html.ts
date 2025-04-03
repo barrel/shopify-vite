@@ -90,8 +90,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
           const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
             tunnelConfig.frontendUrl !== ''
               ? tunnelConfig.frontendUrl
-              : viteDevServerUrl, options.entrypointsDir, reactPlugin,
-            options.themeHotReload
+              : viteDevServerUrl, options.entrypointsDir, reactPlugin, options.themeHotReload
           )
 
           // Write vite-tag snippet for development server
