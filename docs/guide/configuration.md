@@ -64,3 +64,10 @@ Specifies whether to append version numbers to your production-ready asset URLs 
 - **Default:** `false`
 
 Enables the creation of Cloudflare tunnels during dev, allowing previews from any device.
+
+## themeHotReload
+
+- **Type:** `boolean`
+- **Default:** `true`
+
+Specifies whether to use the [@shopify/theme-hot-reload](https://www.npmjs.com/package/@shopify/theme-hot-reload) script to enable hot reloading for the theme.

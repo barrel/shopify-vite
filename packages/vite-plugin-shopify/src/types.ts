@@ -49,7 +49,7 @@ export interface Options {
   tunnel?: boolean | string
 
   /**
-   * Specifies whether to use the {@link https://www.npmjs.com/package/@shopify/theme-hot-reload @shopify/theme-hot-reload} script to enable hot reloading.
+   * Specifies whether to use the {@link https://www.npmjs.com/package/@shopify/theme-hot-reload @shopify/theme-hot-reload} script to enable hot reloading for the theme.
    */
   themeHotReload?: boolean
 }
