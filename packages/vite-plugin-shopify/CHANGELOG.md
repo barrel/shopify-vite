@@ -1,10 +1,11 @@
 # vite-plugin-shopify
 
-## 3.2.1
+## 3.3.0
 
-### Patch Changes
+### Minor Changes
 
 - Fix unwanted page reloads
+- Hot reloading for OSE, Theme Preview via @shopify/theme-hot-reload
 
 ## 3.2.0
 
