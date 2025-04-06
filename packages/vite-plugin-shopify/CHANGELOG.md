@@ -1,11 +1,14 @@
 # vite-plugin-shopify
 
-## 3.3.0
+## 4.0.0
+
+### Major Changes
+
+- Hot reloading for OSE, Theme Preview via `@shopify/theme-hot-reload` ([#177](https://github.com/barrel/shopify-vite/pull/177)) - **Breaking change:** You need to use `@shopify/cli@>=3.77.0`. This version includes an updated theme server and introduces the new `@shopify/theme-hot-reload` script.
 
 ### Minor Changes
 
-- Fix unwanted page reloads
-- Hot reloading for OSE, Theme Preview via @shopify/theme-hot-reload
+- Fix unwanted page reloads ([#176](https://github.com/barrel/shopify-vite/pull/176))
 
 ## 3.2.0
 
