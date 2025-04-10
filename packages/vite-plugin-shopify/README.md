@@ -47,7 +47,9 @@ export default {
      // Specifies whether to append version numbers to your production-ready asset URLs in `snippetFile`
       versionNumbers: false,
      // Enables the creation of Cloudflare tunnels during dev, allowing previews from any device
-      tunnel: false
+      tunnel: false,
+     // Specifies whether to use the @shopify/theme-hot-reload script to enable hot reloading for the theme
+      themeHotReload: true
     })
   ]
 }

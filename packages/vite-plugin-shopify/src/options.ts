@@ -12,6 +12,7 @@ export const resolveOptions = (
   const snippetFile = options.snippetFile ?? 'vite-tag.liquid'
   const versionNumbers = options.versionNumbers ?? false
   const tunnel = options.tunnel ?? false
+  const themeHotReload = options.themeHotReload ?? true
 
   return {
     themeRoot,
@@ -20,6 +21,7 @@ export const resolveOptions = (
     additionalEntrypoints,
     snippetFile,
     versionNumbers,
-    tunnel
+    tunnel,
+    themeHotReload
   }
 }
