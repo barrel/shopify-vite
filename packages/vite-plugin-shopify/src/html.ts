@@ -156,8 +156,10 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
               imports.forEach((importFilename: string) => {
                 const chunk = manifest[importFilename]
                 const { css } = chunk
-                // Render preload tags for JS imports
-                tagsForEntry.push(preloadScriptTag(chunk.file, options.versionNumbers))
+                if (config.build.modulePreload !== false && config.build.modulePreload.polyfill) {
+                  // Render preload tags for JS imports
+                  tagsForEntry.push(preloadScriptTag(chunk.file, options.versionNumbers))
+                }
 
                 // Render style tag for JS imports
                 if (typeof css !== 'undefined' && css.length > 0) {
