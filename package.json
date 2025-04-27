@@ -8,6 +8,7 @@
     "preset"
   ],
   "scripts": {
+    "release": "pnpm run build && changeset publish",
     "build": "turbo run build --filter=vite-plugin-*",
     "dev": "turbo run dev --filter=vite-plugin-* --parallel",
     "lint": "turbo run lint",

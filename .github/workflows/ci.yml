@@ -13,21 +13,19 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
+        uses: pnpm/action-setup@v4
 
       - name: Set node
         uses: actions/setup-node@v3
         with:
-          node-version: 18.x
-          cache: pnpm
+          node-version: 20
+          cache: "pnpm"
 
       - name: Install
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install
 
       - name: Lint
         run: pnpm lint
@@ -37,26 +35,29 @@ jobs:
 
     strategy:
       matrix:
-        node: [18.x, 20.x]
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [ubuntu-latest]
+        node_version: [18, 20, 22]
+        include:
+          - os: macos-latest
+            node_version: 22
+          - os: windows-latest
+            node_version: 22
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v2
-        with:
-          version: 7
+        uses: pnpm/action-setup@v4
 
       - name: Set node ${{ matrix.node }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node }}
-          cache: pnpm
+          cache: "pnpm"
 
       - name: Install
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install
 
       - name: Build
         run: pnpm build
