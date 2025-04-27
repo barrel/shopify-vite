@@ -49,4 +49,24 @@ describe('vite-plugin-shopify', () => {
 
     expect(tagsHtml).toMatchSnapshot()
   })
+
+  it('builds out .liquid files for production without modulepreload polyfill', async () => {
+    await build({
+      logLevel: 'silent',
+      build: {
+        modulePreload: false
+      },
+      plugins: [
+        shopify({
+          themeRoot: path.join(__dirname, '__fixtures__'),
+          sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend-no-preload'),
+          snippetFile: 'vite-tag.liquid'
+        })
+      ]
+    })
+
+    const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })
+
+    expect(tagsHtml).toMatchSnapshot()
+  })
 })
