@@ -50,7 +50,7 @@ describe('vite-plugin-shopify', () => {
     expect(tagsHtml).toMatchSnapshot()
   })
 
-  it('builds out .liquid files for production without modulepreload polyfill', async () => {
+  it('builds out .liquid files for production without module preload tags', async () => {
     await build({
       logLevel: 'silent',
       build: {
