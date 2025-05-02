@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 4.0.1
+
+### Patch Changes
+
+- 662b7e8: Output modulepreload tags only when configured
+
 ## 4.0.0
 
 ### Major Changes
