@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 4.0.2
+
+### Patch Changes
+
+- b707b89: Vite 7 Support
+
 ## 4.0.1
 
 ### Patch Changes
