@@ -212,7 +212,23 @@ const viteTagEntryPath = (
     }
   })
 
-  return `{% assign path = ${snippetName} | ${replacements.map(([from, to]) => `replace: '${from}/', '${to}/'`).join(' | ')} %}\n`
+  // Support both 'asset' (new, strict parser) and hyphen (old, backward compat)
+  const underscoreVar = 'asset' // Fixed semantic name for new syntax
+  const hyphenVar = snippetName // e.g., "vite-tag" - derived from snippet filename for backward compat
+
+  const replaceChain = replacements
+    .map(([from, to]) => `replace: '${from}/', '${to}/'`)
+    .join(' | ')
+
+  // Generate liquid that checks for both variable names
+  return `{% liquid
+  if ${underscoreVar}
+    assign path = ${underscoreVar}${replaceChain ? ' | ' + replaceChain : ''}
+  else
+    assign path = ${hyphenVar}${replaceChain ? ' | ' + replaceChain : ''}
+  endif
+%}
+`
 }
 
 // Generate the asset's url with or without version numbers
