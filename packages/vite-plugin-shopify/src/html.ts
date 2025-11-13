@@ -212,21 +212,17 @@ const viteTagEntryPath = (
     }
   })
 
-  // Support both 'entry' (new, strict parser) and hyphen (old, backward compat)
-  const underscoreVar = 'entry' // Fixed semantic name for new syntax
-  const hyphenVar = snippetName // e.g., "vite-tag" - derived from snippet filename for backward compat
+  // Support both 'entry' (new, strict parser) and snippetName (old, backward compat)
+  const paramName = 'entry' // Fixed semantic name for new syntax
 
   const replaceChain = replacements
     .map(([from, to]) => `replace: '${from}/', '${to}/'`)
     .join(' | ')
 
-  // Generate liquid that checks for both variable names
+  // Generate liquid that uses default filter for backward compatibility
   return `{% liquid
-  if ${underscoreVar}
-    assign path = ${underscoreVar}${replaceChain ? ' | ' + replaceChain : ''}
-  else
-    assign path = ${hyphenVar}${replaceChain ? ' | ' + replaceChain : ''}
-  endif
+  assign ${paramName} = ${paramName} | default: ${snippetName}
+  assign path = ${paramName}${replaceChain ? ' | ' + replaceChain : ''}
 %}
 `
 }
