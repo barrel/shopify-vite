@@ -212,8 +212,8 @@ const viteTagEntryPath = (
     }
   })
 
-  // Support both 'asset' (new, strict parser) and hyphen (old, backward compat)
-  const underscoreVar = 'asset' // Fixed semantic name for new syntax
+  // Support both 'entry' (new, strict parser) and hyphen (old, backward compat)
+  const underscoreVar = 'entry' // Fixed semantic name for new syntax
   const hyphenVar = snippetName // e.g., "vite-tag" - derived from snippet filename for backward compat
 
   const replaceChain = replacements

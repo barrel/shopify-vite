@@ -6,8 +6,8 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development 1`]
   Do not attempt to modify this file directly, as any changes will be overwritten by the next build.
 {% endcomment %}
 {% liquid
-  if asset
-    assign path = asset | replace: '~/', '../' | replace: '@/', '../' | replace: '@@/', '../../resources/js/'
+  if entry
+    assign path = entry | replace: '~/', '../' | replace: '@/', '../' | replace: '@@/', '../../resources/js/'
   else
     assign path = vite-tag | replace: '~/', '../' | replace: '@/', '../' | replace: '@@/', '../../resources/js/'
   endif
@@ -46,8 +46,8 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
   Do not attempt to modify this file directly, as any changes will be overwritten by the next build.
 {% endcomment %}
 {% liquid
-  if asset
-    assign path = asset | replace: '@/', '../'
+  if entry
+    assign path = entry | replace: '@/', '../'
   else
     assign path = vite-tag | replace: '@/', '../'
   endif
@@ -86,8 +86,8 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
   Do not attempt to modify this file directly, as any changes will be overwritten by the next build.
 {% endcomment %}
 {% liquid
-  if asset
-    assign path = asset | replace: '@/', '../'
+  if entry
+    assign path = entry | replace: '@/', '../'
   else
     assign path = vite-tag | replace: '@/', '../'
   endif
@@ -126,8 +126,8 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
   Do not attempt to modify this file directly, as any changes will be overwritten by the next build.
 {% endcomment %}
 {% liquid
-  if asset
-    assign path = asset | replace: '~/', '../' | replace: '@/', '../' | replace: '@@/', '../../resources/js/'
+  if entry
+    assign path = entry | replace: '~/', '../' | replace: '@/', '../' | replace: '@@/', '../../resources/js/'
   else
     assign path = vite-tag | replace: '~/', '../' | replace: '@/', '../' | replace: '@@/', '../../resources/js/'
   endif
@@ -167,8 +167,8 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
   Do not attempt to modify this file directly, as any changes will be overwritten by the next build.
 {% endcomment %}
 {% liquid
-  if asset
-    assign path = asset | replace: '~/', '../' | replace: '@/', '../' | replace: '@@/', '../../resources/js/'
+  if entry
+    assign path = entry | replace: '~/', '../' | replace: '@/', '../' | replace: '@@/', '../../resources/js/'
   else
     assign path = vite-tag | replace: '~/', '../' | replace: '@/', '../' | replace: '@@/', '../../resources/js/'
   endif
