@@ -15,9 +15,9 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development 1`]
 {% liquid
   assign path_prefix = path | slice: 0
   if path_prefix == '/'
-    assign file_url_prefix = 'http://localhost:5174'
+    assign file_url_prefix = 'http://localhost:5173'
   else
-    assign file_url_prefix = 'http://localhost:5174/test/__fixtures__/frontend/entrypoints/'
+    assign file_url_prefix = 'http://localhost:5173/test/__fixtures__/frontend/entrypoints/'
   endif
   assign file_url = path | prepend: file_url_prefix
   assign file_name = path | split: '/' | last
@@ -30,7 +30,7 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development 1`]
     assign is_css = true
   endif
 %}
-<script src="http://localhost:5174/@vite/client" type="module"></script>
+<script src="http://localhost:5173/@vite/client" type="module"></script>
 <script id="hot-reload-client" src="https://cdn.jsdelivr.net/npm/@shopify/theme-hot-reload/dist/theme-hot-reload.min.js" type="module"></script>
 {% if is_css == true %}
   <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
@@ -135,9 +135,9 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
 {% liquid
   assign path_prefix = path | slice: 0
   if path_prefix == '/'
-    assign file_url_prefix = 'http://localhost:5174'
+    assign file_url_prefix = 'http://localhost:5173'
   else
-    assign file_url_prefix = 'http://localhost:5174/test/__fixtures__/frontend/entrypoints/'
+    assign file_url_prefix = 'http://localhost:5173/test/__fixtures__/frontend/entrypoints/'
   endif
   assign file_url = path | prepend: file_url_prefix
   assign file_name = path | split: '/' | last
@@ -150,8 +150,8 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
     assign is_css = true
   endif
 %}
-<script src="http://localhost:5174/@id/__x00__vite-plugin-shopify:react-refresh" type="module"></script>
-<script src="http://localhost:5174/@vite/client" type="module"></script>
+<script src="http://localhost:5173/@id/__x00__vite-plugin-shopify:react-refresh" type="module"></script>
+<script src="http://localhost:5173/@vite/client" type="module"></script>
 <script id="hot-reload-client" src="https://cdn.jsdelivr.net/npm/@shopify/theme-hot-reload/dist/theme-hot-reload.min.js" type="module"></script>
 {% if is_css == true %}
   <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
@@ -176,9 +176,9 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
 {% liquid
   assign path_prefix = path | slice: 0
   if path_prefix == '/'
-    assign file_url_prefix = 'http://localhost:5174'
+    assign file_url_prefix = 'http://localhost:5173'
   else
-    assign file_url_prefix = 'http://localhost:5174/test/__fixtures__/frontend/entrypoints/'
+    assign file_url_prefix = 'http://localhost:5173/test/__fixtures__/frontend/entrypoints/'
   endif
   assign file_url = path | prepend: file_url_prefix
   assign file_name = path | split: '/' | last
@@ -191,7 +191,7 @@ exports[`vite-plugin-shopify:html > builds out .liquid files for development wit
     assign is_css = true
   endif
 %}
-<script src="http://localhost:5174/@vite/client" type="module"></script>
+<script src="http://localhost:5173/@vite/client" type="module"></script>
 {% if is_css == true %}
   <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
 {% else %}
