@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 4.0.3
+
+### Patch Changes
+
+- 9fba2d0: Add Shopify strict Liquid parser support with 'asset' variable
+
 ## 4.0.2
 
 ### Patch Changes
