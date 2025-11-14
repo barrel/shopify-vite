@@ -212,7 +212,19 @@ const viteTagEntryPath = (
     }
   })
 
-  return `{% assign path = ${snippetName} | ${replacements.map(([from, to]) => `replace: '${from}/', '${to}/'`).join(' | ')} %}\n`
+  // Support both 'entry' (new, strict parser) and snippetName (old, backward compat)
+  const paramName = 'entry' // Fixed semantic name for new syntax
+
+  const replaceChain = replacements
+    .map(([from, to]) => `replace: '${from}/', '${to}/'`)
+    .join(' | ')
+
+  // Generate liquid that uses default filter for backward compatibility
+  return `{% liquid
+  assign ${paramName} = ${paramName} | default: ${snippetName}
+  assign path = ${paramName}${replaceChain ? ' | ' + replaceChain : ''}
+%}
+`
 }
 
 // Generate the asset's url with or without version numbers

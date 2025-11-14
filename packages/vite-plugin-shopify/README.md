@@ -75,11 +75,22 @@ With your Vite entry points configured, you only need to reference them with the
 
 ```liquid
 {% liquid
-  # Relative to entrypointsDir
+  # Recommended: New syntax compatible with Shopify's strict Liquid parser
+  render 'vite-tag', entry: 'theme.scss'
+  render 'vite-tag', entry: 'theme.ts'
+%}
+```
+
+**Legacy syntax (still supported):**
+```liquid
+{% liquid
+  # Old syntax - still works for backward compatibility
   render 'vite-tag' with 'theme.scss'
   render 'vite-tag' with 'theme.ts'
 %}
 ```
+
+> **Note:** The new syntax using named parameters (`entry:`) is required for compatibility with Shopify's [strict Liquid parser](https://shopify.dev/docs/storefronts/themes/tools/rigid-liquid-migration#using-with-with-key-value-pairs). The old `with` syntax is still supported for backward compatibility but may be deprecated in future Shopify updates.
 
 During development, the `vite-tag` will load your assets from the Vite development server and inject the Vite client to enable Hot Module Replacement.
 In build mode, the snippet will load your compiled and versioned assets, including any imported CSS, and use the `asset_url` filter to serve your assets
@@ -90,15 +101,15 @@ from the Shopify content delivery network (CDN).
 ```liquid
 {% liquid
   # Relative to sourceCodeDir
-  render 'vite-tag' with '@/foo.ts'
-  render 'vite-tag' with '~/foo.ts'
+  render 'vite-tag', entry: '@/foo.ts'
+  render 'vite-tag', entry: '~/foo.ts'
 %}
 ```
 
 ```liquid
 {% liquid
   # Relative to project root
-  render 'vite-tag' with '/bar.ts' # leading slash is required
+  render 'vite-tag', entry: '/bar.ts' # leading slash is required
 %}
 ```
 
@@ -107,6 +118,11 @@ from the Shopify content delivery network (CDN).
 You can pass the `preload_stylesheet` variable to the `vite-tag` snippet to enable the `preload` parameter of the `stylesheet_tag` filter. Use it sparingly. For example, consider preloading only render-blocking stylesheets.
 [Learn more](https://shopify.dev/themes/best-practices/performance#use-resource-hints-to-preload-key-resources).
 
+```liquid
+{% render 'vite-tag', entry: 'theme.scss', preload_stylesheet: true %}
+```
+
+**Legacy syntax (still supported):**
 ```liquid
 {% render 'vite-tag' with 'theme.scss', preload_stylesheet: true %}
 ```
