@@ -110,3 +110,11 @@ export default {
   ]
 }
 ```
+
+## Chrome Local Network Access Update & Tunnel Fix
+
+The recent CORS errors in the Shopify Theme Editor are caused by a Google Chrome security update regarding
+[Local Network Access](https://chromestatus.com/feature/5152728072060928), which now blocks public websites from making requests to private local servers (localhost) to prevent security vulnerabilities.
+To fix this, we recommend enabling the [`tunnel`](https://shopify-vite.barrelny.com/guide/configuration.html#tunnel) feature directly in your `vite-plugin-shopify` configuration.
+Alternatively, you can use external tools like ngrok to manually expose your server. Both methods create a public HTTPS connection,
+allowing the Theme Editor to bypass the restriction and correctly load your local assets.
