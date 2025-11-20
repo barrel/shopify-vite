@@ -118,3 +118,23 @@ The recent CORS errors in the Shopify Theme Editor are caused by a Google Chrome
 To fix this, we recommend enabling the [`tunnel`](https://shopify-vite.barrelny.com/guide/configuration.html#tunnel) feature directly in your `vite-plugin-shopify` configuration.
 Alternatively, you can use external tools like ngrok to manually expose your server. Both methods create a public HTTPS connection,
 allowing the Theme Editor to bypass the restriction and correctly load your local assets.
+
+::: code-group
+
+```diff [vite.config.js]
+ // https://vitejs.dev/config/
+ export default defineConfig({
+-  plugins: [shopify(), tailwindcss()],
++  plugins: [shopify({ tunnel: true }), tailwindcss()],
+   server: {
+     cors: {
+       origin: [defaultAllowedOrigins, /\.myshopify\.com$/]
+-    }
++    },
++    allowedHosts: ['.trycloudflare.com']
+   },
+   build: {
+     rollupOptions: {
+
+```
+:::
