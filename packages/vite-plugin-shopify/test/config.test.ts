@@ -73,6 +73,42 @@ describe('vite-plugin-shopify:config', () => {
 
     expect(config.server.allowedHosts).toEqual(['my-custom-host.com'])
   })
+
+  it('applies default CORS configuration when none is provided', () => {
+    const options = resolveOptions({})
+    const userConfig = plugin(options)
+    const config = userConfig.config({}, { command: 'serve', mode: 'development' })
+    const expectedCorsOrigin = [
+      /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/,
+      /\.myshopify\.com$/
+    ]
+    expect(config.server.cors.origin).toEqual(expectedCorsOrigin)
+  })
+
+  it('does not override user-defined CORS configuration (boolean)', () => {
+    const options = resolveOptions({})
+    const userConfig = plugin(options)
+    const config = userConfig.config({
+      server: {
+        cors: false
+      }
+    }, { command: 'serve', mode: 'development' })
+    expect(config.server.cors).toBe(false)
+  })
+
+  it('does not override user-defined CORS configuration (object)', () => {
+    const options = resolveOptions({})
+    const userConfig = plugin(options)
+    const customCorsConfig = {
+      origin: 'https://my-custom-origin.com'
+    }
+    const config = userConfig.config({
+      server: {
+        cors: customCorsConfig
+      }
+    }, { command: 'serve', mode: 'development' })
+    expect(config.server.cors).toEqual(customCorsConfig)
+  })
 })
 
 describe('resolveOptions', () => {
