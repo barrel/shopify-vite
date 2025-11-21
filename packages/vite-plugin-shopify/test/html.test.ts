@@ -167,8 +167,6 @@ describe('vite-plugin-shopify:html', () => {
 
     const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })
 
-    expect(mockViteDevServer.config.server.allowedHosts).toContain(new URL(mockResult.url).hostname)
-
     expect(tagsHtml).toMatchSnapshot()
 
     vi.useRealTimers()
@@ -178,7 +176,7 @@ describe('vite-plugin-shopify:html', () => {
     const options = resolveOptions({
       themeRoot: 'test/__fixtures__',
       sourceCodeDir: 'test/__fixtures__/frontend',
-      tunnel: 'https://123abc.ngrok.io:3000'
+      tunnel: 'https://123abc.ngrok.io'
     })
 
     vi.useFakeTimers()
@@ -190,8 +188,6 @@ describe('vite-plugin-shopify:html', () => {
     vi.advanceTimersByTime(100)
 
     const tagsHtml = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-tag.liquid'), { encoding: 'utf8' })
-
-    expect(mockViteDevServer.config.server.allowedHosts).toContain(new URL(options.tunnel).hostname)
 
     expect(tagsHtml).toMatchSnapshot()
 

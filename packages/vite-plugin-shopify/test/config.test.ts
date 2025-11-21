@@ -44,6 +44,35 @@ describe('vite-plugin-shopify:config', () => {
     expect(config.publicDir).toEqual('public')
     expect(config.build.rollupOptions.input).toEqual(['frontend/entrypoints/theme.js', 'resources/js/foo.js'])
   })
+
+  it('sets allowedHosts for dynamic tunnel', () => {
+    const options = resolveOptions({ tunnel: true })
+    const userConfig = plugin(options)
+    const config = userConfig.config({}, { command: 'serve', mode: 'development' })
+
+    expect(config.server.allowedHosts).toEqual(['.trycloudflare.com'])
+  })
+
+  it('sets allowedHosts for static tunnel URL', () => {
+    const options = resolveOptions({ tunnel: 'https://my-tunnel.ngrok-free.app' })
+    const userConfig = plugin(options)
+    const config = userConfig.config({}, { command: 'serve', mode: 'development' })
+
+    expect(config.server.allowedHosts).toEqual(['my-tunnel.ngrok-free.app'])
+  })
+
+  it('does not override user-defined allowedHosts', () => {
+    const options = resolveOptions({ tunnel: true })
+    const userConfig = plugin(options)
+
+    const config = userConfig.config({
+      server: {
+        allowedHosts: ['my-custom-host.com']
+      }
+    }, { command: 'serve', mode: 'development' })
+
+    expect(config.server.allowedHosts).toEqual(['my-custom-host.com'])
+  })
 })
 
 describe('resolveOptions', () => {
