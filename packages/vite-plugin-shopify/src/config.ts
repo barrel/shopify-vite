@@ -70,7 +70,13 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
               },
           allowedHosts: config.server?.allowedHosts ?? [
             ...(typeof options.tunnel === 'string'
-              ? [new URL(options.tunnel).hostname]
+              ? (() => {
+                  try {
+                    return [new URL(options.tunnel).hostname]
+                  } catch {
+                    throw new Error(`Invalid tunnel URL: ${options.tunnel}`)
+                  }
+                })()
               : options.tunnel
                 ? ['.trycloudflare.com']
                 : [])
