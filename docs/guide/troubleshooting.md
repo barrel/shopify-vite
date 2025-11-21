@@ -94,7 +94,7 @@ export default {
 
 If you are experiencing Cloudflare tunnel errors with the Shopify Vite Plugin, you can use ngrok as a workaround.
 First, create an ngrok account and install the ngrok CLI, then follow their instructions to set up your access token.
-Next, run the command `ngrok http 3000` (or any other port number you prefer) and take note of the URL
+Next, run the command `ngrok http 5173` (or any other port number you prefer) and take note of the URL
 provided by ngrok, which ends with `ngrok-free.app`. Keep ngrok running. Finally, configure the plugin.
 
 ::: code-group
@@ -105,7 +105,7 @@ import shopify from 'vite-plugin-shopify'
 export default {
   plugins: [
     shopify({
-      tunnel: 'https://123abc.ngrok-free.app:3000' // [!code ++]
+      tunnel: 'https://123abc.ngrok-free.app' // [!code ++]
     })
   ]
 }

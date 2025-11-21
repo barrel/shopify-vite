@@ -8,11 +8,10 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@vitejs/plugin-basic-ssl": "^1.0.2",
     "cross-env": "^7.0.3",
     "sass": "^1.52.2",
     "tsconfig": "workspace:*",
-    "vite": "^6.0.11",
+    "vite": "^7.2.4",
     "vite-plugin-page-reload": "workspace:*",
     "vite-plugin-shopify": "workspace:*"
   },
