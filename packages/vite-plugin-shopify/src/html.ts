@@ -37,7 +37,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
       }
     },
     configureServer ({ config, middlewares, httpServer }) {
-      const tunnelConfig = resolveTunnelConfig(options)
+      const { frontendUrl, frontendPort, usingLocalhost } = generateFrontendURL(options)
 
       httpServer?.once('listening', () => {
         const address = httpServer?.address()
@@ -50,7 +50,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
             plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh'
           )
 
-          debug({ address, viteDevServerUrl, tunnelConfig })
+          debug({ address, viteDevServerUrl, frontendUrl, frontendPort, usingLocalhost })
 
           setTimeout(() => {
             void (async (): Promise<void> => {
@@ -58,8 +58,8 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
                 return
               }
 
-              if (tunnelConfig.frontendUrl !== '') {
-                tunnelUrl = tunnelConfig.frontendUrl
+              if (frontendUrl !== '') {
+                tunnelUrl = frontendUrl
                 isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
                 return
               }
@@ -82,8 +82,8 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
           }, 100)
 
           const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
-            tunnelConfig.frontendUrl !== ''
-              ? tunnelConfig.frontendUrl
+            frontendUrl !== ''
+              ? frontendUrl
               : viteDevServerUrl, options.entrypointsDir, reactPlugin, options.themeHotReload
           )
 
@@ -308,8 +308,14 @@ function isIpv6 (address: AddressInfo): boolean {
     address.family === 6
 }
 
-function resolveTunnelConfig (options: Required<Options>): FrontendURLResult {
-  let frontendPort = -1
+/**
+ * The tunnel creation logic depends on the tunnel option:
+ * - If tunnel is false, uses localhost
+ * - If tunnel is a string (custom URL), uses that URL
+ * - If tunnel is true, a tunnel is created (by default using cloudflare)
+ */
+function generateFrontendURL (options: Required<Options>): FrontendURLResult {
+  const frontendPort = -1
   let frontendUrl = ''
   let usingLocalhost = false
 
@@ -322,12 +328,7 @@ function resolveTunnelConfig (options: Required<Options>): FrontendURLResult {
     return { frontendUrl, frontendPort, usingLocalhost }
   }
 
-  const matches = options.tunnel.match(/(https:\/\/[^:]+):([0-9]+)/)
-  if (matches === null) {
-    throw new Error(`Invalid tunnel URL: ${options.tunnel}`)
-  }
-  frontendPort = Number(matches[2])
-  frontendUrl = matches[1]
+  frontendUrl = options.tunnel
   return { frontendUrl, frontendPort, usingLocalhost }
 }
 
