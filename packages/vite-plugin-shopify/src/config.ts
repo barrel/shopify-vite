@@ -74,7 +74,13 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
               : options.tunnel
                 ? ['.trycloudflare.com']
                 : [])
-          ]
+          ],
+          cors: config.server?.cors ?? {
+            origin: config.server?.origin ?? [
+              /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/, // allows localhost (default)
+              /\.myshopify\.com$/ // allows myshopify.com URLs
+            ]
+          }
         }
       }
 
