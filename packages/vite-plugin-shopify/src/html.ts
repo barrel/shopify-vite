@@ -39,11 +39,6 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
     configureServer ({ config, middlewares, httpServer }) {
       const tunnelConfig = resolveTunnelConfig(options)
 
-      if (tunnelConfig.frontendPort !== -1) {
-        config.server.port = tunnelConfig.frontendPort
-        config.server.allowedHosts = [new URL(tunnelConfig.frontendUrl).hostname]
-      }
-
       httpServer?.once('listening', () => {
         const address = httpServer?.address()
 
@@ -76,7 +71,6 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
               })
               tunnelClient = hook.valueOrAbort()
               tunnelUrl = await pollTunnelUrl(tunnelClient)
-              config.server.allowedHosts = [new URL(tunnelUrl).hostname]
               isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
               const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
                 tunnelUrl, options.entrypointsDir, reactPlugin, options.themeHotReload

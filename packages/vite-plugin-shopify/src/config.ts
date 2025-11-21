@@ -67,7 +67,14 @@ export default function shopifyConfig (options: Required<Options>): Plugin {
             ? false
             : {
                 ...(config.server?.hmr === true ? {} : config.server?.hmr)
-              }
+              },
+          allowedHosts: config.server?.allowedHosts ?? [
+            ...(typeof options.tunnel === 'string'
+              ? [new URL(options.tunnel).hostname]
+              : options.tunnel
+                ? ['.trycloudflare.com']
+                : [])
+          ]
         }
       }
 
