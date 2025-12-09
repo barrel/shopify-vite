@@ -6,7 +6,7 @@ Using Volt, a Vite plugin for Shopify development is even more enjoyable with th
 
 Enhances Shopify theme development by adding support for import-maps
 
-## [vite-plugin-shopify-clean](https://www.npmjs.com/package/@by-association-only/vite-plugin-shopify-clean)
+## [vite-plugin-shopify-clean](https://www.npmjs.com/package/@driver-digital/vite-plugin-shopify-clean)
 
 [Cleans up the `/assets` folder](/guide/troubleshooting.html#how-to-cleanup-the-assets-folder).
 
