@@ -1,5 +1,12 @@
 # vite-plugin-shopify
 
+## 4.1.1
+
+### Patch Changes
+
+- 458bf7c: Fix modulepreload tags to generate when `build.modulePreload !== false`
+- b8395b7: Update dependencies
+
 ## 4.1.0
 
 ### Minor Changes
