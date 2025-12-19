@@ -243,15 +243,11 @@ const viteEntryTag = (entryPaths: string[], tag: string, isFirstEntry = false): 
 
 // Generate a preload link tag for a script or style asset
 const preloadScriptTag = (fileName: string, versionNumbers: boolean, snippetAttributes: boolean): string =>
-  snippetAttributes
-    ? `<link rel="modulepreload" href="{{ ${assetUrl(fileName, versionNumbers)} }}" crossorigin="anonymous" {{ preload_attrs }}>`
-    : `<link rel="modulepreload" href="{{ ${assetUrl(fileName, versionNumbers)} }}" crossorigin="anonymous">`
+  `<link rel="modulepreload" href="{{ ${assetUrl(fileName, versionNumbers)} }}" crossorigin="anonymous"${snippetAttributes ? ' {{ preload_attrs }}' : ''}>`
 
 // Generate a production script tag for a script asset
 const scriptTag = (fileName: string, versionNumbers: boolean, snippetAttributes: boolean): string =>
-  snippetAttributes
-    ? `<script src="{{ ${assetUrl(fileName, versionNumbers)} }}" type="module" crossorigin="anonymous" {{ script_attrs }}></script>`
-    : `<script src="{{ ${assetUrl(fileName, versionNumbers)} }}" type="module" crossorigin="anonymous"></script>`
+  `<script src="{{ ${assetUrl(fileName, versionNumbers)} }}" type="module" crossorigin="anonymous"${snippetAttributes ? ' {{ script_attrs }}' : ''}></script>`
 
 // Generate a production stylesheet link tag for a style asset
 const stylesheetTag = (fileName: string, versionNumbers: boolean, snippetAttributes: boolean): string =>
@@ -288,14 +284,9 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugi
   : `
 <script id="${hotReloadScriptId}" src="${hotReloadScriptUrl}" type="module"></script>`}
 {% if is_css == true %}
-  ${snippetAttributes
-    ? `{% if preload_stylesheet %}<link rel="preload" href="{{ file_url }}" as="style" crossorigin="anonymous" {{ style_attrs }}>{% endif %}
-  <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous" {{ style_attrs }}>`
-    : '<link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">'}
+  <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous"${snippetAttributes ? ' {{ style_attrs }}' : ''}>
 {% else %}
-  ${snippetAttributes
-    ? '<script src="{{ file_url }}" type="module" {{ script_attrs }}></script>'
-    : '<script src="{{ file_url }}" type="module"></script>'}
+  <script src="{{ file_url }}" type="module"${snippetAttributes ? ' {{ script_attrs }}' : ''}></script>
 {% endif %}
 `
 
