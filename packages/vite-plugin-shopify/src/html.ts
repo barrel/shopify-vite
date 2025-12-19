@@ -22,7 +22,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
   const viteTagSnippetPath = path.resolve(options.themeRoot, `snippets/${options.snippetFile}`)
   const viteTagSnippetName = options.snippetFile.replace(/\.[^.]+$/, '')
   const viteTagSnippetPrefix = (config: ResolvedConfig): string =>
-    viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName)
+    viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName, options.snippetAttributes)
 
   return {
     name: 'vite-plugin-shopify-html',
@@ -73,7 +73,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
               tunnelUrl = await pollTunnelUrl(tunnelClient)
               isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
               const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
-                tunnelUrl, options.entrypointsDir, reactPlugin, options.themeHotReload
+                tunnelUrl, options.entrypointsDir, reactPlugin, options.themeHotReload, options.snippetAttributes
               )
 
               // Write vite-tag with a Cloudflare Tunnel URL
@@ -84,7 +84,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
           const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
             frontendUrl !== ''
               ? frontendUrl
-              : viteDevServerUrl, options.entrypointsDir, reactPlugin, options.themeHotReload
+              : viteDevServerUrl, options.entrypointsDir, reactPlugin, options.themeHotReload, options.snippetAttributes
           )
 
           // Write vite-tag snippet for development server
@@ -141,10 +141,10 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
           if (ext.match(CSS_EXTENSIONS_REGEX) !== null) {
             // Render style tag for CSS entry
-            tagsForEntry.push(stylesheetTag(file, options.versionNumbers))
+            tagsForEntry.push(stylesheetTag(file, options.versionNumbers, options.snippetAttributes))
           } else {
             // Render script tag for JS entry
-            tagsForEntry.push(scriptTag(file, options.versionNumbers))
+            tagsForEntry.push(scriptTag(file, options.versionNumbers, options.snippetAttributes))
 
             if (typeof imports !== 'undefined' && imports.length > 0) {
               imports.forEach((importFilename: string) => {
@@ -152,14 +152,14 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
                 const { css } = chunk
                 if (config.build.modulePreload !== false) {
                   // Render preload tags for JS imports
-                  tagsForEntry.push(preloadScriptTag(chunk.file, options.versionNumbers))
+                  tagsForEntry.push(preloadScriptTag(chunk.file, options.versionNumbers, options.snippetAttributes))
                 }
 
                 // Render style tag for JS imports
                 if (typeof css !== 'undefined' && css.length > 0) {
                   css.forEach((cssFileName: string) => {
                     // Render style tag for imported CSS file
-                    tagsForEntry.push(stylesheetTag(cssFileName, options.versionNumbers))
+                    tagsForEntry.push(stylesheetTag(cssFileName, options.versionNumbers, options.snippetAttributes))
                   })
                 }
               })
@@ -168,7 +168,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
             if (typeof css !== 'undefined' && css.length > 0) {
               css.forEach((cssFileName: string) => {
                 // Render style tag for imported CSS file
-                tagsForEntry.push(stylesheetTag(cssFileName, options.versionNumbers))
+                tagsForEntry.push(stylesheetTag(cssFileName, options.versionNumbers, options.snippetAttributes))
               })
             }
           }
@@ -178,7 +178,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
         // Generate entry tag for bundled "style.css" file when cssCodeSplit is false
         if (src === 'style.css' && !config.build.cssCodeSplit) {
-          assetTags.push(viteEntryTag([src], stylesheetTag(file, options.versionNumbers), false))
+          assetTags.push(viteEntryTag([src], stylesheetTag(file, options.versionNumbers, options.snippetAttributes), false))
         }
       })
 
@@ -196,7 +196,8 @@ const viteTagDisclaimer = '{% comment %}\n  IMPORTANT: This snippet is automatic
 const viteTagEntryPath = (
   resolveAlias: Array<{ find: string | RegExp, replacement: string }>,
   entrypointsDir: string,
-  snippetName: string
+  snippetName: string,
+  snippetAttributes: boolean
 ): string => {
   const replacements: Array<[string, string]> = []
 
@@ -214,9 +215,16 @@ const viteTagEntryPath = (
     .join(' | ')
 
   // Generate liquid that uses default filter for backward compatibility
+  const attrAssignments = snippetAttributes
+    ? `
+  assign script_attrs = script_attrs | default: ''
+  assign preload_attrs = preload_attrs | default: ''
+  assign style_attrs = style_attrs | default: ''`
+    : ''
+
   return `{% liquid
   assign ${paramName} = ${paramName} | default: ${snippetName}
-  assign path = ${paramName}${replaceChain ? ' | ' + replaceChain : ''}
+  assign path = ${paramName}${replaceChain ? ' | ' + replaceChain : ''}${attrAssignments}
 %}
 `
 }
@@ -234,19 +242,26 @@ const viteEntryTag = (entryPaths: string[], tag: string, isFirstEntry = false): 
   `{% ${!isFirstEntry ? 'els' : ''}if ${entryPaths.map((entryName) => `path == "${entryName}"`).join(' or ')} %}\n  ${tag}`
 
 // Generate a preload link tag for a script or style asset
-const preloadScriptTag = (fileName: string, versionNumbers: boolean): string =>
-  `<link rel="modulepreload" href="{{ ${assetUrl(fileName, versionNumbers)} }}" crossorigin="anonymous">`
+const preloadScriptTag = (fileName: string, versionNumbers: boolean, snippetAttributes: boolean): string =>
+  snippetAttributes
+    ? `<link rel="modulepreload" href="{{ ${assetUrl(fileName, versionNumbers)} }}" crossorigin="anonymous" {{ preload_attrs }}>`
+    : `<link rel="modulepreload" href="{{ ${assetUrl(fileName, versionNumbers)} }}" crossorigin="anonymous">`
 
 // Generate a production script tag for a script asset
-const scriptTag = (fileName: string, versionNumbers: boolean): string =>
-  `<script src="{{ ${assetUrl(fileName, versionNumbers)} }}" type="module" crossorigin="anonymous"></script>`
+const scriptTag = (fileName: string, versionNumbers: boolean, snippetAttributes: boolean): string =>
+  snippetAttributes
+    ? `<script src="{{ ${assetUrl(fileName, versionNumbers)} }}" type="module" crossorigin="anonymous" {{ script_attrs }}></script>`
+    : `<script src="{{ ${assetUrl(fileName, versionNumbers)} }}" type="module" crossorigin="anonymous"></script>`
 
 // Generate a production stylesheet link tag for a style asset
-const stylesheetTag = (fileName: string, versionNumbers: boolean): string =>
-  `{{ ${assetUrl(fileName, versionNumbers)} | stylesheet_tag: preload: preload_stylesheet }}`
+const stylesheetTag = (fileName: string, versionNumbers: boolean, snippetAttributes: boolean): string =>
+  snippetAttributes
+    ? `{% if preload_stylesheet %}<link rel="preload" href="{{ ${assetUrl(fileName, versionNumbers)} }}" as="style" {{ style_attrs }}>{% endif %}
+  <link rel="stylesheet" href="{{ ${assetUrl(fileName, versionNumbers)} }}" {{ style_attrs }}>`
+    : `{{ ${assetUrl(fileName, versionNumbers)} | stylesheet_tag: preload: preload_stylesheet }}`
 
 // Generate vite-tag snippet for development
-const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugin: Plugin | undefined, themeHotReload: boolean): string =>
+const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugin: Plugin | undefined, themeHotReload: boolean, snippetAttributes: boolean): string =>
   `{% liquid
   assign path_prefix = path | slice: 0
   if path_prefix == '/'
@@ -273,9 +288,14 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugi
   : `
 <script id="${hotReloadScriptId}" src="${hotReloadScriptUrl}" type="module"></script>`}
 {% if is_css == true %}
-  <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">
+  ${snippetAttributes
+    ? `{% if preload_stylesheet %}<link rel="preload" href="{{ file_url }}" as="style" crossorigin="anonymous" {{ style_attrs }}>{% endif %}
+  <link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous" {{ style_attrs }}>`
+    : '<link rel="stylesheet" href="{{ file_url }}" crossorigin="anonymous">'}
 {% else %}
-  <script src="{{ file_url }}" type="module"></script>
+  ${snippetAttributes
+    ? '<script src="{{ file_url }}" type="module" {{ script_attrs }}></script>'
+    : '<script src="{{ file_url }}" type="module"></script>'}
 {% endif %}
 `
 

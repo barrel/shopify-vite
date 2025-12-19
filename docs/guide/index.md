@@ -256,6 +256,41 @@ You can pass the `preload_stylesheet` variable to the `vite-tag` snippet to enab
 {% render 'vite-tag' with 'theme.scss', preload_stylesheet: true %}
 ```
 
+### Custom HTML Attributes
+
+If you need to add custom attributes to your generated `<script>` or `<link>` tags, enable the [`snippetAttributes`](/guide/configuration.html#snippetattributes) option:
+
+```js
+import { defineConfig } from 'vite'
+import shopify from 'vite-plugin-shopify'
+
+export default defineConfig({
+  plugins: [
+    shopify({
+      snippetAttributes: true
+    })
+  ]
+})
+```
+
+Then pass attributes when rendering the snippet:
+
+```liquid
+{% render 'vite-tag', entry: 'theme.js', script_attrs: 'defer data-turbo-track="reload"' %}
+{% render 'vite-tag', entry: 'theme.css', style_attrs: 'media="print"' %}
+```
+
+Available attribute parameters:
+- `script_attrs` - Added to `<script>` tags
+- `preload_attrs` - Added to modulepreload `<link>` tags
+- `style_attrs` - Added to stylesheet `<link>` tags (also applied to the preload tag when `preload_stylesheet: true`)
+
+**Note:** When `snippetAttributes` is enabled, CSS uses raw `<link rel="stylesheet">` tags instead of Shopify's `stylesheet_tag` filter. The `preload_stylesheet` parameter is still supported and will add a `<link rel="preload" as="style">` tag before the stylesheet to replicate the preload functionality:
+
+```liquid
+{% render 'vite-tag', entry: 'theme.css', preload_stylesheet: true, style_attrs: 'data-turbo-track="reload"' %}
+```
+
 ## Advanced Customization
 
 Out of the box, Volt, a Vite plugin for Shopify development uses sensible conventions to help you add Vite with zero configuration to existing Shopify themes; however,

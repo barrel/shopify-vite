@@ -13,6 +13,7 @@ export const resolveOptions = (
   const versionNumbers = options.versionNumbers ?? false
   const tunnel = options.tunnel ?? false
   const themeHotReload = options.themeHotReload ?? true
+  const snippetAttributes = options.snippetAttributes ?? false
 
   return {
     themeRoot,
@@ -22,6 +23,7 @@ export const resolveOptions = (
     snippetFile,
     versionNumbers,
     tunnel,
-    themeHotReload
+    themeHotReload,
+    snippetAttributes
   }
 }

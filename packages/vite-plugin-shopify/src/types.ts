@@ -52,6 +52,14 @@ export interface Options {
    * Specifies whether to use the {@link https://www.npmjs.com/package/@shopify/theme-hot-reload @shopify/theme-hot-reload} script to enable hot reloading for the theme.
    */
   themeHotReload?: boolean
+
+  /**
+   * Enables the snippet to accept custom attribute parameters (script_attrs, preload_attrs, style_attrs).
+   * When enabled, uses raw <link> tags for CSS instead of Shopify's stylesheet_tag filter.
+   *
+   * @default false
+   */
+  snippetAttributes?: boolean
 }
 
 export type DevServerUrl = `${'http' | 'https'}://${string}:${number}`
