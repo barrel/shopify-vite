@@ -50,6 +50,10 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
             plugin.name === 'vite:react-babel' || plugin.name === 'vite:react-refresh'
           )
 
+          const spritemapPlugin = config.plugins.find(plugin =>
+            plugin.name === 'vite-plugin-svg-spritemap:common' || plugin.name === 'vite-plugin-svg-spritemap:dev'
+          )
+
           debug({ address, viteDevServerUrl, frontendUrl, frontendPort, usingLocalhost })
 
           setTimeout(() => {
@@ -73,7 +77,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
               tunnelUrl = await pollTunnelUrl(tunnelClient)
               isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
               const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
-                tunnelUrl, options.entrypointsDir, reactPlugin, options.themeHotReload
+                tunnelUrl, options.entrypointsDir, reactPlugin, spritemapPlugin, options.themeHotReload
               )
 
               // Write vite-tag with a Cloudflare Tunnel URL
@@ -84,7 +88,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
           const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
             frontendUrl !== ''
               ? frontendUrl
-              : viteDevServerUrl, options.entrypointsDir, reactPlugin, options.themeHotReload
+              : viteDevServerUrl, options.entrypointsDir, reactPlugin, spritemapPlugin, options.themeHotReload
           )
 
           // Write vite-tag snippet for development server
@@ -246,7 +250,7 @@ const stylesheetTag = (fileName: string, versionNumbers: boolean): string =>
   `{{ ${assetUrl(fileName, versionNumbers)} | stylesheet_tag: preload: preload_stylesheet }}`
 
 // Generate vite-tag snippet for development
-const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugin: Plugin | undefined, themeHotReload: boolean): string =>
+const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugin: Plugin | undefined, spritemapPlugin, themeHotReload: boolean): string =>
   `{% liquid
   assign path_prefix = path | slice: 0
   if path_prefix == '/'
@@ -267,7 +271,10 @@ const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugi
 %}${reactPlugin === undefined
     ? ''
     : `
-<script src="${assetHost}/@id/__x00__vite-plugin-shopify:react-refresh" type="module"></script>`}
+<script src="${assetHost}/@id/__x00__vite-plugin-shopify:react-refresh" type="module"></script>`}${spritemapPlugin === undefined
+  ? ''
+  : `
+<script type="module" src="${assetHost}/@vite-plugin-svg-spritemap/client__spritemap"></script>`}
 <script src="${assetHost}/@vite/client" type="module"></script>${!themeHotReload
   ? ''
   : `

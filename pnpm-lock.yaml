@@ -63,6 +63,9 @@ importers:
       '@preact/preset-vite':
         specifier: ^2.10.1
         version: 2.10.1(@babel/core@7.26.10)(preact@10.26.4)(vite@6.2.3(@types/node@18.19.84)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.0)(yaml@2.8.2))
+      '@spiriit/vite-plugin-svg-spritemap':
+        specifier: ^6.0.0
+        version: 6.0.0(vite@6.2.3(@types/node@18.19.84)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.0)(yaml@2.8.2))
       '@tailwindcss/vite':
         specifier: ^4.0.17
         version: 4.0.17(vite@6.2.3(@types/node@18.19.84)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.0)(yaml@2.8.2))
@@ -1612,6 +1615,34 @@ packages:
     resolution: {integrity: sha512-TV7t8GKYaJWsn00tFDqBw8+Uqmr8A0fRU1tvTQhyZzGv0sJCGRQL3JGMI3ucuKo3XIZdUP+Lx7/gh2t3lewy7g==}
     engines: {node: '>=14.16'}
 
+  '@spiriit/vite-plugin-svg-spritemap@6.0.0':
+    resolution: {integrity: sha512-zCxwZQmW9ZRGRsmzOWcwkObkUkLbUBv8mG4VEnAGHtQPijYleq5rI5hCvVEHFsXaWFKnqB4hBHQURXDzrkdENg==}
+    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
+    peerDependencies:
+      '@oxvg/napi': ^0.0.4-1
+      '@oxvg/napi-darwin-arm64': ^0.0.4-1
+      '@oxvg/napi-darwin-x64': ^0.0.4-1
+      '@oxvg/napi-linux-x64-gnu': ^0.0.4-1
+      '@oxvg/napi-win32-x64-msvc': ^0.0.4-1
+      svgo: ^4.0.0
+      vite: ^6.0.0 || ^7.0.0
+      vue: ^3.0.0
+    peerDependenciesMeta:
+      '@oxvg/napi':
+        optional: true
+      '@oxvg/napi-darwin-arm64':
+        optional: true
+      '@oxvg/napi-darwin-x64':
+        optional: true
+      '@oxvg/napi-linux-x64-gnu':
+        optional: true
+      '@oxvg/napi-win32-x64-msvc':
+        optional: true
+      svgo:
+        optional: true
+      vue:
+        optional: true
+
   '@szmarczak/http-timer@5.0.1':
     resolution: {integrity: sha512-+PmQX0PiAYPMeVYe237LJAYvOMYW1j2rH5YROyS3b4CTVJum34HfRvKvAzozHAQG0TnHNdUfY9nCeUyRAs//cw==}
     engines: {node: '>=14.16'}
@@ -1844,6 +1875,10 @@ packages:
 
   '@vitest/utils@3.0.9':
     resolution: {integrity: sha512-ilHM5fHhZ89MCp5aAaM9uhfl1c2JdxVxl3McqsdVyVNN6JffnEen8UMCdRTzOhGXNQGo5GNL9QugHrz727Wnng==}
+
+  '@xmldom/xmldom@0.9.8':
+    resolution: {integrity: sha512-p96FSY54r+WJ50FIOsCOjyj/wavs8921hG5+kVMmZgKcvIKxMXHTrjNJvRgWa/zuX3B6t2lijLNFaOyuxUH+2A==}
+    engines: {node: '>=14.6'}
 
   acorn-jsx@5.3.2:
     resolution: {integrity: sha512-rq9s+JNhf0IChjtDXxllJ7g41oZk5SlXtp0LHwyA5cejwn7vKmKp4pPri6YEePv2PU65sAsegbXtIinmDFDXgQ==}
@@ -2906,6 +2941,9 @@ packages:
     resolution: {integrity: sha512-+QdH3jOmq9P8GfdjFg0eJudqx1FqU62NQJ4P16rOEHeRdl7ckgwn6uqQjzYE0ZoHVV/e5E2esuJ5Gl5+HUW19w==}
     engines: {node: '>=6'}
 
+  hash-sum@2.0.0:
+    resolution: {integrity: sha512-WdZTbAByD+pHfl/g9QSsBIIwy8IT+EsPiKDs0KNX+zSHhdDLFKdZu0BQHljvO+0QI/BasbMSUa8wYNCZTvhslg==}
+
   hasown@2.0.2:
     resolution: {integrity: sha512-0hJU9SCPvmMzIBdZFqNPXWa6dqh7WdH0cII9y+CyS8rG3nL48Bclra9HmKhVVUHyPWNH5Y7xDwAB7bfgSjkUMQ==}
     engines: {node: '>= 0.4'}
@@ -3463,6 +3501,10 @@ packages:
   mimic-response@4.0.0:
     resolution: {integrity: sha512-e5ISH9xMYU0DzrT+jl8q2ze9D6eWBto+I8CNpe+VI+K2J/F/k3PdkdTdz4wvGVH4NTpo+NRYTVIuMQEMMcsLqg==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  mini-svg-data-uri@1.4.4:
+    resolution: {integrity: sha512-r9deDe9p5FJUPZAk3A59wGH7Ii9YrjjWw0jmw/liSbHl2CHiyXj6FcDXDu2K3TjVAXqiJdaw3xxwlZZr9E6nHg==}
+    hasBin: true
 
   minimatch@3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
@@ -5946,6 +5988,15 @@ snapshots:
 
   '@sindresorhus/is@5.6.0': {}
 
+  '@spiriit/vite-plugin-svg-spritemap@6.0.0(vite@6.2.3(@types/node@18.19.84)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.0)(yaml@2.8.2))':
+    dependencies:
+      '@xmldom/xmldom': 0.9.8
+      hash-sum: 2.0.0
+      mini-svg-data-uri: 1.4.4
+      picomatch: 4.0.3
+      tinyglobby: 0.2.15
+      vite: 6.2.3(@types/node@18.19.84)(jiti@2.4.2)(lightningcss@1.29.2)(sass@1.86.0)(yaml@2.8.2)
+
   '@szmarczak/http-timer@5.0.1':
     dependencies:
       defer-to-connect: 2.0.1
@@ -6201,6 +6252,8 @@ snapshots:
       '@vitest/pretty-format': 3.0.9
       loupe: 3.1.3
       tinyrainbow: 2.0.0
+
+  '@xmldom/xmldom@0.9.8': {}
 
   acorn-jsx@5.3.2(acorn@7.4.1):
     dependencies:
@@ -7504,6 +7557,8 @@ snapshots:
     dependencies:
       kind-of: 6.0.3
 
+  hash-sum@2.0.0: {}
+
   hasown@2.0.2:
     dependencies:
       function-bind: 1.1.2
@@ -7978,6 +8033,8 @@ snapshots:
   mimic-response@3.1.0: {}
 
   mimic-response@4.0.0: {}
+
+  mini-svg-data-uri@1.4.4: {}
 
   minimatch@3.1.2:
     dependencies:

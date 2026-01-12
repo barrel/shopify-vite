@@ -8,6 +8,7 @@
   },
   "devDependencies": {
     "@preact/preset-vite": "^2.10.1",
+    "@spiriit/vite-plugin-svg-spritemap": "^6.0.0",
     "@tailwindcss/vite": "^4.0.17",
     "@types/preact-custom-element": "^4.0.4",
     "tailwindcss": "^4.0.17",
