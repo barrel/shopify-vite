@@ -121,7 +121,7 @@ Alternatively, you can use external tools like ngrok to manually expose your ser
 allowing the Theme Editor to bypass the restriction and correctly load your local assets.
 
 ::: tip Automatic Configuration (v4.1.0+)
-Since v4.1.0, the plugin automatically sets CORS defaults. When `tunnel: true` is enabled, it also configures allowed hosts. Your custom settings will always take precedence.
+Since v4.1.0, the plugin automatically sets `server.cors` defaults. When `tunnel: true` is enabled, it also configures `server.allowedHosts`. Your custom settings will always take precedence.
 :::
 
 ::: code-group
