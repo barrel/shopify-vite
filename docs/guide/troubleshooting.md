@@ -129,7 +129,10 @@ allowing the Theme Editor to bypass the restriction and correctly load your loca
    server: {
 +    allowedHosts: ['.trycloudflare.com'],
      cors: {
-       origin: [defaultAllowedOrigins, /\.myshopify\.com$/]
+       origin: [
+         /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/,
+         /\.myshopify\.com$/
+       ]
      }
    },
    build: {
