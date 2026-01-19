@@ -120,6 +120,10 @@ To fix this, we recommend enabling the [`tunnel`](https://shopify-vite.barrelny.
 Alternatively, you can use external tools like ngrok to manually expose your server. Both methods create a public HTTPS connection,
 allowing the Theme Editor to bypass the restriction and correctly load your local assets.
 
+::: tip Automatic Configuration (v4.1.0+)
+Since v4.1.0, the plugin automatically sets CORS defaults. When `tunnel: true` is enabled, it also configures allowed hosts. Your custom settings will always take precedence.
+:::
+
 ::: code-group
 
 ```js [vite.config.js]
