@@ -110,6 +110,7 @@ export default {
   ]
 }
 ```
+:::
 
 ## Chrome Local Network Access Update & Tunnel Fix
 
@@ -121,22 +122,22 @@ allowing the Theme Editor to bypass the restriction and correctly load your loca
 
 ::: code-group
 
-```diff [vite.config.js]
- // https://vitejs.dev/config/
- export default defineConfig({
--  plugins: [shopify(), tailwindcss()],
-+  plugins: [shopify({ tunnel: true }), tailwindcss()],
-   server: {
-+    allowedHosts: ['.trycloudflare.com'],
-     cors: {
-       origin: [
-         /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/,
-         /\.myshopify\.com$/
-       ]
-     }
-   },
-   build: {
-     rollupOptions: {
+```js [vite.config.js]
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [shopify(), tailwindcss()], // [!code --]
+  plugins: [shopify({ tunnel: true }), tailwindcss()], // [!code ++]
+  server: {
+    allowedHosts: [".trycloudflare.com"], // [!code ++]
+    cors: {
+      origin: [
+        /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/,
+        /\.myshopify\.com$/,
+      ],
+    },
+  },
+  build: {
+    rollupOptions: {
 
 ```
 :::
