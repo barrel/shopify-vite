@@ -110,6 +110,7 @@ export default {
   ]
 }
 ```
+:::
 
 ## Chrome Local Network Access Update & Tunnel Fix
 
@@ -119,21 +120,28 @@ To fix this, we recommend enabling the [`tunnel`](https://shopify-vite.barrelny.
 Alternatively, you can use external tools like ngrok to manually expose your server. Both methods create a public HTTPS connection,
 allowing the Theme Editor to bypass the restriction and correctly load your local assets.
 
+::: tip Automatic Configuration (v4.1.0+)
+Since v4.1.0, the plugin automatically sets `server.cors` defaults. When `tunnel: true` is enabled, it also configures `server.allowedHosts`. Your custom settings will always take precedence.
+:::
+
 ::: code-group
 
-```diff [vite.config.js]
- // https://vitejs.dev/config/
- export default defineConfig({
--  plugins: [shopify(), tailwindcss()],
-+  plugins: [shopify({ tunnel: true }), tailwindcss()],
-   server: {
-+    allowedHosts: ['.trycloudflare.com'],
-     cors: {
-       origin: [defaultAllowedOrigins, /\.myshopify\.com$/]
-     }
-   },
-   build: {
-     rollupOptions: {
+```js [vite.config.js]
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [shopify(), tailwindcss()], // [!code --]
+  plugins: [shopify({ tunnel: true }), tailwindcss()], // [!code ++]
+  server: {
+    allowedHosts: ['.trycloudflare.com'], // [!code ++]
+    cors: {
+      origin: [
+        /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/,
+        /\.myshopify\.com$/
+      ]
+    }
+  },
+  build: {
+    rollupOptions: {
 
 ```
 :::
