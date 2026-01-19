@@ -128,13 +128,13 @@ export default defineConfig({
   plugins: [shopify(), tailwindcss()], // [!code --]
   plugins: [shopify({ tunnel: true }), tailwindcss()], // [!code ++]
   server: {
-    allowedHosts: [".trycloudflare.com"], // [!code ++]
+    allowedHosts: ['.trycloudflare.com'], // [!code ++]
     cors: {
       origin: [
         /^https?:\/\/(?:(?:[^:]+\.)?localhost|127\.0\.0\.1|\[::1\])(?::\d+)?$/,
-        /\.myshopify\.com$/,
-      ],
-    },
+        /\.myshopify\.com$/
+      ]
+    }
   },
   build: {
     rollupOptions: {
