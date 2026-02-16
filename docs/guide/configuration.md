@@ -51,6 +51,13 @@ Additional files to use as entry points (accepts an array of file paths or glob 
 
 Specifies the file name of the snippet that loads your assets.
 
+## snippetAssetFile
+
+- **Type:** `boolean | string`
+- **Default:** `false`
+
+This snippet outputs the URL for the given entrypoint.
+
 ## versionNumbers
 
 - **Type:** `boolean`

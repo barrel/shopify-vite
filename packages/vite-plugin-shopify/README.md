@@ -44,6 +44,8 @@ export default {
       additionalEntrypoints: [],
       // Specifies the file name of the snippet that loads your assets
       snippetFile: 'vite-tag.liquid',
+      // This snippet outputs the URL for the given entrypoint
+      snippetAssetFile: false,
      // Specifies whether to append version numbers to your production-ready asset URLs in `snippetFile`
       versionNumbers: false,
      // Enables the creation of Cloudflare tunnels during dev, allowing previews from any device
@@ -126,6 +128,8 @@ You can pass the `preload_stylesheet` variable to the `vite-tag` snippet to enab
 ```liquid
 {% render 'vite-tag' with 'theme.scss', preload_stylesheet: true %}
 ```
+
+Alternatively, use `snippetAssetFile: 'vite-asset.liquid'` to get just the URL: `{% render 'vite-asset', entry: 'theme.scss' %}`
 
 ### Import aliases
 
