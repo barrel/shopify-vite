@@ -120,17 +120,20 @@ describe('resolveOptions', () => {
     expect(options.entrypointsDir).toBe('frontend/entrypoints')
     expect(options.additionalEntrypoints).toEqual([])
     expect(options.snippetFile).toEqual('vite-tag.liquid')
+    expect(options.snippetAssetFile).toBe(false)
   })
 
   it('accepts a partial configuration', () => {
     const options = resolveOptions({
       themeRoot: 'shopify',
-      sourceCodeDir: 'src'
+      sourceCodeDir: 'src',
+      snippetAssetFile: true
     })
 
     expect(options.themeRoot).toBe('shopify')
     expect(options.sourceCodeDir).toBe('src')
     expect(options.entrypointsDir).toBe('src/entrypoints')
+    expect(options.snippetAssetFile).toBe(true)
   })
 })
 

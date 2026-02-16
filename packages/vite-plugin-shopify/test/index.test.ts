@@ -69,4 +69,51 @@ describe('vite-plugin-shopify', () => {
 
     expect(tagsHtml).toMatchSnapshot()
   })
+
+  it('builds out vite-asset snippet for production', async () => {
+    await build({
+      logLevel: 'silent',
+      plugins: [
+        shopify({
+          themeRoot: path.join(__dirname, '__fixtures__'),
+          sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend'),
+          snippetFile: 'vite-tag.liquid',
+          snippetAssetFile: 'vite-asset.liquid'
+        })
+      ],
+      resolve: {
+        alias: {
+          '@@': normalizePath(path.resolve(path.join(__dirname, '__fixtures__', 'resources', 'js')))
+        }
+      }
+    })
+
+    const assetSnippet = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-asset.liquid'), { encoding: 'utf8' })
+
+    expect(assetSnippet).toMatchSnapshot()
+  })
+
+  it('builds out vite-asset snippet for production with version numbers', async () => {
+    await build({
+      logLevel: 'silent',
+      plugins: [
+        shopify({
+          themeRoot: path.join(__dirname, '__fixtures__'),
+          sourceCodeDir: path.join(__dirname, '__fixtures__', 'frontend'),
+          snippetFile: 'vite-tag.liquid',
+          snippetAssetFile: 'vite-asset.liquid',
+          versionNumbers: true
+        })
+      ],
+      resolve: {
+        alias: {
+          '@@': normalizePath(path.resolve(path.join(__dirname, '__fixtures__', 'resources', 'js')))
+        }
+      }
+    })
+
+    const assetSnippet = await fs.readFile(path.join(__dirname, '__fixtures__', 'snippets', 'vite-asset.liquid'), { encoding: 'utf8' })
+
+    expect(assetSnippet).toMatchSnapshot()
+  })
 })
