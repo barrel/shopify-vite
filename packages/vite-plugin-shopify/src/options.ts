@@ -10,6 +10,7 @@ export const resolveOptions = (
   const entrypointsDir = options.entrypointsDir ?? normalizePath(path.join(sourceCodeDir, 'entrypoints'))
   const additionalEntrypoints = options.additionalEntrypoints ?? []
   const snippetFile = options.snippetFile ?? 'vite-tag.liquid'
+  const snippetAssetFile = options.snippetAssetFile ?? false
   const versionNumbers = options.versionNumbers ?? false
   const tunnel = options.tunnel ?? false
   const themeHotReload = options.themeHotReload ?? true
@@ -20,6 +21,7 @@ export const resolveOptions = (
     entrypointsDir,
     additionalEntrypoints,
     snippetFile,
+    snippetAssetFile,
     versionNumbers,
     tunnel,
     themeHotReload

@@ -17,3 +17,5 @@ export const CSS_EXTENSIONS_REGEX = new RegExp(
 export const hotReloadScriptId = 'hot-reload-client'
 
 export const hotReloadScriptUrl = 'https://cdn.jsdelivr.net/npm/@shopify/theme-hot-reload/dist/theme-hot-reload.min.js'
+
+export const snippetAssetFile = 'vite-asset.liquid'

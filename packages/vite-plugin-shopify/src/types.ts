@@ -35,6 +35,13 @@ export interface Options {
   snippetFile?: string
 
   /**
+   * This snippet outputs the URL for the given entrypoint.
+   *
+   * @default false
+   */
+  snippetAssetFile?: boolean | string
+
+  /**
    * Specifies whether to append version numbers to your production-ready asset URLs in {@link snippetFile}.
    *
    * @default false

@@ -16,6 +16,7 @@ export default defineConfig({
     shopify({
       tunnel: true,
       snippetFile: 'vite.liquid',
+      snippetAssetFile: 'vite-asset.liquid',
       additionalEntrypoints: [
         'frontend/foo.ts', // relative to sourceCodeDir
         'frontend/bar.ts',

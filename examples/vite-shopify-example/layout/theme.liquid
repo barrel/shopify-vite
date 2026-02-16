@@ -11,8 +11,9 @@
 
   <meta name="description" content="">
 
+  <link rel="preload" href="{%- render 'vite-asset', entry: 'theme.scss' -%}" as="style">
   {%- liquid
-    render 'vite' with 'theme.scss', preload_stylesheet: true
+    render 'vite' with 'theme.scss'
     render 'vite' with 'theme.ts'
     render 'vite' with '@/foo.ts'
     render 'vite' with '~/bar.ts'

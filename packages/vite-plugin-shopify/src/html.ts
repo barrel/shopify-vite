@@ -6,7 +6,7 @@ import createDebugger from 'debug'
 import startTunnel from '@shopify/plugin-cloudflare/hooks/tunnel'
 import { renderInfo, isTTY } from '@shopify/cli-kit/node/ui'
 
-import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS, hotReloadScriptId, hotReloadScriptUrl } from './constants'
+import { CSS_EXTENSIONS_REGEX, KNOWN_CSS_EXTENSIONS, hotReloadScriptId, hotReloadScriptUrl, snippetAssetFile } from './constants'
 import type { Options, DevServerUrl, FrontendURLResult } from './types'
 import type { TunnelClient } from '@shopify/cli-kit/node/plugins/tunnel'
 
@@ -21,8 +21,20 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
   const viteTagSnippetPath = path.resolve(options.themeRoot, `snippets/${options.snippetFile}`)
   const viteTagSnippetName = options.snippetFile.replace(/\.[^.]+$/, '')
-  const viteTagSnippetPrefix = (config: ResolvedConfig): string =>
-    viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, viteTagSnippetName)
+  const viteTagSnippetPrefix = (config: ResolvedConfig, snippetName = viteTagSnippetName): string =>
+    viteTagDisclaimer + viteTagEntryPath(config.resolve.alias, options.entrypointsDir, snippetName)
+
+  const resolvedSnippetAssetFile = typeof options.snippetAssetFile === 'string'
+    ? options.snippetAssetFile
+    : options.snippetAssetFile
+      ? snippetAssetFile
+      : ''
+  const viteAssetSnippetPath = resolvedSnippetAssetFile
+    ? path.resolve(options.themeRoot, `snippets/${resolvedSnippetAssetFile}`)
+    : ''
+  const viteAssetSnippetName = resolvedSnippetAssetFile
+    ? path.parse(resolvedSnippetAssetFile).name
+    : ''
 
   return {
     name: 'vite-plugin-shopify-html',
@@ -76,8 +88,14 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
                 tunnelUrl, options.entrypointsDir, reactPlugin, options.themeHotReload
               )
 
+              const viteAssetSnippetContent = viteAssetSnippetName && (viteTagSnippetPrefix(config, viteAssetSnippetName) + viteAssetSnippetDev(
+                tunnelUrl, options.entrypointsDir
+              ))
+
               // Write vite-tag with a Cloudflare Tunnel URL
               fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
+
+              viteAssetSnippetContent && fs.writeFileSync(viteAssetSnippetPath, viteAssetSnippetContent)
             })()
           }, 100)
 
@@ -87,8 +105,14 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
               : viteDevServerUrl, options.entrypointsDir, reactPlugin, options.themeHotReload
           )
 
+          const viteAssetSnippetContent = viteAssetSnippetName && (viteTagSnippetPrefix(config, viteAssetSnippetName) + viteAssetSnippetDev(
+            frontendUrl !== '' ? frontendUrl : viteDevServerUrl, options.entrypointsDir
+          ))
+
           // Write vite-tag snippet for development server
           fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
+
+          viteAssetSnippetContent && fs.writeFileSync(viteAssetSnippetPath, viteAssetSnippetContent)
         }
       })
 
@@ -125,6 +149,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
       }
 
       const assetTags: string[] = []
+      const assetUrls: string[] = []
       const manifest = JSON.parse(
         fs.readFileSync(manifestFilePath, 'utf8')
       ) as Manifest
@@ -174,18 +199,24 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
           }
 
           assetTags.push(viteEntryTag(entryPaths, tagsForEntry.join('\n  '), assetTags.length === 0))
+          assetUrls.push(viteEntryTag(entryPaths, `{{ ${assetUrl(file, options.versionNumbers)} }}`, assetUrls.length === 0))
         }
 
         // Generate entry tag for bundled "style.css" file when cssCodeSplit is false
         if (src === 'style.css' && !config.build.cssCodeSplit) {
           assetTags.push(viteEntryTag([src], stylesheetTag(file, options.versionNumbers), false))
+          assetUrls.push(viteEntryTag([src], `{{ ${assetUrl(file, options.versionNumbers)} }}`, false))
         }
       })
 
       const viteTagSnippetContent = viteTagSnippetPrefix(config) + assetTags.join('\n') + '\n{% endif %}\n'
 
+      const viteAssetSnippetContent = viteAssetSnippetName && viteTagSnippetPrefix(config, viteAssetSnippetName) + assetUrls.join('\n') + '\n{% endif %}\n'
+
       // Write vite-tag snippet for production build
       fs.writeFileSync(viteTagSnippetPath, viteTagSnippetContent)
+
+      viteAssetSnippetContent && fs.writeFileSync(viteAssetSnippetPath, viteAssetSnippetContent)
     }
   }
 }
@@ -244,6 +275,19 @@ const scriptTag = (fileName: string, versionNumbers: boolean): string =>
 // Generate a production stylesheet link tag for a style asset
 const stylesheetTag = (fileName: string, versionNumbers: boolean): string =>
   `{{ ${assetUrl(fileName, versionNumbers)} | stylesheet_tag: preload: preload_stylesheet }}`
+
+// Generate vite-asset snippet for development
+const viteAssetSnippetDev = (assetHost: string, entrypointsDir: string): string =>
+  `{% liquid
+  assign path_prefix = path | slice: 0
+  if path_prefix == '/'
+    assign file_url_prefix = '${assetHost}'
+  else
+    assign file_url_prefix = '${assetHost}/${entrypointsDir}/'
+  endif
+  assign file_url = path | prepend: file_url_prefix
+  echo file_url
+%}`
 
 // Generate vite-tag snippet for development
 const viteTagSnippetDev = (assetHost: string, entrypointsDir: string, reactPlugin: Plugin | undefined, themeHotReload: boolean): string =>
