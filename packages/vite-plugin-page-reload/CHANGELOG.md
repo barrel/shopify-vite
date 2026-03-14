@@ -1,5 +1,11 @@
 # vite-plugin-page-reload
 
+## 0.2.3
+
+### Patch Changes
+
+- 5786913: Vite 8 Support
+
 ## 0.2.2
 
 ### Patch Changes
