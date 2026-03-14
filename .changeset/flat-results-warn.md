@@ -3,4 +3,4 @@
 "vite-plugin-shopify": patch
 ---
 
-Vite 7 Support
+Vite 8 Support
