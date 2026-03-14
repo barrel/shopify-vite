@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 4.1.2
+
+### Patch Changes
+
+- 5786913: Vite 8 Support
+
 ## 4.1.1
 
 ### Patch Changes
