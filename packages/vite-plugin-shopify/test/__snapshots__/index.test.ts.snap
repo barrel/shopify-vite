@@ -18,7 +18,7 @@ exports[`vite-plugin-shopify > builds out .liquid files for production 1`] = `
 {% elsif path == "/test/__fixtures__/frontend/entrypoints/theme.css" or path == "theme.css" %}
   {{ 'theme-y6Yj_vm2.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == "/test/__fixtures__/frontend/entrypoints/theme.js" or path == "theme.js" %}
-  <script src="{{ 'theme-Df-cUSaP.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
+  <script src="{{ 'theme-CZ1rkStb.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
   <link rel="modulepreload" href="{{ 'modulepreload-polyfill-B5Qt9EMX.js' | asset_url | split: '?' | first }}" crossorigin="anonymous">
 {% endif %}
 "
@@ -42,7 +42,7 @@ exports[`vite-plugin-shopify > builds out .liquid files for production with vers
 {% elsif path == "/test/__fixtures__/frontend/entrypoints/theme.css" or path == "theme.css" %}
   {{ 'theme-y6Yj_vm2.css' | asset_url | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == "/test/__fixtures__/frontend/entrypoints/theme.js" or path == "theme.js" %}
-  <script src="{{ 'theme-Df-cUSaP.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
+  <script src="{{ 'theme-CZ1rkStb.js' | asset_url }}" type="module" crossorigin="anonymous"></script>
   <link rel="modulepreload" href="{{ 'modulepreload-polyfill-B5Qt9EMX.js' | asset_url }}" crossorigin="anonymous">
 {% endif %}
 "
@@ -64,7 +64,7 @@ exports[`vite-plugin-shopify > builds out .liquid files for production without m
 {% elsif path == "/test/__fixtures__/frontend-no-preload/entrypoints/theme.css" or path == "theme.css" %}
   {{ 'theme-y6Yj_vm2.css' | asset_url | split: '?' | first | stylesheet_tag: preload: preload_stylesheet }}
 {% elsif path == "/test/__fixtures__/frontend-no-preload/entrypoints/theme.js" or path == "theme.js" %}
-  <script src="{{ 'theme-lYmnRxhD.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
+  <script src="{{ 'theme-BjxM7pTr.js' | asset_url | split: '?' | first }}" type="module" crossorigin="anonymous"></script>
 {% endif %}
 "
 `;
