@@ -168,7 +168,7 @@ importers:
         specifier: ^3.2.11
         version: 3.3.3
       vite:
-        specifier: '>=5.4.12 <6.0.0 || >=6.0.9 || ^7.0.0 || ^8.0.0'
+        specifier: '>=5.4.12 <6.0.0 || >=6.0.9 <7.0.0 || ^7.0.0 || ^8.0.0'
         version: 7.2.4(@types/node@18.19.84)(jiti@2.4.2)(lightningcss@1.32.0)(sass@1.86.0)(yaml@2.8.2)
     devDependencies:
       tsconfig:
