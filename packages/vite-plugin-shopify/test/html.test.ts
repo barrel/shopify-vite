@@ -11,17 +11,17 @@ import { ok } from '@shopify/cli-kit/node/result'
 vi.mock('@shopify/plugin-cloudflare/hooks/tunnel')
 
 const mockHttpServer = {
-  once: vi.fn((_, callback) => {
+  once: vi.fn((_: string, callback: () => void) => {
     callback()
   }),
-  on: vi.fn((_, callback) => {
+  on: vi.fn((_: string, callback: () => void) => {
     callback()
   }),
   address: vi.fn().mockReturnValue({ address: 'localhost', port: 5173 })
 } as unknown as http.Server
 
 const mockConfig: Partial<ResolvedConfig> = {
-  server: {} as any,
+  server: {} as unknown as ResolvedConfig['server'],
   plugins: [],
   resolve: {
     alias: [
@@ -30,10 +30,10 @@ const mockConfig: Partial<ResolvedConfig> = {
         replacement: 'test/__fixtures__/frontend'
       }
     ]
-  } as any,
+  } as unknown as ResolvedConfig['resolve'],
   logger: {
     info: vi.fn()
-  } as any
+  } as unknown as ResolvedConfig['logger']
 }
 
 const mockViteDevServer = vi.mocked<ViteDevServer>({

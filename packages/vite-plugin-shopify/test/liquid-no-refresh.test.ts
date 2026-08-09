@@ -1,6 +1,14 @@
 import { describe, it, expect, vi } from 'vitest'
-import { ModuleNode, HmrContext, ViteDevServer } from 'vite'
+import type { ModuleNode, HmrContext, ViteDevServer, Plugin, HotUpdateOptions } from 'vite'
 import shopifyLiquidNoRefresh from '../src/liquid-no-refresh'
+
+function getHandleHotUpdate (plugin: Plugin): (ctx: HotUpdateOptions | HmrContext) => ModuleNode[] | void | Promise<ModuleNode[] | void> {
+  const hook = plugin.handleHotUpdate
+  if (hook == null) {
+    throw new Error('Expected handleHotUpdate hook')
+  }
+  return typeof hook === 'function' ? hook : hook.handler
+}
 
 describe('vite-plugin-shopify:liquid-no-refresh', () => {
   it('filters out liquid module from hot update with CSS module importers', () => {
@@ -37,8 +45,7 @@ describe('vite-plugin-shopify:liquid-no-refresh', () => {
       server: mockServer
     }
 
-    const handler = (plugin.handleHotUpdate as any).handler || plugin.handleHotUpdate
-    const result = handler(ctx)
+    const result = getHandleHotUpdate(plugin)(ctx)
 
     // Should return the importers of the first module and the remaining modules
     expect(result).toEqual([...liquidModule.importers, cssModule])
@@ -68,8 +75,7 @@ describe('vite-plugin-shopify:liquid-no-refresh', () => {
       server: mockServer
     }
 
-    const handler = (plugin.handleHotUpdate as any).handler || plugin.handleHotUpdate
-    const result = handler(ctx)
+    const result = getHandleHotUpdate(plugin)(ctx)
 
     // Should be undefined for non-liquid files (default behavior)
     expect(result).toBeUndefined()
