@@ -1,9 +1,14 @@
 module.exports = {
   root: true,
+  env: {
+    browser: true,
+    node: true,
+    es2020: true
+  },
   parser: '@typescript-eslint/parser',
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended-type-checked'
+    'plugin:@typescript-eslint/recommended'
   ],
   parserOptions: {
     tsconfigRootDir: __dirname,

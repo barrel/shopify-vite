@@ -37,7 +37,8 @@ describe('vite-plugin-shopify:liquid-no-refresh', () => {
       server: mockServer
     }
 
-    const handler = (plugin.handleHotUpdate as any).handler || plugin.handleHotUpdate
+    const handleHotUpdate = plugin.handleHotUpdate as unknown as ((ctx: HmrContext) => unknown) | { handler: (ctx: HmrContext) => unknown }
+    const handler = typeof handleHotUpdate === 'function' ? handleHotUpdate : handleHotUpdate.handler
     const result = handler(ctx)
 
     // Should return the importers of the first module and the remaining modules
@@ -68,7 +69,8 @@ describe('vite-plugin-shopify:liquid-no-refresh', () => {
       server: mockServer
     }
 
-    const handler = (plugin.handleHotUpdate as any).handler || plugin.handleHotUpdate
+    const handleHotUpdate = plugin.handleHotUpdate as unknown as ((ctx: HmrContext) => unknown) | { handler: (ctx: HmrContext) => unknown }
+    const handler = typeof handleHotUpdate === 'function' ? handleHotUpdate : handleHotUpdate.handler
     const result = handler(ctx)
 
     // Should be undefined for non-liquid files (default behavior)

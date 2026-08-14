@@ -60,7 +60,9 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
               if (frontendUrl !== '') {
                 tunnelUrl = frontendUrl
-                isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
+                if (isTTY()) {
+                  renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
+                }
                 return
               }
 
@@ -71,7 +73,9 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
               })
               tunnelClient = hook.valueOrAbort()
               tunnelUrl = await pollTunnelUrl(tunnelClient)
-              isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
+              if (isTTY()) {
+                renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
+              }
               const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
                 tunnelUrl, options.entrypointsDir, reactPlugin, options.themeHotReload
               )

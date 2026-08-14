@@ -8,15 +8,15 @@ function getShortName (file: string, root: string): string {
   return file.startsWith(root + '/') ? path.posix.relative(root, file) : file
 }
 
-const debounce = <T extends (...args: any[]) => void>(callback: T, time: number): (...args: Parameters<T>) => void => {
+const debounce = <Args extends unknown[]>(callback: (...args: Args) => void, time: number): (...args: Args) => void => {
   let timer: ReturnType<typeof setTimeout> | null
-  return (...args: Parameters<T>) => {
+  return (...args: Args) => {
     if (timer !== null) {
       clearTimeout(timer)
       timer = null
     }
     timer = setTimeout(() => {
-      callback.apply(null, args)
+      callback(...args)
     }, time)
   }
 }
