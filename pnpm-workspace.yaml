@@ -2,3 +2,18 @@ packages:
   - "packages/*"
   - "examples/*"
   - "preset"
+
+# Supply chain security — https://pnpm.io/supply-chain-security
+# pnpm v10 disables dependency install scripts by default; allow only packages that need them.
+allowBuilds:
+  esbuild: true
+
+# Block transitive deps from being resolved via git repos or direct tarball URLs.
+blockExoticSubdeps: true
+
+# Do not install a version published less than 24 hours ago.
+# (pnpm v11 default; must be set explicitly on v10)
+minimumReleaseAge: 1440
+
+# Block installation if a package's trust level has decreased vs previous releases.
+trustPolicy: no-downgrade

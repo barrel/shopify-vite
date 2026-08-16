@@ -27,6 +27,10 @@ jobs:
       - name: Install
         run: pnpm install
 
+      # Workspace plugin types resolve from dist/; type-aware ESLint needs them.
+      - name: Build
+        run: pnpm build
+
       - name: Lint
         run: pnpm lint
 
@@ -36,7 +40,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest]
-        node_version: [20, 22, 24]
+        node_version: [22, 24]
         include:
           - os: macos-latest
             node_version: 24
@@ -50,10 +54,10 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
 
-      - name: Set node ${{ matrix.node }}
+      - name: Set node ${{ matrix.node_version }}
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: ${{ matrix.node_version }}
           cache: "pnpm"
 
       - name: Install

@@ -60,7 +60,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
 
               if (frontendUrl !== '') {
                 tunnelUrl = frontendUrl
-                isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
+                if (isTTY()) renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
                 return
               }
 
@@ -71,7 +71,7 @@ export default function shopifyHTML (options: Required<Options>): Plugin {
               })
               tunnelClient = hook.valueOrAbort()
               tunnelUrl = await pollTunnelUrl(tunnelClient)
-              isTTY() && renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
+              if (isTTY()) renderInfo({ body: `${viteDevServerUrl} is tunneled to ${tunnelUrl}` })
               const viteTagSnippetContent = viteTagSnippetPrefix(config) + viteTagSnippetDev(
                 tunnelUrl, options.entrypointsDir, reactPlugin, options.themeHotReload
               )
@@ -303,8 +303,7 @@ function isIpv6 (address: AddressInfo): boolean {
   return address.family === 'IPv6' ||
     // In node >=18.0 <18.4 this was an integer value. This was changed in a minor version.
     // See: https://github.com/laravel/vite-plugin/issues/103
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-expect-error-next-line
+    // @ts-expect-error -- address.family was numeric (6/4) in Node 18.0–18.4
     address.family === 6
 }
 
@@ -338,11 +337,12 @@ function generateFrontendURL (options: Required<Options>): FrontendURLResult {
 async function pollTunnelUrl (tunnelClient: TunnelClient): Promise<string> {
   return await new Promise<string>((resolve, reject) => {
     let retries = 0
-    const pollTunnelStatus = async (): Promise<void> => {
+    const pollTunnelStatus = (): void => {
       const result = tunnelClient.getTunnelStatus()
       debug(`Polling tunnel status for ${tunnelClient.provider} (attempt ${retries}): ${result.status}`)
       if (result.status === 'error') {
-        return reject(result.message) // Changed AbortError to standard Error
+        reject(new Error(result.message))
+        return
       }
       if (result.status === 'connected') {
         resolve(result.url)
@@ -354,10 +354,10 @@ async function pollTunnelUrl (tunnelClient: TunnelClient): Promise<string> {
 
     const startPolling = (): void => {
       setTimeout(() => {
-        void pollTunnelStatus()
+        pollTunnelStatus()
       }, 500)
     }
 
-    void pollTunnelStatus()
+    pollTunnelStatus()
   })
 }

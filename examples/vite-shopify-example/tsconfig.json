@@ -9,6 +9,7 @@
     "node_modules"
   ],
   "compilerOptions": {
+    "allowJs": true,
     "lib": ["esnext", "dom"],
     "baseUrl": ".",
     "paths": {
