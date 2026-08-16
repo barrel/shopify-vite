@@ -1,5 +1,11 @@
 # vite-plugin-shopify
 
+## 5.0.0
+
+### Major Changes
+
+- c4a9e6c: Bump `@shopify/cli-kit` and `@shopify/plugin-cloudflare` to v4 to fix critical vulnerabilities. **Breaking:** Node.js `>=22.12.0` is now required.
+
 ## 4.1.2
 
 ### Patch Changes
