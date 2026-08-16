@@ -27,6 +27,10 @@ jobs:
       - name: Install
         run: pnpm install
 
+      # Workspace plugin types resolve from dist/; type-aware ESLint needs them.
+      - name: Build
+        run: pnpm build
+
       - name: Lint
         run: pnpm lint
 
