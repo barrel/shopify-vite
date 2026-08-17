@@ -34,6 +34,45 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Skip packages already published to npm
+        # changeset publish's "is this already published?" check is unreliable under
+        # npm OIDC trusted publishing (no NPM_TOKEN), so it can try to republish
+        # unchanged packages and fail: https://github.com/changesets/changesets/issues/2099
+        # Marking already-published packages private (in this checkout only, never
+        # committed) makes changesets skip them so only genuinely new versions publish.
+        run: |
+          for pkg_json in packages/*/package.json; do
+            is_private=$(node -p "require('./$pkg_json').private || false")
+            if [ "$is_private" = "true" ]; then
+              continue
+            fi
+            name=$(node -p "require('./$pkg_json').name")
+            version=$(node -p "require('./$pkg_json').version")
+
+            if view_output=$(npm view "$name@$version" version --json 2>/dev/null); then
+              published="$version"
+            else
+              error_code=$(node -e "try { console.log(JSON.parse(process.argv[1]).error.code || '') } catch { console.log('') }" "$view_output")
+              if [ "$error_code" = "E404" ]; then
+                published=""
+              else
+                echo "npm view failed for $name@$version with a non-404 error (code: ${error_code:-unknown}); aborting instead of assuming it's unpublished" >&2
+                echo "$view_output" >&2
+                exit 1
+              fi
+            fi
+
+            if [ "$published" = "$version" ]; then
+              echo "$name@$version already on npm — marking private for this run"
+              node -e "
+                const fs = require('fs');
+                const pkg = JSON.parse(fs.readFileSync('$pkg_json', 'utf8'));
+                pkg.private = true;
+                fs.writeFileSync('$pkg_json', JSON.stringify(pkg, null, 2) + '\n');
+              "
+            fi
+          done
+
       - name: Create Release Pull Request or Publish to npm
         id: changesets
         uses: changesets/action@v1
